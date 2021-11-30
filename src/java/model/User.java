@@ -18,7 +18,7 @@ public class User {
     String username;
     String image;
     Date date;
-    char gender;
+    String gender;
     String address;
     String phone;
     String role;
@@ -26,7 +26,7 @@ public class User {
     public User() {
     }
 
-    public User(int uID, String email, String password, String username, String image, Date date, char gender, String address, String phone, String role) {
+    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         this.uID = uID;
         this.email = email;
         this.password = password;
@@ -87,11 +87,11 @@ public class User {
         this.date = date;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
