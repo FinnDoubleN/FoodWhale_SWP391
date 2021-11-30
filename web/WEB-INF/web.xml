@@ -4,10 +4,6 @@
         <welcome-file>Homepage.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>HomepageController</servlet-name>
-        <servlet-class>controller.HomepageController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminDashboardController</servlet-name>
         <servlet-class>controller.AdminDashboardController</servlet-class>
     </servlet>
@@ -46,12 +42,11 @@
     <servlet>
         <servlet-name>OrderListController</servlet-name>
         <servlet-class>controller.OrderListController</servlet-class>
->>>>>>> Stashed changes
     </servlet>
-    <servlet-mapping>
-        <servlet-name>UserManagement</servlet-name>
-        <url-pattern>/UserManagement</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>HomepageController</servlet-name>
+        <servlet-class>controller.HomepageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -91,6 +86,10 @@
     <servlet-mapping>
         <servlet-name>OrderListController</servlet-name>
         <url-pattern>/Dashboard/OrderList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomepageController</servlet-name>
+        <url-pattern>/Homepage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
