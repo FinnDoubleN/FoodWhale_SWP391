@@ -67,9 +67,9 @@
                         
                         <input class="text" type="text" name="username" placeholder="Username" required="">
                         <input id="pass" class="text" type="password" name="password" minlength="8" placeholder="Password" required="">
-                        <img onclick="myFunction1()" src="images/eye2.jpg" width="30" height="30">
+                        <img onclick="myFunction1()" src="img/eye2.jpg" width="30" height="30">
                         <input id="pass1"  type="password" name="confirm" minlength="8" placeholder="Confirm Password" required="">
-                        <img onclick="myFunction2()" src="images/eye2.jpg" width="30" height="30">
+                        <img onclick="myFunction2()" src="img/eye2.jpg" width="30" height="30">
                         <div class="enter">
                             <h2 style="color: white">Gender :</h2>
                             <div style="color: white" class="p-t-10">
@@ -96,12 +96,14 @@
                             </label>
                             <div class="clear"> </div>
                         </div>
+                        
                         <input type="submit" value="SIGN UP">
+                        <a href="login" style="color:white">ALREADY HAVE AN ACCOUNT? SIGN IN</a>
                     </form>
                 </div>
             </div>
         </div>
-
+                        
 
         
         <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>

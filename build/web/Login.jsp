@@ -22,7 +22,7 @@
             .contain {
                 height: 100vh;
                 width: 100vw;
-                background-image: url("images/backgroundlogin.jpg"), linear-gradient(rgba(255, 255, 255, 0.5),
+                background-image: url("img/backgroundlogin.jpg"), linear-gradient(rgba(255, 255, 255, 0.5),
                     rgba(255, 255, 255, 0.5));
 
                 background-size: cover;
@@ -89,10 +89,11 @@
                     <p class="text-danger">${mess}</p>
                     <input placeholder="USERNAME" type="text" name="adUser"/>
                     <input id="pass" placeholder="PASSWORD" type="password" name="adPass" minlength="8"/>
-                    <img onclick="myFunction()" src="images/eye2.jpg" width="30" height="30">
+                    <img onclick="myFunction()" src="img/eye2.jpg" width="30" height="30">
                     <button>LOGIN</button>
                     <a href="preResetPassword">DO NOT REMEMBER THE PASSWORD?</a>
                     <a href="register">CREATE A NEW ACCOUNT</a>
+                    
                 </form>
             </div>
         </div>
