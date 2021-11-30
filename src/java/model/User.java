@@ -18,7 +18,7 @@ public class User {
     String username;
     String image;
     Date date;
-    char gender;
+    String gender;
     String address;
     String phone;
     String role;
@@ -26,7 +26,7 @@ public class User {
     public User() {
     }
 
-    public User(int uID, String email, String password, String username, String image, Date date, char gender, String address, String phone, String role) {
+    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         this.uID = uID;
         this.email = email;
         this.password = password;
@@ -38,6 +38,20 @@ public class User {
         this.phone = phone;
         this.role = role;
     }
+
+    public User(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.image = image;
+        this.date = date;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+        this.role = role;
+    }
+
+    
 
     public int getuID() {
         return uID;
@@ -87,11 +101,11 @@ public class User {
         this.date = date;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
