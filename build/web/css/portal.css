@@ -241,6 +241,20 @@ a:not([href]):not([class]):hover {
     text-decoration: none
 }
 
+.row-new {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x) / -2);
+    margin-left: calc(var(--bs-gutter-x) / -2);
+    flex-direction: column;
+    align-items: center;
+}
+
 pre,
 code,
 kbd,

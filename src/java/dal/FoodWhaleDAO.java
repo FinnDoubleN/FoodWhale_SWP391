@@ -102,6 +102,33 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
    
+    public User getUserByID(int uID) throws Exception {
+        User user = new User();
+        String xsql = "select * from [FoodWhale].[dbo].[User] where uID= ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                ps.setInt(1, uID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                      user.setuID(rs.getInt(1));
+                      user.setEmail(rs.getString(2));
+                      user.setPassword(rs.getString(3));
+                      user.setUsername(rs.getString(4));
+                      user.setImage(rs.getString(5));
+                      user.setDate(rs.getDate(6));
+                      user.setGender(rs.getString(7));
+                      user.setAddress(rs.getString(8));
+                      user.setPhone(rs.getString(9));
+                      user.setRole(rs.getString(10));
+                      System.out.println(user);
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return user;
+    }
+         
     public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         try {
             String sql = "INSERT INTO [FoodWhale].[dbo].[User](name, gender, dob) VALUES (?, ?, ?,?, ?, ?,?, ?, ?);";

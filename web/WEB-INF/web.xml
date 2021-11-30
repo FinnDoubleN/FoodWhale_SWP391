@@ -63,6 +63,10 @@
         <servlet-name>SendEmail</servlet-name>
         <servlet-class>controller.SendEmail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountDetailController</servlet-name>
+        <servlet-class>controller.AccountDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -122,6 +126,10 @@
     <servlet-mapping>
         <servlet-name>SendEmail</servlet-name>
         <url-pattern>/SendEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountDetailController</servlet-name>
+        <url-pattern>/Dashboard/AccountDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : UserList
-    Created on : Nov 30, 2021, 3:44:27 PM
-    Author     : Asus
+    Document   : AccountDetail
+    Created on : Nov 30, 2021, 8:48:26 PM
+    Author     : ADMIN
 --%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.User"%>
@@ -18,7 +18,7 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
-            ArrayList<User> userlist = (ArrayList<User>) request.getAttribute("userlist");
+            User u = (User) request.getAttribute("userdetail");
         %>
     </head>
     <body class="app">
@@ -190,202 +190,156 @@
         <div class="app-wrapper">
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-                    <div class="row g-3 mb-4 align-items-center justify-content-between">
-                        <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Orders</h1>
-                        </div>
-                        <div class="col-auto">
-                            <div class="page-utilities">
-                                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                                    <div class="col-auto">
-                                        <form class="table-search-form row gx-1 align-items-center">
-                                            <div class="col-auto">
-                                                <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
+
+                    <h1 class="app-page-title">Account Profile</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-6">
+                            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                                <div class="app-card-header p-3 border-bottom-0">
+                                    <div class="row align-items-center gx-3">
+                                        <div class="col-auto">
+                                            <div class="app-icon-holder">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                                </svg>
                                             </div>
-                                            <div class="col-auto">
-                                                <button type="submit" class="btn app-btn-secondary">Search</button>
-                                            </div>
-                                        </form>
+                                            <!--//icon-holder-->
+
+                                        </div>
+                                        <!--//col-->
+                                        <div class="col-auto">
+                                            <h4 class="app-card-title">Detail</h4>
+                                        </div>
+                                        <!--//col-->
                                     </div>
+                                    <!--//row-->
                                 </div>
-                            </div
-                        </div>
-                    </div>
-                    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                        <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-                        <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-                        <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-                        <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
-                    </nav>
-                    <div class="tab-content" id="orders-table-tab-content">
-                        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                            <div class="app-card app-card-orders-table shadow-sm mb-5">
-                                <div class="app-card-body">
-                                    <div class="table-responsive">
-                                        <table class="table app-table-hover mb-0 text-left">
-                                            <thead>
-                                                <tr>
-                                                    <th class="cell">User ID</th>
-                                                    <th class="cell">Email</th>
-                                                    <th class="cell">Password</th>
-                                                    <th class="cell">Image</th>
-                                                    <th class="cell">Date</th>
-                                                    <th class="cell">Gender</th>
-                                                    <th class="cell">Address</th>
-                                                    <th class="cell">Phone</th>
-                                                    <th class="cell">Role</th>
-                                                    <th class="cell"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    for (User u : userlist) {
-                                                %>
-                                                <tr>
-                                                    <td class="cell"><%= u.getuID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getEmail()%></span></td>
-                                                    <td class="cell"><%= u.getuID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getImage()%></span></td>
-                                                    <td class="cell"><span><%= u.getDate()%></span></td>
-                                                    <td class="cell"><%= u.getGender()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
-                                                    <td class="cell"><%= u.getPhone()%></td>
-                                                    <td class="cell"><span class="badge bg-success"><%= u.getRole()%></span></td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a></td>
-                                                </tr>
-                                                <%}%>
-                                            </tbody>
-                                        </table>
+                                <!--//app-card-header-->
+                                <div class="app-card-body px-4 w-100">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Image</strong></div>
+                                                <div class="item-data"><img class="profile-image" src="<%= u.getImage()%>" alt=""><%= u.getImage()%></div>
+                                            </div>
+                                        </div>
+                                        <!--//row-->
                                     </div>
-                                </div>	
-                            </div>
-                            <nav class="app-pagination">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-                            <div class="app-card app-card-orders-table mb-5">
-                                <div class="app-card-body">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0 text-left">
-                                            <thead>
-                                                <tr>
-                                                    <th class="cell">Order</th>
-                                                    <th class="cell">Product</th>
-                                                    <th class="cell">Customer</th>
-                                                    <th class="cell">Date</th>
-                                                    <th class="cell">Status</th>
-                                                    <th class="cell">Total</th>
-                                                    <th class="cell"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="cell">#15346</td>
-                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-                                                    <td class="cell">John Sanders</td>
-                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                    <td class="cell">$259.35</td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="cell">#15344</td>
-                                                    <td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-                                                    <td class="cell">Teresa Holland</td>
-                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                    <td class="cell">$123.00</td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="cell">#15343</td>
-                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-                                                    <td class="cell">Jayden Massey</td>
-                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                    <td class="cell">$199.00</td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="cell">#15341</td>
-                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-                                                    <td class="cell">Raymond Atkins</td>
-                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                    <td class="cell">$678.26</td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                                </tr>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Username</strong></div>
+                                                <div class="item-data"><%= u.getUsername()%></div>
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Email</strong></div>
+                                                <div class="item-data"><%= u.getEmail()%></div>
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Password</strong></div>
+                                                    <div class="item-data">
+                                                        <%= u.getPassword()%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Gender</strong></div>
+                                                    <div class="item-data">
+                                                        <%= u.getGender()%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Address</strong></div>
+                                                    <div class="item-data">
+                                                        <%= u.getAddress()%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Phone</strong></div>
+                                                    <div class="item-data">
+                                                        <%= u.getPhone()%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Role</strong></div>
+                                                    <div class="item-data">
+                                                        <%= u.getRole()%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                    </div>
+                                    <!--//app-card-body-->
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <a class="btn app-btn-secondary" href="#">Manage Profile</a>
+                                    </div>
+                                    <!--//app-card-footer-->
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>		
+                                </div>
+                                <!--//app-card-->
                             </div>
+                            <!--//col-->
                         </div>
-                        <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-                            <div class="app-card app-card-orders-table mb-5">
-                                <div class="app-card-body">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0 text-left">
-                                            <thead>
-                                                <tr>
-                                                    <th class="cell">Order</th>
-                                                    <th class="cell">Product</th>
-                                                    <th class="cell">Customer</th>
-                                                    <th class="cell">Date</th>
-                                                    <th class="cell">Status</th>
-                                                    <th class="cell">Total</th>
-                                                    <th class="cell"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="cell">#15345</td>
-                                                    <td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-                                                    <td class="cell">Dylan Ambrose</td>
-                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                                    <td class="cell">$96.20</td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>		
-                            </div>
-                        </div>
+                        <!--//row-->
+
                     </div>
+                    <!--//container-fluid-->
                 </div>
+                <footer class="app-footer">
+                    <div class="container text-center py-3">
+                        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                        <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
+                    </div>
+                </footer>
+
             </div>
-            <footer class="app-footer">
-                <div class="container text-center py-3">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                    <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
-                </div>
-            </footer>
+            <!-- Javascript -->
+            <script src="../plugins/popper.min.js"></script>
+            <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
-        </div>
-        <!-- Javascript -->
-        <script src="../plugins/popper.min.js"></script>
-        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+            <!-- Charts JS -->
+            <script src="../plugins/chart.js/chart.min.js"></script>
+            <script src="../js/index-charts.js"></script>
 
-        <!-- Charts JS -->
-        <script src="../plugins/chart.js/chart.min.js"></script>
-        <script src="../js/index-charts.js"></script>
-
-        <!-- Page Specific JS -->
-        <script src="../js/app.js"></script>
+            <!-- Page Specific JS -->
+            <script src="../js/app.js"></script>
 
     </body>
 </html>

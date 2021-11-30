@@ -251,7 +251,7 @@
                                                     <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
                                                     <td class="cell"><%= u.getPhone()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.getRole()%></span></td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a></td>
                                                 </tr>
                                                 <%}%>
                                             </tbody>
@@ -357,39 +357,6 @@
                                                     <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
                                                     <td class="cell"><span class="badge bg-warning">Pending</span></td>
                                                     <td class="cell">$96.20</td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>		
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
-                            <div class="app-card app-card-orders-table mb-5">
-                                <div class="app-card-body">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0 text-left">
-                                            <thead>
-                                                <tr>
-                                                    <th class="cell">Order</th>
-                                                    <th class="cell">Product</th>
-                                                    <th class="cell">Customer</th>
-                                                    <th class="cell">Date</th>
-                                                    <th class="cell">Status</th>
-                                                    <th class="cell">Total</th>
-                                                    <th class="cell"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr>
-                                                    <td class="cell">#15342</td>
-                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-                                                    <td class="cell">Reina Brooks</td>
-                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                                    <td class="cell">$59.00</td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
                                                 </tr>
                                             </tbody>
