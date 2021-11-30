@@ -24,8 +24,8 @@ public class FoodWhaleDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public List<User> getAllUser() {
-        List<User> list = new ArrayList<>();
+    public ArrayList<User> getAllUser() {
+        ArrayList<User> list = new ArrayList<>();
         String query = "select * from [FoodWhale].[dbo].[User]";
         try {
             ps = connection.prepareStatement(query);
@@ -58,8 +58,8 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
 
-    public List<User> search(int uID) {
-        List<User> list = new ArrayList<>();
+    public ArrayList<User> search(int uID) {
+        ArrayList<User> list = new ArrayList<>();
         String query = "select Email, Password, uName,Image,DoB,Gender,Address,Phone,Role\n"
                 + "from [FoodWhale].[dbo].[User] \n"
                 + "where uID = ?";
