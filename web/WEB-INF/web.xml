@@ -4,9 +4,17 @@
         <servlet-name>UserManagement</servlet-name>
         <servlet-class>controller.UserManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>controller.UserProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserManagement</servlet-name>
         <url-pattern>/UserManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/UserProfileController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
