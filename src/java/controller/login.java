@@ -91,7 +91,7 @@ public class login extends HttpServlet {
             } else {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("admin_account", daoad.loginAdmin(username, password));
-                response.sendRedirect("AdminController");
+                response.sendRedirect("Dashboard");
 //                response.sendRedirect("Susscess.jsp");
             }
         
@@ -106,7 +106,7 @@ public class login extends HttpServlet {
             } else {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("customer_account", daocus.loginCustomer(username, password));
-                response.sendRedirect("HomeController");
+                response.sendRedirect("Homepage");
 //                response.sendRedirect("Susscess.jsp");
             }
         }
