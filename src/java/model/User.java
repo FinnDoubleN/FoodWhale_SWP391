@@ -39,6 +39,20 @@ public class User {
         this.role = role;
     }
 
+    public User(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.image = image;
+        this.date = date;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+        this.role = role;
+    }
+
+    
+
     public int getuID() {
         return uID;
     }
