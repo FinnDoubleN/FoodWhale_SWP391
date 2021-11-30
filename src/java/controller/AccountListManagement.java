@@ -5,19 +5,22 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
  * @author Asus
  */
 public class AccountListManagement extends HttpServlet {
-
+ArrayList<User> userlist = new ArrayList<User>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,6 +35,9 @@ public class AccountListManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            userlist = (ArrayList<User>) dao.getAllUser();
+            request.setAttribute("userlist", userlist);
             request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
         }
     }
