@@ -196,7 +196,6 @@
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>
-
         </div>
         <!-- Javascript -->
         <script src="plugins/popper.min.js"></script>

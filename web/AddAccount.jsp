@@ -275,7 +275,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" maxlength="24" name="date">
+                                                <input type="date" class="item-data" maxlength="24" name="date" required>
                                             </div>
                                         </div>
                                         <!--//row-->
