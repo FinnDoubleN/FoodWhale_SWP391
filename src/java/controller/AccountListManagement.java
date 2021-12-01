@@ -59,7 +59,7 @@ public class AccountListManagement extends HttpServlet {
                     request.setAttribute("userlist", userlist);
                     request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
                 } else {
-                    request.getRequestDispatcher("HomepageController").forward(request, response);
+                    request.getRequestDispatcher("login").forward(request, response);
                 }
             } else {
                 request.getRequestDispatcher("login").forward(request, response);

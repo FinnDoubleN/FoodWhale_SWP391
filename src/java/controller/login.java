@@ -101,15 +101,15 @@ public class login extends HttpServlet {
                         if (user.getRole().equals("admin")) {
                             //admin
                             response.sendRedirect("Dashboard");
-                            
+
                         } else if (user.getRole().equals("staff")) {
                             //staff
                             response.sendRedirect("Dashboard");
-                            
+
                         } else {
                             //user
                             response.sendRedirect("Homepage");
-                            
+
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,6 +118,9 @@ public class login extends HttpServlet {
                     request.setAttribute("mess", "Wrong user or password");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
+            } else {
+                request.setAttribute("mess", "Wrong user or password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
