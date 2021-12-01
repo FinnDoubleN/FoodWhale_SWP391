@@ -18,7 +18,7 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
     </head>
-    <body class="app">
+    <body class="app">                                
         <header class="app-header fixed-top">
             <div class="app-header-inner">
                 <div class="container-fluid py-2">
@@ -213,6 +213,8 @@
                                 </div>
                                 <!--//app-card-header-->
                                 <div class="app-card-body px-4 w-100">
+                                   <form action="AddAccountManagement" method="POST">
+                                        
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -299,9 +301,11 @@
                                     <!--//app-card-body-->
                                     <div class="app-card-footer p-4 mt-auto">
                                         <a class="btn app-btn-secondary" href="/Dashboard/AddAccount">Create</a>
-                                    </div>
-                                    <!--//app-card-footer-->
+                                        
 
+                                    </div>
+                                    </form>
+                                    <!--//app-card-footer-->
                                 </div>
                                 <!--//app-card-->
                             </div>
@@ -330,6 +334,5 @@
 
             <!-- Page Specific JS -->
             <script src="../js/app.js"></script>
-
     </body>
 </html>
