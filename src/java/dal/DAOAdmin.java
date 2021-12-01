@@ -17,7 +17,7 @@ import model.Admin;
  * @author This PC
  */
 public class DAOAdmin {
-      Connection conn = null;
+    Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     DBContext dbconn = null;

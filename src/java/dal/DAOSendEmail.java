@@ -22,9 +22,9 @@ import javax.mail.internet.MimeMessage;
 public class DAOSendEmail {
     public void send(String m, String sub, String messg) {
 
-        final String user = "quoclunlol@gmail.com";
+        final String user = "hoangnghia159753@gmail.com";
 
-        final String pass = "20102001";
+        final String pass = "Ze1subou";
 
         Properties props = new Properties();
 
