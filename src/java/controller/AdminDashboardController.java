@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,18 @@ import javax.servlet.http.HttpServletResponse;
  * @author Asus
  */
 public class AdminDashboardController extends HttpServlet {
+
+    private String getCookieByName(Cookie[] cookies, String check) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(check)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +45,17 @@ public class AdminDashboardController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                String role = getCookieByName(cookies, "ROLE");
+                if (role != null && role.equals("admin")) {
+                    request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("HomepageController").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
         }
     }
 

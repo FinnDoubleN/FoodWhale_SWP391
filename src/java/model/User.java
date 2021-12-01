@@ -12,17 +12,18 @@ import java.sql.Date;
  * @author ADMIN
  */
 public class User {
-    int uID;
-    String email;
-    String password;
-    String username;
-    String image;
-    Date date;
-    String gender;
-    String address;
-    String phone;
-    String role;
-
+    
+    public int uID;
+    public String email;
+    public String password;
+    public String username;
+    public String image;
+    public Date date;
+    public String gender;
+    public String address;
+    public String phone;
+    public String role;
+    
     public User() {
     }
 

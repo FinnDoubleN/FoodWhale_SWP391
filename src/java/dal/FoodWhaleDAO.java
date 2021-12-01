@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
@@ -21,8 +20,24 @@ import model.User;
  */
 public class FoodWhaleDAO extends DBContext {
 
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+    PreparedStatement ps;
+    ResultSet rs;
+
+    public Boolean IsMember(String username, String password) throws SQLException {
+        String query = "select count(*) 'count' from [dbo].[User] where uName = '" + username + "' and Password = '" + password + "'";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int count = rs.getInt(1);
+                if (count != 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return false;
+    }
 
     public ArrayList<User> getAllUser() {
         ArrayList<User> list = new ArrayList<>();
@@ -83,7 +98,8 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-         public void updateUser(User u) {
+
+    public void updateUser(User u) {
         try {
             String sql = "update [FoodWhale].[dbo].[User] set Email=?, Password=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=? where uID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -101,7 +117,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
+
     public User getUserByID(int uID) throws Exception {
         User user = new User();
         String xsql = "select * from [FoodWhale].[dbo].[User] where uID= ?";
@@ -111,24 +127,24 @@ public class FoodWhaleDAO extends DBContext {
                 ps.setInt(1, uID);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                      user.setuID(rs.getInt(1));
-                      user.setEmail(rs.getString(2));
-                      user.setPassword(rs.getString(3));
-                      user.setUsername(rs.getString(4));
-                      user.setImage(rs.getString(5));
-                      user.setDate(rs.getDate(6));
-                      user.setGender(rs.getString(7));
-                      user.setAddress(rs.getString(8));
-                      user.setPhone(rs.getString(9));
-                      user.setRole(rs.getString(10));
-                      System.out.println(user);
+                    user.setuID(rs.getInt(1));
+                    user.setEmail(rs.getString(2));
+                    user.setPassword(rs.getString(3));
+                    user.setUsername(rs.getString(4));
+                    user.setImage(rs.getString(5));
+                    user.setDate(rs.getDate(6));
+                    user.setGender(rs.getString(7));
+                    user.setAddress(rs.getString(8));
+                    user.setPhone(rs.getString(9));
+                    user.setRole(rs.getString(10));
+                    System.out.println(user);
                 }
             }
         } catch (SQLException e) {
         }
         return user;
     }
-         
+
     public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         try {
             String sql = "INSERT INTO [FoodWhale].[dbo].[User](name, gender, dob) VALUES (?, ?, ?,?, ?, ?,?, ?, ?);";
@@ -146,5 +162,26 @@ public class FoodWhaleDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public User getProfileByUsername(String uName) throws SQLException {
+        String sql = "select * from [dbo].[User] where [User].uName = ?";
+        PreparedStatement pst = connection.prepareStatement(sql);
+        pst.setString(1, uName);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            User p = new User(
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getDate(6),
+                    rs.getString(7),
+                    rs.getString(8),
+                    rs.getString(9),
+                    rs.getString(10));
+            return p;
+        }
+        return null;
     }
 }

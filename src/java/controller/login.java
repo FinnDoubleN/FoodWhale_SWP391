@@ -9,13 +9,19 @@ import dal.DAOAdmin;
 import dal.DAOCustomer;
 import dal.DAOauth;
 import dal.DBContext;
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -40,7 +46,7 @@ public class login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet login</title>");            
+            out.println("<title>Servlet login</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet login at " + request.getContextPath() + "</h1>");
@@ -75,40 +81,46 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String username = request.getParameter("adUser");
-        String password = request.getParameter("adPass");
-        DBContext dbconn = new DBContext();
-
-        DAOauth auth = new DAOauth();
-        if (auth.AdAuth(username, "[a-zA-Z][a-zA-Z0-9]+@[a]")) {
-            //admin
-            DAOAdmin daoad = new DAOAdmin(dbconn);
-            if (daoad.loginAdmin(username, password) == null) {
-                request.setAttribute("mess", "Wrong user or password");
-//                response.sendRedirect("Login.jsp");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-            } else {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("admin_account", daoad.loginAdmin(username, password));
-                response.sendRedirect("Dashboard");
-//                response.sendRedirect("Susscess.jsp");
+        try {
+            String username = request.getParameter("adUser");
+            String password = request.getParameter("adPass");
+            FoodWhaleDAO DAO = new FoodWhaleDAO();
+            if (DAO.IsMember(username, password)) {
+                if (true) {
+                    try {
+                        User user = DAO.getProfileByUsername(username);
+                        Cookie c = new Cookie("logged", "logged");
+                        c.setMaxAge(5 * 60);
+                        response.addCookie(c);
+                        Cookie c1 = new Cookie("USERNAME", user.getUsername());
+                        c1.setMaxAge(5 * 60);
+                        response.addCookie(c1);
+                        Cookie c2 = new Cookie("ROLE", user.getRole());
+                        c2.setMaxAge(5 * 60);
+                        response.addCookie(c2);
+                        if (user.getRole().equals("admin")) {
+                            //admin
+                            response.sendRedirect("Dashboard");
+                            
+                        } else if (user.getRole().equals("staff")) {
+                            //staff
+                            response.sendRedirect("Dashboard");
+                            
+                        } else {
+                            //user
+                            response.sendRedirect("Homepage");
+                            
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    request.setAttribute("mess", "Wrong user or password");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
             }
-        
-        } else {
-            //user
-            DAOCustomer daocus = new DAOCustomer(dbconn);
-            if (daocus.loginCustomer(username, password) == null) {
-                request.setAttribute("mess", "Wrong user or password");
-                //response.sendRedirect("Login.jsp");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-            } else {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("customer_account", daocus.loginCustomer(username, password));
-                response.sendRedirect("Homepage");
-//                response.sendRedirect("Susscess.jsp");
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
