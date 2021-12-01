@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,21 @@ import model.User;
  * @author Asus
  */
 public class AccountListManagement extends HttpServlet {
-ArrayList<User> userlist = new ArrayList<User>();
+
+    ArrayList<User> userlist = new ArrayList<User>();
+
+    private String getCookieByName(Cookie[] cookies, String name) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(name)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,10 +50,20 @@ ArrayList<User> userlist = new ArrayList<User>();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            userlist = (ArrayList<User>) dao.getAllUser();
-            request.setAttribute("userlist", userlist);
-            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                String role = getCookieByName(cookies, "ROLE");
+                if (role != null && role.equals("admin")) {
+                    FoodWhaleDAO dao = new FoodWhaleDAO();
+                    userlist = (ArrayList<User>) dao.getAllUser();
+                    request.setAttribute("userlist", userlist);
+                    request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("HomepageController").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
         }
     }
 

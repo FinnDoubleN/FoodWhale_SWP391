@@ -17,7 +17,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="images/fevicon.ico.png" type="image/x-icon" />
-         <link rel="stylesheet" href="./css/service.css">
+        <link rel="stylesheet" href="./css/service.css">
         <style>
             .contain {
                 height: 100vh;
@@ -91,9 +91,8 @@
                     <input id="pass" placeholder="PASSWORD" type="password" name="adPass" minlength="8"/>
                     <img onclick="myFunction()" src="img/eye2.jpg" width="30" height="30">
                     <button>LOGIN</button>
-                    <a href="preResetPassword">DO NOT REMEMBER THE PASSWORD?</a>
                     <a href="register">CREATE A NEW ACCOUNT</a>
-                    
+                    <a href="preResetPassword">FORGET PASSWORD?</a>
                 </form>
             </div>
         </div>
