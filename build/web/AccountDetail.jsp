@@ -271,17 +271,17 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Gender</strong></div>
-                                                <% if(u.getGender().equals("m") && u.getGender()!= null){%>
+                                                <% if(u.getGender().equalsIgnoreCase("m") && u.getGender()!= null){%>
                                                 <input type="radio" id="m" name="gender" value="m" checked>
                                                 <label for="m">Male</label>
                                                 <input type="radio" id="f" name="gender" value="f">
                                                 <label for="f">Female</label>
-                                                <%} else if(u.getGender().equals("f") && u.getGender()!= null){%>
+                                                <%} else if(u.getGender().equalsIgnoreCase("f") && u.getGender()!= null){%>
                                                 <input type="radio" id="m" name="gender" value="m">
                                                 <label for="m">Male</label>
                                                 <input type="radio" id="f" name="gender" value="f" checked>
                                                 <label for="f">Female</label>
-                                                <%}else if(u.getGender() == null || u.getGender().equals("")){%>
+                                                <%} else {%>
                                                 <input type="radio" id="m" name="gender" value="m">
                                                 <label for="m">Male</label>
                                                 <input type="radio" id="f" name="gender" value="f">
@@ -295,7 +295,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date">
+                                                <input type="date" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date">
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -324,7 +324,28 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Role</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getRole()%>" maxlength="24" name="role">
+                                                <% if(u.getRole().equalsIgnoreCase("Admin")){%>
+                                                <input type="radio" id="Admin" name="role" value="admin" checked>
+                                                <label for="admin">Admin</label>
+                                                <input type="radio" id="Staff" name="role" value="staff">
+                                                <label for="staff">Staff</label>
+                                                <input type="radio" id="User" name="role" value="user">
+                                                <label for="user">User</label>
+                                                <%} else if(u.getRole().equalsIgnoreCase("Staff")){%>
+                                                <input type="radio" id="Admin" name="role" value="admin">
+                                                <label for="admin">Admin</label>
+                                                <input type="radio" id="Staff" name="role" value="staff" checked>
+                                                <label for="staff">Staff</label>
+                                                <input type="radio" id="User" name="role" value="user">
+                                                <label for="user">User</label>
+                                                <%} else if(u.getRole().equalsIgnoreCase("User")){%>
+                                                <input type="radio" id="Admin" name="role" value="admin">
+                                                <label for="admin">Admin</label>
+                                                <input type="radio" id="Staff" name="role" value="staff">
+                                                <label for="staff">Staff</label>
+                                                <input type="radio" id="User" name="role" value="user" checked>
+                                                <label for="user">User</label>
+                                                <%}%>
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -333,7 +354,10 @@
                                 </div>
                                 <!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <input class="btn app-btn-secondary" type="submit" value="Update"></input>
+                                    <input class="btn app-btn-secondary" name="submit" type="submit" value="Update"></input>
+                                </div>
+                                <div class="app-card-footer p-4 mt-auto">
+                                    <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete"></input>
                                 </div>
                                 <!--//app-card-footer-->
 

@@ -84,15 +84,12 @@ public class login extends HttpServlet {
                 if (true) {
                     try {
                         User user = DAO.getProfileByUsername(username);
-                        Cookie c = new Cookie("logged", "logged");
+                        Cookie c = new Cookie("USERNAME", user.getUsername());
                         c.setMaxAge(5 * 60);
                         response.addCookie(c);
-                        Cookie c1 = new Cookie("USERNAME", user.getUsername());
+                        Cookie c1 = new Cookie("ROLE", user.getRole());
                         c1.setMaxAge(5 * 60);
                         response.addCookie(c1);
-                        Cookie c2 = new Cookie("ROLE", user.getRole());
-                        c2.setMaxAge(5 * 60);
-                        response.addCookie(c2);
                         if (user.getRole().equals("admin")) {
                             //admin
                             response.sendRedirect("Dashboard");
