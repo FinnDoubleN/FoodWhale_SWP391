@@ -25,8 +25,10 @@ public class LogoutController extends HttpServlet {
             return;
         }
         for (Cookie c : cookies) {
-            c.setMaxAge(0);
-            response.addCookie(c);
+            if (c.getName().equals("USERNAME") || c.getName().equals("ROLE") || c.getName().equals("logged")) {
+                c.setMaxAge(0);
+                response.addCookie(c);
+            }
         }
     }
 

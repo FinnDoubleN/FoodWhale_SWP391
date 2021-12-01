@@ -48,7 +48,7 @@ public class AdminDashboardController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
                 String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin")) {
+                if (role != null && role.equals("admin") || role.equals("staff")) {
                     request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("login").forward(request, response);

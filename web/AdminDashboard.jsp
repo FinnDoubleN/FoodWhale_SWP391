@@ -47,7 +47,7 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
                                     </ul>
                                 </div>
                             </div>
