@@ -220,7 +220,8 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
-                                                <div class="item-data"><img class="profile-image" src="<%= u.getImage()%>" alt=""><%= u.getImage()%></div>
+                                                <div class="item-data"><img class="profile-image" src="<%= u.getImage()%>" alt=""></div><br>
+                                                <input type="text" class="item-data" value="<%= u.getImage()%>" name="image">
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -230,7 +231,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <div class="item-data"><%= u.getUsername()%></div>
+                                                <input type="text" class="item-data" value="<%= u.getUsername()%>" maxlength="24" name="username">
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -240,106 +241,97 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
-                                                <div class="item-data"><%= u.getEmail()%></div>
-                                                </div>
-                                            </div>
-                                            <!--//row-->
-                                        </div>
-                                        <!--//item-->
-                                        <div class="item border-bottom py-3">
-                                            <div class="row justify-content-between align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="item-label"><strong>Password</strong></div>
-                                                    <div class="item-data">
-                                                        <%= u.getPassword()%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--//row-->
-                                        </div>
-                                        <!--//item-->
-                                        <div class="item border-bottom py-3">
-                                            <div class="row justify-content-between align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="item-label"><strong>Gender</strong></div>
-                                                    <div class="item-data">
-                                                        <%= u.getGender()%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--//row-->
-                                        </div>
-                                        <div class="item border-bottom py-3">
-                                            <div class="row justify-content-between align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="item-label"><strong>Address</strong></div>
-                                                    <div class="item-data">
-                                                        <%= u.getAddress()%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--//row-->
-                                        </div>
-                                        <!--//item-->
-                                        <div class="item border-bottom py-3">
-                                            <div class="row justify-content-between align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="item-label"><strong>Phone</strong></div>
-                                                    <div class="item-data">
-                                                        <%= u.getPhone()%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--//row-->
-                                        </div>
-                                        <!--//item-->
-                                        <div class="item border-bottom py-3">
-                                            <div class="row justify-content-between align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="item-label"><strong>Role</strong></div>
-                                                    <div class="item-data">
-                                                        <%= u.getRole()%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--//row-->
-                                        </div>
-                                        <!--//item-->
-                                    </div>
-                                    <!--//app-card-body-->
-                                    <div class="app-card-footer p-4 mt-auto">
-                                        <a class="btn app-btn-secondary" href="#">Manage Profile</a>
-                                    </div>
-                                    <!--//app-card-footer-->
 
+                                                <input type="text" class="item-data" value="<%= u.getEmail()%>" maxlength="24" name="email">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Password</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getPassword()%>" maxlength="24" name="password">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Gender</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getGender()%>" maxlength="24" name="gender">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Address</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getAddress()%>" maxlength="24" name="address">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Phone</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getPhone()%>" maxlength="24" name="phone">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Role</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getRole()%>" maxlength="24" name="role">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
                                 </div>
-                                <!--//app-card-->
+                                <!--//app-card-body-->
+                                <div class="app-card-footer p-4 mt-auto">
+                                    <a class="btn app-btn-secondary" href="#">Update</a>
+                                </div>
+                                <!--//app-card-footer-->
+
                             </div>
-                            <!--//col-->
+                            <!--//app-card-->
                         </div>
-                        <!--//row-->
-
+                        <!--//col-->
                     </div>
-                    <!--//container-fluid-->
+                    <!--//row-->
+
                 </div>
-                <footer class="app-footer">
-                    <div class="container text-center py-3">
-                        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                        <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
-                    </div>
-                </footer>
-
+                <!--//container-fluid-->
             </div>
-            <!-- Javascript -->
-            <script src="../plugins/popper.min.js"></script>
-            <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+            <footer class="app-footer">
+                <div class="container text-center py-3">
+                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                    <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
+                </div>
+            </footer>
 
-            <!-- Charts JS -->
-            <script src="../plugins/chart.js/chart.min.js"></script>
-            <script src="../js/index-charts.js"></script>
+        </div>
+        <!-- Javascript -->
+        <script src="../plugins/popper.min.js"></script>
+        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
-            <!-- Page Specific JS -->
-            <script src="../js/app.js"></script>
+        <!-- Charts JS -->
+        <script src="../plugins/chart.js/chart.min.js"></script>
+        <script src="../js/index-charts.js"></script>
+
+        <!-- Page Specific JS -->
+        <script src="../js/app.js"></script>
 
     </body>
 </html>
