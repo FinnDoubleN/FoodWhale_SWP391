@@ -52,21 +52,22 @@ public class AddAccountManagement extends HttpServlet {
                 String role = getCookieByName(cookies, "ROLE");
                 if (role != null && role.equals("admin")) {
                     FoodWhaleDAO dao = new FoodWhaleDAO();
+                    
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     String username = request.getParameter("username");
                     String image = request.getParameter("image");
                     Date dob = Date.valueOf(request.getParameter("dob"));
-                    String gender = request.getParameter("male");
-                    if (gender == null) {
-                        gender = "F";
-                    } else {
+                    String gender = request.getParameter("gender");
+                    if (gender.equalsIgnoreCase("male") ) {
                         gender = "M";
+                    } else if (gender.equalsIgnoreCase("female")){
+                        gender = "F";
                     }
                     String address = request.getParameter("address");
                     String Phone = request.getParameter("phone");
                     dao.createUser(email, password, username, image, dob, gender, address, Phone);
-                    request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
+                    request.getRequestDispatcher("/Dashboard/AccountList").forward(request, response);
                 } else {
                     request.getRequestDispatcher("login").forward(request, response);
                 }
