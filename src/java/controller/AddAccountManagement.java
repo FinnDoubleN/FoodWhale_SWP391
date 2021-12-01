@@ -5,8 +5,10 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -49,6 +51,21 @@ public class AddAccountManagement extends HttpServlet {
             if (cookies != null) {
                 String role = getCookieByName(cookies, "ROLE");
                 if (role != null && role.equals("admin")) {
+                    FoodWhaleDAO dao = new FoodWhaleDAO();
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
+                    String username = request.getParameter("username");
+                    String image = request.getParameter("image");
+                    Date dob = Date.valueOf(request.getParameter("dob"));
+                    String gender = request.getParameter("male");
+                    if (gender == null) {
+                        gender = "F";
+                    } else {
+                        gender = "M";
+                    }
+                    String address = request.getParameter("address");
+                    String Phone = request.getParameter("phone");
+                    dao.createUser(email, password, username, image, dob, gender, address, Phone);
                     request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("login").forward(request, response);
