@@ -1,15 +1,16 @@
 <%-- 
-    Document   : AddUser
-    Created on : Nov 30, 2021, 3:44:19 PM
-    Author     : Asus
+    Document   : AccountDetail
+    Created on : Nov 30, 2021, 8:48:26 PM
+    Author     : ADMIN
 --%>
-
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <title>Dashboard</title>
+        <title>Order Lists</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +18,7 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
     </head>
-
-    <body class="app">
+    <body class="app">                                
         <header class="app-header fixed-top">
             <div class="app-header-inner">
                 <div class="container-fluid py-2">
@@ -61,7 +61,6 @@
                     <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                     <div class="app-branding">
                         <a class="app-logo" href="${pageContext.request.contextPath}"><span class="logo-text">FOODWHALE</span></a>
-
                     </div>
                     <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
                         <ul class="app-menu list-unstyled accordion" id="menu-accordion">
@@ -160,10 +159,8 @@
                                 </div>
                             </li>
                             <li class="nav-item has-submenu">
-                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                 <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-4" aria-expanded="false" aria-controls="submenu-4">
                                     <span class="nav-icon">
-                                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
                                         </svg>
@@ -174,9 +171,7 @@
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                         </svg>
                                     </span>
-                                    <!--//submenu-arrow-->
                                 </a>
-                                <!--//nav-link-->
                                 <div id="submenu-4" class="collapse submenu submenu-4" data-bs-parent="#menu-accordion">
                                     <ul class="submenu-list list-unstyled">
                                         <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/CategoryList">Category Lists</a></li>
@@ -193,10 +188,10 @@
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
 
-                    <h1 class="app-page-title">Create Account</h1>
+                    <h1 class="app-page-title">Account Profile</h1>
                     <div class="row-new gy-4">
                         <div class="col-12 col-lg-6">
-                            <form class="app-card app-card-account shadow-sm d-flex flex-column align-items-start" action="AddAccount" method="post">
+                            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                                 <div class="app-card-header p-3 border-bottom-0">
                                     <div class="row align-items-center gx-3">
                                         <div class="col-auto">
@@ -218,21 +213,13 @@
                                 </div>
                                 <!--//app-card-header-->
                                 <div class="app-card-body px-4 w-100">
+                                   <form action="AddAccountManagement" method="POST">
+                                        
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
                                                 <input type="text" class="item-data" name="image">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Email</strong></div>
-
-                                                <input type="text" class="item-data"  maxlength="24" name="email">
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -248,6 +235,16 @@
                                         <!--//row-->
                                     </div>
                                     <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Email</strong></div>
+
+                                                <input type="text" class="item-data" maxlength="24" name="email">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
                                     <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -262,95 +259,80 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Gender</strong></div>
-                                                <input type="radio" id="m" name="gender" value="m">
-                                                <label for="m">Male</label>
-                                                <input type="radio" id="f" name="gender" value="f">
-                                                <label for="f">Female</label>
+                                                <div class="item-label"><strong>Gender</strong></div>  
+                                                <input type="radio" name="gender" maxlength="24" value="male" checked> Male<br>
+                                                <input type="radio" name="gender" maxlength="24" value="female"> Female
                                             </div>
                                         </div>
-                                        <!--//row-->
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" maxlength="24" name="date">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Address</strong></div>
-                                                <input type="text" class="item-data"  maxlength="24" name="address">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <!--//item-->
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Phone</strong></div>
-                                                <input type="text" class="item-data" maxlength="24" name="phone">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <!--//item-->
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Role</strong></div>
-                                                <input type="radio" id="Admin" name="role" value="Admin">
-                                                <label for="Admin">Admin</label>
-                                                <input type="radio" id="Staff" name="role" value="Staff">
-                                                <label for="Staff">Staff</label>
-                                                <input type="radio" id="User" name="role" value="User">
-                                                <label for="User">User</label>
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <!--//item-->
-                                </div>
-                                <!--//app-card-body-->
-                                <div class="app-card-footer p-4 mt-auto">
-                                    <input class="btn app-btn-secondary" type="submit" value="Create"></input>
-                                </div>
-                                <!--//app-card-footer-->
+                                        <!--//item-->
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Date of birth</strong></div>  
 
-                            </form>
-                            <!--//app-card-->
+                                                    <input type="date" name="dob"
+                                                           value="0000-00-00">
+
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Address</strong></div>
+                                                    <input type="text" class="item-data"maxlength="24" name="address">
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                        <div class="item border-bottom py-3">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Phone</strong></div>
+                                                    <input type="text" class="item-data" maxlength="24" name="phone">
+                                                </div>
+                                            </div>
+                                            <!--//row-->
+                                        </div>
+                                        <!--//item-->
+                                    </div>
+                                    <!--//app-card-body-->
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <a class="btn app-btn-secondary" href="/Dashboard/AddAccount">Create</a>
+                                        
+
+                                    </div>
+                                    </form>
+                                    <!--//app-card-footer-->
+                                </div>
+                                <!--//app-card-->
+                            </div>
+                            <!--//col-->
                         </div>
-                        <!--//col-->
+                        <!--//row-->
+
                     </div>
-                    <!--//row-->
-
+                    <!--//container-fluid-->
                 </div>
-                <!--//container-fluid-->
+                <footer class="app-footer">
+                    <div class="container text-center py-3">
+                        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                        <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
+                    </div>
+                </footer>
+
             </div>
-            <footer class="app-footer">
-                <div class="container text-center py-3">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                    <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
-                </div>
-            </footer>
+            <!-- Javascript -->
+            <script src="../plugins/popper.min.js"></script>
+            <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
-        </div>
-        <!-- Javascript -->
-        <script src="../plugins/popper.min.js"></script>
-        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+            <!-- Charts JS -->
+            <script src="../plugins/chart.js/chart.min.js"></script>
+            <script src="../js/index-charts.js"></script>
 
-        <!-- Charts JS -->
-        <script src="../plugins/chart.js/chart.min.js"></script>
-        <script src="../js/index-charts.js"></script>
-
-        <!-- Page Specific JS -->
-        <script src="../js/app.js"></script>
-
+            <!-- Page Specific JS -->
+            <script src="../js/app.js"></script>
     </body>
 </html>
-

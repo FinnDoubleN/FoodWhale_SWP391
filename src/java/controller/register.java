@@ -82,13 +82,15 @@ public class register extends HttpServlet {
         String password = request.getParameter("password");
         String confirm = request.getParameter("confirm");
         String gender = request.getParameter("gender");
+        if (gender == null) {
+            gender = "";
+        }
         String phonenumber = request.getParameter("phonenumber");
         String email = request.getParameter("email");
         String image= request.getParameter("image");
         String address = request.getParameter("address");
         String dob = request.getParameter("age");
         
-
         if (!password.equals(confirm)) {
             request.setAttribute("mess1", "password khong khop");
             request.getRequestDispatcher("Register.jsp").forward(request, response);

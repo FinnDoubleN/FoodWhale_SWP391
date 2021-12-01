@@ -47,7 +47,7 @@ public class LogoutController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             deleteCookie(request, response);
-            response.sendRedirect("Homepage");
+            request.getRequestDispatcher("Homepage").forward(request, response);
         }
     }
 
