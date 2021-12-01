@@ -67,10 +67,17 @@
         <servlet-name>AccountDetailController</servlet-name>
         <servlet-class>controller.AccountDetailController</servlet-class>
     </servlet>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>UserProfileController</servlet-name>
         <servlet-class>controller.UserProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+=======
+>>>>>>> parent of 69a2477 (Merge branch 'main' of https://github.com/FinnDoubleN/FoodWhale_SWP391)
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -135,10 +142,17 @@
         <servlet-name>AccountDetailController</servlet-name>
         <url-pattern>/Dashboard/AccountDetail</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>UserProfileController</servlet-name>
         <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+=======
+>>>>>>> parent of 69a2477 (Merge branch 'main' of https://github.com/FinnDoubleN/FoodWhale_SWP391)
     <session-config>
         <session-timeout>
             30
