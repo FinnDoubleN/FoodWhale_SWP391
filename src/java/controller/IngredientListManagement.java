@@ -51,7 +51,7 @@ public class IngredientListManagement extends HttpServlet {
                 if (role != null && role.equals("admin")) {
                     request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
                 } else {
-                    request.getRequestDispatcher("HomepageController").forward(request, response);
+                    request.getRequestDispatcher("login").forward(request, response);
                 }
             } else {
                 request.getRequestDispatcher("login").forward(request, response);

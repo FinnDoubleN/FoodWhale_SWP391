@@ -22,6 +22,17 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <%
+            Cookie cookie = null;
+            Cookie[] cookies = request.getCookies();
+            String USERNAME = "";
+            for (int i = 0; i < cookies.length; i++) {
+                cookie = cookies[i];
+                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
+                    USERNAME = cookie.getName().toString();
+                }
+            }
+        %>
     </head>
     <body>
         <div class="hero_area">
@@ -55,6 +66,9 @@
                                 </li>
                             </ul>
                             <div class="user_option">
+                                <a class="user_link" href="${pageContext.request.contextPath}/Profile">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </a>
                                 <a class="cart_link" href="${pageContext.request.contextPath}">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                     <g>
@@ -84,9 +98,21 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
+                                <%
+                                    if (USERNAME == null || USERNAME.equals("")) {
+                                %>
                                 <a href="login" class="order_online">
                                     Login
                                 </a>
+                                <%
+                                } else {
+                                %>
+                                <a href="${pageContext.request.contextPath}/Logout" class="order_online">
+                                    Logout
+                                </a>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </nav>

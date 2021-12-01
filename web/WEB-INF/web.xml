@@ -71,6 +71,10 @@
         <servlet-name>UserProfileController</servlet-name>
         <servlet-class>controller.UserProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -138,6 +142,10 @@
     <servlet-mapping>
         <servlet-name>UserProfileController</servlet-name>
         <url-pattern>/Profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

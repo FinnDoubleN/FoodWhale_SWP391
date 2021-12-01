@@ -63,7 +63,7 @@ public class AccountDetailController extends HttpServlet {
                     request.setAttribute("userdetail", userdetail);
                     request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
                 } else {
-                    request.getRequestDispatcher("HomepageController").forward(request, response);
+                    request.getRequestDispatcher("login").forward(request, response);
                 }
             } else {
                 request.getRequestDispatcher("login").forward(request, response);

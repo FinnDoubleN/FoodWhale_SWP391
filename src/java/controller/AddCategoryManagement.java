@@ -51,7 +51,7 @@ public class AddCategoryManagement extends HttpServlet {
                 if (role != null && role.equals("admin")) {
                     request.getRequestDispatcher("/AddCategory.jsp").forward(request, response);
                 } else {
-                    request.getRequestDispatcher("HomepageController").forward(request, response);
+                    request.getRequestDispatcher("login").forward(request, response);
                 }
             } else {
                 request.getRequestDispatcher("login").forward(request, response);
