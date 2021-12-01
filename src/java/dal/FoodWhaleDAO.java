@@ -112,6 +112,7 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(7, u.getAddress());
             statement.setString(8, u.getPhone());
             statement.setString(9, u.getRole());
+            statement.setInt(10, u.getuID());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
