@@ -190,6 +190,148 @@
             </div>
         </header>
         <div class="app-wrapper">
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+
+                    <h1 class="app-page-title">Create Account</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-6">
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column align-items-start" action="AddAccount" method="post">
+                                <div class="app-card-header p-3 border-bottom-0">
+                                    <div class="row align-items-center gx-3">
+                                        <div class="col-auto">
+                                            <div class="app-icon-holder">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                                </svg>
+                                            </div>
+                                            <!--//icon-holder-->
+
+                                        </div>
+                                        <!--//col-->
+                                        <div class="col-auto">
+                                            <h4 class="app-card-title">Detail</h4>
+                                        </div>
+                                        <!--//col-->
+                                    </div>
+                                    <!--//row-->
+                                </div>
+                                <!--//app-card-header-->
+                                <div class="app-card-body px-4 w-100">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Image</strong></div>
+                                                <input type="text" class="item-data" name="image">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Email</strong></div>
+
+                                                <input type="text" class="item-data"  maxlength="24" name="email">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Username</strong></div>
+                                                <input type="text" class="item-data" maxlength="24" name="username">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Password</strong></div>
+                                                <input type="text" class="item-data" maxlength="24" name="password">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Gender</strong></div>
+                                                <input type="radio" id="m" name="gender" value="m">
+                                                <label for="m">Male</label>
+                                                <input type="radio" id="f" name="gender" value="f">
+                                                <label for="f">Female</label>
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Date</strong></div>
+                                                <input type="date" class="item-data" maxlength="24" name="date">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Address</strong></div>
+                                                <input type="text" class="item-data"  maxlength="24" name="address">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Phone</strong></div>
+                                                <input type="text" class="item-data" maxlength="24" name="phone">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Role</strong></div>
+                                                <input type="radio" id="Admin" name="role" value="Admin">
+                                                <label for="Admin">Admin</label>
+                                                <input type="radio" id="Staff" name="role" value="Staff">
+                                                <label for="Staff">Staff</label>
+                                                <input type="radio" id="User" name="role" value="User">
+                                                <label for="User">User</label>
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <!--//item-->
+                                </div>
+                                <!--//app-card-body-->
+                                <div class="app-card-footer p-4 mt-auto">
+                                    <input class="btn app-btn-secondary" type="submit" value="Create"></input>
+                                </div>
+                                <!--//app-card-footer-->
+
+                            </form>
+                            <!--//app-card-->
+                        </div>
+                        <!--//col-->
+                    </div>
+                    <!--//row-->
+
+                </div>
+                <!--//container-fluid-->
+            </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
                     <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->

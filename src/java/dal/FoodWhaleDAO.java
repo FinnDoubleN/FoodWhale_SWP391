@@ -148,7 +148,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         try {
-            String sql = "INSERT INTO [FoodWhale].[dbo].[User](name, gender, dob) VALUES (?, ?, ?,?, ?, ?,?, ?, ?);";
+            String sql = "INSERT INTO [FoodWhale].[dbo].[User](Email, Password, uName,Image, DoB, Gender, Address,Phone, Role) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, password);

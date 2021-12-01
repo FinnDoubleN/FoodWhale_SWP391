@@ -27,6 +27,7 @@ import model.User;
  */
 public class AccountDetailController extends HttpServlet {
 
+    ArrayList<User> userlist = new ArrayList<User>();
     User userdetail = new User();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -105,23 +106,31 @@ public class AccountDetailController extends HttpServlet {
             throws ServletException, IOException {
         try {
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            int id = Integer.parseInt(request.getParameter("uid"));
-            String image = request.getParameter("image");
-            String email = request.getParameter("email");
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String gender = request.getParameter("gender");
-            String date = request.getParameter("date");
-            Date startDate = Date.valueOf(date) ;
-            String address = request.getParameter("address");
-            String phone = request.getParameter("phone");
-            String role = request.getParameter("role");
-            User u = new User(id, email, password, username, image, startDate, gender, address, phone, role);
-            dao.updateUser(u);
-            
-            userdetail = dao.getUserByID(id);
-            request.setAttribute("userdetail", userdetail);
-            request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("Update")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String image = request.getParameter("image");
+                String email = request.getParameter("email");
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String gender = request.getParameter("gender");
+                String date = request.getParameter("date");
+                Date startDate = Date.valueOf(date);
+                String address = request.getParameter("address");
+                String phone = request.getParameter("phone");
+                String role = request.getParameter("role");
+                User u = new User(id, email, password, username, image, startDate, gender, address, phone, role);
+                dao.updateUser(u);
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
+            } else if (submit.equalsIgnoreCase("Delete")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                dao.deleteUser(id);
+                userlist = (ArrayList<User>) dao.getAllUser();
+                request.setAttribute("userlist", userlist);
+                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            }
         } catch (Exception ex) {
             Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,20 +5,24 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
  * @author Asus
  */
 public class AddAccountManagement extends HttpServlet {
-
+ArrayList<User> userlist = new ArrayList<User>();
     private String getCookieByName(Cookie[] cookies, String name) {
         if (cookies == null) {
             return null;
@@ -85,7 +89,22 @@ public class AddAccountManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        FoodWhaleDAO dao = new FoodWhaleDAO();
+        String image = request.getParameter("image");
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String gender = request.getParameter("gender");
+        String date = request.getParameter("date");
+        Date startDate = Date.valueOf(date);
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String role = request.getParameter("role");
+        if(role == null || role.equals("")){ role = "user"; }
+        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
+        userlist = (ArrayList<User>) dao.getAllUser();
+        request.setAttribute("userlist", userlist);
+        request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
     }
 
     /**
