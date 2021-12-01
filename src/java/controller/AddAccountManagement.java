@@ -5,8 +5,10 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -44,20 +46,8 @@ public class AddAccountManagement extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin")) {
-                    request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("login").forward(request, response);
-                }
-            } else {
-                request.getRequestDispatcher("login").forward(request, response);
-            }
-        }
-    }
+          
+    }}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -71,7 +61,7 @@ public class AddAccountManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("AddAccount.jsp").forward(request, response);
     }
 
     /**
@@ -85,7 +75,33 @@ public class AddAccountManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                String role = getCookieByName(cookies, "ROLE");
+                if (role != null && role.equals("admin")) {
+                    FoodWhaleDAO dao = new FoodWhaleDAO();
+                    
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
+                    String username = request.getParameter("username");
+                    String image = request.getParameter("image");
+                    Date dob = Date.valueOf(request.getParameter("dob"));
+                    String gender = request.getParameter("gender");
+                    if (gender.equalsIgnoreCase("male")|| gender.isEmpty() ) {
+                        gender = "M";
+                    } else if (gender.equalsIgnoreCase("female")){
+                        gender = "F";
+                    }
+                    String address = request.getParameter("address");
+                    String Phone = request.getParameter("phone");
+                    dao.createUser(email, password, username, image, dob, gender, address, Phone);
+                    response.sendRedirect("AccountListManagement");
+                } else {
+                    request.getRequestDispatcher("login").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
     }
 
     /**

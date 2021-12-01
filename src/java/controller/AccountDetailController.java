@@ -9,6 +9,8 @@ import dal.FoodWhaleDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,7 +104,24 @@ public class AccountDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            int id = Integer.parseInt(request.getParameter("uid"));
+            String image = request.getParameter("image");
+            String email = request.getParameter("email");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String gender = request.getParameter("gender");
+            String date = request.getParameter("date");
+            Date startDate = Date.valueOf(date) ;
+            String address = request.getParameter("address");
+            String phone = request.getParameter("phone");
+            String role = request.getParameter("role");
+            User u = new User(id, email, password, username, image, startDate, gender, address, phone, role);
+            dao.updateUser(u);
+            
+            userdetail = dao.getUserByID(id);
+            request.setAttribute("userdetail", userdetail);
+            request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }

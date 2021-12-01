@@ -20,11 +20,12 @@ import javax.mail.internet.MimeMessage;
  * @author This PC
  */
 public class DAOSendEmail {
+
     public void send(String m, String sub, String messg) {
 
-        final String user = "hoangnghia159753@gmail.com";
+        final String user = "swpgroup2@gmail.com";
 
-        final String pass = "Ze1subou";
+        final String pass = "A123456@";
 
         Properties props = new Properties();
 
@@ -97,7 +98,8 @@ public class DAOSendEmail {
     public static int randomNumber(int min, int max) {
         return generator.nextInt((max - min) + 1) + min;
     }
-    public String RegisterNoti(){
-        return"We send you an email confirmation code";
+
+    public String RegisterNoti() {
+        return "We send you an email confirmation code";
     }
 }

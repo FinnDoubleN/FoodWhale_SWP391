@@ -112,6 +112,7 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(7, u.getAddress());
             statement.setString(8, u.getPhone());
             statement.setString(9, u.getRole());
+            statement.setInt(10, u.getuID());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,9 +146,9 @@ public class FoodWhaleDAO extends DBContext {
         return user;
     }
 
-    public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
+    public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone) {
         try {
-            String sql = "INSERT INTO [FoodWhale].[dbo].[User](name, gender, dob) VALUES (?, ?, ?,?, ?, ?,?, ?, ?);";
+            String sql = "INSERT INTO [FoodWhale].[dbo].[User](Email, Password, uName, Image, DoB, Gender,Address,Phone) VALUES (?, ?, ?,?, ?, ?,?, ?);";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, password);
@@ -157,7 +158,6 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(6, gender);
             statement.setString(7, address);
             statement.setString(8, phone);
-            statement.setString(9, role);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);

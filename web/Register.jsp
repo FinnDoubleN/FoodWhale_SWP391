@@ -52,10 +52,10 @@
         <link rel="stylesheet" href="./css/register.css">      
     </head>
     <body>
-        
 
 
-       
+
+
 
         <div class="main-w3layouts wrapper" >
             <h1>Register Form</h1>
@@ -64,7 +64,7 @@
                     <form action="register" method="post">
                         <p class="text-danger">${mess1}</p>
                         <p class="text-danger">${mess2}</p>
-                        
+
                         <input class="text" type="text" name="username" placeholder="Username" required="">
                         <input id="pass" class="text" type="password" name="password" minlength="8" placeholder="Password" required="">
                         <img onclick="myFunction1()" src="img/eye2.jpg" width="30" height="30">
@@ -96,16 +96,16 @@
                             </label>
                             <div class="clear"> </div>
                         </div>
-                        
+
                         <input type="submit" value="SIGN UP">
                         <a href="login" style="color:white">ALREADY HAVE AN ACCOUNT? SIGN IN</a>
                     </form>
                 </div>
             </div>
         </div>
-                        
 
-        
+
+
         <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
         <!-- all js files -->
         <script src="js/all.js"></script>
