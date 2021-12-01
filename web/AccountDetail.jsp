@@ -219,9 +219,28 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>User ID</strong></div>
+                                                <a class="item-data"> <%= u.getuID()%></a>
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
                                                 <div class="item-data"><img class="profile-image" src="<%= u.getImage()%>" alt=""></div><br>
                                                 <input type="text" class="item-data" value="<%= u.getImage()%>" name="image">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Email</strong></div>
+
+                                                <input type="text" class="item-data" value="<%= u.getEmail()%>" maxlength="24" name="email">
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -237,16 +256,6 @@
                                         <!--//row-->
                                     </div>
                                     <!--//item-->
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Email</strong></div>
-
-                                                <input type="text" class="item-data" value="<%= u.getEmail()%>" maxlength="24" name="email">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
                                     <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -263,6 +272,15 @@
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Gender</strong></div>
                                                 <input type="text" class="item-data" value="<%= u.getGender()%>" maxlength="24" name="gender">
+                                            </div>
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Date</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date">
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -300,7 +318,9 @@
                                 </div>
                                 <!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <a class="btn app-btn-secondary" href="#">Update</a>
+                                    <form action="AccountDetail" method="POST">
+                                        <button class="btn app-btn-secondary" type="submit">Update</button>
+                                    </form>
                                 </div>
                                 <!--//app-card-footer-->
 

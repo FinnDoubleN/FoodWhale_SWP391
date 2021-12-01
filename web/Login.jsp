@@ -87,12 +87,12 @@
                 <form action="login" method="post">
                     <h1>LOGIN</h1>
                     <p class="text-danger">${mess}</p>
-                    <input placeholder="USERNAME" type="text" name="adUser"/>
-                    <input id="pass" placeholder="PASSWORD" type="password" name="adPass" minlength="8"/>
+                    <input placeholder="Username" type="text" name="adUser"/>
+                    <input id="pass" placeholder="Password" type="password" name="adPass" minlength="8"/>
                     <img onclick="myFunction()" src="img/eye2.jpg" width="30" height="30">
                     <button>LOGIN</button>
-                    <a href="register">CREATE A NEW ACCOUNT</a>
-                    <a href="preResetPassword">FORGET PASSWORD?</a>
+                    <a href="register">Create a new account</a>
+                    <a href="preResetPassword">Forget password?</a>
                 </form>
             </div>
         </div>
