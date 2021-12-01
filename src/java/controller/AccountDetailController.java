@@ -112,13 +112,13 @@ public class AccountDetailController extends HttpServlet {
             String password = request.getParameter("password");
             String gender = request.getParameter("gender");
             String date = request.getParameter("date");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = (Date) sdf.parse(date);
+            Date startDate = Date.valueOf(date) ;
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
             String role = request.getParameter("role");
-            User u = new User(email, password, username, image, startDate, gender, address, phone, role);
+            User u = new User(id, email, password, username, image, startDate, gender, address, phone, role);
             dao.updateUser(u);
+            
             userdetail = dao.getUserByID(id);
             request.setAttribute("userdetail", userdetail);
             request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);

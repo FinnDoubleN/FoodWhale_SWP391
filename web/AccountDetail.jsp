@@ -194,7 +194,7 @@
                     <h1 class="app-page-title">Account Profile</h1>
                     <div class="row-new gy-4">
                         <div class="col-12 col-lg-6">
-                            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column align-items-start" action="AccountDetail" method="post">
                                 <div class="app-card-header p-3 border-bottom-0">
                                     <div class="row align-items-center gx-3">
                                         <div class="col-auto">
@@ -220,7 +220,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>User ID</strong></div>
-                                                <a class="item-data"> <%= u.getuID()%></a>
+                                                <input type="text" class="item-data" value="<%= u.getuID()%>" name="uid" readonly>
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -271,7 +271,22 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Gender</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getGender()%>" maxlength="24" name="gender">
+                                                <% if(u.getGender().equals("m") && u.getGender()!= null){%>
+                                                <input type="radio" id="m" name="gender" value="m" checked>
+                                                <label for="m">Male</label>
+                                                <input type="radio" id="f" name="gender" value="f">
+                                                <label for="f">Female</label>
+                                                <%} else if(u.getGender().equals("f") && u.getGender()!= null){%>
+                                                <input type="radio" id="m" name="gender" value="m">
+                                                <label for="m">Male</label>
+                                                <input type="radio" id="f" name="gender" value="f" checked>
+                                                <label for="f">Female</label>
+                                                <%}else if(u.getGender() == null || u.getGender().equals("")){%>
+                                                <input type="radio" id="m" name="gender" value="m">
+                                                <label for="m">Male</label>
+                                                <input type="radio" id="f" name="gender" value="f">
+                                                <label for="f">Female</label>
+                                                <%}%>
                                             </div>
                                         </div>
                                         <!--//row-->
@@ -318,13 +333,11 @@
                                 </div>
                                 <!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <form action="AccountDetail" method="POST">
-                                        <button class="btn app-btn-secondary" type="submit">Update</button>
-                                    </form>
+                                    <input class="btn app-btn-secondary" type="submit" value="Update"></input>
                                 </div>
                                 <!--//app-card-footer-->
 
-                            </div>
+                            </form>
                             <!--//app-card-->
                         </div>
                         <!--//col-->
