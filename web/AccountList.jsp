@@ -10,11 +10,16 @@
 <html lang="en">
 
     <head>
-        <title>Order Lists</title>
+        <title>Account Lists</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="favicon.ico">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="../DataTables/datatables.css" />
+        <script type="text/javascript" src="../DataTables/datatables.js"></script>
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
@@ -75,7 +80,7 @@
                                         <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                                         </svg>
                                     </span>
-                                    <span class="nav-link-text">Overview</span>
+                                    <span class="nav-link-text">Dashboard</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -192,36 +197,15 @@
                 <div class="container-xl">
                     <div class="row g-3 mb-4 align-items-center justify-content-between">
                         <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Orders</h1>
-                        </div>
-                        <div class="col-auto">
-                            <div class="page-utilities">
-                                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                                    <div class="col-auto">
-                                        <form class="table-search-form row gx-1 align-items-center">
-                                            <div class="col-auto">
-                                                <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="submit" class="btn app-btn-secondary">Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div
+                            <h1 class="app-page-title mb-0">Accounts</h1>
                         </div>
                     </div>
-                    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                        <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-                        <a class="flex-sm-fill text-sm-center nav-link" id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Staff</a>
-                        <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">User</a>
-                    </nav>
                     <div class="tab-content" id="orders-table-tab-content">
                         <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                             <div class="app-card app-card-orders-table shadow-sm mb-5">
                                 <div class="app-card-body">
                                     <div class="table-responsive">
-                                        <table id="datatable" class="table app-table-hover mb-0 text-left">
+                                        <table id="myTable" class="table app-table-hover mb-0 text-left">
                                             <thead>
                                                 <tr>
                                                     <th class="cell">User ID</th>
@@ -250,39 +234,30 @@
                                     </div>
                                 </div>	
                             </div>
-                            <nav class="app-pagination">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
                     <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>
-
         </div>
-        <!-- Javascript -->
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable({
+                    "ordering": false,
+                    "lengthChange": false,
+                    "info": false
+                });
+            });
+        </script>
         <script src="../plugins/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-
-        <!-- Charts JS -->
         <script src="../plugins/chart.js/chart.min.js"></script>
-
         <script src="../js/pagination.js"></script>
+        <script src="../js/app.js"></script>
     </body>
 </html>

@@ -14,6 +14,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="favicon.ico">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="../DataTables/datatables.css" />
+        <script type="text/javascript" src="../DataTables/datatables.js"></script>
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
     </head>
@@ -71,7 +76,7 @@
                                         <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                                         </svg>
                                     </span>
-                                    <span class="nav-link-text">Overview</span>
+                                    <span class="nav-link-text">Dashboard</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -190,276 +195,909 @@
                         <div class="col-auto">
                             <h1 class="app-page-title mb-0">Orders</h1>
                         </div>
-                        <div class="col-auto">
-                            <div class="page-utilities">
-                                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                                    <div class="col-auto">
-                                        <form class="table-search-form row gx-1 align-items-center">
-                                            <div class="col-auto">
-                                                <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="submit" class="btn app-btn-secondary">Search</button>
-                                            </div>
-                                        </form>
+                    </div>
+                    <div class="tab-content" id="orders-table-tab-content">
+                        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                                <div class="app-card-body">
+                                    <div class="table-responsive">
+                                        <table id="myTable" class="table app-table-hover mb-0 text-left">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order</th>
+                                                    <th>Product</th>
+                                                    <th>Customer</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Total</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15346</td>
+                                                    <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
+                                                            volutpat erat</span></td>
+                                                    <td class="cell">John Sanders</td>
+                                                    <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
+                                                    </td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$259.35</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15345</td>
+                                                    <td class="cell"><span class="truncate">Consectetur adipiscing
+                                                            elit</span></td>
+                                                    <td class="cell">Dylan Ambrose</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="cell">$96.20</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15344</td>
+                                                    <td class="cell"><span class="truncate">Pellentesque diam
+                                                            imperdiet</span></td>
+                                                    <td class="cell">Teresa Holland</td>
+                                                    <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$123.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cell">#15343</td>
+                                                    <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed
+                                                            mollis ipsum</span></td>
+                                                    <td class="cell">Jayden Massey</td>
+                                                    <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$199.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15342</td>
+                                                    <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+                                                    <td class="cell">Reina Brooks</td>
+                                                    <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+                                                    <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+                                                    <td class="cell">$59.00</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="cell">#15341</td>
+                                                    <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et
+                                                            sollicitudin</span></td>
+                                                    <td class="cell">Raymond Atkins</td>
+                                                    <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+                                                    <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                                    <td class="cell">$678.26</td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-auto">
-                                        <select class="form-select w-auto" >
-                                            <option selected value="option-1">All</option>
-                                            <option value="option-2">This week</option>
-                                            <option value="option-3">This month</option>
-                                            <option value="option-4">Last 3 months</option>
-                                        </select>
-                                    </div>
                                 </div>
-                            </div
-                        </div>
-                    </div>
-                </div>
-                <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-                    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-                    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-                    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
-                </nav>
-                <div class="tab-content" id="orders-table-tab-content">
-                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                        <div class="app-card app-card-orders-table shadow-sm mb-5">
-                            <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table app-table-hover mb-0 text-left">
-                                        <thead>
-                                            <tr>
-                                                <th class="cell">Order</th>
-                                                <th class="cell">Product</th>
-                                                <th class="cell">Customer</th>
-                                                <th class="cell">Date</th>
-                                                <th class="cell">Status</th>
-                                                <th class="cell">Total</th>
-                                                <th class="cell"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="cell">#15346</td>
-                                                <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-                                                <td class="cell">John Sanders</td>
-                                                <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$259.35</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15345</td>
-                                                <td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-                                                <td class="cell">Dylan Ambrose</td>
-                                                <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-                                                <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                                <td class="cell">$96.20</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15344</td>
-                                                <td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-                                                <td class="cell">Teresa Holland</td>
-                                                <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$123.00</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15343</td>
-                                                <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-                                                <td class="cell">Jayden Massey</td>
-                                                <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$199.00</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15342</td>
-                                                <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-                                                <td class="cell">Reina Brooks</td>
-                                                <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-                                                <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                                <td class="cell">$59.00</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15341</td>
-                                                <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-                                                <td class="cell">Raymond Atkins</td>
-                                                <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$678.26</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>	
-                        </div>
-                        <nav class="app-pagination">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-                        <div class="app-card app-card-orders-table mb-5">
-                            <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 text-left">
-                                        <thead>
-                                            <tr>
-                                                <th class="cell">Order</th>
-                                                <th class="cell">Product</th>
-                                                <th class="cell">Customer</th>
-                                                <th class="cell">Date</th>
-                                                <th class="cell">Status</th>
-                                                <th class="cell">Total</th>
-                                                <th class="cell"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="cell">#15346</td>
-                                                <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-                                                <td class="cell">John Sanders</td>
-                                                <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$259.35</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15344</td>
-                                                <td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-                                                <td class="cell">Teresa Holland</td>
-                                                <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$123.00</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15343</td>
-                                                <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-                                                <td class="cell">Jayden Massey</td>
-                                                <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$199.00</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell">#15341</td>
-                                                <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-                                                <td class="cell">Raymond Atkins</td>
-                                                <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-                                                <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                                <td class="cell">$678.26</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>		
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-                        <div class="app-card app-card-orders-table mb-5">
-                            <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 text-left">
-                                        <thead>
-                                            <tr>
-                                                <th class="cell">Order</th>
-                                                <th class="cell">Product</th>
-                                                <th class="cell">Customer</th>
-                                                <th class="cell">Date</th>
-                                                <th class="cell">Status</th>
-                                                <th class="cell">Total</th>
-                                                <th class="cell"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="cell">#15345</td>
-                                                <td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-                                                <td class="cell">Dylan Ambrose</td>
-                                                <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-                                                <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                                <td class="cell">$96.20</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>		
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
-                        <div class="app-card app-card-orders-table mb-5">
-                            <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 text-left">
-                                        <thead>
-                                            <tr>
-                                                <th class="cell">Order</th>
-                                                <th class="cell">Product</th>
-                                                <th class="cell">Customer</th>
-                                                <th class="cell">Date</th>
-                                                <th class="cell">Status</th>
-                                                <th class="cell">Total</th>
-                                                <th class="cell"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td class="cell">#15342</td>
-                                                <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-                                                <td class="cell">Reina Brooks</td>
-                                                <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-                                                <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                                <td class="cell">$59.00</td>
-                                                <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>		
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <footer class="app-footer">
+                <div class="container text-center py-3">
+                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                    <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
+                </div>
+            </footer>
         </div>
-        <footer class="app-footer">
-            <div class="container text-center py-3">
-                <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
-            </div>
-        </footer>
-
-    </div>
-    <!-- Javascript -->
-    <script src="../plugins/popper.min.js"></script>
-    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Charts JS -->
-    <script src="../plugins/chart.js/chart.min.js"></script>
-    <script src="../js/index-charts.js"></script>
-
-    <!-- Page Specific JS -->
-    <script src="../js/app.js"></script>
-
-</body>
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable({
+                    "ordering": false,
+                    "lengthChange": false,
+                    "info": false
+                });
+            });
+        </script>
+        <script src="../plugins/popper.min.js"></script>
+        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../plugins/chart.js/chart.min.js"></script>
+        <script src="../js/index-charts.js"></script>
+        <script src="../js/app.js"></script>
+    </body>
 </html>

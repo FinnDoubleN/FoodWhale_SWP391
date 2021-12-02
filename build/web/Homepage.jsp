@@ -56,13 +56,13 @@
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-action="Index" asp-controller="ViewModelRecipe">Recipe</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Recipe">Recipe</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-action="Index" asp-controller="ViewModelIngredient">Ingredient</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-action="About" asp-controller="Home">About</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
                             </ul>
                             <div class="user_option">

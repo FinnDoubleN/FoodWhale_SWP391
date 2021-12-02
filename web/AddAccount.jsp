@@ -17,7 +17,6 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
     </head>
-
     <body class="app">
         <header class="app-header fixed-top">
             <div class="app-header-inner">
@@ -61,7 +60,6 @@
                     <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                     <div class="app-branding">
                         <a class="app-logo" href="${pageContext.request.contextPath}"><span class="logo-text">FOODWHALE</span></a>
-
                     </div>
                     <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
                         <ul class="app-menu list-unstyled accordion" id="menu-accordion">
@@ -73,7 +71,7 @@
                                         <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                                         </svg>
                                     </span>
-                                    <span class="nav-link-text">Overview</span>
+                                    <span class="nav-link-text">Dashboard</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -160,10 +158,8 @@
                                 </div>
                             </li>
                             <li class="nav-item has-submenu">
-                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                 <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-4" aria-expanded="false" aria-controls="submenu-4">
                                     <span class="nav-icon">
-                                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
                                         </svg>
@@ -174,9 +170,7 @@
                                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                         </svg>
                                     </span>
-                                    <!--//submenu-arrow-->
                                 </a>
-                                <!--//nav-link-->
                                 <div id="submenu-4" class="collapse submenu submenu-4" data-bs-parent="#menu-accordion">
                                     <ul class="submenu-list list-unstyled">
                                         <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/CategoryList">Category Lists</a></li>
@@ -192,7 +186,6 @@
         <div class="app-wrapper">
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-
                     <h1 class="app-page-title">Create Account</h1>
                     <div class="row-new gy-4">
                         <div class="col-12 col-lg-6">
@@ -205,18 +198,12 @@
                                                 <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                                                 </svg>
                                             </div>
-                                            <!--//icon-holder-->
-
                                         </div>
-                                        <!--//col-->
                                         <div class="col-auto">
                                             <h4 class="app-card-title">Detail</h4>
                                         </div>
-                                        <!--//col-->
                                     </div>
-                                    <!--//row-->
                                 </div>
-                                <!--//app-card-header-->
                                 <div class="app-card-body px-4 w-100">
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -225,7 +212,6 @@
                                                 <input type="text" class="item-data" name="image">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -235,9 +221,7 @@
                                                 <input type="text" class="item-data"  maxlength="24" name="email">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -245,10 +229,7 @@
                                                 <input type="text" class="item-data" maxlength="24" name="username">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -256,9 +237,7 @@
                                                 <input type="text" class="item-data" maxlength="24" name="password">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -269,7 +248,6 @@
                                                 <label for="f">Female</label>
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -278,7 +256,6 @@
                                                 <input type="date" class="item-data" maxlength="24" name="date" required>
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -287,9 +264,7 @@
                                                 <input type="text" class="item-data"  maxlength="24" name="address">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -297,9 +272,7 @@
                                                 <input type="text" class="item-data" maxlength="24" name="phone">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -312,25 +285,15 @@
                                                 <label for="User">User</label>
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
                                 </div>
-                                <!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
                                     <input class="btn app-btn-secondary" type="submit" value="Create"></input>
                                 </div>
-                                <!--//app-card-footer-->
-
                             </form>
-                            <!--//app-card-->
                         </div>
-                        <!--//col-->
                     </div>
-                    <!--//row-->
-
                 </div>
-                <!--//container-fluid-->
             </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
@@ -338,19 +301,12 @@
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>
-
         </div>
-        <!-- Javascript -->
         <script src="../plugins/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-
-        <!-- Charts JS -->
         <script src="../plugins/chart.js/chart.min.js"></script>
         <script src="../js/index-charts.js"></script>
-
-        <!-- Page Specific JS -->
         <script src="../js/app.js"></script>
-
     </body>
 </html>
 

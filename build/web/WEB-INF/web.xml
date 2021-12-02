@@ -75,6 +75,18 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RecipeController</servlet-name>
+        <servlet-class>controller.RecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IngredientController</servlet-name>
+        <servlet-class>controller.IngredientController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AboutController</servlet-name>
+        <servlet-class>controller.AboutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -146,6 +158,18 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecipeController</servlet-name>
+        <url-pattern>/Recipe</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IngredientController</servlet-name>
+        <url-pattern>/Ingredient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AboutController</servlet-name>
+        <url-pattern>/About</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

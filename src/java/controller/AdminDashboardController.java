@@ -45,17 +45,6 @@ public class AdminDashboardController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin") || role.equals("staff")) {
-                    request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("login").forward(request, response);
-                }
-            } else {
-                request.getRequestDispatcher("login").forward(request, response);
-            }
         }
     }
 
@@ -71,7 +60,15 @@ public class AdminDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null) {
+            response.sendRedirect("Homepage");
+        } else if (role.equals("admin")) {
+            request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+        } else if (role.equals("staff")) {
+            request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -85,7 +82,11 @@ public class AdminDashboardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null) {
+            response.sendRedirect("Homepage");
+        }
     }
 
     /**

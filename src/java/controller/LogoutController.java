@@ -7,6 +7,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +21,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LogoutController extends HttpServlet {
 
-    private void deleteCookie(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteCookie(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
-            return;
+            try {
+                request.getRequestDispatcher("Homepage").forward(request, response);
+            } catch (IOException ex) {
+                Logger.getLogger(LogoutController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         for (Cookie c : cookies) {
             if (c.getName().equals("USERNAME") || c.getName().equals("ROLE") || c.getName().equals("logged")) {
@@ -46,8 +52,6 @@ public class LogoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            deleteCookie(request, response);
-            request.getRequestDispatcher("Homepage").forward(request, response);
         }
     }
 
@@ -63,7 +67,8 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        deleteCookie(request, response);
+        response.sendRedirect("Homepage");
     }
 
     /**
@@ -77,7 +82,6 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

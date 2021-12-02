@@ -9,7 +9,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -26,6 +25,15 @@
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <%
             User u = (User) request.getAttribute("userdetail");
+            Cookie cookie = null;
+            Cookie[] cookies = request.getCookies();
+            String USERNAME = "";
+            for (int i = 0; i < cookies.length; i++) {
+                cookie = cookies[i];
+                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
+                    USERNAME = cookie.getName().toString();
+                }
+            }
         %>
     </head>
     <body class="sub_page">
@@ -89,9 +97,21 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
-                                <a href="" class="order_online">
+                                <%
+                                    if (USERNAME == null || USERNAME.equals("")) {
+                                %>
+                                <a href="login" class="order_online">
                                     Login
                                 </a>
+                                <%
+                                } else {
+                                %>
+                                <a href="${pageContext.request.contextPath}/Logout" class="order_online">
+                                    Logout
+                                </a>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </nav>

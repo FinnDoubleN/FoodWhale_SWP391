@@ -9,7 +9,7 @@
 <html lang="en">
 
     <head>
-        <title>Order Lists</title>
+        <title>Category Lists</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +71,7 @@
                                         <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                                         </svg>
                                     </span>
-                                    <span class="nav-link-text">Overview</span>
+                                    <span class="nav-link-text">Dashboard</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -448,18 +448,11 @@
                 <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
             </div>
         </footer>
-
     </div>
-    <!-- Javascript -->
     <script src="../plugins/popper.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Charts JS -->
     <script src="../plugins/chart.js/chart.min.js"></script>
     <script src="../js/index-charts.js"></script>
-
-    <!-- Page Specific JS -->
     <script src="../js/app.js"></script>
-
 </body>
 </html>
