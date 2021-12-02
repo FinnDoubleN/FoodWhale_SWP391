@@ -73,10 +73,14 @@ public class UserProfileController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             String username = getCookieByName(cookies, "USERNAME");
-            FoodWhaleDAO DAO = new FoodWhaleDAO();
-            userdetail = DAO.getProfileByUsername(username);
-            request.setAttribute("userdetail", userdetail);
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            if (role != null && !role.equals("") || username != null && !username.equals("")) {
+                FoodWhaleDAO DAO = new FoodWhaleDAO();
+                userdetail = DAO.getProfileByUsername(username);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("login");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
