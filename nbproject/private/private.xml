@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Asus/Documents/GitHub/FoodWhale_SWP391/web/AdminDashboard.jsp</file>
             <file>file:/C:/Users/Asus/Documents/GitHub/FoodWhale_SWP391/web/OrderList.jsp</file>
             <file>file:/C:/Users/Asus/Documents/GitHub/FoodWhale_SWP391/web/Homepage.jsp</file>
@@ -12,6 +13,14 @@
             <file>file:/C:/Users/Asus/Documents/GitHub/FoodWhale_SWP391/web/AddAccount.jsp</file>
             <file>file:/C:/Users/Asus/Documents/GitHub/FoodWhale_SWP391/web/AccountDetail.jsp</file>
             <file>file:/C:/Users/Asus/Documents/GitHub/FoodWhale_SWP391/src/java/controller/HomepageController.java</file>
+=======
+            <file>file:/D:/workspace/vscode/FoodWhale_SWP391/src/java/dal/MyDAO.java</file>
+            <file>file:/D:/workspace/vscode/FoodWhale_SWP391/src/java/DAO/UserDAO.java</file>
+            <file>file:/D:/workspace/vscode/FoodWhale_SWP391/src/java/model/User.java</file>
+            <file>file:/D:/workspace/vscode/FoodWhale_SWP391/web/WEB-INF/Profile.jsp</file>
+            <file>file:/D:/workspace/vscode/FoodWhale_SWP391/src/java/controller/UserProfileController.java</file>
+            <file>file:/D:/workspace/vscode/FoodWhale_SWP391/src/java/dal/DBContext.java</file>
+>>>>>>> origin/HoangAnh
         </group>
     </open-files>
 </project-private>
