@@ -19,6 +19,19 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
             User u = (User) request.getAttribute("userdetail");
+            Cookie cookie = null;
+            Cookie[] cookies = request.getCookies();
+            String USERNAME = "";
+            String ROLE = "";
+            for (int i = 0; i < cookies.length; i++) {
+                cookie = cookies[i];
+                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
+                    USERNAME = cookie.getName().toString();
+                }
+                if (cookie.getName().equalsIgnoreCase("ROLE")) {
+                    ROLE = cookie.getValue().toString();
+                }
+            }
         %>
     </head>
     <body class="app">
@@ -35,22 +48,20 @@
                             <div class="search-mobile-trigger d-sm-none col">
                                 <i class="search-mobile-trigger-icon fas fa-search"></i>
                             </div>
-                            <div class="app-search-box col">
-                                <form class="app-search-form">
-                                    <input type="text" placeholder="Search..." name="search" class="form-control search-input">
-                                    <button type="submit" class="btn search-btn btn-primary" value="Search"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
                             <div class="app-utilities col-auto">
                                 <div class="app-utility-item app-user-dropdown dropdown">
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="../img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
+                                        <%
+                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                        %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                            <%
+                                                } else if (ROLE.equals("admin")) {
+                                                }
+                                            %>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -270,12 +281,12 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Gender</strong></div>
-                                                <% if(u.getGender().equalsIgnoreCase("m") && u.getGender()!= null){%>
+                                                <% if (u.getGender().equalsIgnoreCase("m") && u.getGender() != null) {%>
                                                 <input type="radio" id="m" name="gender" value="m" checked>
                                                 <label for="m">Male</label>
                                                 <input type="radio" id="f" name="gender" value="f">
                                                 <label for="f">Female</label>
-                                                <%} else if(u.getGender().equalsIgnoreCase("f") && u.getGender()!= null){%>
+                                                <%} else if (u.getGender().equalsIgnoreCase("f") && u.getGender() != null) {%>
                                                 <input type="radio" id="m" name="gender" value="m">
                                                 <label for="m">Male</label>
                                                 <input type="radio" id="f" name="gender" value="f" checked>
@@ -323,21 +334,21 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Role</strong></div>
-                                                <% if(u.getRole().equalsIgnoreCase("Admin")){%>
+                                                <% if (u.getRole().equalsIgnoreCase("Admin")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin" checked>
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff">
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user">
                                                 <label for="user">User</label>
-                                                <%} else if(u.getRole().equalsIgnoreCase("Staff")){%>
+                                                <%} else if (u.getRole().equalsIgnoreCase("Staff")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff" checked>
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user">
                                                 <label for="user">User</label>
-                                                <%} else if(u.getRole().equalsIgnoreCase("User")){%>
+                                                <%} else if (u.getRole().equalsIgnoreCase("User")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff">

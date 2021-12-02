@@ -22,7 +22,9 @@ import model.User;
  * @author Asus
  */
 public class AddAccountManagement extends HttpServlet {
-ArrayList<User> userlist = new ArrayList<User>();
+
+    ArrayList<User> userlist = new ArrayList<User>();
+
     private String getCookieByName(Cookie[] cookies, String name) {
         if (cookies == null) {
             return null;
@@ -49,17 +51,6 @@ ArrayList<User> userlist = new ArrayList<User>();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin")) {
-                    request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("login").forward(request, response);
-                }
-            } else {
-                request.getRequestDispatcher("login").forward(request, response);
-            }
         }
     }
 
@@ -75,7 +66,13 @@ ArrayList<User> userlist = new ArrayList<User>();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equals("user") || role.equals("")) {
+            response.sendRedirect("Homepage");
+        } else if (role.equals("staff") || role.equals("admin")) {
+            request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -100,7 +97,9 @@ ArrayList<User> userlist = new ArrayList<User>();
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
-        if(role == null || role.equals("")){ role = "user"; }
+        if (role == null || role.equals("")) {
+            role = "user";
+        }
         dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
         userlist = (ArrayList<User>) dao.getAllUser();
         request.setAttribute("userlist", userlist);

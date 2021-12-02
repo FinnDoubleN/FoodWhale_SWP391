@@ -8,7 +8,6 @@
         <servlet-class>controller.AdminDashboardController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>AccountListManagement</servlet-name>
         <servlet-class>controller.AccountListManagement</servlet-class>
     </servlet>
@@ -87,6 +86,10 @@
     <servlet>
         <servlet-name>AboutController</servlet-name>
         <servlet-class>controller.AboutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>controller.CartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
@@ -168,18 +171,13 @@
         <servlet-name>IngredientController</servlet-name>
         <url-pattern>/Ingredient</url-pattern>
     </servlet-mapping>
-=======
-        <servlet-name>UserProfileController</servlet-name>
-        <servlet-class>controller.UserProfileController</servlet-class>
-    </servlet>
->>>>>>> origin/HoangAnh
     <servlet-mapping>
         <servlet-name>AboutController</servlet-name>
         <url-pattern>/About</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserProfileController</servlet-name>
-        <url-pattern>/UserProfileController</url-pattern>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/Cart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

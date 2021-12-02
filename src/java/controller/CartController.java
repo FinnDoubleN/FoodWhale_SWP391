@@ -5,40 +5,18 @@
  */
 package controller;
 
-import javax.servlet.http.Cookie;
-import DAO.UserDAO;
-import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.User;
 
 /**
  *
- * @author ADMIN
+ * @author Asus
  */
-public class UserProfileController extends HttpServlet {
-
-    User userdetail = new User();
-
-    private String getCookieByName(Cookie[] cookies, String check) {
-        if (cookies == null) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(check)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
+public class CartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,12 +26,12 @@ public class UserProfileController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
         }
     }
 
@@ -69,17 +47,7 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Cookie[] cookies = request.getCookies();
-            String role = getCookieByName(cookies, "ROLE");
-            String username = getCookieByName(cookies, "USERNAME");
-            FoodWhaleDAO DAO = new FoodWhaleDAO();
-            userdetail = DAO.getProfileByUsername(username);
-            request.setAttribute("userdetail", userdetail);
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        response.sendRedirect("Cart.jsp");
     }
 
     /**

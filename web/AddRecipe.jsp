@@ -16,6 +16,21 @@
         <link rel="shortcut icon" href="favicon.ico">
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
+        <%
+            Cookie cookie = null;
+            Cookie[] cookies = request.getCookies();
+            String USERNAME = "";
+            String ROLE = "";
+            for (int i = 0; i < cookies.length; i++) {
+                cookie = cookies[i];
+                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
+                    USERNAME = cookie.getName().toString();
+                }
+                if (cookie.getName().equalsIgnoreCase("ROLE")) {
+                    ROLE = cookie.getValue().toString();
+                }
+            }
+        %>
     </head>
 
     <body class="app">
@@ -32,22 +47,20 @@
                             <div class="search-mobile-trigger d-sm-none col">
                                 <i class="search-mobile-trigger-icon fas fa-search"></i>
                             </div>
-                            <div class="app-search-box col">
-                                <form class="app-search-form">
-                                    <input type="text" placeholder="Search..." name="search" class="form-control search-input">
-                                    <button type="submit" class="btn search-btn btn-primary" value="Search"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
                             <div class="app-utilities col-auto">
                                 <div class="app-utility-item app-user-dropdown dropdown">
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="../img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
+                                        <%
+                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                        %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                            <%
+                                                } else if (ROLE.equals("admin")) {
+                                                }
+                                            %>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -50,20 +50,6 @@ public class AccountListManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin")) {
-                    FoodWhaleDAO dao = new FoodWhaleDAO();
-                    userlist = (ArrayList<User>) dao.getAllUser();
-                    request.setAttribute("userlist", userlist);
-                    request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
-                } else {
-                    response.sendRedirect("Homepage");
-                }
-            } else {
-                response.sendRedirect("Homepage");
-            }
         }
     }
 
@@ -79,7 +65,16 @@ public class AccountListManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equals("user") || role.equals("")) {
+            response.sendRedirect("Homepage");
+        } else if (role.equals("staff") || role.equals("admin")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            userlist = (ArrayList<User>) dao.getAllUser();
+            request.setAttribute("userlist", userlist);
+            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+        }
     }
 
     /**

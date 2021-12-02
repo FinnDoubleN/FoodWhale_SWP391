@@ -32,7 +32,6 @@ public class HomepageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.getRequestDispatcher("Homepage.jsp").forward(request, response);
         }
     }
 
@@ -62,7 +61,6 @@ public class HomepageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Homepage.jsp").forward(request, response);
     }
 
     /**

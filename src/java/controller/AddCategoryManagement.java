@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Asus
  */
 public class AddCategoryManagement extends HttpServlet {
-    
+
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -45,17 +45,6 @@ public class AddCategoryManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin")) {
-                    request.getRequestDispatcher("/AddCategory.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("login").forward(request, response);
-                }
-            } else {
-                request.getRequestDispatcher("login").forward(request, response);
-            }
         }
     }
 
@@ -71,7 +60,13 @@ public class AddCategoryManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equals("user") || role.equals("")) {
+            response.sendRedirect("Homepage");
+        } else if (role.equals("staff") || role.equals("admin")) {
+            request.getRequestDispatcher("/AddCategory.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -26,10 +26,14 @@
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String USERNAME = "";
+            String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
                 if (cookie.getName().equalsIgnoreCase("USERNAME")) {
                     USERNAME = cookie.getName().toString();
+                }
+                if (cookie.getName().equalsIgnoreCase("ROLE")) {
+                    ROLE = cookie.getValue().toString();
                 }
             }
         %>
@@ -64,9 +68,28 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <%
+                                    if (ROLE.equals("") || ROLE.equals("user")) {
+                                    } else if (ROLE.equals("admin") || ROLE.equals("staff")) {
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard">Dashboard</a>
+                                </li>
+                                <%
+                                    }
+                                %>
                             </ul>
                             <div class="user_option">
-                                <a class="cart_link" href="${pageContext.request.contextPath}">
+                                <%
+                                    if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                %>
+                                <a class="user_link" href="${pageContext.request.contextPath}/Profile">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </a>
+                                <%
+                                    if (!ROLE.equals("staff")) {
+                                %>
+                                <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                     <g>
                                     <g>
@@ -95,6 +118,13 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
+                                <%
+                                    }
+                                %>
+                                <%
+                                    } else if (ROLE.equals("admin")) {
+                                    }
+                                %>
                                 <%
                                     if (USERNAME == null || USERNAME.equals("")) {
                                 %>

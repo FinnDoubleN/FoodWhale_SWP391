@@ -38,15 +38,6 @@ public class login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet login</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -90,19 +81,7 @@ public class login extends HttpServlet {
                         Cookie c1 = new Cookie("ROLE", user.getRole());
                         c1.setMaxAge(5 * 60);
                         response.addCookie(c1);
-                        if (user.getRole().equals("admin")) {
-                            //admin
-                            response.sendRedirect("Dashboard");
-
-                        } else if (user.getRole().equals("staff")) {
-                            //staff
-                            response.sendRedirect("Dashboard");
-
-                        } else {
-                            //user
-                            response.sendRedirect("Homepage");
-
-                        }
+                        response.sendRedirect("Homepage");
                     } catch (SQLException ex) {
                         Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
                     }

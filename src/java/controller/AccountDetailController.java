@@ -56,21 +56,6 @@ public class AccountDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                String role = getCookieByName(cookies, "ROLE");
-                if (role != null && role.equals("admin")) {
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    FoodWhaleDAO dao = new FoodWhaleDAO();
-                    userdetail = dao.getUserByID(id);
-                    request.setAttribute("userdetail", userdetail);
-                    request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("login").forward(request, response);
-                }
-            } else {
-                request.getRequestDispatcher("login").forward(request, response);
-            }
         }
     }
 
@@ -87,7 +72,17 @@ public class AccountDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            Cookie[] cookies = request.getCookies();
+            String role = getCookieByName(cookies, "ROLE");
+            if (role == null || role.equals("user") || role.equals("")) {
+                response.sendRedirect("Homepage");
+            } else if (role.equals("staff") || role.equals("admin")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                FoodWhaleDAO dao = new FoodWhaleDAO();
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
+            }
         } catch (Exception ex) {
             Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
