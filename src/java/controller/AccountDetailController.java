@@ -100,6 +100,8 @@ public class AccountDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            Cookie[] cookies = request.getCookies();
+            String ROLE = getCookieByName(cookies, "ROLE");
             FoodWhaleDAO dao = new FoodWhaleDAO();
             String submit = request.getParameter("submit");
             if (submit.equalsIgnoreCase("Update")) {
@@ -122,7 +124,7 @@ public class AccountDetailController extends HttpServlet {
             } else if (submit.equalsIgnoreCase("Delete")) {
                 int id = Integer.parseInt(request.getParameter("uid"));
                 dao.deleteUser(id);
-                userlist = (ArrayList<User>) dao.getAllUser();
+                userlist = (ArrayList<User>) dao.getAllAccount();
                 request.setAttribute("userlist", userlist);
                 request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
             }

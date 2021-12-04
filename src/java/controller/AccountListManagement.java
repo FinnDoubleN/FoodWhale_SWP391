@@ -69,9 +69,14 @@ public class AccountListManagement extends HttpServlet {
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equals("user") || role.equals("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equals("staff") || role.equals("admin")) {
+        } else if (role.equals("staff")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            userlist = (ArrayList<User>) dao.getAllUser();
+            userlist = (ArrayList<User>) dao.getAllCustomer();
+            request.setAttribute("userlist", userlist);
+            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+        } else if (role.equals("admin")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            userlist = (ArrayList<User>) dao.getAllAccount();
             request.setAttribute("userlist", userlist);
             request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
         }

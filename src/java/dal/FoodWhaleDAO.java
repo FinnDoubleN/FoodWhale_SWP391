@@ -52,9 +52,32 @@ public class FoodWhaleDAO extends DBContext {
         return false;
     }
 
-    public ArrayList<User> getAllUser() {
+    public ArrayList<User> getAllAccount() {
         ArrayList<User> list = new ArrayList<>();
         String query = "select * from [FoodWhale].[dbo].[User]";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<User> getAllCustomer() {
+        ArrayList<User> list = new ArrayList<>();
+        String query = "select * from [FoodWhale].[dbo].[User] where Role = 'user'";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();

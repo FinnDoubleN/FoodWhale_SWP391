@@ -158,25 +158,9 @@
                         <div class="col-12 col-lg-12">
                             <div class="app-card-header p-3 border-bottom-0">
                                 <div class="row gx-3 placecontent-center ">
-                                    <div class="col-auto">
-                                        <div class="app-icon-holder">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                                            </svg>
-                                        </div>
-                                        <!--//icon-holder-->
-
-                                    </div>
-                                    <!--//col-->
-                                    <div class="col-auto" style="align-self: end; margin-bottom: .2rem">
-                                        <h4 class="app-card-title">Detail</h4>
-                                    </div>
-                                    <!--//col-->
                                 </div>
-                                <!--//row-->
                             </div>
                             <form class="app-card app-card-account shadow-sm d-flex flex-column" action="AccountDetail" method="post">
-                                <!--//app-card-header-->
                                 <div class="app-card-body px-4 col-12 col-lg-6">
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -185,17 +169,6 @@
                                                 <input type="text" class="item-data" value="<%= u.getuID()%>" name="uid" readonly>
                                             </div>
                                         </div>
-                                        <!--//row-->
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Image</strong></div>
-                                                <div class="item-data"><img class="profile-image" src="<%= u.getImage()%>" alt=""></div><br>
-                                                <input type="text" class="item-data" value="<%= u.getImage()%>" name="image">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -204,20 +177,7 @@
                                                 <input type="text" class="item-data" value="<%= u.getEmail()%>" maxlength="24" name="email">
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getUsername()%>" maxlength="24" name="username">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <!--//item-->
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -225,11 +185,42 @@
                                                 <input type="text" class="item-data" value="<%= u.getPassword()%>" maxlength="24" name="password">
                                             </div>
                                         </div>
-                                        <!--//row-->
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Username</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getUsername()%>" maxlength="24" name="username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Address</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getAddress()%>" maxlength="24" name="address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Phone</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getPhone()%>" maxlength="24" name="phone">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
-                                    <!--//item-->
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Image</strong></div>
+                                                <div class="item-data"><img class="profile-image" src="<%= u.getImage()%>" alt=""></div><br>
+                                                <input type="text" class="item-data" value="<%= u.getImage()%>" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
@@ -252,7 +243,6 @@
                                                 <%}%>
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
@@ -261,82 +251,59 @@
                                                 <input type="date" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date" required>
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Address</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getAddress()%>" maxlength="24" name="address">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <!--//item-->
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Phone</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getPhone()%>" maxlength="24" name="phone">
-                                            </div>
-                                        </div>
-                                        <!--//row-->
-                                    </div>
-                                    <!--//item-->
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Role</strong></div>
-                                                <% if (u.getRole().equalsIgnoreCase("Admin")) {%>
+                                                <%
+                                                    if (ROLE.equals("admin")) {
+                                                        if (u.getRole().equals("admin")) {
+                                                %>
                                                 <input type="radio" id="Admin" name="role" value="admin" checked>
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff">
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user">
                                                 <label for="user">User</label>
-                                                <%} else if (u.getRole().equalsIgnoreCase("Staff")) {%>
+                                                <%} else if (u.getRole().equals("staff")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff" checked>
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user">
                                                 <label for="user">User</label>
-                                                <%} else if (u.getRole().equalsIgnoreCase("User")) {%>
+                                                <%} else if (u.getRole().equals("user")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff">
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user" checked>
                                                 <label for="user">User</label>
-                                                <%}%>
+                                                <%}
+                                                } else if (ROLE.equals("staff")) {
+                                                %>
+                                                <input type="radio" id="User" name="role" value="user" checked>
+                                                <label for="user">User</label>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                         </div>
-                                        <!--//row-->
                                     </div>
-                                    <!--//item-->
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Cancel">
+                                    </div>
                                 </div>
-                                <!--//app-card-body-->
-                                <div class="app-card-footer p-4 mt-auto">
-                                    <input class="btn app-btn-secondary" name="submit" type="submit" value="Update"></input>
-                                </div>
-                                <div class="app-card-footer p-4 mt-auto">
-                                    <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete"></input>
-                                </div>
-                                <!--//app-card-footer-->
-
                             </form>
-                            <!--//app-card-->
                         </div>
-                        <!--//col-->
                     </div>
-                    <!--//row-->
-
                 </div>
-                <!--//container-fluid-->
             </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>

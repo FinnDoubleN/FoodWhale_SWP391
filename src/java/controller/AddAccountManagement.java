@@ -101,7 +101,7 @@ public class AddAccountManagement extends HttpServlet {
             role = "user";
         }
         dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
-        userlist = (ArrayList<User>) dao.getAllUser();
+        userlist = (ArrayList<User>) dao.getAllAccount();
         request.setAttribute("userlist", userlist);
         request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
     }
