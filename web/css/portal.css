@@ -698,6 +698,11 @@ progress {
     }
 }
 
+.margin-6 {
+    margin-top: 14px !important;
+    margin-bottom: 5px !important;
+}
+
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -12340,4 +12345,25 @@ button.close:focus {
     .app-auth-wrapper .app-auth-body {
         width: 100%
     }
+}
+
+.placecontent-center {
+    place-content: center;
+}
+
+.app-icon-holder {
+    display: inline-block;
+    background: #edfdf6;
+    color: #15a362;
+    width: 50px;
+    height: 50px;
+    padding-top: 10px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.app-icon-holder svg {
+    width: 24px;
+    height: 24px;
 }

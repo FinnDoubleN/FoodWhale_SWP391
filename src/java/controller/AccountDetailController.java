@@ -75,7 +75,7 @@ public class AccountDetailController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             if (role == null || role.equals("user") || role.equals("")) {
-                response.sendRedirect("Homepage");
+                response.sendRedirect(request.getContextPath()+"/Homepage");
             } else if (role.equals("staff") || role.equals("admin")) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 FoodWhaleDAO dao = new FoodWhaleDAO();

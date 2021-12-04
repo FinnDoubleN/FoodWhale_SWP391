@@ -76,10 +76,10 @@ public class login extends HttpServlet {
                     try {
                         User user = DAO.getProfileByUsername(username);
                         Cookie c = new Cookie("USERNAME", user.getUsername());
-                        c.setMaxAge(5 * 60);
+                        c.setMaxAge(24 * 3600);
                         response.addCookie(c);
                         Cookie c1 = new Cookie("ROLE", user.getRole());
-                        c1.setMaxAge(5 * 60);
+                        c1.setMaxAge(24 * 3600);
                         response.addCookie(c1);
                         response.sendRedirect("Homepage");
                     } catch (SQLException ex) {

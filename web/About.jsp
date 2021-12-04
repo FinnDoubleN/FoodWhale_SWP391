@@ -56,7 +56,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
@@ -65,7 +65,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
                                 <%
@@ -126,7 +126,7 @@
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equals("")) {
+                                    if (ROLE == null || ROLE.equals("")) {
                                 %>
                                 <a href="login" class="order_online">
                                     Login
@@ -146,40 +146,36 @@
                 </div>
             </header>
         </div>
-        <section class="food_section layout_padding">
-            <div class="container">
-                <section class="about_section layout_padding">
-                    <div class="container  ">
-                        <div class="row">
-                            <div class="col-md-6 ">
-                                <div class="img-box">
-                                    <img src="img/about-img.png" alt="">
-                                </div>
-                            </div>
-                            <div class="col-md-6 black">
-                                <div class="detail-box">
-                                    <div class="heading_container">
-                                        <h2>
-                                            We Are FoodWhale
-                                        </h2>
-                                    </div>
-                                    <p>
-                                        We are a team from FPT University. We called ourselve FoodWhale
-                                        which mean there are a lot of food recipe and ingredient in this website. It's also the way
-                                        we play the word "well" with "whale".
-                                    </p>
-                                    <p>
-                                        If you like our website, you can contact or feedback us through the email
-                                        or phone.
-                                    </p>
-                                    <p>
-                                        Remember, our knowledge about food is like a fish in a sea.
-                                    </p>
-                                </div>
-                            </div>
+        <section class="about_section layout_padding">
+            <div class="container  ">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="img-box">
+                            <img src="img/about-img.png" alt="">
                         </div>
                     </div>
-                </section>
+                    <div class="col-md-6 black">
+                        <div class="detail-box">
+                            <div class="heading_container">
+                                <h2>
+                                    We Are FoodWhale
+                                </h2>
+                            </div>
+                            <p>
+                                We are a team from FPT University. We called ourselve FoodWhale
+                                which mean there are a lot of food recipe and ingredient in this website. It's also the way
+                                we play the word "well" with "whale".
+                            </p>
+                            <p>
+                                If you like our website, you can contact or feedback us through the email
+                                or phone.
+                            </p>
+                            <p>
+                                Remember, our knowledge about food is like a fish in a sea.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <footer class="footer_section">
