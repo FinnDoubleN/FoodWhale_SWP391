@@ -73,6 +73,7 @@ public class login extends HttpServlet {
             FoodWhaleDAO DAO = new FoodWhaleDAO();
             if (DAO.IsMember(username, password)) {
                 if (true) {
+                    if(DAO.IsActive(username, password) == true){
                     try {
                         User user = DAO.getProfileByUsername(username);
                         Cookie c = new Cookie("USERNAME", user.getUsername());
@@ -84,6 +85,11 @@ public class login extends HttpServlet {
                         response.sendRedirect("Homepage");
                     } catch (SQLException ex) {
                         Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                    else{
+                        request.setAttribute("mess", "You have been deactive, please contact for help");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
                     }
                 } else {
                     request.setAttribute("mess", "Wrong user or password");

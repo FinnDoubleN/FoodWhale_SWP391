@@ -39,6 +39,19 @@ public class FoodWhaleDAO extends DBContext {
         return false;
     }
 
+    public Boolean IsActive(String username, String password) throws SQLException {
+        String query = "select Status from [dbo].[User] where uName = '" + username + "' and Password = '" + password + "'";
+        ps = connection.prepareStatement(query);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            boolean status = rs.getBoolean(1);
+            if (status != false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<User> getAllUser() {
         ArrayList<User> list = new ArrayList<>();
         String query = "select * from [FoodWhale].[dbo].[User]";
