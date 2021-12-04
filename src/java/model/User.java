@@ -23,10 +23,25 @@ public class User {
     public String address;
     public String phone;
     public String role;
+    public Boolean status;
     
     public User() {
     }
 
+    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, Boolean status) {
+        this.uID = uID;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.image = image;
+        this.date = date;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+        this.role = role;
+        this.status = status;
+    }
+    
     public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         this.uID = uID;
         this.email = email;
@@ -61,6 +76,14 @@ public class User {
         this.gender = gender;
         this.address = address;
         this.phone = phone;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
     
 
