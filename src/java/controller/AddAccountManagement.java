@@ -97,8 +97,8 @@ public class AddAccountManagement extends HttpServlet {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
-        if (role == null || role.equals("")) {
-            role = "user";
+        if (gender == null || gender.equals("")) {
+            gender = "";
         }
         dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
         userlist = (ArrayList<User>) dao.getAllAccount();

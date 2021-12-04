@@ -24,8 +24,7 @@
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <style>
             .contain {
-                height: 100vh;
-                width: 100vw;
+                width: 100%;
                 background-size: cover;
                 display: flex;
                 justify-content: center;
@@ -93,7 +92,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
