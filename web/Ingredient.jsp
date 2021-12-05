@@ -159,10 +159,13 @@
 
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".burger">Burger</li>
-                    <li data-filter=".pizza">Pizza</li>
-                    <li data-filter=".pasta">Pasta</li> 
-                    <li data-filter=".fries">Fries</li>
+                    <li data-filter=".7">Seasoning</li>
+                    <li data-filter=".8">Vegetable</li>
+                    <li data-filter=".9">Cheese</li>
+                    <li data-filter=".10">Sea Food</li>
+                    <li data-filter=".11">Meat</li>
+                    <li data-filter=".12">Oil</li>
+                    <li data-filter=".13">Dough</li>
                 </ul>
 
                 <div class="filters-content">
@@ -170,7 +173,7 @@
                         <%
                             for (Ingredient in : ingredientlist) {
                         %>
-                        <div class="col-sm-6 col-lg-4 all pizza">
+                        <div class="col-sm-6 col-lg-4 all <%= in.getCategoryID()%>">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
@@ -222,7 +225,7 @@
                     </div>
                 </div>
                 <div class="btn-box">
-                    <a href="${pageContext.request.contextPath}/Ingredient">
+                    <a href="#" id="view-more">
                         View More
                     </a>
                 </div>

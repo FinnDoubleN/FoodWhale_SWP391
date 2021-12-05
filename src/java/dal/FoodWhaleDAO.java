@@ -245,7 +245,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Recipe> getAllRecipe() {
         ArrayList<Recipe> list = new ArrayList<>();
-        String query = "select * from [FoodWhale].[dbo].[Recipe] order by rID offset 0 rows fetch next 3 rows only";
+        String query = "SELECT * FROM [FoodWhale].[dbo].[Recipe] ORDER BY [rID] DESC";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -278,27 +278,6 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getDouble(5),
                         rs.getInt(6),
                         rs.getString(7),
-                        rs.getString(8)));
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
-    public ArrayList<Recipe> get3Recipe() {
-        ArrayList<Recipe> list = new ArrayList<>();
-        String query = "select * from [FoodWhale].[dbo].[Recipe] order by rID offset 6 rows fetch next 3 rows only";
-        try {
-            ps = connection.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Recipe(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
                         rs.getString(8)));
             }
         } catch (Exception e) {
