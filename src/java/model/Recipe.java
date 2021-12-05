@@ -10,9 +10,10 @@ package model;
  * @author ADMIN
  */
 public class Recipe {
+
     int rID;
     String rName;
-    int cID;
+    int cID;    
     String image;
     String difficulty;
     int time;
@@ -96,5 +97,5 @@ public class Recipe {
     public void setrDescription(String rDescription) {
         this.rDescription = rDescription;
     }
-    
+
 }

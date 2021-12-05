@@ -5,19 +5,24 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Recipe;
 
 /**
  *
  * @author Asus
  */
 public class RecipeController extends HttpServlet {
+    
+    ArrayList<Recipe> recipelist = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -60,6 +65,9 @@ public class RecipeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        FoodWhaleDAO DAO = new FoodWhaleDAO();
+        recipelist = DAO.getAllRecipe();
+        request.setAttribute("recipelist", recipelist);
         request.getRequestDispatcher("Recipe.jsp").forward(request, response);
     }
 

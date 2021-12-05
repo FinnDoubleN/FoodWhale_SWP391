@@ -91,6 +91,10 @@
         <servlet-name>CartController</servlet-name>
         <servlet-class>controller.CartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewMoreController</servlet-name>
+        <servlet-class>controller.ViewMoreController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -178,6 +182,10 @@
     <servlet-mapping>
         <servlet-name>CartController</servlet-name>
         <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMoreController</servlet-name>
+        <url-pattern>/ViewMore</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

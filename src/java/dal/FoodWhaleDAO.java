@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Ingredient;
+import model.Recipe;
 import model.User;
 
 /**
@@ -74,7 +76,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-    
+
     public ArrayList<User> getAllCustomer() {
         ArrayList<User> list = new ArrayList<>();
         String query = "select * from [FoodWhale].[dbo].[User] where Role = 'user'";
@@ -220,5 +222,68 @@ public class FoodWhaleDAO extends DBContext {
             return p;
         }
         return null;
+    }
+
+    public ArrayList<Recipe> getAllRecipe() {
+        ArrayList<Recipe> list = new ArrayList<>();
+        String query = "select * from [FoodWhale].[dbo].[Recipe] order by rID offset 0 rows fetch next 3 rows only";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recipe(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getString(8)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Ingredient> getAllIngredient() {
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select * from [FoodWhale].[dbo].[Ingredient]";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ingredient(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Recipe> get3Recipe() {
+        ArrayList<Recipe> list = new ArrayList<>();
+        String query = "select * from [FoodWhale].[dbo].[Recipe] order by rID offset 6 rows fetch next 3 rows only";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recipe(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getString(8)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 }
