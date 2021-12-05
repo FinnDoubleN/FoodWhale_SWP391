@@ -159,17 +159,18 @@
 
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".burger">Burger</li>
-                    <li data-filter=".pizza">Pizza</li>
-                    <li data-filter=".pasta">Pasta</li>
-                    <li data-filter=".fries">Fries</li>
+                    <li data-filter=".1">Main</li>
+                    <li data-filter=".2">Salad</li>
+                    <li data-filter=".3">Pizza</li>
+                    <li data-filter=".4">Potato</li>
+                    <li data-filter=".5">Hamburger</li>
                 </ul>
-                <div class="filters-content">
-                    <div id="recipe" class="row grid" style="height: auto; position: relative">  
+                <div class="filters-content" style="height: fit-content">
+                    <div id="recipe" class="row grid">  
                         <%
                             for (Recipe r : recipelist) {
                         %>
-                        <div class="col-sm-6 col-lg-4 all pizza">
+                        <div class="col-sm-6 col-lg-4 all <%= r.getcID()%>">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
@@ -221,9 +222,9 @@
                     </div>
                 </div>
                 <div class="btn-box">
-                    <button onclick="viewMore()">
+                    <a href="#" id="view-more">
                         View More
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -311,7 +312,7 @@
         <script src="js/bootstrap.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
         </script>
-        <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+        <script src="js/isotope.pkgd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
         <script src="js/custom.js" async></script>
     </body>
