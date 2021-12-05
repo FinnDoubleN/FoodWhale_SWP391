@@ -91,6 +91,14 @@
         <servlet-name>CartController</servlet-name>
         <servlet-class>controller.CartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>preResetPassword</servlet-name>
+        <servlet-class>controller.preResetPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>controller.ResetPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -178,6 +186,14 @@
     <servlet-mapping>
         <servlet-name>CartController</servlet-name>
         <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>preResetPassword</servlet-name>
+        <url-pattern>/preResetPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
