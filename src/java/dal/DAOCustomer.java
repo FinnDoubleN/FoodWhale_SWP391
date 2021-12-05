@@ -96,4 +96,53 @@ public class DAOCustomer {
         }
         return n;
     } 
+
+    public boolean getCustomerByUser(String user) {
+        
+        try {
+            String sql = "select uName from [FoodWhale].[dbo].[User] where uName = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public String getEmailByUser(String user) {
+        String sql = "select email  from [FoodWhale].[dbo].[User] where uName = ?";
+        try {           
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void resetPass(String password, String username) {
+        String sql = "update [FoodWhale].[dbo].[User] set password ='" + password + "' where uName='" + username + "'";
+        try {
+            
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+  
 }
