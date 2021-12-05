@@ -3,7 +3,8 @@
     Created on : Nov 30, 2021, 4:10:08 PM
     Author     : Asus
 --%>
-
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Order"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +24,7 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
+            ArrayList<Order> orderlist = (ArrayList<Order>) request.getAttribute("orderlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -111,7 +113,14 @@
                                         <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
                                         </svg>
                                     </span>
+                                    <%
+                                        if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                    %>
+                                    <span class="nav-link-text">Customers</span>
+                                    <%
+                                    } else if (ROLE.equals("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
+                                    <%}%>
                                 </a>
                             </li>
                             <li class="nav-item">

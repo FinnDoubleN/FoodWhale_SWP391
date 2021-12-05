@@ -113,7 +113,15 @@
                                         <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
                                         </svg>
                                     </span>
+                                    <%
+                                        if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                    %>
+                                    <span class="nav-link-text">Customers</span>
+                                    <%
+                                    } else if (ROLE.equals("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
+                                    <%}%>
+
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -161,7 +169,14 @@
                 <div class="container-xl">
                     <div class="row g-3 mb-4 align-items-center justify-content-between">
                         <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Orders</h1>
+                            <%
+                                if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                            %>
+                            <h1 class="app-page-title mb-0">Customer List</h1>
+                            <%
+                                    } else if (ROLE.equals("admin")) {%>
+                            <h1 class="app-page-title mb-0">Account List</h1>
+                            <%}%>
                         </div>
                     </div>
                     <div class="tab-content" id="orders-table-tab-content">
