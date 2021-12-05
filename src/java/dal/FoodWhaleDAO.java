@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Ingredient;
+import model.Order;
 import model.Recipe;
 import model.User;
 
@@ -94,6 +95,24 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<Order> getAllOrder() {
+        ArrayList<Order> list = new ArrayList<>();
+        String query = "select o.oID , o.uID, u.uName, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getBoolean(5)));
             }
         } catch (Exception e) {
         }

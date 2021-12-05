@@ -5,13 +5,16 @@ package controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order;
 
 /**
  *
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class OrderListController extends HttpServlet {
 
+    ArrayList<Order> orderlist = new ArrayList<Order>();
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -65,6 +69,9 @@ public class OrderListController extends HttpServlet {
         if (role == null || role.equals("user") || role.equals("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
         }else if (role.equals("staff") || role.equals("admin")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            orderlist = (ArrayList<Order>) dao.getAllOrder();
+            request.setAttribute("orderlist", orderlist);
             request.getRequestDispatcher("/OrderList.jsp").forward(request, response);
         }
     }

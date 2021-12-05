@@ -14,10 +14,19 @@ import java.sql.Date;
 public class Order {
     int oID;
     int uID;
+    String uName;
     Date date;
     boolean status;
 
     public Order() {
+    }
+    
+    public Order(int oID, int uID, String uName, Date date, boolean status) {
+        this.oID = oID;
+        this.uID = uID;
+        this.uName = uName;
+        this.date = date;
+        this.status = status;
     }
 
     public Order(int oID, int uID, Date date, boolean status) {
@@ -25,6 +34,14 @@ public class Order {
         this.uID = uID;
         this.date = date;
         this.status = status;
+    }
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
     public int getoID() {
