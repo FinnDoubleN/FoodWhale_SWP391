@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import model.Ingredient;
 import model.Order;
 import model.Recipe;
+import model.Recipe_ingredient;
 import model.User;
 
 /**
@@ -100,7 +101,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-    
+
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
         String query = "select o.oID , o.uID, u.uName, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID";
@@ -281,6 +282,78 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(8)));
             }
         } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public Ingredient getIngredientByID(int id) {
+        Ingredient in = new Ingredient();
+        String query = "select * from [FoodWhale].[dbo].[Ingredient] where inID = ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(query);
+                ps.setInt(1, id);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    in.setInID(rs.getInt(1));
+                    in.setInName(rs.getString(2));
+                    in.setImage(rs.getString(3));
+                    in.setType(rs.getString(4));
+                    in.setMoney(rs.getDouble(5));
+                    in.setCategoryID(rs.getInt(6));
+                    in.setDescription(rs.getString(7));
+                    in.setGuideline(rs.getString(8));
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return in;
+    }
+
+    public ArrayList<Recipe> getRecipeByID(int id) {
+        ArrayList<Recipe> list = new ArrayList<Recipe>();
+        String query = "select * from [FoodWhale].[dbo].[Recipe] where rID = ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(query);
+                ps.setInt(1, id);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Recipe(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getInt(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getInt(6),
+                            rs.getInt(7),
+                            rs.getString(8)));
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Ingredient> getIngredientByRecipeId(int rid) {
+        ArrayList<Ingredient> list = new ArrayList<Ingredient>();
+        String query = "select * from [FoodWhale].[dbo].[Recipe_ingredient] where rID = ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(query);
+                ps.setInt(1, rid);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Ingredient(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getDouble(5),
+                            rs.getInt(6),
+                            rs.getString(7),
+                            rs.getString(8)));
+                }
+            }
+        } catch (SQLException e) {
         }
         return list;
     }

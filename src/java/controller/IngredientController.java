@@ -21,8 +21,10 @@ import model.Ingredient;
  * @author Asus
  */
 public class IngredientController extends HttpServlet {
-    
+
     ArrayList<Ingredient> ingredientlist = new ArrayList<>();
+    Ingredient ingredient = new Ingredient();
+    FoodWhaleDAO DAO = new FoodWhaleDAO();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -65,7 +67,6 @@ public class IngredientController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FoodWhaleDAO DAO = new FoodWhaleDAO();
         ingredientlist = DAO.getAllIngredient();
         request.setAttribute("ingredientlist", ingredientlist);
         request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
@@ -82,7 +83,6 @@ public class IngredientController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

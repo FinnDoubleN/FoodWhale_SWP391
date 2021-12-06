@@ -9,7 +9,7 @@ package model;
  *
  * @author ADMIN
  */
-public class Ingredient {
+public class Ingredient {  
     int  inID;
     String inName;
     String image;

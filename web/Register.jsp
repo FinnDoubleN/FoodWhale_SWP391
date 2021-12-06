@@ -43,9 +43,10 @@
 
             .wrapper {
                 padding: 25px;
-                width: 30%;
-                background-color: rgb(0 0 0 / 50%);
+                width: 45%;
+                background-color: rgba(0 0 0 / 50%);
                 border-radius: 45px;
+                margin: auto;
             }
 
             form {
@@ -60,9 +61,16 @@
 
             input {
                 flex: 1;
-                min-width: 40%;
                 margin: 10px 0px;
                 padding: 10px;
+            }
+
+            .enter {
+                color: #fff;
+            }
+
+            .enter a {
+                color: #fff;
             }
 
             button {
@@ -101,7 +109,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
@@ -156,7 +164,7 @@
                 </div>
             </header>
             <section class="slider_section ">
-                <div class="contain">
+                <div class="container">
                     <div class="main-w3layouts wrapper" >
                         <h1>Register Form</h1>
                         <div class="main-agileinfo">
@@ -171,17 +179,9 @@
                                     <input id="pass1"  type="password" name="confirm" minlength="8" placeholder="Confirm Password" required="">
                                     <img onclick="myFunction2()" src="img/eye2.jpg" width="30" height="30">
                                     <div class="enter">
-                                        <a style="color: white">Gender :</a>
-                                        <div style="color: white" class="p-t-10">
-                                            <label class="radio-container">
-                                                <input type="radio" name="gender" value="1">Male
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="radio-container">
-                                                <input type="radio" name="gender" value="0">Female
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
+                                        Gender :
+                                        &emsp;<input type="radio" name="gender" value="1">Male
+                                        &emsp;<input type="radio" name="gender" value="0">Female
                                     </div>
                                     <input class="text " type="email" name="email" placeholder="Email" required="">
                                     <input class="text" type="text" name="phonenumber" placeholder="Phone Number" required="">
@@ -190,7 +190,7 @@
                                     <input class="text" type="text" name="image" placeholder="Image" required="">
                                     <input class="text" type="text" name="address" placeholder="Address" required="">
                                     <div class="wthree-text">
-                                        <label class="anim">
+                                        <label class="enter">
                                             <input type="checkbox" class="checkbox" required="">
                                             <span>I Agree To The Terms & Conditions</span>
                                         </label>
@@ -283,11 +283,6 @@
                 </div>
             </div>
         </footer>
-
-
-
-
-        <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
         <!-- all js files -->
         <script src="js/all.js"></script>
         <!-- all plugins -->
