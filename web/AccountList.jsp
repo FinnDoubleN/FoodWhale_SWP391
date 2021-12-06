@@ -174,7 +174,7 @@
                             %>
                             <h1 class="app-page-title mb-0">Customer List</h1>
                             <%
-                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
+                            } else if (ROLE.equalsIgnoreCase("admin")) {%>
                             <h1 class="app-page-title mb-0">Account List</h1>
                             <%}%>
                         </div>
@@ -192,7 +192,7 @@
                                                     <th class="cell">Username</th>
                                                     <th class="cell">Staff name</th>
                                                     <th class="cell">Address</th>
-                                                    <th class="cell">Role</th>
+                                                    <th class="cell filterhead">Role</th>
                                                     <th class="cell">Status</th>
                                                     <th class="cell"></th>
                                                 </tr>
@@ -207,10 +207,10 @@
                                                     <td class="cell"><%= u.getUsername()%></td>
                                                     <td class="cell"><%= u.getsName()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
-                                                    <td class="cell"><span class="badge bg-success"><%= u.getRole()%></span></td>
+                                                    <td class="cell badge bg-success"><%= u.getRole()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.getStatus()%></span></td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a>
-                                                    <a class="btn-sm app-btn-secondary" name="delete" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">Delete</a>
+                                                        <a class="btn-sm app-btn-secondary" name="delete" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <%}%>
@@ -233,11 +233,13 @@
         <script>
             $(document).ready(function () {
                 $('#myTable').DataTable({
+                    "orderCellsTop": true,
                     "ordering": false,
                     "lengthChange": false,
                     "info": false,
                     "pageLength": 6,
                     "dom": '<"row margin-6"Bf>rtip',
+                    "orders": [[1, 'asc']],
                     "buttons": [
                         {
                             "text": 'Create',
@@ -246,7 +248,24 @@
                                 window.location.replace("${pageContext.request.contextPath}/Dashboard/AddAccount");
                             }
                         }
-                    ]
+                    ],
+                    initComplete: function () {
+                        var api = this.api();
+                        $('.filterhead', api.table().header()).each(function (i) {
+                            var column = api.column(4);
+                            var select = $('<select class="cell bold"><option value="">All</option></select>')
+                                    .appendTo($(this).empty())
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                                $(this).val()
+                                                );
+                                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                    });
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>');
+                            });
+                        });
+                    }
                 });
             });
         </script>

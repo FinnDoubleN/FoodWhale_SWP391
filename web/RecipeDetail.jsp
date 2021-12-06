@@ -4,6 +4,10 @@
     Author     : Asus
 --%>
 
+<%@page import="model.Ingredient"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Recipe_ingredient"%>
+<%@page import="model.Recipe"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,15 +18,17 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <link rel="shortcut icon" href="img/favicon.png" type="">
-        <title> Ingredient </title>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="shortcut icon" href="../img/favicon.png" type="">
+        <title> Recipe Details </title>
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="css/style-new.css" rel="stylesheet" type="text/css" />
-        <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="../css/style-new.css" rel="stylesheet" type="text/css" />
+        <link href="../css/responsive.css" rel="stylesheet" type="text/css" />
         <%
+            ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
+            ArrayList<Ingredient> recipeingredient = (ArrayList<Ingredient>) request.getAttribute("ingredient");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String USERNAME = "";
@@ -41,7 +47,7 @@
     <body class="sub_page">
         <div class="hero_area">
             <div class="bg-box">
-                <img src="img/hero-bg.jpg" alt="">
+                <img src="../img/hero-bg.jpg" alt="">
             </div>
             <header class="header_section">
                 <div class="container">
@@ -59,10 +65,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Recipe">Recipe</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
                                 <li class="nav-item">
@@ -146,44 +152,132 @@
                 </div>
             </header>
         </div>
-        <section class="food_section layout_padding">
+        <section class="food_section layout_padding-bottom" style="padding-top: 90px;">
             <div class="container">
-                <div class="heading_container heading_center">
-                    <h2>
-                        Our Ingredient
-                    </h2>
-                </div>
-
-                <ul class="filters_menu">
-                    <li class="active" data-filter="*">All</li>
-                    <li data-filter=".burger">Burger</li>
-                    <li data-filter=".pizza">Pizza</li>
-                    <li data-filter=".pasta">Pasta</li>
-                    <li data-filter=".fries">Fries</li>
-                </ul>
-
-                <div class="filters-content">
-                    <div class="row grid">
-                        <div class="col-sm-6 col-lg-4 all pizza">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="" alt="">
+                <div class="page-containers">
+                    <%
+                        for (Recipe r : recipelist) {
+                    %>
+                    <div class="page-wrappers">
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li class="">
+                                    <a href="${pageContext.request.contextPath}">FoodWhale/</a>
+                                </li>
+                                <li class="">
+                                    <a href="${pageContext.request.contextPath}/Recipe">Recipe/</a>
+                                </li>
+                                <li class="active">
+                                    <span><%= r.getrName()%></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="product-detail-container">
+                            <div class="product-common">
+                                <div class="photo-container">
+                                    <div class="photo-box">
+                                        <div class="main-photo">
+                                            <div class="avaBox">
+                                                <img class="img-fit" src="<%= r.getImage()%>"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="detail-box">
-                                        <a asp-controller="Ingredient" asp-action="Details" style="color:#fff; font-weight:600; font-size: 1.25rem;">
-                                        </a>
-                                        <p style="color: #fff">
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                Price
-                                            </h6>
+                                </div>
+                                <div class="package-info">
+                                    <div class="basic-info-box">
+                                        <h1 class="names"><%= r.getrName()%></h1>
+                                        <div class="stat">
+                                            <div class="type"><%= r.getcID()%></div>
+                                        </div>
+                                        <div class="price-x">
+                                            <div class="price">
+                                                <div>
+                                                    <span class="sale-info">Total: </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="extra-info-box">
+                                        <div class="display-flex btn-cart-box">
+                                            <button class="add-item-wrapper n-btn btn-add-to-cart btn-add-to-collection ">
+                                                <span class="row-1">
+                                                    <img class="icon" src="../img/rating.png" />
+                                                    <span class="text display-block"></span>
+                                                </span>
+                                            </button>
+                                            <button class="btn-add-to-cart n-btn btn-add-to-cart"
+                                                    title="bam de them vao gio hang" style="background: none !important;">
+                                                <span class="row-1">
+                                                    <img class="icon" src="../img/cart.png" />
+                                                    <span class="text display-block">Add to Cart</span>
+                                                </span>
+                                            </button>
+                                            <button class="btn-add-to-cart n-btn btn-order "
+                                                    title="bam de mua ngay" style="background: rgb(242, 39, 38) !important;">
+                                                <span class="row-1">
+                                                    <span class="text display-block">Buy Now</span>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <ul class="services-box">
+                                            <li class="">
+                                                <img src="../img/difficulties.png" />
+                                                Difficulty
+                                                <div><%= r.getDifficulty()%></div>
+                                            </li>
+                                            <li class="active">
+                                                <img src="../img/clock.png" />
+                                                Time
+                                                <div><%= r.getTime()%>min</div>
+                                            </li>
+                                        </ul>
+                                        <div class="overview">
+                                            <label class="title"></label>
+                                            <div class="container">
+                                                <div class="option"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="product-desc">
+                                <div class="title-box">
+                                    <div class="active">Hướng dẫn</div>
+                                </div>
+                                <div class="content-box">
+                                    <div class="active">
+                                        <ul class="rc-steps-box">
+                                            <li>
+                                                <span>Step 1:</span>
+                                                <div>Rửa sạch các nguyên liệu đã sơ chế, để ráo nước.<br />
+                                                    Mùi tàu, rau ngổ cắt nhỏ, cà chua cắt múi cau.</div>
+                                            </li>
+                                            <li>
+                                                <span>Step 2:</span>
+                                                <div>
+                                                    Bật bếp lên cho 1 muỗng canh dầu ăn vào nồi, đợi dầu nóng cho thịt bằm vào xào cho thịt săn lại.<br />
+                                                    Sau đó cho 500 ml nước lọc vào đun sôi lên rồi cho dưa chua, cà chua vào nấu trong 5 phút.
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span>Step 3:</span>
+                                                <div>
+                                                    Tiếp đến, thêm từ từ gói gia vị hoàn chỉnh nấu chua vào khuấy cho gia vị tan đều và nêm nếm lại cho vừa ăn, cho tỏi phi, mùi tàu, rau ngổ vào rồi tắt bếp. <br />
+                                                    * Bí quyết: Thêm nước mắm làm dậy mùi thơm và canh thêm đậm đà
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span>Step 4:</span>
+                                                <div>Bày món ăn ra tô và thưởng thức.<br /> Ngon hơn khi ăn nóng cùng cơm trắng.</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
             </div>
@@ -265,6 +359,15 @@
                 </div>
             </div>
         </footer>
+        <script src="../js/jquery-3.4.1.min.js"></script>
+        <script src="../js/ajax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="../js/bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+        </script>
+        <script src="../js/isotope.pkgd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+        <script src="../js/custom.js" async></script>
     </body>
 </html>
-

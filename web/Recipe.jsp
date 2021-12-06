@@ -177,9 +177,9 @@
                                         <img src="<%= r.getImage()%>" alt="">
                                     </div>
                                     <div class="detail-box">
-                                        <h5>
+                                        <a class="recipe-link" href="${pageContext.request.contextPath}/Recipe/Detail" onclick="recDetail(<%= r.getrID()%>)">
                                             <%= r.getrName()%>
-                                        </h5>
+                                        </a>
                                         <p>
 
                                         </p>

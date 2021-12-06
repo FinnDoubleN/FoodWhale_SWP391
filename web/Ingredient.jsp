@@ -180,9 +180,9 @@
                                         <img src="<%= in.getImage()%>" alt="">
                                     </div>
                                     <div class="detail-box">
-                                        <h5>
+                                        <a class="recipe-link" href="${pageContext.request.contextPath}/Ingredient/Detail" onclick="inDetail(<%= in.getInID()%>)">
                                             <%= in.getInName()%>
-                                        </h5>
+                                        </a>
                                         <p>
                                             <%= in.getDescription()%>
                                         </p>
@@ -190,7 +190,7 @@
                                             <h6>
                                                 $<%= in.getMoney()%>
                                             </h6>
-                                            <a href="">
+                                            <a href="${pageContext.request.contextPath}/IngredientDetail?id=<%= in.getInID()%>">
                                                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                 <g>
                                                 <g>
@@ -309,6 +309,7 @@
             </div>
         </footer>
         <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/ajax.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
         <script src="js/bootstrap.js"></script>

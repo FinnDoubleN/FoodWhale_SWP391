@@ -5,18 +5,27 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Ingredient;
+import model.Recipe;
 
 /**
  *
  * @author Asus
  */
 public class HomepageController extends HttpServlet {
+    
+    ArrayList<Recipe> recipelist = new ArrayList<>();
+    ArrayList<Ingredient> ingredientlist = new ArrayList<>();
+    FoodWhaleDAO DAO = new FoodWhaleDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,6 +56,11 @@ public class HomepageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        ingredientlist = DAO.getAllIngredient();
+        recipelist = DAO.getAllRecipe();
+        session.setAttribute("ingredientlist", ingredientlist);
+        session.setAttribute("recipelist", recipelist);
         request.getRequestDispatcher("Homepage.jsp").forward(request, response);
     }
 
