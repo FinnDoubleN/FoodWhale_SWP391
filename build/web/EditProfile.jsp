@@ -1,12 +1,14 @@
 <%-- 
-    Document   : Login
-    Created on : 30-11-2021, 13:13:03
-    Author     : This PC
+    Document   : EditProfile
+    Created on : Dec 6, 2021, 3:58:16 PM
+    Author     : ADMIN
 --%>
-
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <head>
+        <head>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,70 +17,19 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="shortcut icon" href="img/favicon.png" type="">
-        <title> Login </title>
+        <title>Edit Profile </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
-        <style>
-            .contain {
-                width: 100%;
-                background-size: cover;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .wrapper {
-                padding: 25px;
-                width: 30%;
-                background-color: rgb(0 0 0 / 50%);
-                border-radius: 45px;
-            }
-
-            form {
-                display: flex;
-                flex-direction: column;
-            }
-
-            h1 {
-                color: #ffffff;
-                text-align: center;
-            }
-
-            input {
-                flex: 1;
-                min-width: 40%;
-                margin: 10px 0px;
-                padding: 10px;
-            }
-
-            button {
-                width: 100%;
-                border: none;
-                padding: 15px 20px;
-                background-color: #ffbe33;
-                color: white;
-                cursor: pointer;
-                font-weight: 700;
-                margin-bottom: 10px;
-                border-radius: 45px;
-            }
-            @media (max-width :1023px){ 
-                .wrapper {
-                    width: 100% !important;
-                }
-            }
-        </style>
-        <title>Login Page</title>
+        <%
+            User u = (User) request.getAttribute("userdetail");
+        %>
     </head>
     <body>
-        <div class="hero_area">
-            <div class="bg-box">
-                <img src="img/login.jpg" alt="">
-            </div>
+       
             <header class="header_section">
                 <div class="container">
                     <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -92,24 +43,21 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/Recipe">Recipe</a>
+                                    <a class="nav-link" asp-action="Index" asp-controller="ViewModelRecipe">Recipe</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
+                                    <a class="nav-link" asp-action="Index" asp-controller="ViewModelIngredient">Ingredient</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
+                                    <a class="nav-link" asp-action="About" asp-controller="Home">About</a>
                                 </li>
                             </ul>
                             <div class="user_option">
-                                <a class="user_link" href="${pageContext.request.contextPath}/Profile">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                </a>
-                                <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
+                                <a class="cart_link" href="${pageContext.request.contextPath}">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                     <g>
                                     <g>
@@ -138,7 +86,7 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
-                                <a href="login" class="order_online">
+                                <a href="" class="order_online">
                                     Login
                                 </a>
                             </div>
@@ -146,18 +94,33 @@
                     </nav>
                 </div>
             </header>
-            <section class="slider_section ">
-                <div class="contain">
-                    <div class="wrapper">
-                        <form method="POST" action="preResetPassword">
-            <input type="text" name="email" value="" placeholder="ENTER YOUR USERNAME"/>
-            <p>${mess}</p>
-            <button type="submit">Send</button>
-        </form>
-                    </div>
-                </div>
-            </section>
         </div>
+                                    <div class="container">
+        <form action="EditProfile" method="post">
+                        username: <%= u.getUsername()%></br>
+                        <input class="text " type="UserName" name="username" placeholder="Username" required=""></br>
+                        <div class="enter">
+                            <h2 style="color: black">Gender :</h2>
+                            <div style="color: Black" class="p-t-10">
+                                <label class="radio-container m-r-45">Male
+                                    <input type="radio" name="gender" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Female
+                                    <input type="radio" name="gender" value="0">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+            <input class="text " type="email" name="email" placeholder="Email" required=""></br>
+            <input class="text" type="text" name="phonenumber" placeholder="Phone Number" required=""></br>
+            <input class="text" type="text" name="image" placeholder="Image" required=""></br>
+            <input class="text" type="text" name="address" placeholder="Address" required=""></br>
+                        <div class="wthree-text">
+                            <div class="clear"> </div>
+                        </div>
+                        <input type="submit" value="Update">
+                    </form>
         <footer class="footer_section">
             <div class="container">
                 <div class="row">
@@ -233,31 +196,7 @@
                         <a href="https://html.design/">Free Html Templates</a>
                     </p>
                 </div>
-            </div><script type="text/javascript">
-                var x = true;
-                function myFunction() {
-                    if (x) {
-                        document.getElementById('pass').type = "text";
-                        x = false;
-                    } else {
-                        document.getElementById('pass').type = "password";
-                        x = true;
-                    }
-                }
-            </script>
+            </div>
         </footer>
-
-        <script type="text/javascript">
-            var x = true;
-            function myFunction() {
-                if (x) {
-                    document.getElementById('pass').type = "text";
-                    x = false;
-                } else {
-                    document.getElementById('pass').type = "password";
-                    x = true;
-                }
-            }
-        </script>
     </body>
 </html>

@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author ADMIN
  */
 public class User {
-    
+
     public int uID;
     public String email;
     public String password;
@@ -25,7 +25,7 @@ public class User {
     public String role;
     public String sName;
     public String status;
-    
+
     public User() {
     }
 
@@ -65,7 +65,7 @@ public class User {
         this.role = role;
         this.status = status;
     }
-    
+
     public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         this.uID = uID;
         this.email = email;
@@ -102,6 +102,16 @@ public class User {
         this.phone = phone;
     }
 
+    public User(int id, String email, String username, String image, String gender, String address, String phone) {
+        this.uID = id;
+        this.email = email;
+        this.username = username;
+        this.image = image;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -109,9 +119,6 @@ public class User {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-
-    
 
     public int getuID() {
         return uID;
@@ -192,5 +199,5 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
 }
