@@ -30,7 +30,7 @@ public class AddAccountManagement extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(name)) {
+            if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getValue();
             }
         }
@@ -68,9 +68,9 @@ public class AddAccountManagement extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equals("user") || role.equals("")) {
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equals("staff") || role.equals("admin")) {
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
         }
     }
@@ -97,7 +97,7 @@ public class AddAccountManagement extends HttpServlet {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
-        if (gender == null || gender.equals("")) {
+        if (gender == null || gender.equalsIgnoreCase("")) {
             gender = "";
         }
         dao.createUser(email, password, username, image, startDate, gender, address, phone, role);

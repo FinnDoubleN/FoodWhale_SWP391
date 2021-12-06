@@ -33,7 +33,7 @@ public class UserProfileController extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(check)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -73,7 +73,7 @@ public class UserProfileController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             String username = getCookieByName(cookies, "USERNAME");
-            if (role != null && !role.equals("") || username != null && !username.equals("")) {
+            if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
                 FoodWhaleDAO DAO = new FoodWhaleDAO();
                 userdetail = DAO.getProfileByUsername(username);
                 request.setAttribute("userdetail", userdetail);

@@ -14,9 +14,38 @@ public class Order_Detail {
     int oID;
     int inID;
     int Quantity;
+    double Total;
+    String Note;
 
     public Order_Detail() {
     }
+
+    public Order_Detail(int odID, int oID, int inID, int Quantity, double Total, String Note) {
+        this.odID = odID;
+        this.oID = oID;
+        this.inID = inID;
+        this.Quantity = Quantity;
+        this.Total = Total;
+        this.Note = Note;
+    }
+
+    public double getTotal() {
+        return Total;
+    }
+
+    public void setTotal(double Total) {
+        this.Total = Total;
+    }
+
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String Note) {
+        this.Note = Note;
+    }
+    
+    
 
     public Order_Detail(int odID, int oID, int inID, int Quantity) {
         this.odID = odID;

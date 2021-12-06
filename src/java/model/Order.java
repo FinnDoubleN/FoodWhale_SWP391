@@ -15,13 +15,15 @@ public class Order {
     int oID;
     int uID;
     String uName;
+    String uAddress;
     Date date;
-    boolean status;
+    Double total;
+    String status;
 
     public Order() {
     }
     
-    public Order(int oID, int uID, String uName, Date date, boolean status) {
+    public Order(int oID, int uID, String uName, Date date, String status) {
         this.oID = oID;
         this.uID = uID;
         this.uName = uName;
@@ -29,12 +31,39 @@ public class Order {
         this.status = status;
     }
 
-    public Order(int oID, int uID, Date date, boolean status) {
+    public Order(int oID, int uID, Date date, String status) {
         this.oID = oID;
         this.uID = uID;
         this.date = date;
         this.status = status;
     }
+
+    public Order(int oID, String uName, String uAddress, Date date, Double total, String status) {
+        this.oID = oID;
+        this.uName = uName;
+        this.uAddress = uAddress;
+        this.date = date;
+        this.total = total;
+        this.status = status;
+    }
+
+    public String getuAddress() {
+        return uAddress;
+    }
+
+    public void setuAddress(String uAddress) {
+        this.uAddress = uAddress;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    
 
     public String getuName() {
         return uName;
@@ -68,11 +97,11 @@ public class Order {
         this.date = date;
     }
 
-    public boolean isStatus() {
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     

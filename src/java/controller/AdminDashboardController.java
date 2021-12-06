@@ -24,7 +24,7 @@ public class AdminDashboardController extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(check)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -62,9 +62,9 @@ public class AdminDashboardController extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equals("user") || role.equals("")) {
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equals("staff") || role.equals("admin")) {
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
         }
     }

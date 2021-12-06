@@ -55,12 +55,12 @@
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="../img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <%
-                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                            if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                         %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                             <%
-                                                } else if (ROLE.equals("admin")) {
+                                                } else if (ROLE.equalsIgnoreCase("admin")) {
                                                 }
                                             %>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
@@ -114,11 +114,11 @@
                                         </svg>
                                     </span>
                                     <%
-                                        if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                        if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                     %>
                                     <span class="nav-link-text">Customers</span>
                                     <%
-                                    } else if (ROLE.equals("admin")) {%>
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
                                     <%}%>
 
@@ -170,11 +170,11 @@
                     <div class="row g-3 mb-4 align-items-center justify-content-between">
                         <div class="col-auto">
                             <%
-                                if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                             %>
                             <h1 class="app-page-title mb-0">Customer List</h1>
                             <%
-                                    } else if (ROLE.equals("admin")) {%>
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
                             <h1 class="app-page-title mb-0">Account List</h1>
                             <%}%>
                         </div>
@@ -189,9 +189,11 @@
                                                 <tr>
                                                     <th class="cell">User ID</th>
                                                     <th class="cell">Email</th>
-                                                    <th class="cell">Password</th>
                                                     <th class="cell">Username</th>
+                                                    <th class="cell">Staff name</th>
+                                                    <th class="cell">Address</th>
                                                     <th class="cell">Role</th>
+                                                    <th class="cell">Status</th>
                                                     <th class="cell"></th>
                                                 </tr>
                                             </thead>
@@ -202,10 +204,14 @@
                                                 <tr>
                                                     <td class="cell"><%= u.getuID()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getEmail()%></span></td>
-                                                    <td class="cell"><%= u.getPassword()%></td>
                                                     <td class="cell"><%= u.getUsername()%></td>
+                                                    <td class="cell"><%= u.getsName()%></td>
+                                                    <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.getRole()%></span></td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a></td>
+                                                    <td class="cell"><span class="badge bg-success"><%= u.getStatus()%></span></td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a>
+                                                    <a class="btn-sm app-btn-secondary" name="delete" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">Delete</a>
+                                                    </td>
                                                 </tr>
                                                 <%}%>
                                             </tbody>

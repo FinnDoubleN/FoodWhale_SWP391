@@ -88,7 +88,7 @@ public class login extends HttpServlet {
                     }
                     }
                     else{
-                        request.setAttribute("mess", "You have been deactive, please contact for help");
+                        request.setAttribute("mess", "You have been deactive or delete, please contact for help");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                     }
                 } else {

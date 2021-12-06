@@ -47,12 +47,12 @@
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <%
-                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                            if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                         %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                             <%
-                                                } else if (ROLE.equals("admin")) {
+                                                } else if (ROLE.equalsIgnoreCase("admin")) {
                                                 }
                                             %>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
@@ -107,11 +107,11 @@
                                         </svg>
                                     </span>
                                     <%
-                                        if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                        if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                     %>
                                     <span class="nav-link-text">Customers</span>
                                     <%
-                                    } else if (ROLE.equals("admin")) {%>
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
                                     <%}%>
                                 </a>
