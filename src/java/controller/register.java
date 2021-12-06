@@ -91,7 +91,7 @@ public class register extends HttpServlet {
         String address = request.getParameter("address");
         String dob = request.getParameter("age");
         
-        if (!password.equals(confirm)) {
+        if (!password.equalsIgnoreCase(confirm)) {
             request.setAttribute("mess1", "password khong khop");
             request.getRequestDispatcher("Register.jsp").forward(request, response);
         } else {

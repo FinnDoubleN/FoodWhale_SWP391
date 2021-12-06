@@ -75,8 +75,8 @@
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user")) {
-                                    } else if (ROLE.equals("admin") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard">Dashboard</a>
@@ -87,13 +87,13 @@
                             </ul>
                             <div class="user_option">
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="user_link" href="${pageContext.request.contextPath}/Profile">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </a>
                                 <%
-                                    if (!ROLE.equals("staff")) {
+                                    if (!ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -128,11 +128,11 @@
                                     }
                                 %>
                                 <%
-                                    } else if (ROLE.equals("admin")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equals("")) {
+                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
                                 %>
                                 <a href="login" class="order_online">
                                     Login

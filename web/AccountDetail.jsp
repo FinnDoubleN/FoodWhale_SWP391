@@ -49,12 +49,12 @@
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="../img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <%
-                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                            if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                         %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                             <%
-                                                } else if (ROLE.equals("admin")) {
+                                                } else if (ROLE.equalsIgnoreCase("admin")) {
                                                 }
                                             %>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
@@ -181,14 +181,6 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Password</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getPassword()%>" maxlength="24" name="password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Username</strong></div>
                                                 <input type="text" class="item-data" value="<%= u.getUsername()%>" maxlength="24" name="username">
                                             </div>
@@ -207,6 +199,14 @@
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Phone</strong></div>
                                                 <input type="text" class="item-data" value="<%= u.getPhone()%>" maxlength="24" name="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Date</strong></div>
+                                                <input type="date" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date" required>
                                             </div>
                                         </div>
                                     </div>
@@ -244,21 +244,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date" required>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Role</strong></div>
                                                 <%
-                                                    if (ROLE.equals("admin")) {
-                                                        if (u.getRole().equals("admin")) {
+                                                    if (ROLE.equalsIgnoreCase("admin")) {
+                                                        if (u.getRole().equalsIgnoreCase("admin")) {
                                                 %>
                                                 <input type="radio" id="Admin" name="role" value="admin" checked>
                                                 <label for="admin">Admin</label>
@@ -266,14 +259,14 @@
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user">
                                                 <label for="user">User</label>
-                                                <%} else if (u.getRole().equals("staff")) {%>
+                                                <%} else if (u.getRole().equalsIgnoreCase("staff")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff" checked>
                                                 <label for="staff">Staff</label>
                                                 <input type="radio" id="User" name="role" value="user">
                                                 <label for="user">User</label>
-                                                <%} else if (u.getRole().equals("user")) {%>
+                                                <%} else if (u.getRole().equalsIgnoreCase("user")) {%>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
                                                 <input type="radio" id="Staff" name="role" value="staff">
@@ -281,13 +274,43 @@
                                                 <input type="radio" id="User" name="role" value="user" checked>
                                                 <label for="user">User</label>
                                                 <%}
-                                                } else if (ROLE.equals("staff")) {
+                                                } else if (ROLE.equalsIgnoreCase("staff")) {
                                                 %>
                                                 <input type="radio" id="User" name="role" value="user" checked>
                                                 <label for="user">User</label>
                                                 <%
                                                     }
                                                 %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Status</strong></div>
+                                                <% String status = u.getStatus();%>
+                                                <% if (u.getStatus().equalsIgnoreCase("Active")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" checked>
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Deactive" name="status" value="Deactive">
+                                                <label for="Deactive">Deactive</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete">
+                                                <label for="Delete">Delete</label>
+                                                <%} else if (u.getStatus().equalsIgnoreCase("Deactive")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" >
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Deactive" name="status" value="Deactive" checked>
+                                                <label for="Deactive">Deactive</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete">
+                                                <label for="Delete">Delete</label>
+                                                <%} else if (u.getStatus().equalsIgnoreCase("Delete")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" >
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Deactive" name="status" value="Deactive">
+                                                <label for="Deactive">Deactive</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete" checked>
+                                                <label for="Delete">Delete</label>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>

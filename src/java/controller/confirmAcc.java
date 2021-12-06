@@ -42,7 +42,7 @@ public class confirmAcc extends HttpServlet {
             String code = (String) session.getAttribute("code");
             String uCode = request.getParameter("uCode");
             
-            if(code.equals(uCode)){
+            if(code.equalsIgnoreCase(uCode)){
                 User cus = (User) session.getAttribute("tempCus");
                 
                 d.insertCus(cus);

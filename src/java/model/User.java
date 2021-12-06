@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author ADMIN
  */
 public class User {
-    
+
     public int uID;
     public String email;
     public String password;
@@ -23,12 +23,36 @@ public class User {
     public String address;
     public String phone;
     public String role;
-    public Boolean status;
-    
+    public String sName;
+    public String status;
+
     public User() {
     }
 
-    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, Boolean status) {
+    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
+        this.uID = uID;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.image = image;
+        this.date = date;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+        this.role = role;
+        this.sName = sName;
+        this.status = status;
+    }
+
+    public String getsName() {
+        return sName;
+    }
+
+    public void setsName(String sName) {
+        this.sName = sName;
+    }
+
+    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, String status) {
         this.uID = uID;
         this.email = email;
         this.password = password;
@@ -41,7 +65,7 @@ public class User {
         this.role = role;
         this.status = status;
     }
-    
+
     public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         this.uID = uID;
         this.email = email;
@@ -78,16 +102,23 @@ public class User {
         this.phone = phone;
     }
 
-    public Boolean getStatus() {
+    public User(int id, String email, String username, String image, String gender, String address, String phone) {
+        this.uID = id;
+        this.email = email;
+        this.username = username;
+        this.image = image;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
-    
-
-    
 
     public int getuID() {
         return uID;
@@ -168,5 +199,5 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
 }

@@ -48,8 +48,8 @@ public class FoodWhaleDAO extends DBContext {
         ps = connection.prepareStatement(query);
         rs = ps.executeQuery();
         while (rs.next()) {
-            boolean status = rs.getBoolean(1);
-            if (status != false) {
+            String status = rs.getString(1);
+            if (status.equalsIgnoreCase("Active")) {
                 return true;
             }
         }
@@ -72,7 +72,10 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10)));
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12)
+                ));
             }
         } catch (Exception e) {
         }
@@ -95,7 +98,9 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getString(9),
-                        rs.getString(10)));
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12)));
             }
         } catch (Exception e) {
         }
@@ -104,16 +109,18 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , o.uID, u.uName, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID";
+        String query = "select o.oID , u.uName, u.Address, o.Date, od.Total, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID\n"
+                + "inner join [FoodWhale].[dbo].[Order_Detail] od on o.oID = od.oID";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Order(rs.getInt(1),
-                        rs.getInt(2),
+                        rs.getString(2),
                         rs.getString(3),
                         rs.getDate(4),
-                        rs.getBoolean(5)));
+                        rs.getDouble(5),
+                        rs.getString(6)));
             }
         } catch (Exception e) {
         }

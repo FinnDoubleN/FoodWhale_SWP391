@@ -29,7 +29,7 @@ public class AccountListManagement extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(name)) {
+            if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getValue();
             }
         }
@@ -67,14 +67,14 @@ public class AccountListManagement extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equals("user") || role.equals("")) {
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equals("staff")) {
+        } else if (role.equalsIgnoreCase("staff")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             userlist = (ArrayList<User>) dao.getAllCustomer();
             request.setAttribute("userlist", userlist);
             request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
-        } else if (role.equals("admin")) {
+        } else if (role.equalsIgnoreCase("admin")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             userlist = (ArrayList<User>) dao.getAllAccount();
             request.setAttribute("userlist", userlist);

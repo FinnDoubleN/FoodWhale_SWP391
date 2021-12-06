@@ -47,12 +47,12 @@
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="../img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <%
-                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                            if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                         %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                             <%
-                                                } else if (ROLE.equals("admin")) {
+                                                } else if (ROLE.equalsIgnoreCase("admin")) {
                                                 }
                                             %>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
@@ -243,7 +243,7 @@
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Role</strong></div>
                                                 <%
-                                                    if (ROLE.equals("admin")) {
+                                                    if (ROLE.equalsIgnoreCase("admin")) {
                                                 %>
                                                 <input type="radio" id="Admin" name="role" value="admin">
                                                 <label for="admin">Admin</label>
@@ -252,7 +252,7 @@
                                                 <input type="radio" id="User" name="role" value="user" checked>
                                                 <label for="user">User</label>
                                                 <%
-                                                } else if (ROLE.equals("staff")) {
+                                                } else if (ROLE.equalsIgnoreCase("staff")) {
                                                 %>
                                                 <input type="radio" id="User" name="role" value="user" checked>
                                                 <label for="user">User</label>

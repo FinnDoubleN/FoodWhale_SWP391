@@ -5,13 +5,12 @@
  */
 package controller;
 
-import dal.FoodWhaleDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,23 +18,10 @@ import model.User;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class AddAccountManagement extends HttpServlet {
-
-    ArrayList<User> userlist = new ArrayList<User>();
-
-    private String getCookieByName(Cookie[] cookies, String name) {
-        if (cookies == null) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(name)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
+public class EditProfile extends HttpServlet {
+User userdetail = new User();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,6 +37,15 @@ public class AddAccountManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EditProfile</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet EditProfile at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -66,13 +61,7 @@ public class AddAccountManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -86,24 +75,27 @@ public class AddAccountManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FoodWhaleDAO dao = new FoodWhaleDAO();
-        String image = request.getParameter("image");
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String gender = request.getParameter("gender");
-        String date = request.getParameter("date");
-        Date startDate = Date.valueOf(date);
-        String address = request.getParameter("address");
-        String phone = request.getParameter("phone");
-        String role = request.getParameter("role");
-        if (gender == null || gender.equalsIgnoreCase("")) {
-            gender = "";
+        processRequest(request, response);
+        try {
+         UserDAO dao = new UserDAO();
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("Update")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String image = request.getParameter("image");
+                String email = request.getParameter("email");
+                String username = request.getParameter("username");
+                String gender = request.getParameter("gender");
+                String address = request.getParameter("address");
+                String phone = request.getParameter("phone");
+                User u = new User(id, email, username, image, gender, address, phone);
+                dao.EditUser(u);
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+            } 
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
-        userlist = (ArrayList<User>) dao.getAllAccount();
-        request.setAttribute("userlist", userlist);
-        request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
     }
 
     /**

@@ -31,7 +31,7 @@ public class IngredientController extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(check)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
