@@ -208,7 +208,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public void updateUser(User u) {
         try {
-            String sql = "update [FoodWhale].[dbo].[User] set Email=?, Password=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=? where uID=?";
+            String sql = "update [FoodWhale].[dbo].[User] set Email=?, Password=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=?, Status=? where uID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getEmail());
             statement.setString(2, u.getPassword());
@@ -219,7 +219,20 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(7, u.getAddress());
             statement.setString(8, u.getPhone());
             statement.setString(9, u.getRole());
-            statement.setInt(10, u.getuID());
+            statement.setString(10, u.getStatus());
+            statement.setInt(11, u.getuID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateStatus(User u) {
+        try {
+            String sql = "update [FoodWhale].[dbo].[User] set Status=? where uID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, u.getStatus());
+            statement.setInt(2, u.getuID());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,7 +258,8 @@ public class FoodWhaleDAO extends DBContext {
                     user.setAddress(rs.getString(8));
                     user.setPhone(rs.getString(9));
                     user.setRole(rs.getString(10));
-                    System.out.println(user);
+                    user.setsName(rs.getString(11));
+                    user.setStatus(rs.getString(12));
                 }
             }
         } catch (SQLException e) {

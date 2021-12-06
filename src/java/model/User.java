@@ -29,6 +29,11 @@ public class User {
     public User() {
     }
 
+    public User(int uID, String status) {
+        this.uID = uID;
+        this.status = status;
+    }
+
     public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
         this.uID = uID;
         this.email = email;

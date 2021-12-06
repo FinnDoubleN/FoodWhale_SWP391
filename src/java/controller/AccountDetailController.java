@@ -116,14 +116,21 @@ public class AccountDetailController extends HttpServlet {
                 String address = request.getParameter("address");
                 String phone = request.getParameter("phone");
                 String role = request.getParameter("role");
-                User u = new User(id, email, password, username, image, startDate, gender, address, phone, role);
+                String status = request.getParameter("status");
+                User u = new User(id, email, password, username, image, startDate, gender, address, phone, role, status);
                 dao.updateUser(u);
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
             } else if (submit.equalsIgnoreCase("Delete")) {
                 int id = Integer.parseInt(request.getParameter("uid"));
-                dao.deleteUser(id);
+                String status = request.getParameter("status");
+                User u = new User(id, status);
+                userlist = (ArrayList<User>) dao.getAllAccount();
+                request.setAttribute("userlist", userlist);
+                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            }
+            else if (submit.equalsIgnoreCase("Cancel")) {
                 userlist = (ArrayList<User>) dao.getAllAccount();
                 request.setAttribute("userlist", userlist);
                 request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
