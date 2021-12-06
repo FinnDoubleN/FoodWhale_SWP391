@@ -14,6 +14,7 @@ import java.sql.Date;
 public class Order {
     int oID;
     int uID;
+    String uEmail;
     String uName;
     String uAddress;
     Date date;
@@ -31,6 +32,14 @@ public class Order {
         this.status = status;
     }
 
+    public String getuEmail() {
+        return uEmail;
+    }
+
+    public void setuEmail(String uEmail) {
+        this.uEmail = uEmail;
+    }
+
     public Order(int oID, int uID, Date date, String status) {
         this.oID = oID;
         this.uID = uID;
@@ -38,12 +47,21 @@ public class Order {
         this.status = status;
     }
 
-    public Order(int oID, String uName, String uAddress, Date date, Double total, String status) {
+    public Order(int oID, String uEmail, String uName, String uAddress, Date date, Double total, String status) {
         this.oID = oID;
+        this.uEmail = uEmail;
         this.uName = uName;
         this.uAddress = uAddress;
         this.date = date;
         this.total = total;
+        this.status = status;
+    }
+
+    public Order(int oID, String uName, String uAddress, Date date, String status) {
+        this.oID = oID;
+        this.uName = uName;
+        this.uAddress = uAddress;
+        this.date = date;
         this.status = status;
     }
 

@@ -3,6 +3,7 @@
     Created on : Nov 30, 2021, 4:10:08 PM
     Author     : Asus
 --%>
+<%@page import="model.Order_Detail"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Order"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,6 +26,7 @@
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
             ArrayList<Order> orderlist = (ArrayList<Order>) request.getAttribute("orderlist");
+            ArrayList<Order_Detail> orderdetaillist = (ArrayList<Order_Detail>) request.getAttribute("orderdetaillist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -180,9 +182,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>Order ID</th>
-                                                    <th>User ID</th>
                                                     <th>Username</th>
+                                                    <th>User Address</th>
                                                     <th>Date</th>
+                                                    <th>Total</th>
                                                     <th>Status</th>
                                                     <th></th>
                                                 </tr>
@@ -193,11 +196,12 @@
                                                 %>
                                                 <tr>
                                                     <td class="cell"><%= u.getoID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getuID()%></span></td>
-                                                    <td class="cell"><%= u.getuName()%></td>
-                                                    <td class="cell"><%= u.getDate()%></td>
+                                                    <td class="cell"><span class="truncate"><%= u.getuName()%></span></td>
+                                                    <td class="cell"><%= u.getuAddress()%></td>
+                                                    <td class="cell"><%= u.getDate() %></td>
+                                                    <td class="cell"><%= u.getTotal()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.isStatus()%></span></td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getoID()%>">View</a></td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/OrderDetail?id=<%= u.getoID()%>">View</a></td>
                                                 </tr>
                                                 <%}%>
                                             </tbody>

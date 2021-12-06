@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Ingredient;
 import model.Order;
+import model.Order_Detail;
 import model.Recipe;
 import model.User;
 
@@ -41,7 +42,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return false;
     }
-
+    
     public Boolean IsActive(String username, String password) throws SQLException {
         String query = "select Status from [dbo].[User] where uName = '" + username + "' and Password = '" + password + "'";
         ps = connection.prepareStatement(query);
@@ -108,8 +109,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, od.Total, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID\n"
-                + "inner join [FoodWhale].[dbo].[Order_Detail] od on o.oID = od.oID";
+        String query = "select o.oID , u.uName, u.Address, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -118,12 +118,54 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getDate(4),
-                        rs.getDouble(5),
-                        rs.getString(6)));
+                        rs.getString(5)));
             }
         } catch (Exception e) {
         }
         return list;
+    }
+    
+    public ArrayList<Order_Detail> getOrderDetailbyID(int oID) {
+        ArrayList<Order_Detail> list = new ArrayList<>();
+        String query = "SELECT * FROM [FoodWhale].[dbo].[Order_Detail] where oID=?";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Order_Detail(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getDouble(4),
+                        rs.getString(5),
+                        rs.getInt(6)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public Order getOrderByID(int oID) throws Exception {
+        Order order = new Order();
+        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID where oID=?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                ps.setInt(1, oID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    order.setoID(rs.getInt(1));
+                    order.setuEmail(rs.getString(2));
+                    order.setuName(rs.getString(3));
+                    order.setuAddress(rs.getString(4));
+                    order.setDate(rs.getDate(5));
+                    order.setStatus(rs.getString(6));
+                    System.out.println(order);
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return order;
     }
 
     public void deleteUser(int id) {

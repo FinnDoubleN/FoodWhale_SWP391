@@ -28,6 +28,15 @@ public class Order_Detail {
         this.Total = Total;
         this.Note = Note;
     }
+    
+    public Order_Detail(int odID, int inID, int Quantity, double Total, String Note, int oID) {
+        this.odID = odID;
+        this.oID = oID;
+        this.inID = inID;
+        this.Quantity = Quantity;
+        this.Total = Total;
+        this.Note = Note;
+    }
 
     public double getTotal() {
         return Total;
