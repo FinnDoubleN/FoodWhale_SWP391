@@ -77,7 +77,16 @@ public class User {
         this.address = address;
         this.phone = phone;
     }
-
+public User(int id, String email, String username, String image, String gender, String address, String phone) {
+        this.uID = id;
+        this.email = email;
+        this.username = username;
+        this.image = image;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+    }
+    
     public Boolean getStatus() {
         return status;
     }
