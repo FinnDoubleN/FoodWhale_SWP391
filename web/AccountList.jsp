@@ -207,7 +207,7 @@
                                                     <td class="cell"><%= u.getUsername()%></td>
                                                     <td class="cell"><%= u.getsName()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
-                                                    <td class="cell badge bg-success"><%= u.getRole()%></td>
+                                                    <td class="cell"><%= u.getRole()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.getStatus()%></span></td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a>
                                                         <a class="btn-sm app-btn-secondary" name="delete" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">Delete</a>
@@ -252,7 +252,7 @@
                     initComplete: function () {
                         var api = this.api();
                         $('.filterhead', api.table().header()).each(function (i) {
-                            var column = api.column(4);
+                            var column = api.column(5);
                             var select = $('<select class="cell bold"><option value="">All</option></select>')
                                     .appendTo($(this).empty())
                                     .on('change', function () {

@@ -168,7 +168,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Order ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= od.getoID()%>" name="oid" readonly>
+                                                <input type="text" class="item-data" value="<%= od.getoID()%>" name="id" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date" required>
+                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date" required>
                                             </div>
                                         </div>
                                     </div>
@@ -235,7 +235,6 @@
                                     </div>
                                 </div>
                                 <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
-                                    
                                     <div class="app-card-footer p-4 mt-auto">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
