@@ -115,4 +115,28 @@ public class Recipe {
         this.rDescription = rDescription;
     }
 
+    public String getGuideline1() {
+        return guideline1;
+    }
+
+    public void setGuideline1(String guideline1) {
+        this.guideline1 = guideline1;
+    }
+
+    public String getGuideline2() {
+        return guideline2;
+    }
+
+    public void setGuideline2(String guideline2) {
+        this.guideline2 = guideline2;
+    }
+
+    public String getGuideline3() {
+        return guideline3;
+    }
+
+    public void setGuideline3(String guideline3) {
+        this.guideline3 = guideline3;
+    }
+
 }
