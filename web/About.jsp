@@ -128,7 +128,7 @@
                                 <%
                                     if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                                 <%

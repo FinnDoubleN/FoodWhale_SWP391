@@ -5,11 +5,9 @@
  */
 package controller;
 
-import javax.servlet.http.Cookie;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,21 +20,9 @@ import model.User;
  *
  * @author ADMIN
  */
-public class UserProfileController extends HttpServlet {
+public class EditProfileController extends HttpServlet {
 
     User userdetail = new User();
-
-    private String getCookieByName(Cookie[] cookies, String check) {
-        if (cookies == null) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,12 +32,12 @@ public class UserProfileController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
         }
     }
 
@@ -67,21 +53,7 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Cookie[] cookies = request.getCookies();
-            String role = getCookieByName(cookies, "ROLE");
-            String username = getCookieByName(cookies, "USERNAME");
-            if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
-                FoodWhaleDAO DAO = new FoodWhaleDAO();
-                userdetail = DAO.getProfileByUsername(username);
-                request.setAttribute("userdetail", userdetail);
-                request.getRequestDispatcher("Profile.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("Login");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -96,6 +68,26 @@ public class UserProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        try {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("Update")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String image = request.getParameter("image");
+                String email = request.getParameter("email");
+                String username = request.getParameter("username");
+                String gender = request.getParameter("gender");
+                String address = request.getParameter("address");
+                String phone = request.getParameter("phone");
+                User u = new User(id, email, username, image, gender, address, phone);
+                dao.EditUser(u);
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

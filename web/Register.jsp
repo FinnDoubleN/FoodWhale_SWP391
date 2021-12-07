@@ -155,7 +155,7 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                             </div>
@@ -198,7 +198,7 @@
                                     </div>
 
                                     <input type="submit" value="SIGN UP">
-                                    <a href="login" style="color:white">ALREADY HAVE AN ACCOUNT? SIGN IN</a>
+                                    <a href="${pageContext.request.contextPath}/Login" style="color:white">ALREADY HAVE AN ACCOUNT? SIGN IN</a>
                                 </form>
                             </div>
                         </div>

@@ -5,31 +5,22 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
- * @author Asus
+ * @author This PC
  */
-public class CategoryListManagement extends HttpServlet {
-
-    private String getCookieByName(Cookie[] cookies, String check) {
-        if (cookies == null) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
+public class RegisterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,13 +51,7 @@ public class CategoryListManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
-        }
+        request.getRequestDispatcher("Register.jsp").forward(request, response);
     }
 
     /**
@@ -80,7 +65,39 @@ public class CategoryListManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        FoodWhaleDAO dao = new FoodWhaleDAO();
+        HttpSession session = request.getSession();       
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String confirm = request.getParameter("confirm");
+        String gender = request.getParameter("gender");
+        if (gender == null) {
+            gender = "";
+        }
+        String phonenumber = request.getParameter("phonenumber");
+        String email = request.getParameter("email");
+        String image= request.getParameter("image");
+        String address = request.getParameter("address");
+        String dob = request.getParameter("age");
+        if (!password.equalsIgnoreCase(confirm)) {
+            request.setAttribute("mess1", "password khong khop");
+            request.getRequestDispatcher("Register.jsp").forward(request, response);
+        } else {
+            User c = dao.CheckExistCustomer(username);
+            if (c == null) {
+                User cus = new User(  email, password, username,image, Date.valueOf(dob), gender, address, phonenumber);
+                HttpSession Temp = request.getSession();
+                session.setAttribute("tempCus", cus);
+                String code = dao.RanCode();
+                dao.send(email, dao.RegisterNoti(), code);
+                request.setAttribute(email, "email");
+                session.setAttribute("code", code);
+                request.getRequestDispatcher("enterCode.jsp").forward(request, response);
+            } else {
+                request.setAttribute("mess2", "Canh bao: username existed");
+                request.getRequestDispatcher("Register.jsp").forward(request, response);
+            }
+        }
     }
 
     /**

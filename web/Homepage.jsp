@@ -26,8 +26,8 @@
         <link href="css/style-new.css" rel="stylesheet" type="text/css"/>
         <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
         <%
-            ArrayList<Recipe> recipelist = (ArrayList<Recipe>) session.getAttribute("recipelist");
-            ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) session.getAttribute("ingredientlist");
+            ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
+            ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String USERNAME = "";
@@ -134,7 +134,7 @@
                                 <%
                                     if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
                                 %>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                                 <%

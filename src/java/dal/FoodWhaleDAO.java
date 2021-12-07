@@ -10,8 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import model.Ingredient;
 import model.Order;
 import model.Order_Detail;
@@ -25,11 +34,12 @@ import model.User;
  */
 public class FoodWhaleDAO extends DBContext {
 
+    private static final Random rand = new Random();
     PreparedStatement ps;
     ResultSet rs;
 
     public Boolean IsMember(String username, String password) throws SQLException {
-        String query = "select count(*) 'count' from [dbo].[User] where uName = '" + username + "' and Password = '" + password + "'";
+        String query = "select count(*) 'count' from foodwhale.user where uName = '" + username + "' and Password = '" + password + "'";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -43,9 +53,10 @@ public class FoodWhaleDAO extends DBContext {
         }
         return false;
     }
-    
+
     public Boolean IsActive(String username, String password) throws SQLException {
-        String query = "select Status from [dbo].[User] where uName = '" + username + "' and Password = '" + password + "'";
+        String query = "select Status from foodwhale.user where uName = '" + username + "' and Password = '" + password + "'";
+
         ps = connection.prepareStatement(query);
         rs = ps.executeQuery();
         while (rs.next()) {
@@ -59,7 +70,8 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<User> getAllAccount() {
         ArrayList<User> list = new ArrayList<>();
-        String query = "select * from [FoodWhale].[dbo].[User]";
+        String query = "select * from foodwhale.user";
+
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -78,14 +90,15 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(12)
                 ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
 
     public ArrayList<User> getAllCustomer() {
         ArrayList<User> list = new ArrayList<>();
-        String query = "select * from [FoodWhale].[dbo].[User] where Role = 'user'";
+        String query = "select * from foodwhale.user where Role = 'user'";
+
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -103,14 +116,15 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(11),
                         rs.getString(12)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
 
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID";
+        String query = "select o.oID , u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";
+
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -121,14 +135,15 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getDate(4),
                         rs.getString(5)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
-    
+
     public ArrayList<Order_Detail> getOrderDetailbyID(int oID) {
         ArrayList<Order_Detail> list = new ArrayList<>();
-        String query = "SELECT * FROM [FoodWhale].[dbo].[Order_Detail] where oID=?";
+        String query = "SELECT * FROM foodwhale.order_detail where oID=?";
+
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -141,14 +156,15 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getInt(6)
                 ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
-    
+
     public Order getOrderByID(int oID) throws Exception {
         Order order = new Order();
-        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Status from [FoodWhale].[dbo].[Order] o inner join [FoodWhale].[dbo].[User] u on o.uID = u.uID where oID=?";
+        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
+
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(xsql);
@@ -171,7 +187,8 @@ public class FoodWhaleDAO extends DBContext {
 
     public void deleteUser(int id) {
         try {
-            String query = "delete from [FoodWhale].[dbo].[User] where Uid=?";
+            String query = "delete from foodwhale.user where Uid=?";
+
             PreparedStatement st = connection.prepareStatement(query);
             st.setInt(1, id);
             st.executeUpdate();
@@ -183,8 +200,9 @@ public class FoodWhaleDAO extends DBContext {
     public ArrayList<User> search(int uID) {
         ArrayList<User> list = new ArrayList<>();
         String query = "select Email, Password, uName,Image,DoB,Gender,Address,Phone,Role\n"
-                + "from [FoodWhale].[dbo].[User] \n"
+                + "from foodwhale.user \n"
                 + "where uID = ?";
+
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, uID);
@@ -201,14 +219,15 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(9),
                         rs.getString(10)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
 
     public void updateUser(User u) {
         try {
-            String sql = "update [FoodWhale].[dbo].[User] set Email=?, Password=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=?, Status=? where uID=?";
+            String sql = "update foodwhale.user set Email=?, Password=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=?, Status=? where uID=?";
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getEmail());
             statement.setString(2, u.getPassword());
@@ -226,10 +245,11 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void updateStatus(User u) {
         try {
-            String sql = "update [FoodWhale].[dbo].[User] set Status=? where uID=?";
+            String sql = "update foodwhale.user set Status=? where uID=?";
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getStatus());
             statement.setInt(2, u.getuID());
@@ -241,7 +261,8 @@ public class FoodWhaleDAO extends DBContext {
 
     public User getUserByID(int uID) throws Exception {
         User user = new User();
-        String xsql = "select * from [FoodWhale].[dbo].[User] where uID= ?";
+        String xsql = "select * from foodwhale.user where uID= ?";
+
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(xsql);
@@ -269,7 +290,8 @@ public class FoodWhaleDAO extends DBContext {
 
     public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         try {
-            String sql = "INSERT INTO [FoodWhale].[dbo].[User](Email, Password, uName,Image, DoB, Gender, Address,Phone, Role) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
+            String sql = "INSERT INTO foodwhale.user(Email, Password, uName,Image, DoB, Gender, Address,Phone, Role) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, password);
@@ -287,10 +309,11 @@ public class FoodWhaleDAO extends DBContext {
     }
 
     public User getProfileByUsername(String uName) throws SQLException {
-        String sql = "select * from [dbo].[User] where [User].uName = ?";
+        String sql = "select * from foodwhale.user where uName = ?";
+
         PreparedStatement pst = connection.prepareStatement(sql);
         pst.setString(1, uName);
-        ResultSet rs = pst.executeQuery();
+        rs = pst.executeQuery();
         while (rs.next()) {
             User p = new User(
                     rs.getString(2),
@@ -309,28 +332,33 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Recipe> getAllRecipe() {
         ArrayList<Recipe> list = new ArrayList<>();
-        String query = "SELECT * FROM [FoodWhale].[dbo].[Recipe] ORDER BY [rID] DESC";
+        String query = "SELECT * FROM foodwhale.recipe ORDER BY rID DESC";
+
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Recipe(rs.getInt(1),
+                list.add(new Recipe(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
 
     public ArrayList<Ingredient> getAllIngredient() {
         ArrayList<Ingredient> list = new ArrayList<>();
-        String query = "select * from [FoodWhale].[dbo].[Ingredient]";
+        String query = "select * from foodwhale.ingredient";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -344,14 +372,15 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(7),
                         rs.getString(8)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
 
     public Ingredient getIngredientByID(int id) {
         Ingredient in = new Ingredient();
-        String query = "select * from [FoodWhale].[dbo].[Ingredient] where inID = ?";
+        String query = "select * from foodwhale.ingredient where inID = ?";
+
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(query);
@@ -375,7 +404,8 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Recipe> getRecipeByID(int id) {
         ArrayList<Recipe> list = new ArrayList<Recipe>();
-        String query = "select * from [FoodWhale].[dbo].[Recipe] where rID = ?";
+        String query = "select * from foodwhale.recipe where rID = ?";
+
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(query);
@@ -398,8 +428,8 @@ public class FoodWhaleDAO extends DBContext {
     }
 
     public ArrayList<Ingredient> getIngredientByRecipeId(int rid) {
-        ArrayList<Ingredient> list = new ArrayList<Ingredient>();
-        String query = "select * from [FoodWhale].[dbo].[Recipe_ingredient] where rID = ?";
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select * from foodwhale.recipe_ingredient where rID = ?";
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(query);
@@ -419,5 +449,208 @@ public class FoodWhaleDAO extends DBContext {
         } catch (SQLException e) {
         }
         return list;
+    }
+
+    public User loginCustomer(String username, String password) {
+        try {
+            String sql = "select * from foodwhale.user where uName = ? and password = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User cus = new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+                return cus;
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public User CheckExistCustomer(String username) {
+        try {
+            String sql = "select * from foodwhale.user where uName = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User cus = new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+                return cus;
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public int insertCus(User cus) {
+        int n = 0;
+        try {
+            String sql = "insert into foodwhale.user(email, password, uName, "
+                    + "image, DoB, gender,address,phone)\n"
+                    + "values(?, ?, ?, ?, ?, ?, ?, ?)";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, cus.getEmail());
+            ps.setString(2, cus.getPassword());
+            ps.setString(3, cus.getUsername());
+            ps.setString(4, cus.getImage());
+            ps.setDate(5, cus.getDate());
+            ps.setString(6, cus.getGender());
+            ps.setString(7, cus.getAddress());
+            ps.setString(8, cus.getPhone());
+            n = ps.executeUpdate();
+        } catch (SQLException ex) {
+        }
+        return n;
+    }
+
+    public boolean getCustomerByUser(String user) {
+        try {
+            String sql = "select uName from foodwhale.user where uName = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, user);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+        }
+        return false;
+    }
+
+    public String getEmailByUser(String user) {
+        String sql = "select email from foodwhale.user where uName = ?";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, user);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public void resetPass(String password, String username) {
+        String sql = "update foodwhale.user set password ='" + password + "' where uName='" + username + "'";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void EditUser(User u) {
+        try {
+            String sql = "update foodwhale.user set Email=?, ,uName=?,Image=?,Gender=?,Address=?,Phone=? where uID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, u.getEmail());
+            statement.setString(2, u.getUsername());
+            statement.setString(3, u.getImage());
+            statement.setString(4, u.getGender());
+            statement.setString(5, u.getAddress());
+            statement.setString(6, u.getPhone());
+            statement.setInt(17, u.getuID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
+
+    public User getUserByEmail(String email) throws Exception {
+        User user = new User();
+        String xsql = "select * from foodwhale.user where Email='?' ";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                ps.setString(1, email);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    user.setuID(rs.getInt(1));
+                    user.setEmail(rs.getString(2));
+                    user.setPassword(rs.getString(3));
+                    user.setUsername(rs.getString(4));
+                    user.setImage(rs.getString(5));
+                    user.setDate(rs.getDate(6));
+                    user.setGender(rs.getString(7));
+                    user.setAddress(rs.getString(8));
+                    user.setPhone(rs.getString(9));
+                    user.setRole(rs.getString(10));
+                    System.out.println(user);
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return user;
+    }
+
+    public void send(String m, String sub, String messg) {
+        final String user = "swpgroup2@gmail.com";
+        final String pass = "A123456@";
+        Properties props = new Properties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.host", "gmail");
+        props.put("mail.user", "quocthhe150051@fpt.edu.vn");
+        props.put("mail.password", "quoc1910");
+        props.put("mail.port", "465");
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, pass);
+            }
+        });
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(user));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(m));
+            message.setSubject(sub);
+            message.setText(messg);
+            Transport.send(message);
+            System.out.println("Done");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String RanCode() {
+        String ALPHA_NUMERIC = "0123456789";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            int number = randomNumber(0, ALPHA_NUMERIC.length() - 1);
+            char ch = ALPHA_NUMERIC.charAt(number);
+            sb.append(ch);
+        }
+        return sb.toString();
+    }
+
+    public static int randomNumber(int min, int max) {
+        return rand.nextInt((max - min) + 1) + min;
+    }
+
+    public String RegisterNoti() {
+        return "We send you an email confirmation code";
     }
 }

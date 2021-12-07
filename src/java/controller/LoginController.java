@@ -5,22 +5,24 @@
  */
 package controller;
 
-import dal.DAOCustomer;
-import dal.DBContext;
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.User;
 
 /**
  *
  * @author This PC
  */
-public class confirmAcc extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +38,6 @@ public class confirmAcc extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                                    DBContext dbconn = new DBContext();
-            DAOCustomer d = new DAOCustomer(dbconn);
-            HttpSession session = request.getSession();
-            String code = (String) session.getAttribute("code");
-            String uCode = request.getParameter("uCode");
-            
-            if(code.equalsIgnoreCase(uCode)){
-                User cus = (User) session.getAttribute("tempCus");
-                
-                d.insertCus(cus);
-                response.sendRedirect("login");
-            }else{
-                response.sendRedirect("404.html");
-                session.invalidate();
-            }
         }
     }
 
@@ -66,7 +53,7 @@ public class confirmAcc extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     /**
@@ -80,7 +67,41 @@ public class confirmAcc extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String username = request.getParameter("adUser");
+            String password = request.getParameter("adPass");
+            FoodWhaleDAO DAO = new FoodWhaleDAO();
+            if (DAO.IsMember(username, password)) {
+                if (true) {
+                    if(DAO.IsActive(username, password) == true){
+                    try {
+                        User user = DAO.getProfileByUsername(username);
+                        Cookie c = new Cookie("USERNAME", user.getUsername());
+                        c.setMaxAge(24 * 3600);
+                        response.addCookie(c);
+                        Cookie c1 = new Cookie("ROLE", user.getRole());
+                        c1.setMaxAge(24 * 3600);
+                        response.addCookie(c1);
+                        response.sendRedirect("Homepage");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                    else{
+                        request.setAttribute("mess", "You have been deactive or delete, please contact for help");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("mess", "Wrong user or password");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("mess", "Wrong user or password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -5,20 +5,31 @@
  */
 package controller;
 
-import dal.DAOSendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author This PC
+ * @author Asus
  */
-public class SendEmail extends HttpServlet {
+public class CategoryListController extends HttpServlet {
+
+    private String getCookieByName(Cookie[] cookies, String check) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +45,6 @@ public class SendEmail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             String mail = (String) request.getAttribute("mail");
-            DAOSendEmail e = new DAOSendEmail();
-            String email = (String)request.getAttribute("mail");
-            String code = e.RanCode();
-            e.send(email, e.RegisterNoti(), code);
-            request.setAttribute("mail", mail);
-            HttpSession session = request.getSession();
-            session.setAttribute("code", code);
-            request.getRequestDispatcher("enterCode.jsp").forward(request, response);
         }
     }
 
@@ -58,7 +60,13 @@ public class SendEmail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+            response.sendRedirect(request.getContextPath()+"/Homepage");
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
+        }
     }
 
     /**

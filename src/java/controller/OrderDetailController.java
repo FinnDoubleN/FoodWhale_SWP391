@@ -5,19 +5,30 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order;
+import model.Order_Detail;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class IngredientListManagement extends HttpServlet {
+public class OrderDetailController extends HttpServlet {
+
+    ArrayList<Order> orderlist = new ArrayList<Order>();
+    ArrayList<Order_Detail> orderdetaillist = new ArrayList<Order_Detail>();
+    Order_Detail orderdetail = new Order_Detail();
+    Order order = new Order();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -30,7 +41,6 @@ public class IngredientListManagement extends HttpServlet {
         }
         return null;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,12 +70,22 @@ public class IngredientListManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
+        try {
+            Cookie[] cookies = request.getCookies();
+            String role = getCookieByName(cookies, "ROLE");
+            if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+                response.sendRedirect(request.getContextPath()+"/Homepage");
+            } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                FoodWhaleDAO dao = new FoodWhaleDAO();
+                order = dao.getOrderByID(id);
+                orderdetaillist = dao.getOrderDetailbyID(id);
+                request.setAttribute("order", order);
+                request.setAttribute("orderdetaillist", orderdetaillist);
+                request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

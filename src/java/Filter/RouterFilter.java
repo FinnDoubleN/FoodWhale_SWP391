@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import javax.faces.context.Flash;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,6 +18,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -96,6 +98,7 @@ public class RouterFilter implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
@@ -108,9 +111,8 @@ public class RouterFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String url = httpRequest.getServletPath();
-        if (url.endsWith(".jsp") && !url.contains("Error.jsp") || url.equals("/")) {
-            httpRequest.getRequestDispatcher("Homepage").forward(request, response);
-            return;
+        if (url.endsWith(".jsp") && !url.contains("Error.jsp")){
+            httpRequest.getRequestDispatcher("/Homepage").forward(request, response);
         }
         chain.doFilter(request, response);
         

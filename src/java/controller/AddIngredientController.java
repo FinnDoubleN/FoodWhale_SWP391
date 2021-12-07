@@ -5,24 +5,31 @@
  */
 package controller;
 
-import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
 
 /**
  *
- * @author This PC
+ * @author Asus
  */
-public class login extends HttpServlet {
+public class AddIngredientController extends HttpServlet {
+
+    private String getCookieByName(Cookie[] cookies, String check) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,7 +60,13 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+            response.sendRedirect(request.getContextPath()+"/Homepage");
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            request.getRequestDispatcher("/AddIngredient.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -67,41 +80,7 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String username = request.getParameter("adUser");
-            String password = request.getParameter("adPass");
-            FoodWhaleDAO DAO = new FoodWhaleDAO();
-            if (DAO.IsMember(username, password)) {
-                if (true) {
-                    if(DAO.IsActive(username, password) == true){
-                    try {
-                        User user = DAO.getProfileByUsername(username);
-                        Cookie c = new Cookie("USERNAME", user.getUsername());
-                        c.setMaxAge(24 * 3600);
-                        response.addCookie(c);
-                        Cookie c1 = new Cookie("ROLE", user.getRole());
-                        c1.setMaxAge(24 * 3600);
-                        response.addCookie(c1);
-                        response.sendRedirect("Homepage");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    }
-                    else{
-                        request.setAttribute("mess", "You have been deactive or delete, please contact for help");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                    }
-                } else {
-                    request.setAttribute("mess", "Wrong user or password");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                }
-            } else {
-                request.setAttribute("mess", "Wrong user or password");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

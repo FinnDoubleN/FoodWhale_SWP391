@@ -134,7 +134,7 @@
                                 <%
                                     if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
                                 %>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                                 <%
@@ -248,27 +248,44 @@
                                     <div class="active">
                                         <ul class="rc-steps-box">
                                             <li>
-                                                <span>Step 1:</span>
-                                                <div>Rửa sạch các nguyên liệu đã sơ chế, để ráo nước.<br />
-                                                    Mùi tàu, rau ngổ cắt nhỏ, cà chua cắt múi cau.</div>
+                                                <span></span>
+                                                <div><%= r.getGuideline1()%></div>
                                             </li>
                                             <li>
-                                                <span>Step 2:</span>
-                                                <div>
-                                                    Bật bếp lên cho 1 muỗng canh dầu ăn vào nồi, đợi dầu nóng cho thịt bằm vào xào cho thịt săn lại.<br />
-                                                    Sau đó cho 500 ml nước lọc vào đun sôi lên rồi cho dưa chua, cà chua vào nấu trong 5 phút.
-                                                </div>
+                                                <span></span>
+                                                <div><%= r.getGuideline2()%></div>
                                             </li>
                                             <li>
-                                                <span>Step 3:</span>
-                                                <div>
-                                                    Tiếp đến, thêm từ từ gói gia vị hoàn chỉnh nấu chua vào khuấy cho gia vị tan đều và nêm nếm lại cho vừa ăn, cho tỏi phi, mùi tàu, rau ngổ vào rồi tắt bếp. <br />
-                                                    * Bí quyết: Thêm nước mắm làm dậy mùi thơm và canh thêm đậm đà
-                                                </div>
+                                                <span></span>
+                                                <div><%= r.getGuideline3()%></div>
                                             </li>
                                             <li>
-                                                <span>Step 4:</span>
-                                                <div>Bày món ăn ra tô và thưởng thức.<br /> Ngon hơn khi ăn nóng cùng cơm trắng.</div>
+                                                <span></span>
+                                                <div><%= r.getGuideline4()%></div>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                                <div><%= r.getGuideline5()%></div>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                                <div><%= r.getGuideline6()%></div>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                                <div><%= r.getGuideline7()%></div>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                                <div><%= r.getGuideline8()%></div>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                                <div><%= r.getGuideline9()%></div>
+                                            </li>
+                                            <li>
+                                                <span></span>
+                                                <div><%= r.getGuideline10()%></div>
                                             </li>
                                         </ul>
                                     </div>

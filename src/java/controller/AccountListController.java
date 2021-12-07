@@ -5,26 +5,31 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
  * @author Asus
  */
-public class AddRecipeManagement extends HttpServlet {
+public class AccountListController extends HttpServlet {
 
-    private String getCookieByName(Cookie[] cookies, String check) {
+    ArrayList<User> userlist = new ArrayList<User>();
+
+    private String getCookieByName(Cookie[] cookies, String name) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
+            if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getValue();
             }
         }
@@ -64,8 +69,16 @@ public class AddRecipeManagement extends HttpServlet {
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/AddRecipe.jsp").forward(request, response);
+        } else if (role.equalsIgnoreCase("staff")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            userlist = (ArrayList<User>) dao.getAllCustomer();
+            request.setAttribute("userlist", userlist);
+            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+        } else if (role.equalsIgnoreCase("admin")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            userlist = (ArrayList<User>) dao.getAllAccount();
+            request.setAttribute("userlist", userlist);
+            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
         }
     }
 

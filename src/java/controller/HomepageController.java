@@ -22,7 +22,7 @@ import model.Recipe;
  * @author Asus
  */
 public class HomepageController extends HttpServlet {
-    
+
     ArrayList<Recipe> recipelist = new ArrayList<>();
     ArrayList<Ingredient> ingredientlist = new ArrayList<>();
     FoodWhaleDAO DAO = new FoodWhaleDAO();
@@ -56,11 +56,10 @@ public class HomepageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         ingredientlist = DAO.getAllIngredient();
         recipelist = DAO.getAllRecipe();
-        session.setAttribute("ingredientlist", ingredientlist);
-        session.setAttribute("recipelist", recipelist);
+        request.setAttribute("ingredientlist", ingredientlist);
+        request.setAttribute("recipelist", recipelist);
         request.getRequestDispatcher("Homepage.jsp").forward(request, response);
     }
 

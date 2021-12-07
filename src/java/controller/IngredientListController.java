@@ -5,21 +5,31 @@
  */
 package controller;
 
-import dal.DAOCustomer;
-import dal.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author This PC
+ * @author Asus
  */
-public class ResetPassword extends HttpServlet {
+public class IngredientListController extends HttpServlet {
+
+    private String getCookieByName(Cookie[] cookies, String check) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +45,6 @@ public class ResetPassword extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-               if(session.getAttribute("user")!=null){
-                   response.sendRedirect("ResetPassword.jsp");
-               }else{
-                   response.sendRedirect("404.html");
-               }
         }
     }
 
@@ -56,7 +60,13 @@ public class ResetPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+            response.sendRedirect(request.getContextPath()+"/Homepage");
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -70,17 +80,7 @@ public class ResetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBContext dbconn = new DBContext();
-        DAOCustomer dao = new DAOCustomer(dbconn);
-        String password = request.getParameter("password");
-        String username = request.getParameter("username");
-        if(dao.getCustomerByUser(username)){
-            dao.resetPass(password, username);
-            response.sendRedirect("login");
-        }else{
-            request.setAttribute("mess", "PLEASE CHECK YOUR USERNAME");
-            request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

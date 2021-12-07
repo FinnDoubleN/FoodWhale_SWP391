@@ -5,24 +5,37 @@
  */
 package controller;
 
-import dal.DAOCustomer;
-import dal.DAOSendEmail;
-import dal.DBContext;
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.User;
 
 /**
  *
- * @author This PC
+ * @author Asus
  */
-public class register extends HttpServlet {
+public class AddAccountController extends HttpServlet {
+
+    ArrayList<User> userlist = new ArrayList<User>();
+
+    private String getCookieByName(Cookie[] cookies, String name) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equalsIgnoreCase(name)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,15 +51,6 @@ public class register extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet register</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet register at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -62,7 +66,13 @@ public class register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Register.jsp").forward(request, response);
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+            response.sendRedirect(request.getContextPath()+"/Homepage");
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -76,47 +86,24 @@ public class register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBContext dbconn = new DBContext();
-        HttpSession session = request.getSession();       
+        FoodWhaleDAO dao = new FoodWhaleDAO();
+        String image = request.getParameter("image");
+        String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String confirm = request.getParameter("confirm");
         String gender = request.getParameter("gender");
-        if (gender == null) {
+        String date = request.getParameter("date");
+        Date startDate = Date.valueOf(date);
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String role = request.getParameter("role");
+        if (gender == null || gender.equalsIgnoreCase("")) {
             gender = "";
         }
-        String phonenumber = request.getParameter("phonenumber");
-        String email = request.getParameter("email");
-        String image= request.getParameter("image");
-        String address = request.getParameter("address");
-        String dob = request.getParameter("age");
-        
-        if (!password.equalsIgnoreCase(confirm)) {
-            request.setAttribute("mess1", "password khong khop");
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
-        } else {
-            //Customer cus = new Customer(firstname, lastname, gender, email, phonenumber, username, password, age, status, address);
-            DAOCustomer daocus = new DAOCustomer(dbconn);
-            User c = daocus.CheckExistCustomer(username);
-            if (c == null) {
-                User cus = new User(  email, password, username,image, Date.valueOf(dob), gender, address, phonenumber);
-                HttpSession Temp = request.getSession();
-                session.setAttribute("tempCus", cus);
-                DAOSendEmail e = new DAOSendEmail();
-
-                String code = e.RanCode();
-                e.send(email, e.RegisterNoti(), code);
-
-                request.setAttribute(email, "email");
-                session.setAttribute("code", code);
-                request.getRequestDispatcher("enterCode.jsp").forward(request, response);
-                // daocus.insertCus(cus);
-                // response.sendRedirect("login");
-            } else {
-                request.setAttribute("mess2", "Canh bao: username existed");
-                request.getRequestDispatcher("Register.jsp").forward(request, response);
-            }
-        }
+        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
+        userlist = (ArrayList<User>) dao.getAllAccount();
+        request.setAttribute("userlist", userlist);
+        request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
     }
 
     /**

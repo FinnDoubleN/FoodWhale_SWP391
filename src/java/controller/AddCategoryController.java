@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Asus
  */
-public class RecipeListManagement extends HttpServlet {
+public class AddCategoryController extends HttpServlet {
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -65,7 +65,7 @@ public class RecipeListManagement extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
+            request.getRequestDispatcher("/AddCategory.jsp").forward(request, response);
         }
     }
 

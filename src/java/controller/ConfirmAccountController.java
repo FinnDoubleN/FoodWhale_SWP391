@@ -5,9 +5,7 @@
  */
 package controller;
 
-import dal.DAOCustomer;
-import dal.DAOSendEmail;
-import dal.DBContext;
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,12 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
  * @author This PC
  */
-public class preResetPassword extends HttpServlet {
+public class ConfirmAccountController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +35,20 @@ public class preResetPassword extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            FoodWhaleDAO d = new FoodWhaleDAO();
             HttpSession session = request.getSession();
-            session.setAttribute("user", "user");
-            session.setMaxInactiveInterval(60 * 3);
-            response.sendRedirect("EnterEmail.jsp");
+            String code = (String) session.getAttribute("code");
+            String uCode = request.getParameter("uCode");
+            
+            if(code.equalsIgnoreCase(uCode)){
+                User cus = (User) session.getAttribute("tempCus");
+                
+                d.insertCus(cus);
+                response.sendRedirect("Login");
+            }else{
+                response.sendRedirect("404.html");
+                session.invalidate();
+            }
         }
     }
 
@@ -69,21 +78,7 @@ public class preResetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBContext dbconn = new DBContext();
-        DAOCustomer dao = new DAOCustomer(dbconn);
-        String user = request.getParameter("email");
-        System.out.println();
-        if (dao.getCustomerByUser(user)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            String email = dao.getEmailByUser(user);
-            DAOSendEmail d = new DAOSendEmail();
-            d.send(email, "WE SEND YOU RESET PASSWORD LINK FOR USER:"+user, "LINK:localhost:" + request.getServerPort() + "/SWP391/ResetPassword");
-            response.sendRedirect("Annouce.jsp");
-        }else{
-            request.setAttribute("mess", "Wrong username");
-            request.getRequestDispatcher("EnterEmail.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
