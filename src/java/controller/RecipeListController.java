@@ -5,13 +5,17 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Recipe;
+import model.User;
 
 /**
  *
@@ -19,12 +23,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RecipeListController extends HttpServlet {
 
+    ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
+            if (cookie.getName().equals(check)) {
                 return cookie.getValue();
             }
         }
@@ -44,7 +49,7 @@ public class RecipeListController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+           
         }
     }
 
@@ -64,8 +69,16 @@ public class RecipeListController extends HttpServlet {
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
+        } else if (role.equalsIgnoreCase("staff")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            recipeList = (ArrayList<Recipe>) dao.getAllRecipe();
+            request.setAttribute("recipeList", recipeList);
+            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+        } else if (role.equalsIgnoreCase("admin")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            recipeList = (ArrayList<Recipe>) dao.getAllRecipe();
+            request.setAttribute("recipeList", recipeList);
+            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
         }
     }
 
