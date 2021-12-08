@@ -6,7 +6,6 @@
 
 <%@page import="model.Ingredient"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Recipe_ingredient"%>
 <%@page import="model.Recipe"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,7 +18,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="shortcut icon" href="../img/favicon.png" type="">
-        <title> Recipe Details </title>
+        <title> Ingredient Details </title>
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
@@ -28,7 +27,7 @@
         <link href="../css/responsive.css" rel="stylesheet" type="text/css" />
         <%
             ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
-            ArrayList<Ingredient> recipeingredient = (ArrayList<Ingredient>) request.getAttribute("ingredient");
+            ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String USERNAME = "";
@@ -187,12 +186,20 @@
                                     <div class="basic-info-box">
                                         <h1 class="names"><%= r.getrName()%></h1>
                                         <div class="stat">
-                                            <div class="type"><%= r.getcID()%></div>
+                                            <div class="type"><%= r.getcName()%></div>
                                         </div>
                                         <div class="price-x">
                                             <div class="price">
                                                 <div>
-                                                    <span class="sale-info">Total: </span>
+                                                    <span class="sale-info">Total: 
+                                                        <%
+                                                            double total = 0;
+                                                            for (Ingredient in: ingredientlist) {
+                                                                total += in.getMoney();
+                                                            }
+                                                        %>
+                                                        $<%=total%>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,9 +239,19 @@
                                             </li>
                                         </ul>
                                         <div class="overview">
-                                            <label class="title"></label>
+                                            <label class="title">
+                                                <b>Thành phần</b>
+                                            </label>
                                             <div class="container">
-                                                <div class="option"></div>
+                                                <%
+                                                    int i = 0;
+                                                    for (Ingredient in : ingredientlist) {
+                                                        i++;
+                                                %>
+                                                <div class="option"><%=i%>. <%=in.getInName() + " " + in.getType()%></div>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                         </div>
                                     </div>
@@ -242,50 +259,26 @@
                             </div>
                             <div class="product-desc">
                                 <div class="title-box">
-                                    <div class="active">Hướng dẫn</div>
+                                    <div class="title-a">Mô tả</div>
+                                    <div class="title-a active">Hướng dẫn</div>
                                 </div>
                                 <div class="content-box">
-                                    <div class="active">
+                                    <div class="content">
+                                        <div class="content-x"><%= r.getrDescription()%></div>
+                                    </div>
+                                    <div class="content active">
                                         <ul class="rc-steps-box">
                                             <li>
-                                                <span></span>
+                                                <span>Bước 1:</span>
                                                 <div><%= r.getGuideline1()%></div>
                                             </li>
                                             <li>
-                                                <span></span>
+                                                <span>Bước 2:</span>
                                                 <div><%= r.getGuideline2()%></div>
                                             </li>
                                             <li>
-                                                <span></span>
+                                                <span>Bước 3:</span>
                                                 <div><%= r.getGuideline3()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline4()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline5()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline6()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline7()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline8()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline9()%></div>
-                                            </li>
-                                            <li>
-                                                <span></span>
-                                                <div><%= r.getGuideline10()%></div>
                                             </li>
                                         </ul>
                                     </div>

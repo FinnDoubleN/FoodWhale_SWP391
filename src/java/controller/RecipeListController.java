@@ -73,12 +73,12 @@ public class RecipeListController extends HttpServlet {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             recipeList = (ArrayList<Recipe>) dao.getAllRecipe();
             request.setAttribute("recipeList", recipeList);
-            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
         } else if (role.equalsIgnoreCase("admin")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             recipeList = (ArrayList<Recipe>) dao.getAllRecipe();
             request.setAttribute("recipeList", recipeList);
-            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
         }
     }
 

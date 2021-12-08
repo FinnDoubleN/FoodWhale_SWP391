@@ -73,9 +73,9 @@ public class AccountDetailController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-                response.sendRedirect(request.getContextPath()+"/Homepage");
+                response.sendRedirect(request.getContextPath() + "/Homepage");
             } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-                int id = Integer.parseInt(request.getParameter("id"));
+                int id = Integer.parseInt(request.getParameter("uID"));
                 FoodWhaleDAO dao = new FoodWhaleDAO();
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);
@@ -107,28 +107,28 @@ public class AccountDetailController extends HttpServlet {
                 String image = request.getParameter("image");
                 String email = request.getParameter("email");
                 String username = request.getParameter("username");
-                String password = request.getParameter("password");
                 String gender = request.getParameter("gender");
                 String date = request.getParameter("date");
                 Date startDate = Date.valueOf(date);
                 String address = request.getParameter("address");
                 String phone = request.getParameter("phone");
                 String role = request.getParameter("role");
+                String sName = request.getParameter("sname");
                 String status = request.getParameter("status");
-                User u = new User(id, email, password, username, image, startDate, gender, address, phone, role, status);
+                User u = new User(id, email, username, image, startDate, gender, address, phone, role, sName, status);
                 dao.updateUser(u);
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
             } else if (submit.equalsIgnoreCase("Delete")) {
                 int id = Integer.parseInt(request.getParameter("uid"));
-                String status = request.getParameter("status");
+                String status = "Delete";
                 User u = new User(id, status);
+                dao.updateStatus(u);
                 userlist = (ArrayList<User>) dao.getAllAccount();
                 request.setAttribute("userlist", userlist);
                 request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
-            }
-            else if (submit.equalsIgnoreCase("Cancel")) {
+            } else if (submit.equalsIgnoreCase("Cancel")) {
                 userlist = (ArrayList<User>) dao.getAllAccount();
                 request.setAttribute("userlist", userlist);
                 request.getRequestDispatcher("/AccountList.jsp").forward(request, response);

@@ -180,6 +180,7 @@
                                         <a class="recipe-link" href="${pageContext.request.contextPath}/Recipe/Detail" onclick="recDetail(<%= r.getrID()%>)">
                                             <%= r.getrName()%>
                                         </a>
+                                        <br>
                                         <p>
                                             <%= r.getrDescription()%>
                                         </p>

@@ -163,14 +163,6 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>User ID</strong></div>
-                                                <input type="text" class="item-data" name="uid" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
                                                 <input type="text" class="item-data" maxlength="24" name="email">
                                             </div>
@@ -208,6 +200,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Staff name</strong></div>
+                                                <input type="text" class="item-data" maxlength="24" name="date">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
                                     <div class="item border-bottom py-3">
@@ -220,6 +220,14 @@
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Date</strong></div>
+                                                <input type="date" class="item-data" maxlength="24" name="date" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Gender</strong></div>
@@ -227,14 +235,6 @@
                                                 <label for="m">Male</label>
                                                 <input type="radio" id="f" name="gender" value="f">
                                                 <label for="f">Female</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" maxlength="24" name="date" required>
                                             </div>
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@
                                     </div>
                                     <div class="app-card-footer p-4 mt-auto">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Create">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Cancel">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/AccountList">Cancel</a>
                                     </div>
                                 </div>
                             </form>

@@ -25,7 +25,7 @@ import model.Recipe_ingredient;
 public class RecipeDetailController extends HttpServlet {
 
     ArrayList<Recipe> recipelist = new ArrayList<Recipe>();
-    ArrayList<Ingredient> ingredient = new ArrayList<Ingredient>();
+    ArrayList<Ingredient> ingredientlist = new ArrayList<Ingredient>();
     FoodWhaleDAO DAO = new FoodWhaleDAO();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -73,13 +73,13 @@ public class RecipeDetailController extends HttpServlet {
         String id = getCookieByName(cookies, "recID");
         if (id != null || !id.equals("")) {
             recipelist = DAO.getRecipeByID(Integer.parseInt(id));
-            ingredient = DAO.getIngredientByRecipeId(Integer.parseInt(id));
+            ingredientlist = DAO.getIngredientByRecipeId(Integer.parseInt(id));
             request.setAttribute("recipelist", recipelist);
-            request.setAttribute("ingredient", ingredient);
+            request.setAttribute("ingredientlist", ingredientlist);
             request.getRequestDispatcher("/RecipeDetail.jsp").forward(request, response);
         } else {
             recipelist = DAO.getAllRecipe();
-            request.setAttribute("ingredientlist", recipelist);
+            request.setAttribute("recipelist", recipelist);
             request.getRequestDispatcher("Recipe.jsp").forward(request, response);
         }
     }

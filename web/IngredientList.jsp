@@ -256,26 +256,7 @@
                 </div>
             </footer>
         </div>
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    "ordering": false,
-                    "lengthChange": false,
-                    "info": false,
-                    "pageLength": 6,
-                    "dom": '<"row margin-6"Bf>rtip',
-                    "buttons": [
-                        {
-                            "text": 'Create',
-                            "className": 'btn app-btn-secondary',
-                            action: function( e, dt, node, config) {
-                                window.location.replace("${pageContext.request.contextPath}/Dashboard/AddIngredient");
-                            }
-                        }
-                    ]
-                });
-            });
-        </script>
+        <script src="../js/table.js"></script>
         <script src="plugins/popper.min.js"></script>
         <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 

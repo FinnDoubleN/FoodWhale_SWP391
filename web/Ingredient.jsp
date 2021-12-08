@@ -183,6 +183,7 @@
                                         <a class="recipe-link" href="${pageContext.request.contextPath}/Ingredient/Detail" onclick="inDetail(<%= in.getInID()%>)">
                                             <%= in.getInName()%>
                                         </a>
+                                        <br>
                                         <p>
                                             <%= in.getDescription()%>
                                         </p>

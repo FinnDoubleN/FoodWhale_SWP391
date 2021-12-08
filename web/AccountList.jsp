@@ -192,8 +192,8 @@
                                                     <th class="cell">Username</th>
                                                     <th class="cell">Staff name</th>
                                                     <th class="cell">Address</th>
-                                                    <th class="cell filterhead">Role</th>
-                                                    <th class="cell">Status</th>
+                                                    <th class="cell filterrole">Role</th>
+                                                    <th class="cell filterstatus">Status</th>
                                                     <th class="cell"></th>
                                                 </tr>
                                             </thead>
@@ -208,9 +208,13 @@
                                                     <td class="cell"><%= u.getsName()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
                                                     <td class="cell"><%= u.getRole()%></td>
-                                                    <td class="cell"><span class="badge bg-success"><%= u.getStatus()%></span></td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">View</a>
-                                                        <a class="btn-sm app-btn-secondary" name="delete" href="${pageContext.request.contextPath}/Dashboard/AccountDetail?id=<%= u.getuID()%>">Delete</a>
+                                                    <td class="cell"><%= u.getStatus()%></td>
+                                                    <td class="cell">
+                                                        <form action="AccountList" method="post">
+                                                            <input type="hidden" name="uID" value="<%=u.getuID()%>">
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">
+                                                        </form>
                                                     </td>
                                                 </tr>
                                                 <%}%>
@@ -230,53 +234,16 @@
                 </div>
             </footer>
         </div>
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    "orderCellsTop": true,
-                    "ordering": false,
-                    "lengthChange": false,
-                    "info": false,
-                    "pageLength": 6,
-                    "dom": '<"row margin-6"Bf>rtip',
-                    "orders": [[1, 'asc']],
-                    "buttons": [
-                        {
-                            "text": 'Create',
-                            "className": 'btn app-btn-secondary',
-                            action: function (e, dt, node, config) {
-                                window.location.replace("${pageContext.request.contextPath}/Dashboard/AddAccount");
-                            }
-                        }
-                    ],
-                    initComplete: function () {
-                        var api = this.api();
-                        $('.filterhead', api.table().header()).each(function (i) {
-                            var column = api.column(5);
-                            var select = $('<select class="cell bold"><option value="">All</option></select>')
-                                    .appendTo($(this).empty())
-                                    .on('change', function () {
-                                        var val = $.fn.dataTable.util.escapeRegex(
-                                                $(this).val()
-                                                );
-                                        column.search(val ? '^' + val + '$' : '', true, false).draw();
-                                    });
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>');
-                            });
-                        });
-                    }
-                });
-            });
-        </script>
-        <script src="plugins/popper.min.js"></script>
-        <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../js/table.js"></script>
+        <script src="../js/ajax.js"></script>
+        <script src="../plugins/popper.min.js"></script>
+        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
         <!-- Charts JS -->
-        <script src="plugins/chart.js/chart.min.js"></script>
-        <script src="js/index-charts.js"></script>
+        <script src="../plugins/chart.js/chart.min.js"></script>
+        <script src="../js/index-charts.js"></script>
 
         <!-- Page Specific JS -->
-        <script src="js/app.js"></script>
+        <script src="../js/app.js"></script>
     </body>
 </html>

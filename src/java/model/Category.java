@@ -10,6 +10,7 @@ package model;
  * @author ADMIN
  */
 public class Category {
+    
     int categoryID;
     String cname;
 

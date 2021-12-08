@@ -9,8 +9,9 @@ package model;
  *
  * @author ADMIN
  */
-public class Ingredient {  
-    int  inID;
+public class Ingredient {
+
+    int inID;
     String inName;
     String image;
     String type;
@@ -18,6 +19,7 @@ public class Ingredient {
     int categoryID;
     String description;
     String guideline;
+    String cName;
 
     public Ingredient() {
     }
@@ -31,6 +33,25 @@ public class Ingredient {
         this.categoryID = categoryID;
         this.description = description;
         this.guideline = guideline;
+    }
+
+    public Ingredient(int inID, String inName, String image, String type, double money, String cName, String description, String guideline) {
+        this.inID = inID;
+        this.inName = inName;
+        this.image = image;
+        this.type = type;
+        this.money = money;
+        this.cName = cName;
+        this.description = description;
+        this.guideline = guideline;
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
     }
 
     public int getInID() {
@@ -96,5 +117,5 @@ public class Ingredient {
     public void setGuideline(String guideline) {
         this.guideline = guideline;
     }
-     
+
 }

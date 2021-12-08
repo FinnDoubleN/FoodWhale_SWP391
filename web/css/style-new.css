@@ -1386,6 +1386,7 @@ a:focus {
     font-weight: 600;
     line-height: 17px;
     text-transform: capitalize;
+    margin: 0;
 }
 
 .overview .container {
@@ -1401,6 +1402,5 @@ a:focus {
 .overview .container, .overview .container .option  {
     color: #000;
     line-height: 22px;
-    white-space: pre-line;
     text-align: justify;
 }

@@ -226,18 +226,17 @@ public class FoodWhaleDAO extends DBContext {
 
     public void updateUser(User u) {
         try {
-            String sql = "update foodwhale.user set Email=?, Password=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=?, Status=? where uID=?";
-
+            String sql = "update foodwhale.user set Email=?,uName=?,Image=?,DoB=?,Gender=?,Address=?,Phone=?,Role=?, sName=?, Status=? where uID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getEmail());
-            statement.setString(2, u.getPassword());
-            statement.setString(3, u.getUsername());
-            statement.setString(4, u.getImage());
-            statement.setDate(5, u.getDate());
-            statement.setString(6, u.getGender());
-            statement.setString(7, u.getAddress());
-            statement.setString(8, u.getPhone());
-            statement.setString(9, u.getRole());
+            statement.setString(2, u.getUsername());
+            statement.setString(3, u.getImage());
+            statement.setDate(4, u.getDate());
+            statement.setString(5, u.getGender());
+            statement.setString(6, u.getAddress());
+            statement.setString(7, u.getPhone());
+            statement.setString(8, u.getRole());
+            statement.setString(9, u.getsName());
             statement.setString(10, u.getStatus());
             statement.setInt(11, u.getuID());
             statement.executeUpdate();
@@ -249,7 +248,6 @@ public class FoodWhaleDAO extends DBContext {
     public void updateStatus(User u) {
         try {
             String sql = "update foodwhale.user set Status=? where uID=?";
-
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getStatus());
             statement.setInt(2, u.getuID());
@@ -377,35 +375,32 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
 
-    public Ingredient getIngredientByID(int id) {
-        Ingredient in = new Ingredient();
-        String query = "select * from foodwhale.ingredient where inID = ?";
-
+    public ArrayList<Ingredient> getIngredientByID(int id) {
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select i.inID, i.inName,i.Image, i.Type, i.Price, c.cName, i.description, i.Guideline from foodwhale.ingredient i inner join foodwhale.category c on i.categoryID = c.categoryID where i.inID = ?";
         try {
-            if (connection != null) {
-                ps = connection.prepareStatement(query);
-                ps.setInt(1, id);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    in.setInID(rs.getInt(1));
-                    in.setInName(rs.getString(2));
-                    in.setImage(rs.getString(3));
-                    in.setType(rs.getString(4));
-                    in.setMoney(rs.getDouble(5));
-                    in.setCategoryID(rs.getInt(6));
-                    in.setDescription(rs.getString(7));
-                    in.setGuideline(rs.getString(8));
-                }
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ingredient(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)));
             }
         } catch (SQLException e) {
         }
-        return in;
+        return list;
     }
 
     public ArrayList<Recipe> getRecipeByID(int id) {
-        ArrayList<Recipe> list = new ArrayList<Recipe>();
-        String query = "select * from foodwhale.recipe where rID = ?";
-
+        ArrayList<Recipe> list = new ArrayList<>();
+        String query = "select r.rID, r.rName, c.cName, r.Image, r.Difficulty, r.Time, r.uID, r.rDescription, r.Guideline1, r.Guideline2, r.Guideline3 from foodwhale.recipe r inner join foodwhale.category c on r.cID = c.categoryID where r.rID = ?";
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(query);
@@ -414,12 +409,15 @@ public class FoodWhaleDAO extends DBContext {
                 while (rs.next()) {
                     list.add(new Recipe(rs.getInt(1),
                             rs.getString(2),
-                            rs.getInt(3),
+                            rs.getString(3),
                             rs.getString(4),
                             rs.getString(5),
                             rs.getInt(6),
                             rs.getInt(7),
-                            rs.getString(8)));
+                            rs.getString(8),
+                            rs.getString(9),
+                            rs.getString(10),
+                            rs.getString(11)));
                 }
             }
         } catch (SQLException e) {
@@ -429,14 +427,15 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Ingredient> getIngredientByRecipeId(int rid) {
         ArrayList<Ingredient> list = new ArrayList<>();
-        String query = "select * from foodwhale.recipe_ingredient where rID = ?";
+        String query = "select i.inID, i.inName, i.Image, i.Type, i.Price, i.categoryID, i.description, i.guideline from foodwhale.recipe_ingredient ri inner join foodwhale.ingredient i on ri.inID = i.inID where ri.rID = ?";
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(query);
                 ps.setInt(1, rid);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    list.add(new Ingredient(rs.getInt(1),
+                    list.add(new Ingredient(
+                            rs.getInt(1),
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),

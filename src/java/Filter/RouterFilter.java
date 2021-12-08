@@ -18,7 +18,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -103,9 +102,9 @@ public class RouterFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         
-        if (debug) {
-            log("RouterFilter:doFilter()");
-        }
+//        if (debug) {
+//            log("RouterFilter:doFilter()");
+//        }
         
         doBeforeProcessing(request, response);
         HttpServletRequest httpRequest = (HttpServletRequest) request;

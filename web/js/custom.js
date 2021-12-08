@@ -91,3 +91,29 @@ $(".client_owl-carousel").owlCarousel({
         }
     }
 });
+
+var titleDiv = document.getElementsByClassName('title-a');
+var contentDiv = document.getElementsByClassName('content');
+for (let i = 0; i < titleDiv.length; i++) {
+    titleDiv[i].addEventListener("click", function () {
+        if (i === 0) {
+            active(i);
+            inactive(i + 1);
+        }
+        ;
+        if (i === 1) {
+            active(i);
+            inactive(i - 1);
+        }
+    });
+}
+
+function active(i) {
+    contentDiv[i].className += ' active';
+    titleDiv[i].className += ' active';
+}
+
+function inactive(i) {
+    contentDiv[i].className = 'content';
+    titleDiv[i].className = 'title-a';
+}

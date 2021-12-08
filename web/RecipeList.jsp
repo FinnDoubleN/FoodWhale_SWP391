@@ -178,14 +178,13 @@
                                         <table id="myTable" class="table app-table-hover mb-0 text-left">
                                             <thead>
                                                 <tr>
-                                                    <th class="cell">RecipeID</th>
+                                                    <th class="cell">ID</th>
                                                     <th class="cell">Name</th>
-                                                    <th class="cell">CategoryID</th>
-                                                    <th class="cell">Image</th>
+                                                    <th class="cell">Category Name</th>
                                                     <th class="cell">Difficult</th>
                                                     <th class="cell">Time</th>
                                                     <th class="cell">UserID</th>
-                                                    <th class="cell">Description</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -196,13 +195,12 @@
                                                     <td class="cell"><%= r.getrID()%></td>
                                                     <td class="cell"><span class="truncate"><%= r.getrName()%></span></td>
                                                     <td class="cell"><%= r.getcID()%></td>
-                                                    <td class="cell"><%= r.getImage()%></td>
                                                     <td class="cell"><span class="truncate"><%= r.getTime()%></span></td>
                                                     <td class="cell"><%= r.getuID()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= r.getDifficulty()%></span></td>
-                                                    <td class="cell"><%= r.getrDescription()%></td>
-                                                    <td class="cell"><%= r.getrID()%>">View</td>
-                                                    <td class="cell">   <%= r.getrID()%>">Delete
+                                                    <td class="cell">
+                                                        <a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/RecipeDetail?id=<%= r.getrID()%>">View</a>
+                                                        <a class="btn-sm app-btn-secondary" name="delete" href="${pageContext.request.contextPath}/Dashboard/RecipeDetail?id=<%= r.getrID()%>">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <%}%>
@@ -223,26 +221,7 @@
             </footer>
 
         </div>
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    "ordering": false,
-                    "lengthChange": false,
-                    "info": false,
-                    "pageLength": 6,
-                    "dom": '<"row margin-6"Bf>rtip',
-                    "buttons": [
-                        {
-                            "text": 'Create',
-                            "className": 'btn app-btn-secondary',
-                            action: function (e, dt, node, config) {
-                                window.location.replace("${pageContext.request.contextPath}/Dashboard/AddRecipe");
-                            }
-                        }
-                    ]
-                });
-            });
-        </script>
+        <script src="../js/table.js"></script>
         <script src="plugins/popper.min.js"></script>
         <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 

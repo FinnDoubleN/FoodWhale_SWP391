@@ -162,14 +162,7 @@
                             </div>
                             <form class="app-card app-card-account shadow-sm d-flex flex-column" action="AccountDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-6">
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>User ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getuID()%>" name="uid" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="hidden" class="item-data" value="<%= u.getuID()%>" name="uid" readonly>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -207,6 +200,14 @@
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
                                                 <input type="date" class="item-data" value="<%= u.getDate()%>" maxlength="24" name="date" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Staff name</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getsName()%>" maxlength="24" name="date" required>
                                             </div>
                                         </div>
                                     </div>
@@ -253,30 +254,30 @@
                                                     if (ROLE.equalsIgnoreCase("admin")) {
                                                         if (u.getRole().equalsIgnoreCase("admin")) {
                                                 %>
-                                                <input type="radio" id="Admin" name="role" value="admin" checked>
+                                                <input type="radio" id="Admin" name="role" value="Admin" checked>
                                                 <label for="admin">Admin</label>
-                                                <input type="radio" id="Staff" name="role" value="staff">
+                                                <input type="radio" id="Staff" name="role" value="Staff">
                                                 <label for="staff">Staff</label>
-                                                <input type="radio" id="User" name="role" value="user">
+                                                <input type="radio" id="User" name="role" value="User">
                                                 <label for="user">User</label>
                                                 <%} else if (u.getRole().equalsIgnoreCase("staff")) {%>
-                                                <input type="radio" id="Admin" name="role" value="admin">
+                                                <input type="radio" id="Admin" name="role" value="Admin">
                                                 <label for="admin">Admin</label>
-                                                <input type="radio" id="Staff" name="role" value="staff" checked>
+                                                <input type="radio" id="Staff" name="role" value="Staff" checked>
                                                 <label for="staff">Staff</label>
-                                                <input type="radio" id="User" name="role" value="user">
+                                                <input type="radio" id="User" name="role" value="User">
                                                 <label for="user">User</label>
                                                 <%} else if (u.getRole().equalsIgnoreCase("user")) {%>
-                                                <input type="radio" id="Admin" name="role" value="admin">
+                                                <input type="radio" id="Admin" name="role" value="Admin">
                                                 <label for="admin">Admin</label>
-                                                <input type="radio" id="Staff" name="role" value="staff">
+                                                <input type="radio" id="Staff" name="role" value="Staff">
                                                 <label for="staff">Staff</label>
-                                                <input type="radio" id="User" name="role" value="user" checked>
+                                                <input type="radio" id="User" name="role" value="User" checked>
                                                 <label for="user">User</label>
                                                 <%}
                                                 } else if (ROLE.equalsIgnoreCase("staff")) {
                                                 %>
-                                                <input type="radio" id="User" name="role" value="user" checked>
+                                                <input type="radio" id="User" name="role" value="User" checked>
                                                 <label for="user">User</label>
                                                 <%
                                                     }
@@ -317,7 +318,7 @@
                                     <div class="app-card-footer p-4 mt-auto">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Cancel">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/AccountList">Cancel</a>
                                     </div>
                                 </div>
                             </form>

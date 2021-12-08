@@ -9,6 +9,8 @@ import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +25,7 @@ import model.User;
 public class AccountListController extends HttpServlet {
 
     ArrayList<User> userlist = new ArrayList<User>();
+    User userdetail = new User();
 
     private String getCookieByName(Cookie[] cookies, String name) {
         if (cookies == null) {
@@ -68,7 +71,7 @@ public class AccountListController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             userlist = (ArrayList<User>) dao.getAllCustomer();
@@ -93,7 +96,29 @@ public class AccountListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int id = Integer.parseInt(request.getParameter("uID"));
+            String submit = request.getParameter("submit");
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            if (submit.equalsIgnoreCase("View")) {
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
+            } else if (submit.equalsIgnoreCase("Delete")) {
+                String status = "Delete";
+                User u = new User(id, status);
+                dao.updateStatus(u);
+                userlist = (ArrayList<User>) dao.getAllAccount();
+                request.setAttribute("userlist", userlist);
+                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            } else {
+                userlist = (ArrayList<User>) dao.getAllAccount();
+                request.setAttribute("userlist", userlist);
+                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

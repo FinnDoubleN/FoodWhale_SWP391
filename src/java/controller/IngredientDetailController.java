@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Ingredient;
+import model.Recipe;
 
 /**
  *
@@ -22,8 +23,7 @@ import model.Ingredient;
  */
 public class IngredientDetailController extends HttpServlet {
 
-    ArrayList<Ingredient> ingredientlist = new ArrayList<>();
-    Ingredient ingredient = new Ingredient();
+    ArrayList<Ingredient> ingredientlist = new ArrayList<Ingredient>();
     FoodWhaleDAO DAO = new FoodWhaleDAO();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -67,6 +67,17 @@ public class IngredientDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String id = getCookieByName(cookies, "recID");
+        if (id != null || !id.equals("")) {
+            ingredientlist = DAO.getIngredientByID(Integer.parseInt(id));
+            request.setAttribute("ingredientlist", ingredientlist);
+            request.getRequestDispatcher("/IngredientDetail.jsp").forward(request, response);
+        } else {
+            ingredientlist = DAO.getAllIngredient();
+            request.setAttribute("ingredientlist", ingredientlist);
+            request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -80,17 +91,6 @@ public class IngredientDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String id = getCookieByName(cookies, "inID");
-        if (id != null || !id.equals("")) {
-            ingredient = DAO.getIngredientByID(Integer.parseInt(id));
-            request.setAttribute("ingredient", ingredient);
-            request.getRequestDispatcher("/IngredientDetail.jsp").forward(request, response);
-        } else {
-            ingredientlist = DAO.getAllIngredient();
-            request.setAttribute("ingredientlist", ingredientlist);
-            request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
-        }
     }
 
     /**

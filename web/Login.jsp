@@ -149,7 +149,7 @@
             <section class="slider_section ">
                 <div class="contain">
                     <div class="wrapper">
-                        <form action="login" method="post">
+                        <form action="Login" method="post">
                             <h1>LOGIN</h1>
                             <p class="text-danger">${mess}</p>
                             <input placeholder="Username" type="text" name="adUser"/>

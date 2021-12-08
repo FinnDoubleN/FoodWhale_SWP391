@@ -198,7 +198,7 @@
                                                     <td class="cell"><%= u.getoID()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getuName()%></span></td>
                                                     <td class="cell"><%= u.getuAddress()%></td>
-                                                    <td class="cell"><%= u.getDate() %></td>
+                                                    <td class="cell"><%= u.getDate()%></td>
                                                     <td class="cell"><%= u.getTotal()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.isStatus()%></span></td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/OrderDetail?id=<%= u.getoID()%>">View</a></td>
@@ -220,26 +220,7 @@
                 </div>
             </footer>
         </div>
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    "ordering": false,
-                    "lengthChange": false,
-                    "info": false,
-                    "pageLength": 6,
-                    "dom": '<"row margin-6"Bf>rtip',
-                    "buttons": [
-                        {
-                            "text": 'Create',
-                            "className": 'btn app-btn-secondary',
-                            action: function( e, dt, node, config) {
-                                window.location.replace("${pageContext.request.contextPath}/Dashboard/AddOrder");
-                            }
-                        }
-                    ]
-                });
-            });
-        </script>
+        <script src="../js/table.js"></script>
         <script src="plugins/popper.min.js"></script>
         <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 
