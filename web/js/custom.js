@@ -99,8 +99,7 @@ for (let i = 0; i < titleDiv.length; i++) {
         if (i === 0) {
             active(i);
             inactive(i + 1);
-        }
-        ;
+        };
         if (i === 1) {
             active(i);
             inactive(i - 1);

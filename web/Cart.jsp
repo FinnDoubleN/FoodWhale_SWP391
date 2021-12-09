@@ -22,6 +22,7 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
         <%
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
@@ -114,7 +115,7 @@
                                     </svg>
                                 </a>
                                 <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="button" type="submit">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
@@ -148,6 +149,166 @@
         </div>
         <section class="food_section layout_padding">
             <div class="container">
+                <div class="cart-main">
+                    <div class="cart-nav">
+                        <div class="nav-1">Product</div>
+                        <div class="nav-2">Price</div>
+                        <div class="nav-3">Quantity</div>
+                        <div class="nav-4">Sub Total</div>
+                        <div class="nav-5">Action</div>
+                    </div>
+                    <div class="cart-item">
+                        <div class="item-box">
+                            <div class="item-box-layout">
+                                <div class="item-flex">
+                                    <div class="flex-1">
+                                        <div class="flex-item">
+                                            <a title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                                <div class="flex-item-img"
+                                                     style="background-image: url(&quot;https://cf.shopee.vn/file/f6750701f83c987b533b351c50ab6e37_tn&quot;);">
+                                                </div>
+                                            </a>
+                                            <div class="flex-item-name">
+                                                <a class="flex-item-link" title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                                    SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-2">
+                                        <div>
+                                            <span class="flex-item-price">475</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-3">
+                                        <div class="cart-input-quantity">
+                                            <button class="input minus-btn" data-id="1" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                                                </svg>
+                                            </button>
+                                            <input class="input input-num" id="quantity" type="text" role="spinbutton" aria-valuenow="1" value="1">
+                                            <button class="input plus-btn" data-id="1" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex-4">
+                                        <span class="total">475</span>
+                                    </div>
+                                    <div class="flex-5">
+                                        <button class="btn-delete">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-box-layout">
+                                <div class="item-flex">
+                                    <div class="flex-1">
+                                        <div class="flex-item">
+                                            <a title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                                <div class="flex-item-img" style="background-image: url(&quot;https://cf.shopee.vn/file/f6750701f83c987b533b351c50ab6e37_tn&quot;);">
+                                                </div>
+                                            </a>
+                                            <div class="flex-item-name">
+                                                <a class="flex-item-link" title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                                    SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-2">
+                                        <div>
+                                            <span class="flex-item-price">629</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-3">
+                                        <div class="cart-input-quantity">
+                                            <button class="input minus-btn" data-id="2" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                                                </svg>
+                                                '</button>
+                                            <input class="input input-num" id="quantity" type="text" role="spinbutton" aria-valuenow="1" value="1">
+                                            <button class="input plus-btn" data-id="2" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex-4">
+                                        <span class="total">629</span>
+                                    </div>
+                                    <div class="flex-5">
+                                        <button class="btn-delete">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-box-layout">
+                                <div class="item-flex">
+                                    <div class="flex-1">
+                                        <div class="flex-item">
+                                            <a title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                                <div class="flex-item-img" style="background-image: url(&quot;https://cf.shopee.vn/file/f6750701f83c987b533b351c50ab6e37_tn&quot;);">
+                                                </div>
+                                            </a>
+                                            <div class="flex-item-name">
+                                                <a class="flex-item-link" title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                                    SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-2">
+                                        <div>
+                                            <span class="flex-item-price">810</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-3">
+                                        <div class="cart-input-quantity">
+                                            <button class="input minus-btn" data-id="3" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                                                </svg>
+                                            </button>
+                                            <input class="input input-num" type="text" role="spinbutton" aria-valuenow="1" value="1">
+                                            <button class="input plus-btn" data-id="3" type="button">
+                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex-4">
+                                        <span class="total">810</span>
+                                    </div>
+                                    <div class="flex-5">
+                                        <button class="btn-delete">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-buy cart-buy-sticky">
+                        <div class="cart-buy-grid">
+                            <div class="cart-buy-total">
+                                <div class="cart-buy-seperate">
+                                    <div class="seperate-1">
+                                    </div>
+                                    <div class="seperate-2">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="cart-btn cart-btn--primary">
+                                <span class="cart-btn-text">
+                                    Buy
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <footer class="footer_section">
@@ -227,5 +388,17 @@
                 </div>
             </div>
         </footer>
+        <script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="js/user-cart.js"></script>
+        <script src="plugins/popper.min.js"></script>
+        <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Charts JS -->
+        <script src="plugins/chart.js/chart.min.js"></script>
+        <script src="js/index-charts.js"></script>
+
+        <!-- Page Specific JS -->
+        <script src="js/app.js"></script>
+
     </body>
 </html>

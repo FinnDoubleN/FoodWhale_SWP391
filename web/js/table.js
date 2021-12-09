@@ -59,6 +59,20 @@ $(document).ready(function () {
                     select.append('<option value="' + d + '">' + d + '</option>');
                 });
             });
+            $('.filtercate', api.table().header()).each(function () {
+                var column = api.column(2);
+                var select = $('<select class="cell bold"><option value="">Category</option></select>')
+                        .appendTo($(this).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                    );
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                });
+            });
         }
     });
 });
