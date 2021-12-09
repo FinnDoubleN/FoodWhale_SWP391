@@ -5,7 +5,6 @@
  */
 package controller;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -77,15 +76,6 @@ public class AboutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User admin = new User(1, "Admin");
-        User staff = new User(1, "Staff");
-        User user = new User(1, "User");
-        ArrayList<User> role = new ArrayList<>();
-        role.add(0, admin);
-        role.add(1, staff);
-        role.add(2, user);
-        response.setContentType("application/json");
-        new Gson().toJson(role, response.getWriter());
     }
 
     /**
