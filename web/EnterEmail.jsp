@@ -149,7 +149,7 @@
             <section class="slider_section ">
                 <div class="contain">
                     <div class="wrapper">
-                        <form method="POST" action="preResetPassword">
+                        <form method="POST" action="PreResetPassword">
             <input type="text" name="email" value="" placeholder="ENTER YOUR USERNAME"/>
             <p>${mess}</p>
             <button type="submit">Send</button>

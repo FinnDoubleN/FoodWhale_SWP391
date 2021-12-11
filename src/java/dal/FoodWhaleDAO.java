@@ -26,6 +26,7 @@ import model.Ingredient;
 import model.Order;
 import model.Order_Detail;
 import model.Recipe;
+import model.Recipe_Like;
 import model.Recipe_ingredient;
 import model.User;
 
@@ -786,6 +787,28 @@ public class FoodWhaleDAO extends DBContext {
         return "We send you an email confirmation code";
     }
 
+
+
+    public void addRecipe(Recipe recipe) {
+        try {
+            String sql = "INSERT INTO foodwhale.recipe(rName, cID, Image, Difficulty, Time, uID,rDescription, Guideline1,Guideline2,Guideline3) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, recipe.getrName());
+            statement.setInt(2, recipe.getcID());
+            statement.setString(3, recipe.getImage());
+            statement.setString(4, recipe.getDifficulty());
+            statement.setInt(5, recipe.getTime());
+            statement.setInt(6, recipe.getuID());
+            statement.setString(7, recipe.getrDescription());
+            statement.setString(8, recipe.getGuideline1());
+            statement.setString(9, recipe.getGuideline2());
+            statement.setString(10, recipe.getGuideline3());
+            statement.executeUpdate();
+        }
+        catch (SQLException ex){           
+        }
+    }
     public int checkUserOrder(String uName) {
         String xsql = "select MAX(oID) as 'orderNo' from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where u.uName = ?";
         try {
@@ -935,6 +958,76 @@ public class FoodWhaleDAO extends DBContext {
         } catch (SQLException e) {
         }
         return list;
+    }
+
+    public ArrayList<Recipe_Like> getAllFavouriteRecipe(int uID) {
+       ArrayList<Recipe_Like> list = new ArrayList<>();
+        String query = "select * from foodwhale.recipe_like where uID = " + uID + "";
+
+        try {
+            ps = connection.prepareStatement(query);           
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recipe_Like(rs.getInt(1),
+                        rs.getInt(2),
+                    rs.getInt(3),
+                    rs.getBoolean(4)));
+            }
+        } catch (SQLException e) {
+        }
+        return list; 
+    }
+
+    public Recipe getRecipebyID(int i) {
+        String query = "select * from foodwhale.recipe where rID = " + i + "";
+        
+        try {
+            ps = connection.prepareStatement(query);           
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Recipe r= new Recipe(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11));
+                return r;
+            }
+        } catch (SQLException e) {
+        }
+        return null; 
+    }
+
+    public ArrayList<Recipe> getRecipeByUser(int uID) {
+        String query = "select * from foodwhale.recipe where uID = " + uID + "";
+        ArrayList<Recipe> list = new ArrayList<>();
+        try {
+            ps = connection.prepareStatement(query);           
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add( new Recipe(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)));
+                
+            }
+        } catch (SQLException e) {
+        }
+        return list; 
     }
 
 }
