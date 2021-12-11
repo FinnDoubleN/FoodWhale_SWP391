@@ -8,7 +8,12 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Ingredient;
 import model.Recipe;
-import model.Recipe_ingredient;
+import model.User;
 
 /**
  *
@@ -33,7 +38,7 @@ public class RecipeDetailController extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(check)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -69,19 +74,6 @@ public class RecipeDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String id = getCookieByName(cookies, "recID");
-        if (id != null || !id.equals("")) {
-            recipelist = DAO.getRecipeByID(Integer.parseInt(id));
-            ingredientlist = DAO.getIngredientByRecipeId(Integer.parseInt(id));
-            request.setAttribute("recipelist", recipelist);
-            request.setAttribute("ingredientlist", ingredientlist);
-            request.getRequestDispatcher("/RecipeDetail.jsp").forward(request, response);
-        } else {
-            recipelist = DAO.getAllRecipe();
-            request.setAttribute("recipelist", recipelist);
-            request.getRequestDispatcher("Recipe.jsp").forward(request, response);
-        }
     }
 
     /**
@@ -95,6 +87,60 @@ public class RecipeDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String uName = getCookieByName(cookies, "USERNAME");
+        String recID = request.getParameter("recID");
+        String action = request.getParameter("action");
+        if (action == null) {
+            if (recID != null) {
+                recipelist = DAO.getRecipeByID(Integer.parseInt(recID));
+                ingredientlist = DAO.getIngredientByRecipeId(Integer.parseInt(recID));
+                request.setAttribute("recipelist", recipelist);
+                request.setAttribute("ingredientlist", ingredientlist);
+                request.getRequestDispatcher("/RecipeDetail.jsp").forward(request, response);
+            } else {
+                recipelist = DAO.getAllRecipe();
+                request.setAttribute("recipelist", recipelist);
+                request.getRequestDispatcher("Recipe.jsp").forward(request, response);
+            }
+        } else {
+            try {
+                int oID = DAO.checkUserOrder(uName);
+                ArrayList<Ingredient> ingredient = DAO.getIngredientByRecipeId(Integer.parseInt(recID));
+                if (oID == 0) {
+                    User profile = DAO.getProfileByUsername(uName);
+                    int uID = profile.getuID();
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate localDate = LocalDate.now();
+                    String date = dtf.format(localDate);
+                    DAO.createOrder(uID, date);
+                    oID++;
+                    for (Ingredient in : ingredient) {
+                        DAO.addToCart(oID, in.getInID());
+                    }
+                    if (action.equalsIgnoreCase("add")) {
+                        response.sendRedirect(request.getContextPath() + "/Recipe");
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/Cart");
+                    }
+                } else {
+                    for (Ingredient in : ingredient) {
+                        if (DAO.checkDuplicateIngredient(oID, in.getInID())) {
+                            DAO.addQuantity(oID, in.getInID());
+                        } else {
+                            DAO.addToCart(oID, in.getInID());
+                        }
+                    }
+                    if (action.equalsIgnoreCase("add")) {
+                        response.sendRedirect(request.getContextPath() + "/Recipe");
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/Cart");
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RecipeDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**

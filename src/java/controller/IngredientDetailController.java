@@ -8,7 +8,12 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Ingredient;
 import model.Recipe;
+import model.User;
 
 /**
  *
@@ -67,17 +73,6 @@ public class IngredientDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String id = getCookieByName(cookies, "recID");
-        if (id != null || !id.equals("")) {
-            ingredientlist = DAO.getIngredientByID(Integer.parseInt(id));
-            request.setAttribute("ingredientlist", ingredientlist);
-            request.getRequestDispatcher("/IngredientDetail.jsp").forward(request, response);
-        } else {
-            ingredientlist = DAO.getAllIngredient();
-            request.setAttribute("ingredientlist", ingredientlist);
-            request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
-        }
     }
 
     /**
@@ -91,6 +86,45 @@ public class IngredientDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String uName = getCookieByName(cookies, "USERNAME");
+        String inID = request.getParameter("inID");
+        String add = request.getParameter("add");
+        if (add == null || add.equals("")) {
+            if (inID != null || !inID.equals("")) {
+                ingredientlist = DAO.getIngredientByID(Integer.parseInt(inID));
+                request.setAttribute("ingredientlist", ingredientlist);
+                request.getRequestDispatcher("/IngredientDetail.jsp").forward(request, response);
+            } else {
+                ingredientlist = DAO.getAllIngredient();
+                request.setAttribute("ingredientlist", ingredientlist);
+                request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+            }
+        } else {
+            try {
+                int oID = DAO.checkUserOrder(uName);
+                if (oID == 0) {
+                    User profile = DAO.getProfileByUsername(uName);
+                    int uID = profile.getuID();
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate localDate = LocalDate.now();
+                    String date = dtf.format(localDate);
+                    DAO.createOrder(uID, date);
+                    oID++;
+                    DAO.addToCart(oID, Integer.parseInt(inID));
+                    response.sendRedirect(request.getContextPath() + "/Ingredient");
+                } else {
+                    if (DAO.checkDuplicateIngredient(oID, Integer.parseInt(inID))) {
+                        DAO.addQuantity(oID, Integer.parseInt(inID));
+                    } else {
+                        DAO.addToCart(oID, Integer.parseInt(inID));
+                    }
+                    response.sendRedirect(request.getContextPath() + "/Ingredient");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**

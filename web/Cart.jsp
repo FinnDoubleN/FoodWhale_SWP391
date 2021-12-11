@@ -4,6 +4,8 @@
     Author     : Asus
 --%>
 
+<%@page import="model.Order_Detail"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +17,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="shortcut icon" href="img/favicon.png" type="">
-        <title> Ingredient </title>
+        <title> Cart </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
@@ -24,15 +26,12 @@
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
         <%
+            ArrayList<Order_Detail> orderdetail = (ArrayList<Order_Detail>) request.getAttribute("orderdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -57,7 +56,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
@@ -127,7 +126,7 @@
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
                                 <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
@@ -159,24 +158,29 @@
                     </div>
                     <div class="cart-item">
                         <div class="item-box">
+                            <%
+                                for (Order_Detail od : orderdetail) {
+                            %>
                             <div class="item-box-layout">
                                 <div class="item-flex">
                                     <div class="flex-1">
                                         <div class="flex-item">
-                                            <a title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
+                                            <a title="<%= od.getInName()%>" href="#">
                                                 <div class="flex-item-img"
-                                                     style="background-image: url(&quot;https://cf.shopee.vn/file/f6750701f83c987b533b351c50ab6e37_tn&quot;);">
+                                                     style="background-image: url(&quot;<%= od.getImage()%>&quot;);">
                                                 </div>
                                             </a>
                                             <div class="flex-item-name">
-                                                <a class="flex-item-link" title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
-                                                    SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ</a>
+                                                <a class="flex-item-link" title="<%= od.getInName()%>" href="#">
+                                                    <%= od.getInName()%> <%= od.getType()%>
+                                                </a>
+                                                <span></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flex-2">
                                         <div>
-                                            <span class="flex-item-price">475</span>
+                                            $<span class="flex-item-price"><%= od.getPrice()%></span>
                                         </div>
                                     </div>
                                     <div class="flex-3">
@@ -186,7 +190,7 @@
                                                 <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
                                                 </svg>
                                             </button>
-                                            <input class="input input-num" id="quantity" type="text" role="spinbutton" aria-valuenow="1" value="1">
+                                            <input class="input input-num" id="<%= od.getInID()%>" type="text" role="spinbutton" aria-valuenow="1" value="<%= od.getQuantity()%>" readonly>
                                             <button class="input plus-btn" data-id="1" type="button">
                                                 <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
                                                 <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
@@ -195,117 +199,33 @@
                                         </div>
                                     </div>
                                     <div class="flex-4">
-                                        <span class="total">475</span>
+                                        $<span class="total"></span>
                                     </div>
                                     <div class="flex-5">
-                                        <button class="btn-delete">Xóa</button>
+                                        <button class="btn-delete" id="<%=od.getInID()%>">Xóa</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item-box-layout">
-                                <div class="item-flex">
-                                    <div class="flex-1">
-                                        <div class="flex-item">
-                                            <a title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
-                                                <div class="flex-item-img" style="background-image: url(&quot;https://cf.shopee.vn/file/f6750701f83c987b533b351c50ab6e37_tn&quot;);">
-                                                </div>
-                                            </a>
-                                            <div class="flex-item-name">
-                                                <a class="flex-item-link" title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
-                                                    SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-2">
-                                        <div>
-                                            <span class="flex-item-price">629</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex-3">
-                                        <div class="cart-input-quantity">
-                                            <button class="input minus-btn" data-id="2" type="button">
-                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
-                                                <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
-                                                </svg>
-                                                '</button>
-                                            <input class="input input-num" id="quantity" type="text" role="spinbutton" aria-valuenow="1" value="1">
-                                            <button class="input plus-btn" data-id="2" type="button">
-                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
-                                                <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="flex-4">
-                                        <span class="total">629</span>
-                                    </div>
-                                    <div class="flex-5">
-                                        <button class="btn-delete">Xóa</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-box-layout">
-                                <div class="item-flex">
-                                    <div class="flex-1">
-                                        <div class="flex-item">
-                                            <a title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
-                                                <div class="flex-item-img" style="background-image: url(&quot;https://cf.shopee.vn/file/f6750701f83c987b533b351c50ab6e37_tn&quot;);">
-                                                </div>
-                                            </a>
-                                            <div class="flex-item-name">
-                                                <a class="flex-item-link" title="SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ" href="/SIM-4G-VINA-VD149-VD89P-4G-NGÀY-VD89-tặng-2GB-NGÀY-MIỄN-PHÍ-12T-GỌI-VÀ-DATA-MIỄN-PHÍ-i.8708107.1045179016">
-                                                    SIM 4G VINA VD149 VD89P 4G/NGÀY VD89 tặng 2GB/NGÀY MIỄN PHÍ 12T GỌI VÀ DATA MIỄN PHÍ
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-2">
-                                        <div>
-                                            <span class="flex-item-price">810</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex-3">
-                                        <div class="cart-input-quantity">
-                                            <button class="input minus-btn" data-id="3" type="button">
-                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
-                                                <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
-                                                </svg>
-                                            </button>
-                                            <input class="input input-num" type="text" role="spinbutton" aria-valuenow="1" value="1">
-                                            <button class="input plus-btn" data-id="3" type="button">
-                                                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
-                                                <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="flex-4">
-                                        <span class="total">810</span>
-                                    </div>
-                                    <div class="flex-5">
-                                        <button class="btn-delete">Xóa</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                     <div class="cart-buy cart-buy-sticky">
                         <div class="cart-buy-grid">
                             <div class="cart-buy-total">
                                 <div class="cart-buy-seperate">
-                                    <div class="seperate-1">
-                                    </div>
-                                    <div class="seperate-2">
-
+                                    Total: $<div class="seperate-1">
                                     </div>
                                 </div>
                             </div>
-                            <button class="cart-btn cart-btn--primary">
-                                <span class="cart-btn-text">
-                                    Buy
-                                </span>
-                            </button>
+                            <form action="${pageContext.request.contextPath}/Cart" method="post">
+                                <button type="submit" class="cart-btn cart-btn--primary" name="action" value="buy">
+                                    <span class="cart-btn-text">
+                                        Buy
+                                    </span>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

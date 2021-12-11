@@ -558,6 +558,30 @@ a:focus {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+}
+
+.food_section .box .detail-box .ingredient-link {
+    color: #fff;
+    display: block;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .food_section .box .detail-box .recipe-link:hover {
@@ -1213,9 +1237,13 @@ a:focus {
     display: flex !important;
 }
 
-.btn-cart-box .btn-add-to-collection {
-    width: 110px;
-    padding: 0 20px;
+.btn-cart-box form {
+    height: 54px;
+    width: 150px;
+}
+
+.btn-cart-box form button {
+    width: 150px !important;
 }
 
 .btn-cart-box .btn-add-to-cart {
@@ -1232,6 +1260,7 @@ a:focus {
     padding: 0 25px;
     width: 190px;
     position: relative;
+    text-align: center;
 }
 
 .btn-cart-box .btn-add-to-cart .row-1 {
@@ -1253,8 +1282,8 @@ a:focus {
     font-family: Montserrat-Medium;
     font-size: 14px;
     line-height: 17px;
-    padding-left: 10px;
     text-align: center;
+    width: 100%;
 }
 
 .btn-cart-box .btn-order {
@@ -1403,4 +1432,95 @@ a:focus {
     color: #000;
     line-height: 22px;
     text-align: justify;
+}
+
+.search-box {
+    position: relative;
+    height: 45px;
+    width: 45px;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.search-box.active {
+    width: 350px;
+}
+
+.search-box input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #fff;
+    font-size: 13.5px;
+    border-radius: 37.5px;
+    padding: 0 45px 0 15px;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.search-box input.active {
+    opacity: 1;
+}
+
+.search-box .search-btn {
+    position: absolute;
+    top: 50%;
+    right:0px;
+    z-index: 1;
+    transform: translateY(-50%);
+    height: 45px;
+    width: 45px;
+    color: #222831;
+    background: #fff;
+    line-height: 45px;
+    font-size: 16.5px;
+    text-align: center;
+    border-radius: 37.5px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.search-box .search-btn.active {
+    right:5px;
+    height: 37.5px;;
+    width: 37.5px;;
+    color: #fff;
+    background: #222831;
+    line-height: 37.5px;;
+    font-size: 15px;
+    transform: translateY(-50%) rotate(360deg);
+}
+
+.search-box .cancel-btn {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 18.75px;
+    cursor: pointer;
+    transition: all 0.5s 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.search-box .cancel-btn.active {
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%);
+    color: #222831;
+    font-size: 18.75px;
+    cursor: pointer;
+    transform: translateY(-50%) rotate(360deg);
+}
+
+.search-box .search-data {
+    text-align: center;
+    padding-top: 7px;
+    color: #fff;
+    font-size: 13.5px;
+    word-wrap: break-word;
+}
+
+.search-box .search-data.active {
+    display: none;
 }
