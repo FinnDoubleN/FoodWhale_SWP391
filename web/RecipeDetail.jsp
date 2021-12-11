@@ -30,13 +30,9 @@
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -131,7 +127,7 @@
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
                                 <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
@@ -194,7 +190,7 @@
                                                     <span class="sale-info">Total: 
                                                         <%
                                                             double total = 0;
-                                                            for (Ingredient in: ingredientlist) {
+                                                            for (Ingredient in : ingredientlist) {
                                                                 total += in.getMoney();
                                                             }
                                                         %>
@@ -206,25 +202,28 @@
                                     </div>
                                     <div class="extra-info-box">
                                         <div class="display-flex btn-cart-box">
-                                            <button class="add-item-wrapper n-btn btn-add-to-cart btn-add-to-collection ">
+                                            <button class="add-item-wrapper n-btn btn-add-to-cart btn-add-collection">
                                                 <span class="row-1">
                                                     <img class="icon" src="../img/rating.png" />
                                                     <span class="text display-block"></span>
                                                 </span>
                                             </button>
-                                            <button class="btn-add-to-cart n-btn btn-add-to-cart"
-                                                    title="bam de them vao gio hang" style="background: none !important;">
+                                            <button class="btn-add-to-cart n-btn btn-rec-cart" id="<%=r.getrID()%>"
+                                                    title="Add to Cart" style="background: none !important;">
                                                 <span class="row-1">
                                                     <img class="icon" src="../img/cart.png" />
                                                     <span class="text display-block">Add to Cart</span>
                                                 </span>
                                             </button>
-                                            <button class="btn-add-to-cart n-btn btn-order "
-                                                    title="bam de mua ngay" style="background: rgb(242, 39, 38) !important;">
-                                                <span class="row-1">
-                                                    <span class="text display-block">Buy Now</span>
-                                                </span>
-                                            </button>
+                                            <form action="${pageContext.request.contextPath}/Recipe/Detail" method="post">
+                                                <button type="submit" class="btn-add-to-cart n-btn btn-buy " name="recID" value="<%=r.getrID()%>"
+                                                        title="Buy Now" style="background: rgb(242, 39, 38) !important;">
+                                                    <span class="row-1">
+                                                        <span class="text display-block">Buy Now</span>
+                                                    </span>
+                                                </button>
+                                                <input type="hidden" name="action" value="buy"/>
+                                            </form>
                                         </div>
                                         <ul class="services-box">
                                             <li class="">
@@ -371,6 +370,7 @@
         </footer>
         <script src="../js/jquery-3.4.1.min.js"></script>
         <script src="../js/ajax.js"></script>
+        <script src="../js/shopping.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
         <script src="../js/bootstrap.js"></script>

@@ -10,57 +10,71 @@ package model;
  * @author ADMIN
  */
 public class Order_Detail {
+
     int odID;
     int oID;
     int inID;
     int Quantity;
-    double Total;
-    String Note;
+    String image;
+    String inName;
+    String type;
+    int Price;
 
-    public Order_Detail() {
-    }
-
-    public Order_Detail(int odID, int oID, int inID, int Quantity, double Total, String Note) {
-        this.odID = odID;
+    public Order_Detail(int oID, int inID, int Quantity, String inName, String image, String type, int Price) {
         this.oID = oID;
         this.inID = inID;
         this.Quantity = Quantity;
-        this.Total = Total;
-        this.Note = Note;
+        this.inName = inName;
+        this.image = image;
+        this.type = type;
+        this.Price = Price;
     }
-    
-    public Order_Detail(int odID, int inID, int Quantity, double Total, String Note, int oID) {
-        this.odID = odID;
-        this.oID = oID;
-        this.inID = inID;
+
+    public Order_Detail(String image, String inName, String type, int Price, int Quantity) {
+        this.image = image;
+        this.inName = inName;
+        this.type = type;
+        this.Price = Price;
         this.Quantity = Quantity;
-        this.Total = Total;
-        this.Note = Note;
     }
-
-    public double getTotal() {
-        return Total;
-    }
-
-    public void setTotal(double Total) {
-        this.Total = Total;
-    }
-
-    public String getNote() {
-        return Note;
-    }
-
-    public void setNote(String Note) {
-        this.Note = Note;
-    }
-    
-    
 
     public Order_Detail(int odID, int oID, int inID, int Quantity) {
         this.odID = odID;
         this.oID = oID;
         this.inID = inID;
         this.Quantity = Quantity;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getInName() {
+        return inName;
+    }
+
+    public void setInName(String inName) {
+        this.inName = inName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getPrice() {
+        return Price;
+    }
+
+    public void setPrice(int Price) {
+        this.Price = Price;
     }
 
     public int getOdID() {
@@ -94,5 +108,5 @@ public class Order_Detail {
     public void setQuantity(int Quantity) {
         this.Quantity = Quantity;
     }
-    
+
 }

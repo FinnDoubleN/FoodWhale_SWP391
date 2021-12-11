@@ -27,13 +27,9 @@
             User u = (User) request.getAttribute("userdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -128,7 +124,7 @@
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
                                 <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login

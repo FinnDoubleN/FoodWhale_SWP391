@@ -140,27 +140,6 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
 
-    public ArrayList<Order_Detail> getOrderDetailbyID(int oID) {
-        ArrayList<Order_Detail> list = new ArrayList<>();
-        String query = "SELECT * FROM foodwhale.order_detail where oID=?";
-
-        try {
-            ps = connection.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Order_Detail(rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getDouble(4),
-                        rs.getString(5),
-                        rs.getInt(6)
-                ));
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
     public Order getOrderByID(int oID) throws Exception {
         Order order = new Order();
         String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
@@ -289,7 +268,6 @@ public class FoodWhaleDAO extends DBContext {
     public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
         try {
             String sql = "INSERT INTO foodwhale.user(Email, Password, uName,Image, DoB, Gender, Address,Phone, Role) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
-
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, password);
@@ -308,12 +286,12 @@ public class FoodWhaleDAO extends DBContext {
 
     public User getProfileByUsername(String uName) throws SQLException {
         String sql = "select * from foodwhale.user where uName = ?";
-
-        PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setString(1, uName);
-        rs = pst.executeQuery();
+        ps = connection.prepareStatement(sql);
+        ps.setString(1, uName);
+        rs = ps.executeQuery();
         while (rs.next()) {
             User p = new User(
+                    rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
                     rs.getString(4),
@@ -676,4 +654,156 @@ public class FoodWhaleDAO extends DBContext {
     public String RegisterNoti() {
         return "We send you an email confirmation code";
     }
+
+    public int checkUserOrder(String uName) {
+        String xsql = "select MAX(oID) as 'orderNo' from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where u.uName = ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                ps.setString(1, uName);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    int count = rs.getInt(1);
+                    if (count != 0) {
+                        return count;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+
+    public void createOrder(int uID, String date) {
+        try {
+            String sql = "insert into foodwhale.order(uID, Date, Total) values (?, ?, 0)";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, uID);
+            ps.setString(2, date);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addToCart(int oID, int inID) {
+        try {
+            String sql = "insert into foodwhale.order_detail(oID, inID, Quantity) values (?, ?, 1)";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, oID);
+            ps.setInt(2, inID);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean checkDuplicateIngredient(int oID, int inID) {
+        try {
+            String sql = "select count(*) 'count' from foodwhale.order_detail where oID = " + oID + " and inID = " + inID + "";
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int count = rs.getInt(1);
+                if (count != 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public void addQuantity(int oID, int inID) {
+        try {
+            String sql = "update foodwhale.order_detail SET Quantity = Quantity + 1 where oID = " + oID + " and inID = " + inID + "";
+            ps = connection.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void minusQuantity(int oID, int inID) {
+        try {
+            String sql = "update foodwhale.order_detail SET Quantity = Quantity - 1 where oID = " + oID + " and inID = " + inID + "";
+            ps = connection.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateTotal(int oID, int total) {
+        try {
+            String sql = "update foodwhale.order set Total = " + total + " where oID = " + oID + "";
+            ps = connection.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteIngredient(int oID, int inID) {
+        try {
+            String sql = "delete from foodwhale.order_detail where oID = " + oID + " and inID = " + inID + "";
+            ps = connection.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateOrderStatus(int oID) {
+        try {
+            String sql = "update foodwhale.order set Status = 'Waiting' where oID = " + oID + "";
+            ps = connection.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean checkOrderEmpty(int oID) {
+        try {
+            String sql = "select count(*) 'count' from foodwhale.order_detail where oID = " + oID + "";
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int count = rs.getInt(1);
+                if (count == 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public ArrayList<Order_Detail> getUserCart(int oID) {
+        ArrayList<Order_Detail> list = new ArrayList<>();
+        String query = "select * from foodwhale.order_detail od inner join foodwhale.ingredient i on od.inID = i.inID where od.oID = ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(query);
+                ps.setInt(1, oID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Order_Detail(
+                            rs.getInt(2),
+                            rs.getInt(3),
+                            rs.getInt(4),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getString(8),
+                            rs.getInt(9)));
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
 }

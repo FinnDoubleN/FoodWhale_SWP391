@@ -28,13 +28,9 @@
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -62,10 +58,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Recipe">Recipe</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
                                 <li class="nav-item">
@@ -129,7 +125,7 @@
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
                                 <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
@@ -162,7 +158,7 @@
                                     <a href="${pageContext.request.contextPath}">FoodWhale/</a>
                                 </li>
                                 <li class="">
-                                    <a href="${pageContext.request.contextPath}/Recipe">Recipe/</a>
+                                    <a href="${pageContext.request.contextPath}/Ingredient">Ingredient/</a>
                                 </li>
                                 <li class="active">
                                     <span><%= in.getInName()%></span>
@@ -197,8 +193,8 @@
                                     </div>
                                     <div class="extra-info-box">
                                         <div class="display-flex btn-cart-box">
-                                            <button class="btn-add-to-cart n-btn btn-add-to-cart"
-                                                    title="bam de them vao gio hang" style="background: none !important;">
+                                            <button class="btn-add-to-cart n-btn btn-in-cart" id="<%=in.getInID()%>"
+                                                    title="Add to Cart" style="background: none !important;">
                                                 <span class="row-1">
                                                     <img class="icon" src="../img/cart.png" />
                                                     <span class="text display-block">Add to Cart</span>

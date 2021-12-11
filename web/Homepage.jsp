@@ -30,14 +30,10 @@
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             int counter = 0;
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -119,11 +115,6 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
@@ -132,7 +123,7 @@
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
                                 <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
