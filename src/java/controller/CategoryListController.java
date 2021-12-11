@@ -5,13 +5,16 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
 
 /**
  *
@@ -19,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CategoryListController extends HttpServlet {
 
+    ArrayList<Category> categoryList = new ArrayList<Category>();
+    
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -65,6 +70,9 @@ public class CategoryListController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath()+"/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            categoryList = (ArrayList<Category>) dao.getAllCategory();
+            request.setAttribute("categoryList", categoryList);
             request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
         }
     }

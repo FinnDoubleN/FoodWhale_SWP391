@@ -21,6 +21,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Category;
 import model.Ingredient;
 import model.Order;
 import model.Order_Detail;
@@ -121,6 +122,22 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
 
+    public ArrayList<Category> getAllCategory() {
+        ArrayList<Category> list = new ArrayList<>();
+        String query = "select * from foodwhale.category";
+
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1),
+                        rs.getString(2)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
         String query = "select o.oID , u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";
@@ -350,6 +367,25 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<Ingredient> getIngredientWithCategory() {
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select i.inID , i.inName, i.Type, i.Price, c.cName from foodwhale.ingredient i inner join foodwhale.category c on i.categoryID = c.categoryID;";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ingredient(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getString(5)));
             }
         } catch (SQLException e) {
         }
