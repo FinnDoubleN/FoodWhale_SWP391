@@ -1,8 +1,9 @@
 <%-- 
-    Document   : UserList
-    Created on : Nov 30, 2021, 3:44:27 PM
-    Author     : Asus
+    Document   : RecipeListDetail
+    Created on : Dec 11, 2021, 3:10:27 PM
+    Author     : ADMIN
 --%>
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Recipe"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,20 +11,15 @@
 <html lang="en">
 
     <head>
-        <title>Order Lists</title>
+        <title>Recipe Lists</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="favicon.ico">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="../DataTables/datatables.css" />
-        <script type="text/javascript" src="../DataTables/datatables.js"></script>
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
-        <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
-        <% ArrayList<Recipe> recipeList = (ArrayList<Recipe>) request.getAttribute("recipeList");
+        <%
+            Recipe r = (Recipe) request.getAttribute("recipelistdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -112,14 +108,7 @@
                                         <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
                                         </svg>
                                     </span>
-                                    <%
-                                        if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
-                                    %>
-                                    <span class="nav-link-text">Customers</span>
-                                    <%
-                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
-                                    <%}%>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -165,75 +154,128 @@
         <div class="app-wrapper">
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-                    <div class="row g-3 mb-4 align-items-center justify-content-between">
-                        <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Recipes</h1>
-                        </div>
-                    </div>
-                    <div class="tab-content" id="orders-table-tab-content">
-                        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                            <div class="app-card app-card-orders-table shadow-sm mb-5">
-                                <div class="app-card-body">
-                                    <div class="table-responsive">
-                                        <table id="myTable" class="table app-table-hover mb-0 text-left">
-                                            <thead>
-                                                <tr>
-                                                    <th class="cell">ID</th>
-                                                    <th class="cell">Name</th>
-                                                    <th class="cell filtercate">Category</th>
-                                                    <th class="cell">Difficult</th>
-                                                    <th class="cell">Time</th>
-                                                    <th class="cell">UserID</th>
-                                                    <th class="cell"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    for (Recipe r : recipeList) {
-                                                %>
-                                                <tr>
-                                                    <td class="cell"><%= r.getrID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= r.getrName()%></span></td>
-                                                    <td class="cell"><%= r.getcName()%></td>
-                                                    <td class="cell"><span class="badge bg-success"><%= r.getDifficulty()%></span></td>
-                                                    <td class="cell"><%= r.getTime()%></td>
-                                                    <td class="cell"><%= r.getuID()%></td>
-                                                    <td class="cell">
-                                                        <form action="RecipeList" method="post">
-                                                            <input type="hidden" name="rID" value="<%=r.getrID()%>">
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <%}%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>	
+                    <h1 class="app-page-title">Recipe Detail</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-12">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row gx-3 placecontent-center ">
+                                </div>
                             </div>
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="RecipeListDetail" method="post">
+                                <div class="app-card-body px-4 col-12 col-lg-6">
+                                    <input type="hidden" class="item-data" value="<%= r.getrID() %>" name="rID" readonly>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Name</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getrName()%>" maxlength="24" name="rName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Category ID</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getcID()%>" maxlength="24" name="cID">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Difficulty</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getDifficulty()%>" maxlength="24" name="Difficulty">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Time</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getTime()%>" maxlength="24" name="Time">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>User ID</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getuID()%>" maxlength="24" name="uID" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Description</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getrDescription()%>" name="Description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Image</strong></div>
+                                                <div class="item-data"><img class="profile-image" src="<%= r.getImage()%>" alt=""></div><br>
+                                                <input type="text" class="item-data" value="<%= r.getImage()%>" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Guideline1</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getGuideline1() %>" name="Guideline1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Guideline2</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getGuideline2()%>" name="Guideline2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Guideline3</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getGuideline3() %>" name="Guideline3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>
 
         </div>
-        <script src="../js/table.js"></script>
-        <script src="plugins/popper.min.js"></script>
-        <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Javascript -->
+        <script src="../plugins/popper.min.js"></script>
+        <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
         <!-- Charts JS -->
-        <script src="plugins/chart.js/chart.min.js"></script>
-        <script src="js/index-charts.js"></script>
+        <script src="../plugins/chart.js/chart.min.js"></script>
+        <script src="../js/index-charts.js"></script>
 
         <!-- Page Specific JS -->
-        <script src="js/app.js"></script>
+        <script src="../js/app.js"></script>
 
     </body>
 </html>

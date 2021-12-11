@@ -24,6 +24,16 @@ public class Ingredient {
     public Ingredient() {
     }
 
+    public Ingredient(int inID, String inName, String type, double money, String cName) {
+        this.inID = inID;
+        this.inName = inName;
+        this.type = type;
+        this.money = money;
+        this.cName = cName;
+    }
+
+    
+    
     public Ingredient(int inID, String inName, String image, String type, double money, int categoryID, String description, String guideline) {
         this.inID = inID;
         this.inName = inName;

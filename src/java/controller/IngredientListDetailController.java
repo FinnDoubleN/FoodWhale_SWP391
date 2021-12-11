@@ -20,9 +20,9 @@ import model.Ingredient;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class IngredientListController extends HttpServlet {
+public class IngredientListDetailController extends HttpServlet {
 
     ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
     Ingredient ingredientlistdetail = new Ingredient();
@@ -68,15 +68,20 @@ public class IngredientListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath() + "/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            ingredientList = (ArrayList<Ingredient>) dao.getIngredientWithCategory();
-            request.setAttribute("ingredientList", ingredientList);
-            request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
+        try {
+            Cookie[] cookies = request.getCookies();
+            String role = getCookieByName(cookies, "ROLE");
+            if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+                response.sendRedirect(request.getContextPath() + "/Homepage");
+            } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+                int id = Integer.parseInt(request.getParameter("inID"));
+                FoodWhaleDAO dao = new FoodWhaleDAO();
+                ingredientlistdetail = dao.getIngredientDetailByID(id);
+                request.setAttribute("ingredientlistdetail", ingredientlistdetail);
+                request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(IngredientListDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -91,27 +96,7 @@ public class IngredientListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int inID = Integer.parseInt(request.getParameter("inID"));
-            String submit = request.getParameter("submit");
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            if (submit.equalsIgnoreCase("View")) {
-                ingredientlistdetail = dao.getIngredientDetailByID(inID);
-                request.setAttribute("ingredientlistdetail", ingredientlistdetail);
-                request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Delete")) {
-                dao.deleteIngredientDetail(inID);
-                ingredientList = (ArrayList<Ingredient>) dao.getAllIngredient();
-                request.setAttribute("ingredientList", ingredientList);
-                request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
-            } else {
-                ingredientList = (ArrayList<Ingredient>) dao.getAllIngredient();
-                request.setAttribute("ingredientList", ingredientList);
-                request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(IngredientListController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

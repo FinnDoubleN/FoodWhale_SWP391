@@ -192,6 +192,28 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void deleteRecipe(int id) {
+        try {
+            String query = "delete from foodwhale.recipe where rID=?";
+            PreparedStatement st = connection.prepareStatement(query);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteIngredientDetail(int id) {
+        try {
+            String query = "delete from foodwhale.ingredient where inID=?";
+            PreparedStatement st = connection.prepareStatement(query);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public ArrayList<User> search(int uID) {
         ArrayList<User> list = new ArrayList<>();
@@ -240,6 +262,27 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateRecipe(Recipe r) {
+        try {
+            String sql = "update foodwhale.recipe set rName=?, cID=?,Image=?,Difficulty=?, Time=?, uID=?, rDescription=?, Guideline1=?, Guideline2=?, Guideline3=? where rID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, r.getrName());
+            statement.setInt(2, r.getcID() );
+            statement.setString(3, r.getImage());
+            statement.setString(4, r.getDifficulty());
+            statement.setInt(5, r.getTime());
+            statement.setInt(6, r.getuID());
+            statement.setString(7, r.getrDescription());
+            statement.setString(8, r.getGuideline1());
+            statement.setString(9, r.getGuideline2());
+            statement.setString(10, r.getGuideline3());
+            statement.setInt(11, r.getrID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void updateStatus(User u) {
         try {
@@ -280,6 +323,58 @@ public class FoodWhaleDAO extends DBContext {
         } catch (SQLException e) {
         }
         return user;
+    }
+    
+    public Recipe getRecipeDetailByID(int rID) throws Exception {
+        Recipe recipe = new Recipe();
+        String xsql = "select * from foodwhale.recipe where rID= ?";
+
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                ps.setInt(1, rID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    recipe.setrID(rs.getInt(1));
+                    recipe.setrName(rs.getString(2));
+                    recipe.setcID(rs.getInt(3));
+                    recipe.setImage(rs.getString(4));
+                    recipe.setDifficulty(rs.getString(5));
+                    recipe.setTime(rs.getInt(6));
+                    recipe.setuID(rs.getInt(7));
+                    recipe.setrDescription(rs.getString(8));
+                    recipe.setGuideline1(rs.getString(9));
+                    recipe.setGuideline2(rs.getString(10));
+                    recipe.setGuideline3(rs.getString(11));
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return recipe;
+    }
+    
+    public Ingredient getIngredientDetailByID(int inID) throws Exception {
+        Ingredient ingredient = new Ingredient();
+        String xsql = "select * from foodwhale.ingredient where inID= ?";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                ps.setInt(1, inID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    ingredient.setInID(rs.getInt(1));
+                    ingredient.setInName(rs.getString(2));
+                    ingredient.setImage(rs.getString(3));
+                    ingredient.setType(rs.getString(4));
+                    ingredient.setMoney(rs.getDouble(5));
+                    ingredient.setCategoryID(rs.getInt(6));
+                    ingredient.setDescription(rs.getString(7));
+                    ingredient.setGuideline(rs.getString(8));
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return ingredient;
     }
 
     public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {

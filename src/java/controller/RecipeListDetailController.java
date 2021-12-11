@@ -8,6 +8,7 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,15 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Recipe;
-import model.User;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class RecipeListController extends HttpServlet {
+public class RecipeListDetailController extends HttpServlet {
 
-    ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+    ArrayList<Recipe> recipelist = new ArrayList<Recipe>();
     Recipe recipelistdetail = new Recipe();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -33,7 +33,7 @@ public class RecipeListController extends HttpServlet {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(check)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -53,7 +53,7 @@ public class RecipeListController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+            /* TODO output your page here. You may use following sample code. */
         }
     }
 
@@ -69,20 +69,20 @@ public class RecipeListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath() + "/Homepage");
-        } else if (role.equalsIgnoreCase("staff")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-            request.setAttribute("recipeList", recipeList);
-            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
-        } else if (role.equalsIgnoreCase("admin")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-            request.setAttribute("recipeList", recipeList);
-            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
+        try {
+            Cookie[] cookies = request.getCookies();
+            String role = getCookieByName(cookies, "ROLE");
+            if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+                response.sendRedirect(request.getContextPath() + "/Homepage");
+            } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+                int id = Integer.parseInt(request.getParameter("rID"));
+                FoodWhaleDAO dao = new FoodWhaleDAO();
+                recipelistdetail = dao.getRecipeDetailByID(id);
+                request.setAttribute("recipelistdetail", recipelistdetail);
+                request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RecipeListDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -98,26 +98,40 @@ public class RecipeListController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("rID"));
-            String submit = request.getParameter("submit");
+            Cookie[] cookies = request.getCookies();
+            String ROLE = getCookieByName(cookies, "ROLE");
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            if (submit.equalsIgnoreCase("View")) {
-                recipelistdetail = dao.getRecipeDetailByID(id);
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("Update")) {
+                int rid = Integer.parseInt(request.getParameter("rID"));
+                String image = request.getParameter("image");
+                String rName = request.getParameter("rName");
+                int cID = Integer.parseInt(request.getParameter("cID"));
+                String Difficulty = request.getParameter("Difficulty");
+                int Time = Integer.parseInt(request.getParameter("Time"));
+                int uID = Integer.parseInt(request.getParameter("uID"));
+                String Description = request.getParameter("Description");
+                String Guideline1 = request.getParameter("Guideline1");
+                String Guideline2 = request.getParameter("Guideline2");
+                String Guideline3 = request.getParameter("Guideline3");
+                Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3);
+                dao.updateRecipe(r);
+                recipelistdetail = dao.getRecipeDetailByID(rid);
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
-
             } else if (submit.equalsIgnoreCase("Delete")) {
-                dao.deleteRecipe(id);
-                recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-                request.setAttribute("recipeList", recipeList);
+                int rid = Integer.parseInt(request.getParameter("rID"));
+                dao.deleteRecipe(rid);
+                recipelist = (ArrayList<Recipe>) dao.getRecipeWithCategory();
+                request.setAttribute("recipelist", recipelist);
                 request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
-            } else {
-                recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-                request.setAttribute("recipeList", recipeList);
+            } else if (submit.equalsIgnoreCase("Cancel")) {
+                recipelist = (ArrayList<Recipe>) dao.getRecipeWithCategory();
+                request.setAttribute("recipelist", recipelist);
                 request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
             }
         } catch (Exception ex) {
-            Logger.getLogger(RecipeListController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecipeListDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
