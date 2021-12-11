@@ -123,6 +123,14 @@
         <servlet-name>PostRecipeController</servlet-name>
         <servlet-class>controller.PostRecipeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FavouriteRecipeController</servlet-name>
+        <servlet-class>controller.FavouriteRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostedRecipeController</servlet-name>
+        <servlet-class>controller.PostedRecipeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -234,6 +242,14 @@
     <servlet-mapping>
         <servlet-name>PostRecipeController</servlet-name>
         <url-pattern>/PostRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FavouriteRecipeController</servlet-name>
+        <url-pattern>/FavouriteRecipe</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostedRecipeController</servlet-name>
+        <url-pattern>/PostedRecipe</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -8,7 +8,6 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,29 +17,30 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
 import model.Recipe;
+import model.Recipe_Like;
 import model.User;
 
 /**
  *
  * @author This PC
  */
-public class PostRecipeController extends HttpServlet {
-    
+public class FavouriteRecipeController extends HttpServlet {
+    ArrayList<Recipe> recipelist = new ArrayList<>();
+    ArrayList<Recipe_Like> likelist = new ArrayList<>();
+    FoodWhaleDAO DAO = new FoodWhaleDAO();
     User userdetail = new User();
-    private String getCookieByName(Cookie[] cookies, String name) {
+    private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(name)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
         return null;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,7 +54,16 @@ public class PostRecipeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet FavouriteRecipeController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet FavouriteRecipeController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -70,30 +79,6 @@ public class PostRecipeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FoodWhaleDAO dao = new FoodWhaleDAO();
-        ArrayList<Category> catelist = dao.getAllCategory();
-        request.setAttribute("catelist", catelist);
-       Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null ||  role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")|| role.equalsIgnoreCase("user")) {
-            request.getRequestDispatcher("/PostRecipe.jsp").forward(request, response);
-        }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        FoodWhaleDAO dao = new FoodWhaleDAO();
         
         try {
             Cookie[] cookies = request.getCookies();
@@ -110,24 +95,28 @@ public class PostRecipeController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
-                
-        String name = request.getParameter("rname");
-        String image = request.getParameter("rimage");
-        int cate = Integer.parseInt(request.getParameter("rcate"));
-        int user = userdetail.uID;
-        String diff = request.getParameter("rdiff");
-        int time = Integer.parseInt(request.getParameter("rtime")) ;
-        String des = request.getParameter("rdes");
-        String gui1 = request.getParameter("rgui1");
-        String gui2 = request.getParameter("rgui2");
-        String gui3 = request.getParameter("rgui3");
-//        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
-//        userlist = (ArrayList<User>) dao.getAllAccount();
-//        request.setAttribute("userlist", userlist);
-        Recipe recipe = new Recipe(name,cate,image,diff,time,user,des,gui1,gui2,gui3);
-        dao.addRecipe(recipe);
-        request.getRequestDispatcher("/Recipe").forward(request, response);
+        likelist = DAO.getAllFavouriteRecipe(userdetail.uID);
+        for (Recipe_Like recipe_Like : likelist) {
+            int i= recipe_Like.getrID();
+            Recipe r = DAO.getRecipebyID(i);
+            recipelist.add(r);
+        }
+        request.setAttribute("recipelist", recipelist);
+        request.getRequestDispatcher("FavouriteRecipe.jsp").forward(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
