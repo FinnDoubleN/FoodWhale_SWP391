@@ -169,7 +169,7 @@
                         <h1>Register Form</h1>
                         <div class="main-agileinfo">
                             <div class="agileits-top">
-                                <form action="register" method="post">
+                                <form action="Register" method="post">
                                     <p class="text-danger">${mess1}</p>
                                     <p class="text-danger">${mess2}</p>
 

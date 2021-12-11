@@ -1,12 +1,15 @@
 <%-- 
-    Document   : Login
-    Created on : 30-11-2021, 13:13:03
-    Author     : This PC
+    Document   : Ingredient
+    Created on : Dec 2, 2021, 5:20:09 PM
+    Author     : Asus
 --%>
 
+<%@page import="model.Category"%>
+<%@page import="model.Ingredient"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,69 +18,36 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="shortcut icon" href="img/favicon.png" type="">
-        <title> Login </title>
+        <title> Post Recipe </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
-        <style>
-            .contain {
-                width: 100%;
-                background-size: cover;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .wrapper {
-                padding: 25px;
-                width: 30%;
-                background-color: rgb(0 0 0 / 50%);
-                border-radius: 45px;
-            }
-
-            form {
-                display: flex;
-                flex-direction: column;
-            }
-
-            h1 {
-                color: #ffffff;
-                text-align: center;
-            }
-
-            input {
-                flex: 1;
-                min-width: 40%;
-                margin: 10px 0px;
-                padding: 10px;
-            }
-
-            button {
-                width: 100%;
-                border: none;
-                padding: 15px 20px;
-                background-color: #ffbe33;
-                color: white;
-                cursor: pointer;
-                font-weight: 700;
-                margin-bottom: 10px;
-                border-radius: 45px;
-            }
-            @media (max-width :1023px){ 
-                .wrapper {
-                    width: 100% !important;
+        <%
+            ArrayList<Category> cl = (ArrayList<Category>) request.getAttribute("catelist");
+            
+            Cookie cookie = null;
+            Cookie[] cookies = request.getCookies();
+            String USERNAME = "";
+            String ROLE = "";
+            for (int i = 0; i < cookies.length; i++) {
+                cookie = cookies[i];
+                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
+                    USERNAME = cookie.getName().toString();
+                }
+                if (cookie.getName().equalsIgnoreCase("ROLE")) {
+                    ROLE = cookie.getValue().toString();
                 }
             }
-        </style>
-        <title>Login Page</title>
+        %>
     </head>
-    <body>
+    <body class="sub_page">
+        
         <div class="hero_area">
             <div class="bg-box">
-                <img src="img/login.jpg" alt="">
+                <img src="img/hero-bg.jpg" alt="">
             </div>
             <header class="header_section">
                 <div class="container">
@@ -98,17 +68,33 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Recipe">Recipe</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <%
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
+                                %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard">Dashboard</a>
+                                </li>
+                                <%
+                                    }
+                                %>
                             </ul>
                             <div class="user_option">
+                                <%
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
+                                %>
                                 <a class="user_link" href="${pageContext.request.contextPath}/Profile">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </a>
+                                <%
+                                    if (!ROLE.equalsIgnoreCase("staff")) {
+                                %>
                                 <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                     <g>
@@ -138,33 +124,101 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </form>
+                                <%
+                                    }
+                                %>
+                                <%
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {
+                                    }
+                                %>
+                                <%
+                                    if (USERNAME == null || USERNAME.equalsIgnoreCase("")) {
+                                %>
                                 <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
+                                <%
+                                } else {
+                                %>
+                                <a href="${pageContext.request.contextPath}/Logout" class="order_online">
+                                    Logout
+                                </a>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </nav>
                 </div>
             </header>
-            <section class="slider_section ">
-                <div class="contain">
-                    <div class="wrapper">
-                        <form action="Login" method="post">
-                            <h1>LOGIN</h1>
-                            <p class="text-danger">${mess}</p>
-                            <input placeholder="Username" type="text" name="adUser"/>
-                            <input id="pass" placeholder="Password" type="password" name="adPass" minlength="8"/>
-                            
-                            <img onclick="myFunction()" src="img/eye2.jpg" width="30" height="30" style="border-radius: 45px">
-                            <br>
-                            <button>LOGIN</button>
-                            <a href="Register">Create a new account</a>
-                            <a href="PreResetPassword">Forget password?</a>
-                        </form>
-                    </div>
-                </div>
-            </section>
         </div>
+        <section class="food_section layout_padding-bottom" style="padding-top: 90px;">
+            <div class="container">
+                <div class="heading_container heading_center">
+                    <h2>
+                        Post Recipes
+                    </h2>
+                </div>
+                <form action="PostRecipeController" method="POST">
+                    <table class="table-condensed table-striped table">
+                        <caption><h1>Post Recipe</h1></caption>
+                        <tbody>
+                            <tr>
+                                <td>Recipe Name</td>
+                                <td><input type="text" name="rname" value="" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td><input type="image" name="rimage" value=""  /></td>
+                            </tr>
+                            <tr>
+                                
+                                <td>Category</td>
+                                    <td><select name="rcate">
+                                        <%for (Category cate : cl) {%> 
+                                        <option value="<%=cate.getCategoryID()%>"> <%=cate.getCname()%> </option>
+                                        <%}%>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Difficulty</td>
+                                <td><input type="text" name="rdiff" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>Time</td>
+                                <td><input type="text" name="rtime" value="" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td><input type="text" name="rdes" value="" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Guideline1</td>
+                                <td><input type="text" name="rgui1" value="" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Guideline2</td>
+                                <td><input type="text" name="rgui2" value="" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Guideline3</td>
+                                <td><input type="text" name="rgui3" value="" required/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p><input type="submit" value="Post" name="submit"/>  
+                        <input type="reset" value="Cancel"/></p>
+                    
+                </form>
+                
+
+                
+                </div>
+                
+            </div>
+        </section>
         <footer class="footer_section">
             <div class="container">
                 <div class="row">
@@ -240,31 +294,17 @@
                         <a href="https://html.design/">Free Html Templates</a>
                     </p>
                 </div>
-            </div><script type="text/javascript">
-                var x = true;
-                function myFunction() {
-                    if (x) {
-                        document.getElementById('pass').type = "text";
-                        x = false;
-                    } else {
-                        document.getElementById('pass').type = "password";
-                        x = true;
-                    }
-                }
-            </script>
+            </div>
         </footer>
-
-        <script type="text/javascript">
-            var x = true;
-            function myFunction() {
-                if (x) {
-                    document.getElementById('pass').type = "text";
-                    x = false;
-                } else {
-                    document.getElementById('pass').type = "password";
-                    x = true;
-                }
-            }
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/ajax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
+        <script src="js/bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+        </script>
+        <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+        <script src="js/custom.js" async></script>
     </body>
 </html>

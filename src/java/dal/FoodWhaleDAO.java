@@ -21,6 +21,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Category;
 import model.Ingredient;
 import model.Order;
 import model.Order_Detail;
@@ -675,5 +676,43 @@ public class FoodWhaleDAO extends DBContext {
 
     public String RegisterNoti() {
         return "We send you an email confirmation code";
+    }
+
+    public ArrayList<Category> getAllCategory() {        
+        
+        
+        ArrayList<Category> list = new ArrayList<>();
+        String query = "select * from foodwhale.category";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1),
+                        rs.getString(2)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public void addRecipe(Recipe recipe) {
+        try {
+            String sql = "INSERT INTO foodwhale.recipe(rName, cID, Image, Difficulty, Time, uID,rDescription, Guideline1,Guideline2,Guideline3) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, recipe.getrName());
+            statement.setInt(2, recipe.getcID());
+            statement.setString(3, recipe.getImage());
+            statement.setString(4, recipe.getDifficulty());
+            statement.setInt(5, recipe.getTime());
+            statement.setInt(6, recipe.getuID());
+            statement.setString(7, recipe.getrDescription());
+            statement.setString(8, recipe.getGuideline1());
+            statement.setString(9, recipe.getGuideline2());
+            statement.setString(10, recipe.getGuideline3());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

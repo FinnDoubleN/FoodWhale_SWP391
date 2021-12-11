@@ -119,6 +119,10 @@
         <servlet-name>IngredientDetailController</servlet-name>
         <servlet-class>controller.IngredientDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostRecipeController</servlet-name>
+        <servlet-class>controller.PostRecipeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -226,6 +230,10 @@
     <servlet-mapping>
         <servlet-name>IngredientDetailController</servlet-name>
         <url-pattern>/Ingredient/Detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostRecipeController</servlet-name>
+        <url-pattern>/PostRecipeController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
