@@ -27,18 +27,20 @@ $(document).ready(function () {
                 action: function (e, dt, node, config) {
                     var link = window.location.href;
                     var substringURL = link.substring(link.lastIndexOf('/') + 1);
+                    var pathname = link.split('/');
+                    var localhost = pathname[2];
                     if (substringURL === 'OrderList') {
-                        window.location.replace("http://localhost:8084/FoodWhale_SWP391/Dashboard/AddOrder");
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddOrder");
                     } else if (substringURL === 'AccountList') {
-                        window.location.replace("http://localhost:8084/FoodWhale_SWP391/Dashboard/AddAccount");
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddAccount");
                     } else if (substringURL === 'RecipeList') {
-                        window.location.replace("http://localhost:8084/FoodWhale_SWP391/Dashboard/AddRecipe");
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddRecipe");
                     } else if (substringURL === 'IngredientList') {
-                        window.location.replace("http://localhost:8084/FoodWhale_SWP391/Dashboard/AddIngredient");
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddIngredient");
                     } else if (substringURL === 'CategoryList') {
-                        window.location.replace("http://localhost:8084/FoodWhale_SWP391/Dashboard/AddCategory");
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddCategory");
                     } else {
-                        window.location.replace("http://localhost:8084/FoodWhale_SWP391/Dashboard");
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard");
                     }
                 }
             }
