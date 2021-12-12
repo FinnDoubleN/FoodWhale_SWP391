@@ -1,13 +1,12 @@
 <%-- 
-    Document   : Profile
-    Created on : Nov 30, 2021, 5:21:54 PM
+    Document   : ChangePassword
+    Created on : Dec 12, 2021, 6:32:20 PM
     Author     : ADMIN
 --%>
-
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,7 +15,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="shortcut icon" href="img/favicon.png" type="">
-        <title> Profile </title>
+        <title> ChangePassword </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
@@ -36,8 +35,8 @@
             }
         %>
     </head>
-    <body class="sub_page">
-        <div class="hero_area">
+    <body>
+         <div class="hero_area">
             <div class="bg-box">
                 <img src="img/hero-bg.jpg" alt="">
             </div>
@@ -54,7 +53,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
@@ -63,7 +62,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
                                 <%
@@ -111,11 +110,6 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
@@ -144,30 +138,30 @@
                 </div>
             </header>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col" style="font-size: 30px">User Profile</div>
-                <div class="col"><img src="../static/images/test.jpg" class="img-fluid rounded-circle" alt="NYC" style="width:140px;height:140px;"></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Full name</div>
-                <div class="col size-18 margin-left-74"><%= u.getUsername()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Email</div>
-                <div class="col size-18 margin-left-74"><%= u.getEmail()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Mobile</div>
-                <div class="col size-18 margin-left-74"><%= u.getPhone() == null ? "_" : u.getPhone()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Gender</div>
-                <div class="col size-18 margin-left-74"><%= u.getGender() == null ? "_" : u.getGender()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Address</div>
-                <div class="col size-18 margin-bottom-40 margin-left-74"><%= u.getAddress() == null ? "_" : u.getAddress()%></div>
-                
-            </div>
-                <a href="${pageContext.request.contextPath}/EditProfile"> EditProfile </a>
+                            <section class="u-clearfix u-section-1" id="sec-4ae6">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-subtitle u-text u-text-default u-text-1">Change password</h2>
+        <div class="u-form u-form-1">
+          <div class="u-expanded-width-xs u-form u-login-control u-form-1">
+                  <div class="u-expanded-width-xs u-form u-login-control u-form-1">
+                      <form action="changepassword" method="post">
+                          <div>
+                              <input type="password" name="Password" placeholder="Enter new password">
+                          </div>
+                         
+                          <div>
+                              <input type="submit" value="Submit">
+                          </div>
+                             
+                      </form>
+                </div>
+                </div>
         </div>
-        <footer class="footer_section">
+      </div>
+    </section>
+                            
+                            
+                            <footer class="footer_section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 footer-col">
