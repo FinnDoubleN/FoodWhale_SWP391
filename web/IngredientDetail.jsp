@@ -185,7 +185,7 @@
                                         <div class="price-x">
                                             <div class="price">
                                                 <div>
-                                                    <span class="sale-info">Total: $<%=in.getMoney()%>
+                                                    <span class="sale-info">Price: $<%=in.getMoney()%>
                                                     </span>
                                                 </div>
                                             </div>
@@ -203,7 +203,7 @@
                                         </div>
                                         <div class="overview">
                                             <label class="title">
-                                                <b>Phân loại</b>
+                                                <b>Sale type</b>
                                             </label>
                                             <div class="container">
                                                 <div class="option"><%=in.getInName()%> <%=in.getType()%></div>
@@ -214,8 +214,8 @@
                             </div>
                             <div class="product-desc">
                                 <div class="title-box">
-                                    <div class="title-a">Mô tả</div>
-                                    <div class="title-a active">Hướng dẫn</div>
+                                    <div class="title-a">Description</div>
+                                    <div class="title-a active">Guideline</div>
                                 </div>
                                 <div class="content-box">
                                     <div class="content">

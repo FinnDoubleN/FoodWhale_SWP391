@@ -187,7 +187,7 @@
                                         <div class="price-x">
                                             <div class="price">
                                                 <div>
-                                                    <span class="sale-info">Total: 
+                                                    <span class="sale-info">Price: 
                                                         <%
                                                             double total = 0;
                                                             for (Ingredient in : ingredientlist) {
@@ -239,7 +239,7 @@
                                         </ul>
                                         <div class="overview">
                                             <label class="title">
-                                                <b>Thành phần</b>
+                                                <b>Components</b>
                                             </label>
                                             <div class="container">
                                                 <%
@@ -258,8 +258,8 @@
                             </div>
                             <div class="product-desc">
                                 <div class="title-box">
-                                    <div class="title-a">Mô tả</div>
-                                    <div class="title-a active">Hướng dẫn</div>
+                                    <div class="title-a">Description</div>
+                                    <div class="title-a active">Guideline</div>
                                 </div>
                                 <div class="content-box">
                                     <div class="content">
