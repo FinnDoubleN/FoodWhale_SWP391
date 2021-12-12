@@ -1169,4 +1169,8 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
 
+    public void changePassword(User u) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

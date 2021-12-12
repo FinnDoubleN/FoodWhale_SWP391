@@ -253,11 +253,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RecipeListDetailController</servlet-name>
-        <url-pattern>/RecipeListDetailController</url-pattern>
+        <url-pattern>/Dashboard/RecipeListDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>IngredientListDetailController</servlet-name>
-        <url-pattern>/IngredientListDetailController</url-pattern>
+        <url-pattern>/Dashboard/IngredientListDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostRecipeController</servlet-name>
@@ -273,7 +273,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CategoryListDetailController</servlet-name>
-        <url-pattern>/CategoryListDetailController</url-pattern>
+        <url-pattern>/Dashboard/CategoryListDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

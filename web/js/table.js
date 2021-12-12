@@ -25,7 +25,7 @@ $(document).ready(function () {
                 "text": 'Create',
                 "className": 'btn app-btn-secondary',
                 action: function (e, dt, node, config) {
-                    window.location.replace("${pageContext.request.contextPath}/Dashboard/AddAccount");
+                    window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddAccount");
                 }
             }
         ],

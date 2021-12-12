@@ -130,13 +130,7 @@ public class RecipeListDetailController extends HttpServlet {
                 }
                 Recipe r = new Recipe(rid, status);
                 dao.RecipeDelete(r);
-                recipelist = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-                request.setAttribute("recipelist", recipelist);
-                request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Cancel")) {
-                recipelist = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-                request.setAttribute("recipelist", recipelist);
-                request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/RecipeList");
             }
         } catch (Exception ex) {
             Logger.getLogger(RecipeListDetailController.class.getName()).log(Level.SEVERE, null, ex);
