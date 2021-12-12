@@ -248,7 +248,7 @@
                                                     </g>
                                                     </svg>
                                                 </a>
-                                                <input type="hidden" name="add" value="add"/>
+                                                <input type="hidden" name="action" value="add"/>
                                                 <input type="hidden" name="recID" value="<%=r.getrID()%>"/>
                                             </form>
                                         </div>
