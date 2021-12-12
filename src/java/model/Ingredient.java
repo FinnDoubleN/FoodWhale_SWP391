@@ -20,20 +20,33 @@ public class Ingredient {
     String description;
     String guideline;
     String cName;
+    String status;
 
     public Ingredient() {
     }
 
-    public Ingredient(int inID, String inName, String type, double money, String cName) {
+    public Ingredient(int inID, String status) {
+        this.inID = inID;
+        this.status = status;
+    }
+    
+    public Ingredient(int inID, String inName, String type, double money, String cName, String status) {
         this.inID = inID;
         this.inName = inName;
         this.type = type;
         this.money = money;
         this.cName = cName;
+        this.status = status;
     }
 
-    
-    
+    public Ingredient(int inID, String inName, double money, String description, String image) {
+        this.inID = inID;
+        this.inName = inName;
+        this.money = money;
+        this.description = description;
+        this.image = image;
+    }
+
     public Ingredient(int inID, String inName, String image, String type, double money, int categoryID, String description, String guideline) {
         this.inID = inID;
         this.inName = inName;
@@ -54,6 +67,14 @@ public class Ingredient {
         this.cName = cName;
         this.description = description;
         this.guideline = guideline;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getcName() {

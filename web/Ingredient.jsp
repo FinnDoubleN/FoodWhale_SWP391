@@ -26,6 +26,8 @@
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <%
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
+            String searchData = request.getParameter("searchData");
+            String option = request.getParameter("option");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -146,27 +148,48 @@
             </header>
         </div>
         <section class="food_section layout_padding-bottom" style="padding-top: 90px;">
-            <div class="heading_container heading_center">
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="Type to search..">
-                    <div class="search-btn">
-                        <i class="fa fa-search"></i>
-                    </div>
-                    <div class="cancel-btn">
-                        <i class="fa fa-times"></i>
-                    </div>
-                    <div class="search-data">
-
-                    </div>
-                </div>
-            </div>
             <div class="container">
                 <div class="heading_container heading_center">
                     <h2>
                         Ingredients
                     </h2>
                 </div>
-
+                <div class="heading_container heading_center">
+                    <form action="${pageContext.request.contextPath}/Ingredient" method="post" class="search-box active">
+                        <select name="option" class="search-option">
+                            <%
+                                if (option == null || option.equalsIgnoreCase("") || option.equalsIgnoreCase("byRecipe")) {
+                            %>
+                            <option value="byRecipe">Recipe</option>
+                            <option value="byIngredient">Ingredient</option>
+                            <%
+                            } else if (option.equalsIgnoreCase("byIngredient")) {
+                            %>
+                            <option value="byIngredient">Ingredient</option>
+                            <option value="byRecipe">Recipe</option>
+                            <%
+                                }
+                            %>
+                        </select>
+                        <%
+                            if (searchData == null || searchData.equalsIgnoreCase("")) {
+                        %>
+                        <input type="text" name="searchData" class="search-input active" placeholder="Type to search..">
+                        <%
+                        } else {
+                        %>
+                        <input type="text" name="searchData" class="search-input active" value="<%=searchData%>" placeholder="Type to search..">
+                        <%
+                            }
+                        %>
+                        <div class="search-btn active">
+                            <i class="fa fa-search active"></i>
+                        </div>
+                        <div class="cancel-btn">
+                            <i class="fa fa-times active"></i>
+                        </div>
+                    </form>
+                </div>
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
                     <li data-filter=".7">Seasoning</li>

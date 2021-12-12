@@ -114,14 +114,22 @@ public class RecipeListDetailController extends HttpServlet {
                 String Guideline1 = request.getParameter("Guideline1");
                 String Guideline2 = request.getParameter("Guideline2");
                 String Guideline3 = request.getParameter("Guideline3");
-                Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3);
+                String Status = request.getParameter("Status");
+                Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3, Status);
                 dao.updateRecipe(r);
                 recipelistdetail = dao.getRecipeDetailByID(rid);
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Delete")) {
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
                 int rid = Integer.parseInt(request.getParameter("rID"));
-                dao.deleteRecipe(rid);
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
+                Recipe r = new Recipe(rid, status);
+                dao.RecipeDelete(r);
                 recipelist = (ArrayList<Recipe>) dao.getRecipeWithCategory();
                 request.setAttribute("recipelist", recipelist);
                 request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);

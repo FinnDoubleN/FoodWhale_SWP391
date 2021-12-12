@@ -82,6 +82,27 @@ public class RecipeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String searchData = request.getParameter("searchData");
+        String option = request.getParameter("option");
+        request.setAttribute("searchData", searchData);
+        request.setAttribute("option", option);
+        if (searchData == null || searchData.equalsIgnoreCase("") || option == null || option.equalsIgnoreCase("")) {
+            recipelist = DAO.getAllRecipe();
+            request.setAttribute("recipelist", recipelist);
+            request.getRequestDispatcher("Recipe.jsp").forward(request, response);
+        } else {
+            if (option.equalsIgnoreCase("byRecipe")) {
+                recipelist = DAO.searchRecipeByRecipe(searchData);
+                request.setAttribute("searchData", searchData);
+                request.setAttribute("recipelist", recipelist);
+                request.getRequestDispatcher("Recipe.jsp").forward(request, response);
+            } else if (option.equalsIgnoreCase("byIngredient")) {
+                recipelist = DAO.searchRecipeByIngredient(searchData);
+                request.setAttribute("searchData", searchData);
+                request.setAttribute("recipelist", recipelist);
+                request.getRequestDispatcher("Recipe.jsp").forward(request, response);
+            }
+        }
     }
 
     /**

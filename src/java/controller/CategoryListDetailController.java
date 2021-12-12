@@ -5,38 +5,18 @@
  */
 package controller;
 
-import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Ingredient;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class IngredientController extends HttpServlet {
-
-    ArrayList<Ingredient> ingredientlist = new ArrayList<>();
-    Ingredient ingredient = new Ingredient();
-    FoodWhaleDAO DAO = new FoodWhaleDAO();
-
-    private String getCookieByName(Cookie[] cookies, String check) {
-        if (cookies == null) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
+public class CategoryListDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,6 +32,15 @@ public class IngredientController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CategoryListDetailController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CategoryListDetailController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -67,9 +56,7 @@ public class IngredientController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ingredientlist = DAO.getAllIngredient();
-        request.setAttribute("ingredientlist", ingredientlist);
-        request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -83,25 +70,7 @@ public class IngredientController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String searchData = request.getParameter("searchData");
-        String option = request.getParameter("option");
-        request.setAttribute("searchData", searchData);
-        request.setAttribute("option", option);
-        if (searchData == null || searchData.equalsIgnoreCase("") || option == null || option.equalsIgnoreCase("")) {
-            ingredientlist = DAO.getAllIngredient();
-            request.setAttribute("ingredientlist", ingredientlist);
-            request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
-        } else {
-            if (option.equalsIgnoreCase("byRecipe")) {
-                ingredientlist = DAO.searchIngredientByRecipe(searchData);
-                request.setAttribute("ingredientlist", ingredientlist);
-                request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
-            } else if (option.equalsIgnoreCase("byIngredient")) {
-                ingredientlist = DAO.searchIngredientByIngredient(searchData);
-                request.setAttribute("ingredientlist", ingredientlist);
-                request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
-            }
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -104,10 +104,15 @@ public class AccountListController extends HttpServlet {
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Delete")) {
-                String status = "Delete";
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
                 User u = new User(id, status);
-                dao.updateStatus(u);
+                dao.AccountDelete(u);
                 userlist = (ArrayList<User>) dao.getAllAccount();
                 request.setAttribute("userlist", userlist);
                 request.getRequestDispatcher("/AccountList.jsp").forward(request, response);

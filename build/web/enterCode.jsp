@@ -15,7 +15,7 @@
     </head>
     <body>
         <h2>We have sent a confirmation email to <b>${email}</b> please enter the code you received</h2>
-    <form method="post" action="confirmAcc">
+    <form method="post" action="ConfirmAccount">
         <input type="text" placeholder="Example: 123456" style="height:30px;width: 500px;" name="uCode"><br>
         <button type="submit" style="margin: 10px 0px;">Send</button>
     </form>

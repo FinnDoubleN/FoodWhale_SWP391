@@ -1442,12 +1442,13 @@ a:focus {
 }
 
 .search-box.active {
-    width: 350px;
+    width: 450px;
 }
 
 .search-box input {
     height: 100%;
-    width: 100%;
+    width: -webkit-fill-available;
+    display: block;
     border: none;
     outline: none;
     background: #fff;

@@ -124,7 +124,7 @@ public class AccountDetailController extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("uid"));
                 String status = "Delete";
                 User u = new User(id, status);
-                dao.updateStatus(u);
+                dao.AccountDelete(u);
                 userlist = (ArrayList<User>) dao.getAllAccount();
                 request.setAttribute("userlist", userlist);
                 request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
