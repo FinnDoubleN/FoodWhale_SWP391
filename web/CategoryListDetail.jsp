@@ -1,30 +1,25 @@
 <%-- 
-    Document   : UserList
-    Created on : Nov 30, 2021, 3:44:27 PM
-    Author     : Asus
+    Document   : CategoryListDetail
+    Created on : Dec 12, 2021, 4:57:55 PM
+    Author     : ADMIN
 --%>
+
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.User"%>
+<%@page import="model.Category"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <title>Account Lists</title>
+        <title>Category Lists</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="favicon.ico">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="../DataTables/datatables.css" />
-        <script type="text/javascript" src="../DataTables/datatables.js"></script>
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
-        <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
-            ArrayList<User> userlist = (ArrayList<User>) request.getAttribute("userlist");
+            Category c = (Category) request.getAttribute("categorylistdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -106,22 +101,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="${pageContext.request.contextPath}/Dashboard/AccountList">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/AccountList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
                                         <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
                                         </svg>
                                     </span>
-                                    <%
-                                        if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
-                                    %>
-                                    <span class="nav-link-text">Customers</span>
-                                    <%
-                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
-                                    <%}%>
-
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -150,7 +137,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/CategoryList">
+                                <a class="nav-link active" href="${pageContext.request.contextPath}/Dashboard/CategoryList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
@@ -167,81 +154,72 @@
         <div class="app-wrapper">
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-                    <div class="row g-3 mb-4 align-items-center justify-content-between">
-                        <div class="col-auto">
-                            <%
-                                if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
-                            %>
-                            <h1 class="app-page-title mb-0">Customer List</h1>
-                            <%
-                            } else if (ROLE.equalsIgnoreCase("admin")) {%>
-                            <h1 class="app-page-title mb-0">Account List</h1>
-                            <%}%>
-                        </div>
-                    </div>
-                    <div class="tab-content" id="orders-table-tab-content">
-                        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                            <div class="app-card app-card-orders-table shadow-sm mb-5">
-                                <div class="app-card-body">
-                                    <div class="table-responsive">
-                                        <table id="myTable" class="table app-table-hover mb-0 text-left">
-                                            <thead>
-                                                <tr>
-                                                    <th class="cell">User ID</th>
-                                                    <th class="cell">Email</th>
-                                                    <th class="cell">Username</th>
-                                                    <th class="cell">Staff name</th>
-                                                    <th class="cell">Address</th>
-                                                    <th class="cell filterrole">Role</th>
-                                                    <th class="cell filterstatus">Status</th>
-                                                    <th class="cell"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    for (User u : userlist) {
-                                                %>
-                                                <tr>
-                                                    <td class="cell"><%= u.getuID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getEmail()%></span></td>
-                                                    <td class="cell"><%= u.getUsername()%></td>
-                                                    <td class="cell"><%= u.getsName()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
-                                                    <td class="cell"><%= u.getRole()%></td>
-                                                    <td class="cell"><%= u.getStatus()%></td>
-                                                    <td class="cell">
-                                                        <form action="AccountList" method="post">
-                                                            <input type="hidden" name="uID" value="<%=u.getuID()%>">
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                            <%
-                                                                if (u.getStatus().equalsIgnoreCase("Active")) {
-                                                            %>
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">
-                                                            <%} else { %>
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Active">
-                                                            <%}%>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <%}%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>	
+                    <h1 class="app-page-title">Category Detail</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-12">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row gx-3 placecontent-center ">
+                                </div>
                             </div>
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="CategoryListDetail" method="post">
+                                <div class="app-card-body px-4 col-12 col-lg-6">
+                                    <input type="hidden" class="item-data" value="<%= c.getCategoryID()%>" name="categoryID" readonly>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Category Name</strong></div>
+                                                <input type="text" class="item-data" value="<%= c.getCname()%>" name="cName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Count</strong></div>
+                                                <input type="text" class="item-data" value="1" maxlength="24" name="Count" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Status</strong></div>
+                                                <% String status = c.getStatus();%>
+                                                <% if (c.getStatus().equalsIgnoreCase("Active")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" checked>
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete">
+                                                <label for="Delete">Delete</label>
+                                                <%} else if (c.getStatus().equalsIgnoreCase("Delete")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" >
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete" checked>
+                                                <label for="Delete">Delete</label>
+                                                <%}%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/CategoryList">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>
+
         </div>
-        <script src="../js/table.js"></script>
-        <script src="../js/ajax.js"></script>
+        <!-- Javascript -->
         <script src="../plugins/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
@@ -251,5 +229,6 @@
 
         <!-- Page Specific JS -->
         <script src="../js/app.js"></script>
+
     </body>
 </html>

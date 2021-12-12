@@ -23,8 +23,14 @@ public class Recipe {
     String guideline2;
     String guideline3;
     String cName;
+    String Status;
 
     public Recipe() {
+    }
+
+    public Recipe(int rID, String Status) {
+        this.rID = rID;
+        this.Status = Status;
     }
 
     public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3) {
@@ -40,7 +46,37 @@ public class Recipe {
         this.guideline2 = guideline2;
         this.guideline3 = guideline3;
     }
+    
+    public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3, String Status) {
+        this.rID = rID;
+        this.rName = rName;
+        this.cID = cID;
+        this.image = image;
+        this.difficulty = difficulty;
+        this.time = time;
+        this.uID = uID;
+        this.rDescription = rDescription;
+        this.guideline1 = guideline1;
+        this.guideline2 = guideline2;
+        this.guideline3 = guideline3;
+        this.Status = Status;
+    }
 
+    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3, String Status) {
+        this.rID = rID;
+        this.rName = rName;
+        this.cName = cName;
+        this.image = image;
+        this.difficulty = difficulty;
+        this.time = time;
+        this.uID = uID;
+        this.rDescription = rDescription;
+        this.guideline1 = guideline1;
+        this.guideline2 = guideline2;
+        this.guideline3 = guideline3;
+        this.Status = Status;
+    }
+    
     public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3) {
         this.rID = rID;
         this.rName = rName;
@@ -80,6 +116,14 @@ public class Recipe {
         this.guideline1 = guideline1;
         this.guideline2 = guideline2;
         this.guideline3 = guideline3;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
     
 

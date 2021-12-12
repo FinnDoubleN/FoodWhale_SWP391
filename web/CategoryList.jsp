@@ -181,6 +181,7 @@
                                                     <th class="cell">Category ID</th>
                                                     <th class="cell">Category Name</th>
                                                     <th class="cell">Count Used</th>
+                                                    <th class="cell">Status</th>
                                                     <th class="cell"></th>
                                                 </tr>
                                             </thead>
@@ -192,9 +193,10 @@
                                                     <td class="cell"><%= c.getCategoryID()%></td>
                                                     <td class="cell"><span class="truncate"><%= c.getCname() %></span></td>
                                                     <td class="cell"> 1 </td>
+                                                    <td class="cell"><%= c.getStatus()%></td>
                                                     <td class="cell">
                                                         <form action="CategoryList" method="post">
-                                                            <input type="hidden" name="inID" value="<%=c.getCategoryID()%>">
+                                                            <input type="hidden" name="categoryID" value="<%=c.getCategoryID()%>">
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">
                                                         </form>

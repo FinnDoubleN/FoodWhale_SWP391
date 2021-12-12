@@ -163,7 +163,7 @@
                             </div>
                             <form class="app-card app-card-account shadow-sm d-flex flex-column" action="RecipeListDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-6">
-                                    <input type="hidden" class="item-data" value="<%= r.getrID() %>" name="rID" readonly>
+                                    <input type="hidden" class="item-data" value="<%= r.getrID()%>" name="rID" readonly>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -227,7 +227,7 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Guideline1</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getGuideline1() %>" name="Guideline1">
+                                                <input type="text" class="item-data" value="<%= r.getGuideline1()%>" name="Guideline1">
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +244,26 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Guideline3</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getGuideline3() %>" name="Guideline3">
+                                                <input type="text" class="item-data" value="<%= r.getGuideline3()%>" name="Guideline3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Status</strong></div>
+                                                <% String status = r.getStatus();%>
+                                                <% if (r.getStatus().equalsIgnoreCase("Active")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" checked>
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete">
+                                                <label for="Delete">Delete</label>
+                                                <%} else if (r.getStatus().equalsIgnoreCase("Delete")) {%>
+                                                <input type="radio" id="Active" name="status" value="Active" >
+                                                <label for="Active">Active</label>
+                                                <input type="radio" id="Delete" name="status" value="Delete" checked>
+                                                <label for="Delete">Delete</label>
+                                                <%}%>
                                             </div>
                                         </div>
                                     </div>

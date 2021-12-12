@@ -73,12 +73,7 @@ public class RecipeListController extends HttpServlet {
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
-        } else if (role.equalsIgnoreCase("staff")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-            request.setAttribute("recipeList", recipeList);
-            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
-        } else if (role.equalsIgnoreCase("admin")) {
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
             request.setAttribute("recipeList", recipeList);
@@ -106,8 +101,15 @@ public class RecipeListController extends HttpServlet {
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
 
-            } else if (submit.equalsIgnoreCase("Delete")) {
-                dao.deleteRecipe(id);
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
+                Recipe r = new Recipe(id, status);
+                dao.RecipeDelete(r);
                 recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
                 request.setAttribute("recipeList", recipeList);
                 request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
