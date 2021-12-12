@@ -695,7 +695,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public void EditUser(User u) {
         try {
-            String sql = "update foodwhale.user set Email=?, ,uName=?,Image=?,Gender=?,Address=?,Phone=? where uID=?";
+            String sql = "update foodwhale.user set Email=? ,uName=?,Image=?,Gender=?,Address=?,Phone=? where uID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getEmail());
             statement.setString(2, u.getUsername());
@@ -703,7 +703,7 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(4, u.getGender());
             statement.setString(5, u.getAddress());
             statement.setString(6, u.getPhone());
-            statement.setInt(17, u.getuID());
+            statement.setInt(7, u.getuID());
             statement.executeUpdate();
         } catch (SQLException ex) {
         }
@@ -767,7 +767,16 @@ public class FoodWhaleDAO extends DBContext {
             throw new RuntimeException(e);
         }
     }
-
+public void changePassword(User u) {
+        try {
+            String sql = "update foodwhale.user set Password=? where uID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, u.getPassword());
+            statement.setInt(2, u.getuID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
     public String RanCode() {
         String ALPHA_NUMERIC = "0123456789";
         StringBuilder sb = new StringBuilder();
