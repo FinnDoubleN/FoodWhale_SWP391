@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -63,7 +64,7 @@ public class AddRecipeController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             request.getRequestDispatcher("/AddRecipe.jsp").forward(request, response);
         }
@@ -80,7 +81,22 @@ public class AddRecipeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        FoodWhaleDAO dao = new FoodWhaleDAO();
+        String image = request.getParameter("image");
+        String rName = request.getParameter("rName");
+        int cID = Integer.parseInt(request.getParameter("cID"));
+        String Difficulty = request.getParameter("Difficulty");
+        int Time = Integer.parseInt(request.getParameter("Time"));
+        int uID = Integer.parseInt(request.getParameter("uID"));
+        String Description = request.getParameter("Description");
+        String Guideline1 = request.getParameter("Guideline1");
+        String Guideline2 = request.getParameter("Guideline2");
+        String Guideline3 = request.getParameter("Guideline3");
+        if (image == null || image.equalsIgnoreCase("")) {
+            image = "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
+        }
+//        dao.createRecipe(image, rName, cID, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3);
+        response.sendRedirect(request.getContextPath() + "/Dashboard/RecipeList");
     }
 
     /**

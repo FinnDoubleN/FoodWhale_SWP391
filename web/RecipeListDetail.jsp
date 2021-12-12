@@ -231,7 +231,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
