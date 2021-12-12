@@ -164,7 +164,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
-                                                <input type="text" class="item-data" maxlength="24" name="email">
+                                                <input type="text" class="item-data" name="email" required>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Password</strong></div>
-                                                <input type="text" class="item-data" maxlength="24" name="password">
+                                                <input type="text" class="item-data" name="password" required>
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <input type="text" class="item-data" maxlength="24" name="username">
+                                                <input type="text" class="item-data" name="username" required>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Address</strong></div>
-                                                <input type="text" class="item-data" maxlength="24" name="address">
+                                                <input type="text" class="item-data" name="address">
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Staff name</strong></div>
-                                                <input type="text" class="item-data" maxlength="24" name="date">
+                                                <input type="text" class="item-data" name="sname">
                                             </div>
                                         </div>
                                     </div>

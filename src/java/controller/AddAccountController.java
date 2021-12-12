@@ -69,7 +69,7 @@ public class AddAccountController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
         }
@@ -89,21 +89,26 @@ public class AddAccountController extends HttpServlet {
         FoodWhaleDAO dao = new FoodWhaleDAO();
         String image = request.getParameter("image");
         String email = request.getParameter("email");
-        String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String username = request.getParameter("username");
         String gender = request.getParameter("gender");
         String date = request.getParameter("date");
         Date startDate = Date.valueOf(date);
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
+        String sname = request.getParameter("sname");
         if (gender == null || gender.equalsIgnoreCase("")) {
             gender = "";
         }
-        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
-        userlist = (ArrayList<User>) dao.getAllAccount();
-        request.setAttribute("userlist", userlist);
-        request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+        if(image == null || image.equalsIgnoreCase("")){
+            image="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
+        }
+        if (sname == null || sname.equalsIgnoreCase("")) {
+            sname = "";
+        }
+        dao.createUser(email, password, username, image, startDate, gender, address, phone, role, sname);
+        response.sendRedirect(request.getContextPath() + "/Dashboard/AccountList");
     }
 
     /**

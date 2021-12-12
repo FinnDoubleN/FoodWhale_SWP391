@@ -3,6 +3,8 @@
     Created on : Nov 30, 2021, 4:10:08 PM
     Author     : Asus
 --%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Order_Detail"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Order"%>
@@ -25,6 +27,7 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
+            SimpleDateFormat sm = new SimpleDateFormat("mm-dd-yyyy");
             ArrayList<Order> orderlist = (ArrayList<Order>) request.getAttribute("orderlist");
             ArrayList<Order_Detail> orderdetaillist = (ArrayList<Order_Detail>) request.getAttribute("orderdetaillist");
             Cookie cookie = null;
@@ -198,7 +201,9 @@
                                                     <td class="cell"><%= u.getoID()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getuName()%></span></td>
                                                     <td class="cell"><%= u.getuAddress()%></td>
-                                                    <td class="cell"><%= u.getDate()%></td>
+                                                    <td class="cell"><%
+                                                        String strDate = sm.format(u.getDate());
+                                                        %> <%= strDate %></td>
                                                     <td class="cell"><%= u.getTotal()%></td>
                                                     <td class="cell"><span class="badge bg-success"><%= u.isStatus()%></span></td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/OrderDetail?id=<%= u.getoID()%>">View</a></td>

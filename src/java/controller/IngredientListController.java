@@ -108,13 +108,9 @@ public class IngredientListController extends HttpServlet {
                 }
                 Ingredient in = new Ingredient(inID, status);
                 dao.IngredientDelete(in);
-                ingredientList = (ArrayList<Ingredient>) dao.getAllIngredient();
-                request.setAttribute("ingredientList", ingredientList);
-                request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
             } else {
-                ingredientList = (ArrayList<Ingredient>) dao.getAllIngredient();
-                request.setAttribute("ingredientList", ingredientList);
-                request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
+               response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
             }
         } catch (Exception ex) {
             Logger.getLogger(IngredientListController.class.getName()).log(Level.SEVERE, null, ex);

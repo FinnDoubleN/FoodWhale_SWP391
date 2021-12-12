@@ -203,7 +203,6 @@
                                                         <form action="IngredientList" method="post">
                                                             <input type="hidden" name="inID" value="<%=i.getInID()%>">
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
                                                             <%
                                                                 if (i.getStatus().equalsIgnoreCase("Active")) {
                                                             %>

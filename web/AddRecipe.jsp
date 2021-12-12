@@ -151,13 +151,116 @@
             </div>
         </header>
         <div class="app-wrapper">
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+                    <h1 class="app-page-title">Recipe Detail</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-12">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row gx-3 placecontent-center ">
+                                </div>
+                            </div>
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="${pageContext.request.contextPath}/Dashboard/AddRecipe" method="post">
+                                <div class="app-card-body px-4 col-12 col-lg-6">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Name</strong></div>
+                                                <input type="text" class="item-data" name="rName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Category ID</strong></div>
+                                                <input type="text" class="item-data" name="cID">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Difficulty</strong></div>
+                                                <input type="text" class="item-data" name="Difficulty">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Time</strong></div>
+                                                <input type="text" class="item-data" name="Time">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>User ID</strong></div>
+                                                <input type="text" class="item-data" name="uID" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Description</strong></div>
+                                                <input type="text" class="item-data" name="Description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Image</strong></div>
+                                                <div class="item-data"><img class="profile-image" src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=" alt=""></div><br>
+                                                <input type="text" class="item-data" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Guideline1</strong></div>
+                                                <input type="text" class="item-data" name="Guideline1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Guideline2</strong></div>
+                                                <input type="text" class="item-data" name="Guideline2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Guideline3</strong></div>
+                                                <input type="text" class="item-data" name="Guideline3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Create">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Designed by <a class="app-link" href="${pageContext.request.contextPath}/Homepage" target="_blank">FoodWhale</a></small>
                 </div>
             </footer>
-
         </div>
         <!-- Javascript -->
         <script src="../plugins/popper.min.js"></script>

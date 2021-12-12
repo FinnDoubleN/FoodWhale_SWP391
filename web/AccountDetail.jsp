@@ -160,7 +160,7 @@
                                 <div class="row gx-3 placecontent-center ">
                                 </div>
                             </div>
-                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="${pageContext.request.contextPath}/Dashboard/RecipeListDetail" method="post">
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="${pageContext.request.contextPath}/Dashboard/AccountDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-6">
                                     <input type="hidden" class="item-data" value="<%= u.getuID()%>" name="uid" readonly>
                                     <div class="item border-bottom py-3">

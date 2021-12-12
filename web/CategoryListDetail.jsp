@@ -175,16 +175,6 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Count</strong></div>
-                                                <input type="text" class="item-data" value="1" maxlength="24" name="Count" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between">
-                                            <div class="col-auto">
                                                 <div class="item-label"><strong>Status</strong></div>
                                                 <% String status = c.getStatus();%>
                                                 <% if (c.getStatus().equalsIgnoreCase("Active")) {%>
@@ -201,6 +191,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    
                                     <div class="app-card-footer p-4 mt-auto">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">

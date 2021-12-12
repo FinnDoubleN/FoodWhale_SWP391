@@ -168,7 +168,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Ingredient Name</strong></div>
-                                                <input type="text" class="item-data" value="<%= in.getInName()%>" maxlength="24" name="inName">
+                                                <input type="text" class="item-data" value="<%= in.getInName()%>" name="inName">
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Category ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= in.getCategoryID()%>" maxlength="24" name="CategoryID">
+                                                <input type="text" class="item-data" value="<%= in.getCategoryID()%>" name="CategoryID">
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <input type="text" class="item-data" value="<%= in.getDescription()%>" maxlength="24" name="CategoryID">
+                                                <input type="text" class="item-data" value="<%= in.getDescription()%>" name="Description">
                                             </div>
                                         </div>
                                     </div>

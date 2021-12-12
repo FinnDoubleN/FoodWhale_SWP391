@@ -24,7 +24,6 @@ import model.Ingredient;
  */
 public class IngredientListDetailController extends HttpServlet {
 
-    ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
     Ingredient ingredientlistdetail = new Ingredient();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -96,7 +95,41 @@ public class IngredientListDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            Cookie[] cookies = request.getCookies();
+            String ROLE = getCookieByName(cookies, "ROLE");
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("Update")) {
+                int inID = Integer.parseInt(request.getParameter("inID"));
+                String inName = request.getParameter("inName");
+                String Type = request.getParameter("Type");
+                double Money = Double.parseDouble(request.getParameter("Money"));
+                int CategoryID = Integer.parseInt(request.getParameter("CategoryID"));
+                String Description = request.getParameter("Description");
+                String image = request.getParameter("image");
+                String Guideline = request.getParameter("Guideline");
+                String Status = request.getParameter("status");
+                Ingredient in = new Ingredient(inID, inName, Type, image, Money, CategoryID, Description, Guideline, Status);
+                dao.updateIngredient(in);
+                ingredientlistdetail = dao.getIngredientDetailByID(inID);
+                request.setAttribute("ingredientlistdetail", ingredientlistdetail);
+                request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+                int inID = Integer.parseInt(request.getParameter("inID"));
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
+                Ingredient in = new Ingredient(inID, status);
+                dao.IngredientDelete(in);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(IngredientListDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

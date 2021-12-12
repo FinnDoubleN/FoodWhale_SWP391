@@ -287,6 +287,38 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateIngredient(Ingredient in) {
+        try {
+            String sql = "update foodwhale.ingredient set inName=?,Image=?,Type=?, Price=?, categoryID=?, description=?, guideline=?, Status = ? where inID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, in.getInName());
+            statement.setString(2, in.getImage());
+            statement.setString(3, in.getType());
+            statement.setDouble(4, in.getMoney());
+            statement.setInt(5, in.getCategoryID());
+            statement.setString(6, in.getDescription());
+            statement.setString(7, in.getGuideline());
+            statement.setString(8, in.getStatus());
+            statement.setInt(9, in.getInID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateCategory(Category c) {
+        try {
+            String sql = "update foodwhale.category set cName=?, Status = ? where categoryID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getCname());
+            statement.setString(2, c.getStatus());
+            statement.setInt(3, c.getCategoryID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void IngredientDelete(Ingredient i) {
         try {
@@ -439,9 +471,9 @@ public class FoodWhaleDAO extends DBContext {
         return ingredient;
     }
 
-    public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
+    public void createUser(String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, String sName) {
         try {
-            String sql = "INSERT INTO foodwhale.user(Email, Password, uName,Image, DoB, Gender, Address,Phone, Role) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
+            String sql = "Insert into `User`(Email, Password, uName, Image, DoB, Gender, Address, Phone, Role, sName) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, password);
@@ -452,6 +484,27 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(7, address);
             statement.setString(8, phone);
             statement.setString(9, role);
+            statement.setString(10, sName);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void createRecipe(String image, String rName, int cID, String Difficulty, int Time, int uID, String Description, String Guideline1, String Guideline2, String Guideline3) {
+        try {
+            String sql = "Insert into Recipe(rName, cID, Image, Difficulty, Time, uID, rDescription, Guideline1, Guideline2, Guideline3) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, rName);
+            statement.setInt(2, cID);
+            statement.setString(3, image);
+            statement.setString(4, Difficulty);
+            statement.setInt(5, Time);
+            statement.setInt(6, uID);
+            statement.setString(7, Description);
+            statement.setString(8, Guideline1);
+            statement.setString(9, Guideline2);
+            statement.setString(10, Guideline3);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -571,7 +624,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Ingredient> getIngredientWithCategory() {
         ArrayList<Ingredient> list = new ArrayList<>();
-        String query = "select i.inID , i.inName, i.Type, i.Price, c.cName, i.Status from foodwhale.ingredient i inner join foodwhale.category c on i.categoryID = c.categoryID;";
+        String query = "select i.inID , i.inName, i.Type, i.Price, c.cName, i.Status from foodwhale.ingredient i inner join foodwhale.category c on i.categoryID = c.categoryID order by i.inID ASC;";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
