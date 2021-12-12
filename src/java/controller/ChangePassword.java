@@ -23,9 +23,10 @@ import model.User;
  * @author ADMIN
  */
 public class ChangePassword extends HttpServlet {
-User userdetail = new User();
 
- private String getCookieByName(Cookie[] cookies, String check) {
+    User userdetail = new User();
+
+    private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
@@ -36,6 +37,7 @@ User userdetail = new User();
         }
         return null;
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,10 +51,9 @@ User userdetail = new User();
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-         
+
         }
-        }
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -66,8 +67,8 @@ User userdetail = new User();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        Cookie[] cookies = request.getCookies();
+        try {
+            Cookie[] cookies = request.getCookies();
             if (cookies != null) {
                 String role = getCookieByName(cookies, "ROLE");
                 String username = getCookieByName(cookies, "USERNAME");
@@ -82,9 +83,9 @@ User userdetail = new User();
             } else {
                 request.getRequestDispatcher("login").forward(request, response);
             }
-    } catch (SQLException ex) {
-        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -98,8 +99,9 @@ User userdetail = new User();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try{   /* TODO output your page here. You may use following sample code. */
-          FoodWhaleDAO dao = new FoodWhaleDAO();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            FoodWhaleDAO dao = new FoodWhaleDAO();
             String submit = request.getParameter("submit");
             if (submit.equalsIgnoreCase("Submit")) {
                 int id = Integer.parseInt(request.getParameter("uid"));

@@ -287,7 +287,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void IngredientDelete(Ingredient i) {
         try {
             String sql = "update foodwhale.ingredient set Status=? where inID=?";
@@ -299,7 +299,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void RecipeDelete(Recipe r) {
         try {
             String sql = "update foodwhale.recipe set Status=? where rID=?";
@@ -311,7 +311,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void CategoryDelete(Category c) {
         try {
             String sql = "update foodwhale.category set Status=? where categoryID=?";
@@ -523,8 +523,8 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-    
-        public ArrayList<Recipe> searchRecipeByIngredient(String searchData) {
+
+    public ArrayList<Recipe> searchRecipeByIngredient(String searchData) {
         ArrayList<Recipe> list = new ArrayList<>();
         String query = "select distinct r.rID, r.Image, r.rName, r.rDescription, r.Time from foodwhale.recipe r inner join foodwhale.recipe_ingredient ri on r.rID = ri.rID inner join foodwhale.ingredient i on ri.inID = i.inID where i.inName like '%" + searchData + "%'";
         try {
@@ -906,7 +906,8 @@ public class FoodWhaleDAO extends DBContext {
             throw new RuntimeException(e);
         }
     }
-public void changePassword(User u) {
+
+    public void changePassword(User u) {
         try {
             String sql = "update foodwhale.user set Password=? where uID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -916,6 +917,7 @@ public void changePassword(User u) {
         } catch (SQLException ex) {
         }
     }
+
     public String RanCode() {
         String ALPHA_NUMERIC = "0123456789";
         StringBuilder sb = new StringBuilder();
@@ -1177,9 +1179,4 @@ public void changePassword(User u) {
         }
         return list;
     }
-
-    public void changePassword(User u) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
