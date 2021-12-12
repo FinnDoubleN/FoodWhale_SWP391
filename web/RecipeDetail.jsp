@@ -40,6 +40,10 @@
         %>
     </head>
     <body class="sub_page">
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0" nonce="C9diHVLZ"></script>
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0" nonce="U9vVarSJ"></script>
         <div class="hero_area">
             <div class="bg-box">
                 <img src="../img/hero-bg.jpg" alt="">
@@ -187,7 +191,7 @@
                                         <div class="price-x">
                                             <div class="price">
                                                 <div>
-                                                    <span class="sale-info">Total: 
+                                                    <span class="sale-info">Price: 
                                                         <%
                                                             double total = 0;
                                                             for (Ingredient in : ingredientlist) {
@@ -239,7 +243,7 @@
                                         </ul>
                                         <div class="overview">
                                             <label class="title">
-                                                <b>Thành phần</b>
+                                                <b>Components</b>
                                             </label>
                                             <div class="container">
                                                 <%
@@ -258,8 +262,8 @@
                             </div>
                             <div class="product-desc">
                                 <div class="title-box">
-                                    <div class="title-a">Mô tả</div>
-                                    <div class="title-a active">Hướng dẫn</div>
+                                    <div class="title-a">Description</div>
+                                    <div class="title-a active">Guideline</div>
                                 </div>
                                 <div class="content-box">
                                     <div class="content">
@@ -289,6 +293,8 @@
                         %>
                     </div>
                 </div>
+                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="" data-numposts="5"></div>
             </div>
         </section>
         <footer class="footer_section">

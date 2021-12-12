@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <title>Dashboard</title>
         <meta charset="utf-8">
@@ -162,6 +161,7 @@
                             </div>
                             <form class="app-card app-card-account shadow-sm d-flex flex-column" action="${pageContext.request.contextPath}/Dashboard/AddRecipe" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-6">
+                                    <input type="hidden" class="item-data" name="rID" readonly>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -216,7 +216,10 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
-                                                <div class="item-data"><img class="profile-image" src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=" alt=""></div><br>
+                                                <div class="item-data">
+                                                    <img class="profile-image" src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=" alt="">
+                                                </div>
+                                                <br>
                                                 <input type="text" class="item-data" name="image">
                                             </div>
                                         </div>
@@ -229,7 +232,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -247,7 +249,7 @@
                                         </div>
                                     </div>
                                     <div class="app-card-footer p-4 mt-auto">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Create">
+                                        <input class="btn app-btn-secondary" type="submit" value="Create">
                                         <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
                                     </div>
                                 </div>

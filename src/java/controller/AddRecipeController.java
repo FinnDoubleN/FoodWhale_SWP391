@@ -83,7 +83,6 @@ public class AddRecipeController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FoodWhaleDAO dao = new FoodWhaleDAO();
-        int rid = Integer.parseInt(request.getParameter("rID"));
         String image = request.getParameter("image");
         String rName = request.getParameter("rName");
         int cID = Integer.parseInt(request.getParameter("cID"));
@@ -97,7 +96,7 @@ public class AddRecipeController extends HttpServlet {
         if (image == null || image.equalsIgnoreCase("")) {
             image = "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
         }
-        dao.createRecipe(image, rName, cID, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3);
+//        dao.createRecipe(image, rName, cID, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3);
         response.sendRedirect(request.getContextPath() + "/Dashboard/RecipeList");
     }
 
