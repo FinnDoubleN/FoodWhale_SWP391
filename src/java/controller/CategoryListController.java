@@ -9,6 +9,8 @@ import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +25,8 @@ import model.Category;
 public class CategoryListController extends HttpServlet {
 
     ArrayList<Category> categoryList = new ArrayList<Category>();
-    
+    Category categorylistdetail = new Category();
+
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -68,7 +71,7 @@ public class CategoryListController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             categoryList = (ArrayList<Category>) dao.getAllCategory();
@@ -88,7 +91,34 @@ public class CategoryListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int id = Integer.parseInt(request.getParameter("categoryID"));
+            String submit = request.getParameter("submit");
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            if (submit.equalsIgnoreCase("View")) {
+                categorylistdetail = dao.getCategoryDetailByID(id);
+                request.setAttribute("categorylistdetail", categorylistdetail);
+                request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
+                Category c = new Category(id, status);
+                dao.CategoryDelete(c);
+                categoryList = (ArrayList<Category>) dao.getAllCategory();
+                request.setAttribute("categoryList", categoryList);
+                request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
+            } else {
+                categoryList = (ArrayList<Category>) dao.getAllCategory();
+                request.setAttribute("categoryList", categoryList);
+                request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

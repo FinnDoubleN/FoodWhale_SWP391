@@ -99,8 +99,15 @@ public class IngredientListController extends HttpServlet {
                 ingredientlistdetail = dao.getIngredientDetailByID(inID);
                 request.setAttribute("ingredientlistdetail", ingredientlistdetail);
                 request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Delete")) {
-                dao.deleteIngredientDetail(inID);
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
+                Ingredient in = new Ingredient(inID, status);
+                dao.IngredientDelete(in);
                 ingredientList = (ArrayList<Ingredient>) dao.getAllIngredient();
                 request.setAttribute("ingredientList", ingredientList);
                 request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);

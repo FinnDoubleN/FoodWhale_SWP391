@@ -184,6 +184,7 @@
                                                     <th class="cell">Type</th>
                                                     <th class="cell">Price</th>
                                                     <th class="cell filtercate">Category</th>
+                                                    <th class="cell">Status</th>
                                                     <th class="cell"></th>
                                                 </tr>
                                             </thead>
@@ -197,11 +198,19 @@
                                                     <td class="cell"><%= i.getType()%></td>
                                                     <td class="cell"><span class="truncate">$ <%= i.getMoney() %></span></td>
                                                     <td class="cell"><%= i.getcName() %></td>
+                                                    <td class="cell active"><%= i.getStatus()%></td>
                                                     <td class="cell">
                                                         <form action="IngredientList" method="post">
                                                             <input type="hidden" name="inID" value="<%=i.getInID()%>">
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
+                                                            <%
+                                                                if (i.getStatus().equalsIgnoreCase("Active")) {
+                                                            %>
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">
+                                                            <%} else { %>
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Active">
+                                                            <%}%>
                                                         </form>
                                                     </td>
                                                 </tr>

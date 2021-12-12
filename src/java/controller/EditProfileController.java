@@ -8,9 +8,11 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +23,19 @@ import model.User;
  * @author ADMIN
  */
 public class EditProfileController extends HttpServlet {
+User userdetail = new User();
 
-    User userdetail = new User();
-
+ private String getCookieByName(Cookie[] cookies, String check) {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(check)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,10 +46,11 @@ public class EditProfileController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+                /* TODO output your page here. You may use following sample code. */
+       
         }
     }
 
@@ -53,7 +66,25 @@ public class EditProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try{
+             Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                String role = getCookieByName(cookies, "ROLE");
+                String username = getCookieByName(cookies, "USERNAME");
+                if (username != null && !role.equals("admin")) {
+                    FoodWhaleDAO DAO = new FoodWhaleDAO();
+                    userdetail = DAO.getProfileByUsername(username);
+                    request.setAttribute("userdetail", userdetail);
+                    request.getRequestDispatcher("EditProfile.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("login").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
+        } catch (SQLException ex) {
+        Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**
@@ -66,8 +97,7 @@ public class EditProfileController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {     
         try {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             String submit = request.getParameter("submit");
@@ -83,10 +113,10 @@ public class EditProfileController extends HttpServlet {
                 dao.EditUser(u);
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);
-                request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
             }
         } catch (Exception ex) {
-            Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

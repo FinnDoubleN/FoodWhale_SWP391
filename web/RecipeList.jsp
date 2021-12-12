@@ -184,6 +184,7 @@
                                                     <th class="cell">Difficult</th>
                                                     <th class="cell">Time</th>
                                                     <th class="cell">UserID</th>
+                                                    <th class="cell">Status</th>
                                                     <th class="cell"></th>
                                                 </tr>
                                             </thead>
@@ -198,11 +199,18 @@
                                                     <td class="cell"><span class="badge bg-success"><%= r.getDifficulty()%></span></td>
                                                     <td class="cell"><%= r.getTime()%></td>
                                                     <td class="cell"><%= r.getuID()%></td>
+                                                    <td class="cell"><%= r.getStatus()%></td>
                                                     <td class="cell">
                                                         <form action="RecipeList" method="post">
                                                             <input type="hidden" name="rID" value="<%=r.getrID()%>">
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
+                                                            <%
+                                                                if (r.getStatus().equalsIgnoreCase("Active")) {
+                                                            %>
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">
+                                                            <%} else { %>
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Active">
+                                                            <%}%>
                                                         </form>
                                                     </td>
                                                 </tr>

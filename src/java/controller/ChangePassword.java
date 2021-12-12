@@ -8,7 +8,7 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -16,19 +16,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Recipe;
 import model.User;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class RecipeListController extends HttpServlet {
+public class ChangePassword extends HttpServlet {
+User userdetail = new User();
 
-    ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-    Recipe recipelistdetail = new Recipe();
-
-    private String getCookieByName(Cookie[] cookies, String check) {
+ private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
@@ -39,7 +36,6 @@ public class RecipeListController extends HttpServlet {
         }
         return null;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,12 +46,13 @@ public class RecipeListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+         
         }
-    }
+        }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -69,16 +66,25 @@ public class RecipeListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    try {
         Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath() + "/Homepage");
-        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-            request.setAttribute("recipeList", recipeList);
-            request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
-        }
+            if (cookies != null) {
+                String role = getCookieByName(cookies, "ROLE");
+                String username = getCookieByName(cookies, "USERNAME");
+                if (username != null && !role.equals("admin")) {
+                    FoodWhaleDAO DAO = new FoodWhaleDAO();
+                    userdetail = DAO.getProfileByUsername(username);
+                    request.setAttribute("userdetail", userdetail);
+                    request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("login").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
+    } catch (SQLException ex) {
+        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**
@@ -92,34 +98,20 @@ public class RecipeListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int id = Integer.parseInt(request.getParameter("rID"));
+       try{   /* TODO output your page here. You may use following sample code. */
+          FoodWhaleDAO dao = new FoodWhaleDAO();
             String submit = request.getParameter("submit");
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            if (submit.equalsIgnoreCase("View")) {
-                recipelistdetail = dao.getRecipeDetailByID(id);
-                request.setAttribute("recipelistdetail", recipelistdetail);
-                request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
-
-            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
-                String status = "";
-                if (submit.equalsIgnoreCase("Delete")) {
-                    status = "Delete";
-                } else {
-                    status = "Active";
-                }
-                Recipe r = new Recipe(id, status);
-                dao.RecipeDelete(r);
-                recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-                request.setAttribute("recipeList", recipeList);
-                request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
-            } else {
-                recipeList = (ArrayList<Recipe>) dao.getRecipeWithCategory();
-                request.setAttribute("recipeList", recipeList);
-                request.getRequestDispatcher("/RecipeList.jsp").forward(request, response);
+            if (submit.equalsIgnoreCase("Submit")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String password = request.getParameter("Password");
+                User u = new User(id, password);
+                dao.changePassword(u);
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
             }
         } catch (Exception ex) {
-            Logger.getLogger(RecipeListController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
