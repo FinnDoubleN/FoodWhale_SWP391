@@ -25,7 +25,21 @@ $(document).ready(function () {
                 "text": 'Create',
                 "className": 'btn app-btn-secondary',
                 action: function (e, dt, node, config) {
-                    window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddAccount");
+                    var link = window.location.href;
+                    var substringURL = link.substring(link.lastIndexOf('/') + 1);
+                    if (substringURL === 'OrderList') {
+                        window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddOrder");
+                    } else if (substringURL === 'AccountList') {
+                        window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddAccount");
+                    } else if (substringURL === 'RecipeList') {
+                        window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddRecipe");
+                    } else if (substringURL === 'IngredientList') {
+                        window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddIngredient");
+                    } else if (substringURL === 'CategoryList') {
+                        window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard/AddCategory");
+                    } else {
+                        window.location.replace("http://localhost:8080/FoodWhale_SWP391/Dashboard");
+                    }
                 }
             }
         ],

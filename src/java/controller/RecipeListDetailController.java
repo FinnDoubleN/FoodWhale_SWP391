@@ -25,7 +25,6 @@ import model.Recipe;
  */
 public class RecipeListDetailController extends HttpServlet {
 
-    ArrayList<Recipe> recipelist = new ArrayList<Recipe>();
     Recipe recipelistdetail = new Recipe();
 
     private String getCookieByName(Cookie[] cookies, String check) {

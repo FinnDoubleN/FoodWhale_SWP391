@@ -25,7 +25,6 @@ import model.User;
  */
 public class AccountDetailController extends HttpServlet {
 
-    ArrayList<User> userlist = new ArrayList<User>();
     User userdetail = new User();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -125,13 +124,7 @@ public class AccountDetailController extends HttpServlet {
                 String status = "Delete";
                 User u = new User(id, status);
                 dao.AccountDelete(u);
-                userlist = (ArrayList<User>) dao.getAllAccount();
-                request.setAttribute("userlist", userlist);
-                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Cancel")) {
-                userlist = (ArrayList<User>) dao.getAllAccount();
-                request.setAttribute("userlist", userlist);
-                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/AccountList");
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);

@@ -143,6 +143,10 @@
         <servlet-name>CategoryListDetailController</servlet-name>
         <servlet-class>controller.CategoryListDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddOrderController</servlet-name>
+        <servlet-class>controller.AddOrderController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -274,6 +278,10 @@
     <servlet-mapping>
         <servlet-name>CategoryListDetailController</servlet-name>
         <url-pattern>/Dashboard/CategoryListDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddOrderController</servlet-name>
+        <url-pattern>/Dashboard/AddOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

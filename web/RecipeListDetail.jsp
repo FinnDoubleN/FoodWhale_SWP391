@@ -254,14 +254,14 @@
                                                 <div class="item-label"><strong>Status</strong></div>
                                                 <% String status = r.getStatus();%>
                                                 <% if (r.getStatus().equalsIgnoreCase("Active")) {%>
-                                                <input type="radio" id="Active" name="status" value="Active" checked>
+                                                <input type="radio" id="Active" name="Status" value="Active" checked>
                                                 <label for="Active">Active</label>
-                                                <input type="radio" id="Delete" name="status" value="Delete">
+                                                <input type="radio" id="Delete" name="Status" value="Delete">
                                                 <label for="Delete">Delete</label>
                                                 <%} else if (r.getStatus().equalsIgnoreCase("Delete")) {%>
-                                                <input type="radio" id="Active" name="status" value="Active" >
+                                                <input type="radio" id="Active" name="Status" value="Active" >
                                                 <label for="Active">Active</label>
-                                                <input type="radio" id="Delete" name="status" value="Delete" checked>
+                                                <input type="radio" id="Delete" name="Status" value="Delete" checked>
                                                 <label for="Delete">Delete</label>
                                                 <%}%>
                                             </div>
