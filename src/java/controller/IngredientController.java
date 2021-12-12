@@ -83,6 +83,25 @@ public class IngredientController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String searchData = request.getParameter("searchData");
+        String option = request.getParameter("option");
+        request.setAttribute("searchData", searchData);
+        request.setAttribute("option", option);
+        if (searchData == null || searchData.equalsIgnoreCase("") || option == null || option.equalsIgnoreCase("")) {
+            ingredientlist = DAO.getAllIngredient();
+            request.setAttribute("ingredientlist", ingredientlist);
+            request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+        } else {
+            if (option.equalsIgnoreCase("byRecipe")) {
+                ingredientlist = DAO.searchIngredientByRecipe(searchData);
+                request.setAttribute("ingredientlist", ingredientlist);
+                request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+            } else if (option.equalsIgnoreCase("byIngredient")) {
+                ingredientlist = DAO.searchIngredientByIngredient(searchData);
+                request.setAttribute("ingredientlist", ingredientlist);
+                request.getRequestDispatcher("Ingredient.jsp").forward(request, response);
+            }
+        }
     }
 
     /**

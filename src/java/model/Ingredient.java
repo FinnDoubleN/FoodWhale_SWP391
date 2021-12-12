@@ -32,8 +32,14 @@ public class Ingredient {
         this.cName = cName;
     }
 
-    
-    
+    public Ingredient(int inID, String inName, double money, String description, String image) {
+        this.inID = inID;
+        this.inName = inName;
+        this.money = money;
+        this.description = description;
+        this.image = image;
+    }
+
     public Ingredient(int inID, String inName, String image, String type, double money, int categoryID, String description, String guideline) {
         this.inID = inID;
         this.inName = inName;

@@ -138,7 +138,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-    
+
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
         String query = "select o.oID , u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";
@@ -193,7 +193,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void deleteRecipe(int id) {
         try {
             String query = "delete from foodwhale.recipe where rID=?";
@@ -204,7 +204,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void deleteIngredientDetail(int id) {
         try {
             String query = "delete from foodwhale.ingredient where inID=?";
@@ -263,13 +263,13 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void updateRecipe(Recipe r) {
         try {
             String sql = "update foodwhale.recipe set rName=?, cID=?,Image=?,Difficulty=?, Time=?, uID=?, rDescription=?, Guideline1=?, Guideline2=?, Guideline3=? where rID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, r.getrName());
-            statement.setInt(2, r.getcID() );
+            statement.setInt(2, r.getcID());
             statement.setString(3, r.getImage());
             statement.setString(4, r.getDifficulty());
             statement.setInt(5, r.getTime());
@@ -325,7 +325,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return user;
     }
-    
+
     public Recipe getRecipeDetailByID(int rID) throws Exception {
         Recipe recipe = new Recipe();
         String xsql = "select * from foodwhale.recipe where rID= ?";
@@ -353,7 +353,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return recipe;
     }
-    
+
     public Ingredient getIngredientDetailByID(int inID) throws Exception {
         Ingredient ingredient = new Ingredient();
         String xsql = "select * from foodwhale.ingredient where inID= ?";
@@ -444,6 +444,44 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
 
+    public ArrayList<Recipe> searchRecipeByRecipe(String searchData) {
+        ArrayList<Recipe> list = new ArrayList<>();
+        String query = "select distinct r.rID, r.Image, r.rName, r.rDescription, r.Time from foodwhale.recipe r inner join foodwhale.recipe_ingredient ri on r.rID = ri.rID inner join foodwhale.ingredient i on ri.inID = i.inID where r.rName like '%" + searchData + "%'";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recipe(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+        public ArrayList<Recipe> searchRecipeByIngredient(String searchData) {
+        ArrayList<Recipe> list = new ArrayList<>();
+        String query = "select distinct r.rID, r.Image, r.rName, r.rDescription, r.Time from foodwhale.recipe r inner join foodwhale.recipe_ingredient ri on r.rID = ri.rID inner join foodwhale.ingredient i on ri.inID = i.inID where i.inName like '%" + searchData + "%'";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recipe(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public ArrayList<Recipe> getRecipeWithCategory() {
         ArrayList<Recipe> list = new ArrayList<>();
         String query = "select r.rID, r.rName, c.cName, r.Image, r.Difficulty, r.Time, r.uID, r.rDescription, r.Guideline1, r.Guideline2, r.Guideline3 from foodwhale.recipe r inner join foodwhale.category c on r.cID = c.categoryID";
@@ -468,7 +506,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-    
+
     public ArrayList<Ingredient> getIngredientWithCategory() {
         ArrayList<Ingredient> list = new ArrayList<>();
         String query = "select i.inID , i.inName, i.Type, i.Price, c.cName from foodwhale.ingredient i inner join foodwhale.category c on i.categoryID = c.categoryID;";
@@ -503,6 +541,44 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Ingredient> searchIngredientByRecipe(String searchData) {
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select distinct i.inID, i.inName, i.Price, i.description, i.Image from foodwhale.recipe r inner join foodwhale.recipe_ingredient ri on r.rID = ri.rID inner join foodwhale.ingredient i on ri.inID = i.inID where r.rName like '%" + searchData + "%'";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ingredient(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Ingredient> searchIngredientByIngredient(String searchData) {
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select distinct i.inID, i.inName, i.Price, i.description, i.Image from foodwhale.recipe r inner join foodwhale.recipe_ingredient ri on r.rID = ri.rID inner join foodwhale.ingredient i on ri.inID = i.inID where i.inName like '%" + searchData + "%'";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ingredient(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
             }
         } catch (SQLException e) {
         }
@@ -787,8 +863,6 @@ public class FoodWhaleDAO extends DBContext {
         return "We send you an email confirmation code";
     }
 
-
-
     public void addRecipe(Recipe recipe) {
         try {
             String sql = "INSERT INTO foodwhale.recipe(rName, cID, Image, Difficulty, Time, uID,rDescription, Guideline1,Guideline2,Guideline3) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?)";
@@ -805,10 +879,10 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(9, recipe.getGuideline2());
             statement.setString(10, recipe.getGuideline3());
             statement.executeUpdate();
-        }
-        catch (SQLException ex){           
+        } catch (SQLException ex) {
         }
     }
+
     public int checkUserOrder(String uName) {
         String xsql = "select MAX(oID) as 'orderNo' from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where u.uName = ?";
         try {
@@ -961,31 +1035,31 @@ public class FoodWhaleDAO extends DBContext {
     }
 
     public ArrayList<Recipe_Like> getAllFavouriteRecipe(int uID) {
-       ArrayList<Recipe_Like> list = new ArrayList<>();
+        ArrayList<Recipe_Like> list = new ArrayList<>();
         String query = "select * from foodwhale.recipe_like where uID = " + uID + "";
 
         try {
-            ps = connection.prepareStatement(query);           
+            ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Recipe_Like(rs.getInt(1),
                         rs.getInt(2),
-                    rs.getInt(3),
-                    rs.getBoolean(4)));
+                        rs.getInt(3),
+                        rs.getBoolean(4)));
             }
         } catch (SQLException e) {
         }
-        return list; 
+        return list;
     }
 
     public Recipe getRecipebyID(int i) {
         String query = "select * from foodwhale.recipe where rID = " + i + "";
-        
+
         try {
-            ps = connection.prepareStatement(query);           
+            ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Recipe r= new Recipe(
+                Recipe r = new Recipe(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
@@ -1001,17 +1075,17 @@ public class FoodWhaleDAO extends DBContext {
             }
         } catch (SQLException e) {
         }
-        return null; 
+        return null;
     }
 
     public ArrayList<Recipe> getRecipeByUser(int uID) {
         String query = "select * from foodwhale.recipe where uID = " + uID + "";
         ArrayList<Recipe> list = new ArrayList<>();
         try {
-            ps = connection.prepareStatement(query);           
+            ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add( new Recipe(
+                list.add(new Recipe(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
@@ -1023,11 +1097,11 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11)));
-                
+
             }
         } catch (SQLException e) {
         }
-        return list; 
+        return list;
     }
 
 }

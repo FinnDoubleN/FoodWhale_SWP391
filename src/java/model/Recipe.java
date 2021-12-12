@@ -81,7 +81,14 @@ public class Recipe {
         this.guideline2 = guideline2;
         this.guideline3 = guideline3;
     }
-    
+
+    public Recipe(int rID, String image, String rName, String rDescription, int time) {
+        this.rID = rID;
+        this.image = image;
+        this.rName = rName;
+        this.rDescription = rDescription;
+        this.time = time;
+    }
 
     public String getcName() {
         return cName;
