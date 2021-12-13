@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Recipe;
-import model.User;
 
 /**
  *
@@ -97,6 +96,10 @@ public class RecipeListController extends HttpServlet {
             String submit = request.getParameter("submit");
             FoodWhaleDAO dao = new FoodWhaleDAO();
             if (submit.equalsIgnoreCase("View")) {
+                int categorycount = dao.countCategory();
+                request.setAttribute("categorycount", categorycount);
+                int usercount = dao.countUser();
+                request.setAttribute("usercount", usercount);
                 recipelistdetail = dao.getRecipeDetailByID(id);
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);

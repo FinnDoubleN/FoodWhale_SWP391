@@ -20,6 +20,8 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
             Ingredient in = (Ingredient) request.getAttribute("ingredientlistdetail");
+            Object object = request.getAttribute("categorycount");
+            int categorycount = Integer.parseInt(object.toString());
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -184,7 +186,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Price</strong></div>
-                                                <input type="text" class="item-data" value="<%= in.getMoney()%>" name="Money">
+                                                <input type="number" step="0.01" min="0.01" class="item-data" value="<%= in.getMoney()%>" name="Money">
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +194,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Category ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= in.getCategoryID()%>" name="CategoryID">
+                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" value="<%= in.getCategoryID()%>" name="CategoryID">
                                             </div>
                                         </div>
                                     </div>

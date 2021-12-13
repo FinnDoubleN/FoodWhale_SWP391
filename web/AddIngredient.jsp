@@ -17,6 +17,8 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
+            Object object = request.getAttribute("categorycount");
+            int categorycount = Integer.parseInt(object.toString());
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -167,7 +169,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Ingredient Name</strong></div>
-                                                <input type="text" class="item-data" name="inName">
+                                                <input type="text" class="item-data" name="inName" required>
                                             </div>
                                         </div>
                                     </div>
@@ -175,7 +177,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Type</strong></div>
-                                                <input type="text" class="item-data" name="Type">
+                                                <input type="text" class="item-data" name="Type" required>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +185,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Price</strong></div>
-                                                <input type="text" class="item-data" name="Money">
+                                                <input type="number" step="0.01" min="0.01" class="item-data" name="Money" required>
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +193,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Category ID</strong></div>
-                                                <input type="text" class="item-data" name="CategoryID">
+                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" name="CategoryID" required>
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +201,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <input type="text" class="item-data" name="Description">
+                                                <input type="text" class="item-data" name="Description" required>
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +212,7 @@
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
                                                 <div class="item-data"><img class="profile-image" src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=" alt=""></div><br>
-                                                <input type="text" class="item-data" name="image">
+                                                <input type="text" class="item-data" name="image" required>
                                             </div>
                                         </div>
                                     </div>
@@ -219,7 +221,7 @@
                                             <div class="col-auto">
                                                 <div class="col-auto">
                                                     <div class="item-label"><strong>Guideline</strong></div>
-                                                    <input type="text" class="item-data" name="Guideline">
+                                                    <input type="text" class="item-data" name="Guideline" required>
                                                 </div>
                                             </div>
                                         </div>

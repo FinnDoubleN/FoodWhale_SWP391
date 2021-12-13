@@ -198,7 +198,13 @@
                                                     <td class="cell"><%= i.getType()%></td>
                                                     <td class="cell"><span class="truncate">$ <%= i.getMoney() %></span></td>
                                                     <td class="cell"><%= i.getcName() %></td>
-                                                    <td class="cell active"><%= i.getStatus()%></td>
+                                                    <%
+                                                        if (i.getStatus().equalsIgnoreCase("Active")) {
+                                                    %>
+                                                    <td class="cell"><span class="badge bg-success"><%= i.getStatus()%></span></td>
+                                                     <%} else {%>
+                                                    <td class="cell"><span class="badge bg-danger"><%= i.getStatus()%></span></td>
+                                                    <%}%>
                                                     <td class="cell">
                                                         <form action="IngredientList" method="post">
                                                             <input type="hidden" name="inID" value="<%=i.getInID()%>">

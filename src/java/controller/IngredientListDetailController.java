@@ -25,6 +25,7 @@ import model.Ingredient;
 public class IngredientListDetailController extends HttpServlet {
 
     Ingredient ingredientlistdetail = new Ingredient();
+    FoodWhaleDAO dao = new FoodWhaleDAO();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -70,6 +71,8 @@ public class IngredientListDetailController extends HttpServlet {
         try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
+            int categorycount = dao.countCategory();
+            request.setAttribute("categorycount", categorycount);
             if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
                 response.sendRedirect(request.getContextPath() + "/Homepage");
             } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
@@ -98,7 +101,6 @@ public class IngredientListDetailController extends HttpServlet {
         try {
             Cookie[] cookies = request.getCookies();
             String ROLE = getCookieByName(cookies, "ROLE");
-            FoodWhaleDAO dao = new FoodWhaleDAO();
             String submit = request.getParameter("submit");
             if (submit.equalsIgnoreCase("Update")) {
                 int inID = Integer.parseInt(request.getParameter("inID"));
@@ -112,6 +114,8 @@ public class IngredientListDetailController extends HttpServlet {
                 String Status = request.getParameter("status");
                 Ingredient in = new Ingredient(inID, inName, Type, image, Money, CategoryID, Description, Guideline, Status);
                 dao.updateIngredient(in);
+                int categorycount = dao.countCategory();
+                request.setAttribute("categorycount", categorycount);
                 ingredientlistdetail = dao.getIngredientDetailByID(inID);
                 request.setAttribute("ingredientlistdetail", ingredientlistdetail);
                 request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);

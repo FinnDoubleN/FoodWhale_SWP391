@@ -19,6 +19,10 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
+            Object object = request.getAttribute("categorycount");
+            int categorycount = Integer.parseInt(object.toString());
+            Object object2 = request.getAttribute("usercount");
+            int usercount = Integer.parseInt(object2.toString());
             Recipe r = (Recipe) request.getAttribute("recipelistdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
@@ -176,7 +180,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Category ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getcID()%>" maxlength="24" name="cID">
+                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" value="<%= r.getcID()%>" maxlength="24" name="cID">
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +204,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>User ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getuID()%>" maxlength="24" name="uID" required>
+                                                <input type="number" step="1" min="1" max="<%=usercount%>" class="item-data" value="<%= r.getuID()%>" maxlength="24" name="uID" required>
                                             </div>
                                         </div>
                                     </div>

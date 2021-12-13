@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Asus
  */
 public class AddIngredientController extends HttpServlet {
-
+    FoodWhaleDAO dao = new FoodWhaleDAO();
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -62,8 +63,10 @@ public class AddIngredientController extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
+        int categorycount = dao.countCategory();
+        request.setAttribute("categorycount", categorycount);
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             request.getRequestDispatcher("/AddIngredient.jsp").forward(request, response);
         }
@@ -80,7 +83,18 @@ public class AddIngredientController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String image = request.getParameter("image");
+        String inName = request.getParameter("inName");
+        int cID = Integer.parseInt(request.getParameter("CategoryID"));
+        String Type = request.getParameter("Type");
+        double Price = Double.parseDouble(request.getParameter("Money"));
+        String Description = request.getParameter("Description");
+        String Guideline = request.getParameter("Guideline");
+        if (image == null || image.equalsIgnoreCase("")) {
+            image = "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
+        }
+        dao.createIngredient(inName, image, Type, Price, cID, Description, Guideline);
+        response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
     }
 
     /**

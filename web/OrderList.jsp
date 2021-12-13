@@ -27,7 +27,7 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
-            SimpleDateFormat sm = new SimpleDateFormat("mm-dd-yyyy");
+            SimpleDateFormat sm = new SimpleDateFormat("dd-mm-yyyy");
             ArrayList<Order> orderlist = (ArrayList<Order>) request.getAttribute("orderlist");
             ArrayList<Order_Detail> orderdetaillist = (ArrayList<Order_Detail>) request.getAttribute("orderdetaillist");
             Cookie cookie = null;

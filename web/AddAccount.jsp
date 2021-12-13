@@ -231,9 +231,9 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Gender</strong></div>
-                                                <input type="radio" id="m" name="gender" value="m">
+                                                <input type="radio" id="m" name="gender" value="m" required>
                                                 <label for="m">Male</label>
-                                                <input type="radio" id="f" name="gender" value="f">
+                                                <input type="radio" id="f" name="gender" value="f" required>
                                                 <label for="f">Female</label>
                                             </div>
                                         </div>
