@@ -151,6 +151,38 @@
             </div>
         </header>
         <div class="app-wrapper">
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+                    <h1 class="app-page-title">Create Category</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-12">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row gx-3 placecontent-center ">
+                                </div>
+                            </div>
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="AddCategory" method="post">
+                                <div class="app-card-body px-4 col-12 col-lg-6">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Category Name</strong></div>
+                                                <input type="text" class="item-data"name="cName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Create">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/CategoryList">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
                     <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->

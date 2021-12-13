@@ -151,6 +151,89 @@
             </div>
         </header>
         <div class="app-wrapper">
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+                    <h1 class="app-page-title">Create Ingredient</h1>
+                    <div class="row-new gy-4">
+                        <div class="col-12 col-lg-12">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row gx-3 placecontent-center ">
+                                </div>
+                            </div>
+                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="AddIngredient" method="post">
+                                <div class="app-card-body px-4 col-12 col-lg-6">
+                                    <input type="hidden" class="item-data" name="inID" readonly>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Ingredient Name</strong></div>
+                                                <input type="text" class="item-data" name="inName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Type</strong></div>
+                                                <input type="text" class="item-data" name="Type">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Price</strong></div>
+                                                <input type="text" class="item-data" name="Money">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Category ID</strong></div>
+                                                <input type="text" class="item-data" name="CategoryID">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Description</strong></div>
+                                                <input type="text" class="item-data" name="Description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Image</strong></div>
+                                                <div class="item-data"><img class="profile-image" src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=" alt=""></div><br>
+                                                <input type="text" class="item-data" name="image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="col-auto">
+                                                    <div class="item-label"><strong>Guideline</strong></div>
+                                                    <input type="text" class="item-data" name="Guideline">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Create">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/IngredientList">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="app-footer">
                 <div class="container text-center py-3">
                     <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->

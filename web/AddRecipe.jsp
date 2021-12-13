@@ -152,7 +152,7 @@
         <div class="app-wrapper">
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-                    <h1 class="app-page-title">Recipe Detail</h1>
+                    <h1 class="app-page-title">Create Recipe</h1>
                     <div class="row-new gy-4">
                         <div class="col-12 col-lg-12">
                             <div class="app-card-header p-3 border-bottom-0">
