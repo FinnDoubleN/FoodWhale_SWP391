@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,18 +17,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Recipe;
-import model.Recipe_Like;
+import model.Order;
 import model.User;
 
 /**
  *
  * @author This PC
  */
-public class FavouriteRecipeController extends HttpServlet {
-    HashSet<Recipe> recipelist = new HashSet<>();
-    ArrayList<Recipe_Like> likelist = new ArrayList<>();
+public class OrderHistoryController extends HttpServlet {
     FoodWhaleDAO DAO = new FoodWhaleDAO();
+    ArrayList<Order> orderlist = new ArrayList<Order>();
     User userdetail = new User();
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -59,10 +56,10 @@ public class FavouriteRecipeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FavouriteRecipeController</title>");            
+            out.println("<title>Servlet OrderHistoryController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FavouriteRecipeController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet OrderHistoryController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -81,29 +78,31 @@ public class FavouriteRecipeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             String username = getCookieByName(cookies, "USERNAME");
             if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
                 FoodWhaleDAO DAO = new FoodWhaleDAO();
-                userdetail = DAO.getProfileByUsername(username);
+                try {
+                    userdetail = DAO.getProfileByUsername(username);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrderHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
-                
-            } else {
+            }
+             else {
                 response.sendRedirect("Login");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        likelist = DAO.getAllFavouriteRecipe(userdetail.uID);
-        for (Recipe_Like recipe_Like : likelist) {
-            int i= recipe_Like.getrID();
-            Recipe r = DAO.getRecipebyID(i);
-            recipelist.add(r);
-        }
-        request.setAttribute("recipelist", recipelist);
-        request.getRequestDispatcher("FavouriteRecipe.jsp").forward(request, response);
+        
+        
+        
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            orderlist = (ArrayList<Order>) dao.getAllOrder();
+            request.setAttribute("orderlist", orderlist);
+            request.getRequestDispatcher("/OrderList.jsp").forward(request, response);
+        
+        
+        
     }
 
     /**

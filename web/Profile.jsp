@@ -194,7 +194,7 @@
                                                 <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" >
                                             </div>
                                             <div class="profile-text">
-                                                <span class="_text">Order History</span>
+                                                <span class="_text" >Order History</span>
                                             </div>
                                         </a>
                                     </div>
@@ -213,10 +213,7 @@
                             </div>
                         </div>
                         <div class="col-md-10">
-                            <div class="profile-heading">
-                                <h1 class="heading-h1">My Profile</h1>
-                                <div class="heading-div">Profile management information for account security</div>
-                            </div>
+                           
                             <div class="card mb-3 profile-info">
                                 <div class="wrap-profile-info col-md-8">
                                     <form class="card-body col-md-12">
@@ -375,7 +372,33 @@
                                 </form>
                             </div>
                             <div class="card mb-3 history hidden">
-
+                                  <div class="wrap-profile-info col-md-8">
+                                    <table class="table " border="1">
+                    <thead>
+                        <tr>
+                            <th>Ingredient Name</th>
+                            <th>Image</th>
+                            <th>Type</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                                                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Order_Detail od : orderdetail) {%>
+                        <tr>
+                            <td><%=od.getInName()%></td>
+                            <td><img src="<%=od.getImage()%>" width="40" height="40"/></td>
+                            <td><%=od.getType()%></td>
+                            <td>$<%=od.getQuantity()%></td>
+                            
+                            <td><%=od.getPrice()%></td>
+                             
+                        </tr>
+                        <%}%>
+                    </tbody>
+                </table>
+                                </div>
                             </div>
                         </div>
                     </div>
