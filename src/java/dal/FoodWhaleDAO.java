@@ -141,8 +141,26 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
     
-    public int countCategory() {
-        String xsql = "select MAX(categoryID) as 'cNo' from foodwhale.category";
+    public int countCategoryRecipe() {
+        String xsql = "select MAX(categoryID) as 'cNo' from foodwhale.categoryrecipe";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    int count = rs.getInt(1);
+                    if (count != 0) {
+                        return count;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+    
+    public int countCategoryIngredient() {
+        String xsql = "select MAX(categoryID) as 'cNo' from foodwhale.categoryingredient";
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(xsql);
@@ -454,7 +472,6 @@ public class FoodWhaleDAO extends DBContext {
     public Recipe getRecipeDetailByID(int rID) throws Exception {
         Recipe recipe = new Recipe();
         String xsql = "select * from foodwhale.recipe where rID= ?";
-
         try {
             if (connection != null) {
                 ps = connection.prepareStatement(xsql);
@@ -643,7 +660,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Recipe> getRecipeWithCategory() {
         ArrayList<Recipe> list = new ArrayList<>();
-        String query = "select r.rID, r.rName, c.cName, r.Image, r.Difficulty, r.Time, r.uID, r.rDescription, r.Guideline, r.Status from foodwhale.recipe r inner join foodwhale.categoryrecipe c on r.cID = c.categoryID where c.Status = 'Active' and r.Status = 'Active'";
+        String query = "select r.rID, r.rName, c.cName, r.Image, r.Difficulty, r.Time, r.uID, r.rDescription, r.Guideline, r.Status from foodwhale.recipe r inner join foodwhale.categoryrecipe c on r.cID = c.categoryID";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -667,7 +684,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Ingredient> getIngredientWithCategory() {
         ArrayList<Ingredient> list = new ArrayList<>();
-        String query = "select i.inID , i.inName, i.Type, i.Price, c.cName, i.Status from foodwhale.ingredient i inner join foodwhale.categoryingredient c on i.categoryID = c.categoryID where c.Status ='Active' and i.Status = 'Active' order by i.inID ASC;";
+        String query = "select i.inID , i.inName, i.Type, i.Price, c.cName, i.Status from foodwhale.ingredient i inner join foodwhale.categoryingredient c on i.categoryID = c.categoryID order by i.inID ASC;";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();

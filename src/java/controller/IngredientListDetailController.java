@@ -71,7 +71,7 @@ public class IngredientListDetailController extends HttpServlet {
         try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
-            int categorycount = dao.countCategory();
+            int categorycount = dao.countCategoryIngredient();
             request.setAttribute("categorycount", categorycount);
             if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
                 response.sendRedirect(request.getContextPath() + "/Homepage");
@@ -114,7 +114,7 @@ public class IngredientListDetailController extends HttpServlet {
                 String Status = request.getParameter("status");
                 Ingredient in = new Ingredient(inID, inName, Type, image, Money, CategoryID, Description, Guideline, Status);
                 dao.updateIngredient(in);
-                int categorycount = dao.countCategory();
+                int categorycount = dao.countCategoryIngredient();
                 request.setAttribute("categorycount", categorycount);
                 ingredientlistdetail = dao.getIngredientDetailByID(inID);
                 request.setAttribute("ingredientlistdetail", ingredientlistdetail);

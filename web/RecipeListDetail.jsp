@@ -230,24 +230,8 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Guideline1</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getGuideline1()%>" name="Guideline1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Guideline2</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getGuideline2()%>" name="Guideline2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Guideline3</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getGuideline3()%>" name="Guideline3">
+                                                <div class="item-label"><strong>Guideline</strong></div>
+                                                <input type="text" class="item-data" value="<%= r.getGuideline()%>" name="Guideline">
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +239,6 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Status</strong></div>
-                                                <% String status = r.getStatus();%>
                                                 <% if (r.getStatus().equalsIgnoreCase("Active")) {%>
                                                 <input type="radio" id="Active" name="Status" value="Active" checked>
                                                 <label for="Active">Active</label>

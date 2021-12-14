@@ -63,7 +63,7 @@ public class AddIngredientController extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
-        int categorycount = dao.countCategory();
+        int categorycount = dao.countCategoryIngredient();
         request.setAttribute("categorycount", categorycount);
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
