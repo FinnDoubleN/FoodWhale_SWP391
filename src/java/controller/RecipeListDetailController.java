@@ -118,6 +118,10 @@ public class RecipeListDetailController extends HttpServlet {
                 String Status = request.getParameter("Status");
                 Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline, Status);
                 dao.updateRecipe(r);
+                int categorycount = dao.countCategoryRecipe();
+                request.setAttribute("categorycount", categorycount);
+                int usercount = dao.countUser();
+                request.setAttribute("usercount", usercount);
                 recipelistdetail = dao.getRecipeDetailByID(rid);
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
