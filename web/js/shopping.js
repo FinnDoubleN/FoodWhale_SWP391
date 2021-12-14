@@ -12,6 +12,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {recID: recID, action: "add"}
         });
+        alert("Added successful.");
     });
     $('.btn-in-cart').on('click', function () {
         var recID = $(this).attr('id');
@@ -20,5 +21,6 @@ $(document).ready(function () {
             type: 'POST',
             data: {recID: recID, action: "add"}
         });
+        alert("Added successful.");
     });
 });
