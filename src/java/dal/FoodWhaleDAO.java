@@ -140,7 +140,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
-    
+
     public int countCategoryRecipe() {
         String xsql = "select MAX(categoryID) as 'cNo' from foodwhale.categoryrecipe";
         try {
@@ -158,7 +158,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return 0;
     }
-    
+
     public int countCategoryIngredient() {
         String xsql = "select MAX(categoryID) as 'cNo' from foodwhale.categoryingredient";
         try {
@@ -176,7 +176,7 @@ public class FoodWhaleDAO extends DBContext {
         }
         return 0;
     }
-    
+
     public int countUser() {
         String xsql = "select MAX(uID) as 'uNo' from foodwhale.user";
         try {
@@ -339,7 +339,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void updateIngredient(Ingredient in) {
         try {
             String sql = "update foodwhale.ingredient set inName=?,Image=?,Type=?, Price=?, categoryID=?, description=?, guideline=?, Status = ? where inID=?";
@@ -358,7 +358,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void updateCategory(Category c) {
         try {
             String sql = "update foodwhale.category set cName=?, Status = ? where categoryID=?";
@@ -539,7 +539,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void createRecipe(String image, String rName, int cID, String Difficulty, int Time, int uID, String Description, String Guideline) {
         try {
             String sql = "Insert into Recipe(rName, cID, Image, Difficulty, Time, uID, rDescription, Guideline) values (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -557,7 +557,7 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void createIngredient(String inName, String Image, String Type, double Price, int categoryID, String Description, String Guideline) {
         try {
             String sql = "Insert into Ingredient(inName, Image, Type, Price, categoryID, Description, Guideline) values(?, ?, ?, ?, ?, ?, ?);";
@@ -705,6 +705,27 @@ public class FoodWhaleDAO extends DBContext {
     public ArrayList<Ingredient> getAllIngredient() {
         ArrayList<Ingredient> list = new ArrayList<>();
         String query = "select * from foodwhale.ingredient where Status = 'Active'";
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Ingredient(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Ingredient> getIngredientList() {
+        ArrayList<Ingredient> list = new ArrayList<>();
+        String query = "select * from foodwhale.ingredient where Status = 'Active' order by categoryID asc";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -1283,5 +1304,25 @@ public class FoodWhaleDAO extends DBContext {
         } catch (SQLException e) {
         }
         return list;
+    }
+
+    public void deleteIngredientRecipe(int rid) {
+        try {
+            String query = "delete from foodwhale.recipe_ingredient where rID = " + rid + "";
+            PreparedStatement st = connection.prepareStatement(query);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addIngredientRecipe(int rid, int inID) {
+        try {
+            String sql = "insert into foodwhale.recipe_ingredient(rID, inID) values (" + rid + ", " + inID + ")";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

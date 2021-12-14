@@ -12372,3 +12372,118 @@ button.close:focus {
 .bold {
     font-weight: bold;
 }
+
+.lable-ingredient {
+    display: flex;
+}
+
+.multiselect {
+    width: 200px;
+}
+
+.selectBox {
+    position: relative;
+}
+
+.selectBox select {
+    width: 100%;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#checkbox1 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox1 label {
+    display: block;
+}
+
+#checkbox1 label:hover {
+    background-color: #1e90ff;
+}
+
+#checkbox2 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox2 label {
+    display: block;
+}
+
+#checkbox2 label:hover {
+    background-color: #1e90ff;
+}
+
+#checkbox3 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox3 label {
+    display: block;
+}
+
+#checkbox3 label:hover {
+    background-color: #1e90ff;
+}
+
+#checkbox4 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox4 label {
+    display: block;
+}
+
+#checkbox4 label:hover {
+    background-color: #1e90ff;
+}
+
+#checkbox5 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox5 label {
+    display: block;
+}
+
+#checkbox5 label:hover {
+    background-color: #1e90ff;
+}
+
+#checkbox6 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox6 label {
+    display: block;
+}
+
+#checkbox6 label:hover {
+    background-color: #1e90ff;
+}
+
+#checkbox7 {
+    display: none;
+    border: 1px #dadada solid;
+}
+
+#checkbox7 label {
+    display: block;
+}
+
+#checkbox7 label:hover {
+    background-color: #1e90ff;
+}
