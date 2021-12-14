@@ -10,12 +10,14 @@ import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order_Detail;
 import model.User;
 
 /**
@@ -25,6 +27,7 @@ import model.User;
 public class UserProfileController extends HttpServlet {
 
     User userdetail = new User();
+    ArrayList<Order_Detail> orderdetail = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -73,7 +76,10 @@ public class UserProfileController extends HttpServlet {
             String username = getCookieByName(cookies, "USERNAME");
             if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
                 FoodWhaleDAO DAO = new FoodWhaleDAO();
+                int oID = DAO.checkUserOrder(username);
                 userdetail = DAO.getProfileByUsername(username);
+                orderdetail = DAO.getUserCart(oID);
+                request.setAttribute("orderdetail", orderdetail);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);
             } else {
