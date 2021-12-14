@@ -209,7 +209,7 @@
                                             <button class="add-item-wrapper n-btn btn-add-to-cart btn-add-collection">
                                                 <span class="row-1">
                                                     <img class="icon" src="../img/rating.png" />
-                                                    <span class="text display-block"></span>
+                                                    <span class="text display-block"></span>                                                   
                                                 </span>
                                             </button>
                                             <button class="btn-add-to-cart n-btn btn-rec-cart" id="<%=r.getrID()%>"

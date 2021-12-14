@@ -125,7 +125,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Category> getAllCategory() {
         ArrayList<Category> list = new ArrayList<>();
-        String query = "select * from foodwhale.category";
+        String query = "select * from foodwhale.categoryrecipe";
 
         try {
             ps = connection.prepareStatement(query);
