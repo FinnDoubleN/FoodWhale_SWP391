@@ -24,7 +24,6 @@ public class HomepageController extends HttpServlet {
 
     ArrayList<Recipe> recipelist = new ArrayList<>();
     ArrayList<Ingredient> ingredientlist = new ArrayList<>();
-    FoodWhaleDAO DAO = new FoodWhaleDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,6 +54,7 @@ public class HomepageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        FoodWhaleDAO DAO = new FoodWhaleDAO();
         ingredientlist = DAO.getAllIngredient();
         recipelist = DAO.getAllRecipe();
         request.setAttribute("ingredientlist", ingredientlist);

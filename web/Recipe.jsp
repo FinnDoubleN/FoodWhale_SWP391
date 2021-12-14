@@ -114,11 +114,6 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
@@ -248,6 +243,7 @@
                                                     </g>
                                                     </svg>
                                                 </a>
+                                                <input type="hidden" name="from" value="detail" />
                                                 <input type="hidden" name="action" value="add"/>
                                                 <input type="hidden" name="recID" value="<%=r.getrID()%>"/>
                                             </form>
