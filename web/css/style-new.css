@@ -1403,6 +1403,8 @@ a:focus {
 
 .rc-steps-box li div {
     margin-left: 8px;
+    white-space: pre-line;
+    line-height: 1.5rem;
 }
 
 .overview {

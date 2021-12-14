@@ -192,11 +192,11 @@
                 </div>
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".1">Main</li>
+                    <li data-filter=".1">Pizza</li>
                     <li data-filter=".2">Salad</li>
-                    <li data-filter=".3">Pizza</li>
-                    <li data-filter=".4">Potato</li>
-                    <li data-filter=".5">Hamburger</li>
+                    <li data-filter=".3">Potato</li>
+                    <li data-filter=".4">Hamburger</li>
+                    <li data-filter=".5">Main</li>
                 </ul>
                 <div class="filters-content" style="height: fit-content">
                     <div id="recipe" class="row grid">  

@@ -89,8 +89,9 @@ public class IngredientDetailController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String uName = getCookieByName(cookies, "USERNAME");
         String inID = request.getParameter("inID");
-        String add = request.getParameter("add");
-        if (add == null || add.equals("")) {
+        String action = request.getParameter("action");
+        String from = request.getParameter("from");
+        if (action == null || action.equals("")) {
             if (inID != null || !inID.equals("")) {
                 ingredientlist = DAO.getIngredientByID(Integer.parseInt(inID));
                 request.setAttribute("ingredientlist", ingredientlist);
@@ -112,14 +113,22 @@ public class IngredientDetailController extends HttpServlet {
                     DAO.createOrder(uID, date);
                     oID++;
                     DAO.addToCart(oID, Integer.parseInt(inID));
-                    response.sendRedirect(request.getContextPath() + "/Ingredient");
+                    if (from.equalsIgnoreCase("detail")) {
+                        response.sendRedirect(request.getContextPath() + "/Ingredient");
+                    } else {
+                        response.sendRedirect(request.getContextPath());
+                    }
                 } else {
                     if (DAO.checkDuplicateIngredient(oID, Integer.parseInt(inID))) {
                         DAO.addQuantity(oID, Integer.parseInt(inID));
                     } else {
                         DAO.addToCart(oID, Integer.parseInt(inID));
                     }
-                    response.sendRedirect(request.getContextPath() + "/Ingredient");
+                    if (from.equalsIgnoreCase("detail")) {
+                        response.sendRedirect(request.getContextPath() + "/Ingredient");
+                    } else {
+                        response.sendRedirect(request.getContextPath());
+                    }
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(IngredientDetailController.class.getName()).log(Level.SEVERE, null, ex);

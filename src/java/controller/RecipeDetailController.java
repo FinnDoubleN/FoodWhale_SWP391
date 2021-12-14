@@ -91,6 +91,7 @@ public class RecipeDetailController extends HttpServlet {
         String uName = getCookieByName(cookies, "USERNAME");
         String recID = request.getParameter("recID");
         String action = request.getParameter("action");
+        String from = request.getParameter("from");
         if (action == null) {
             if (recID != null) {
                 recipelist = DAO.getRecipeByID(Integer.parseInt(recID));
@@ -118,10 +119,14 @@ public class RecipeDetailController extends HttpServlet {
                     for (Ingredient in : ingredient) {
                         DAO.addToCart(oID, in.getInID());
                     }
-                    if (action.equalsIgnoreCase("add")) {
-                        response.sendRedirect(request.getContextPath() + "/Recipe");
+                    if (from.equalsIgnoreCase("detail")) {
+                        if (action.equalsIgnoreCase("add")) {
+                            response.sendRedirect(request.getContextPath() + "/Recipe");
+                        } else {
+                            response.sendRedirect(request.getContextPath() + "/Cart");
+                        }
                     } else {
-                        response.sendRedirect(request.getContextPath() + "/Cart");
+                        response.sendRedirect(request.getContextPath());
                     }
                 } else {
                     for (Ingredient in : ingredient) {
@@ -131,10 +136,14 @@ public class RecipeDetailController extends HttpServlet {
                             DAO.addToCart(oID, in.getInID());
                         }
                     }
-                    if (action.equalsIgnoreCase("add")) {
-                        response.sendRedirect(request.getContextPath() + "/Recipe");
+                    if (from.equalsIgnoreCase("detail")) {
+                        if (action.equalsIgnoreCase("add")) {
+                            response.sendRedirect(request.getContextPath() + "/Recipe");
+                        } else {
+                            response.sendRedirect(request.getContextPath() + "/Cart");
+                        }
                     } else {
-                        response.sendRedirect(request.getContextPath() + "/Cart");
+                        response.sendRedirect(request.getContextPath());
                     }
                 }
             } catch (SQLException ex) {
