@@ -123,7 +123,7 @@ public class FoodWhaleDAO extends DBContext {
         return list;
     }
 
-    public ArrayList<Category> getAllCategory() {
+    public ArrayList<Category> getAllCategoryRecipe() {
         ArrayList<Category> list = new ArrayList<>();
         String query = "select * from foodwhale.categoryrecipe";
 
@@ -133,7 +133,27 @@ public class FoodWhaleDAO extends DBContext {
             while (rs.next()) {
                 list.add(new Category(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3)
+                        rs.getString(3),
+                        rs.getString(4)
+                ));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<Category> getAllCategoryIngredient() {
+        ArrayList<Category> list = new ArrayList<>();
+        String query = "select * from foodwhale.categoryingredient";
+
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -197,7 +217,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";
+        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";
 
         try {
             ps = connection.prepareStatement(query);
@@ -207,7 +227,8 @@ public class FoodWhaleDAO extends DBContext {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getDate(4),
-                        rs.getString(5)));
+                        rs.getDouble(5),
+                        rs.getString(6)));
             }
         } catch (SQLException e) {
         }
@@ -216,7 +237,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public Order getOrderByID(int oID) throws Exception {
         Order order = new Order();
-        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
+        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
 
         try {
             if (connection != null) {
@@ -229,8 +250,8 @@ public class FoodWhaleDAO extends DBContext {
                     order.setuName(rs.getString(3));
                     order.setuAddress(rs.getString(4));
                     order.setDate(rs.getDate(5));
-                    order.setStatus(rs.getString(6));
-                    System.out.println(order);
+                    order.setTotal(rs.getDouble(6));
+                    order.setStatus(rs.getString(7));
                 }
             }
         } catch (SQLException e) {
@@ -372,6 +393,18 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
 
+    public void OrderDelete(Order o) {
+        try {
+            String sql = "update foodwhale.order set Status=? where oID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, o.isStatus());
+            statement.setInt(2, o.getoID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void IngredientDelete(Ingredient i) {
         try {
             String sql = "update foodwhale.ingredient set Status=? where inID=?";
@@ -396,9 +429,21 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
 
-    public void CategoryDelete(Category c) {
+    public void CategoryRecipeDelete(Category c) {
         try {
-            String sql = "update foodwhale.category set Status=? where categoryID=?";
+            String sql = "update foodwhale.categoryrecipe set Status=? where categoryID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getStatus());
+            statement.setInt(2, c.getCategoryID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void CategoryIngredientDelete(Category c) {
+        try {
+            String sql = "update foodwhale.categoryingredient set Status=? where categoryID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, c.getStatus());
             statement.setInt(2, c.getCategoryID());

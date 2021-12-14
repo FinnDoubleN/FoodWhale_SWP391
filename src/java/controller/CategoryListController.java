@@ -24,6 +24,7 @@ import model.Category;
  */
 public class CategoryListController extends HttpServlet {
 
+    FoodWhaleDAO dao = new FoodWhaleDAO();
     ArrayList<Category> categoryList = new ArrayList<Category>();
     Category categorylistdetail = new Category();
 
@@ -73,10 +74,10 @@ public class CategoryListController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            categoryList = (ArrayList<Category>) dao.getAllCategory();
-            request.setAttribute("categoryList", categoryList);
-            request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
+
+//            categoryList = (ArrayList<Category>) dao.getAllCategory();
+//            request.setAttribute("categoryList", categoryList);
+//            request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
         }
     }
 
@@ -93,35 +94,48 @@ public class CategoryListController extends HttpServlet {
             throws ServletException, IOException {
         try {
             String id = request.getParameter("categoryID");
-            String submit = request.getParameter("submit");
+            String submitR = request.getParameter("submitR");
+            String submitI = request.getParameter("submitI");
             String Recipe = request.getParameter("Recipe");
             String Ingredient = request.getParameter("Ingredient");
-            FoodWhaleDAO dao = new FoodWhaleDAO();
             if (Recipe != null && Recipe.equalsIgnoreCase("")) {
+                categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
+                request.setAttribute("categoryList", categoryList);
                 request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
             } else if (Ingredient != null && Ingredient.equalsIgnoreCase("")) {
+                categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
+                request.setAttribute("categoryList", categoryList);
                 request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
             }
-            if (submit.equalsIgnoreCase("View")) {
+            if (submitR.equalsIgnoreCase("View") && submitI == null) {
                 categorylistdetail = dao.getCategoryDetailByID(Integer.parseInt(id));
                 request.setAttribute("categorylistdetail", categorylistdetail);
                 request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+            } else if (submitR == null && submitI.equalsIgnoreCase("View")) {
+                categorylistdetail = dao.getCategoryDetailByID(Integer.parseInt(id));
+                request.setAttribute("categorylistdetail", categorylistdetail);
+                request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
+            } else if (submitR.equalsIgnoreCase("Delete") || submitR.equalsIgnoreCase("Active") || submitI.equalsIgnoreCase("Delete") || submitI.equalsIgnoreCase("Active")) {
                 String status = "";
-                if (submit.equalsIgnoreCase("Delete")) {
+                if (submitR.equalsIgnoreCase("Delete") || submitI.equalsIgnoreCase("Delete")) {
                     status = "Delete";
                 } else {
                     status = "Active";
                 }
                 Category c = new Category(Integer.parseInt(id), status);
-                dao.CategoryDelete(c);
-                categoryList = (ArrayList<Category>) dao.getAllCategory();
-                request.setAttribute("categoryList", categoryList);
-                request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
+                if (submitR.equalsIgnoreCase("Delete") || submitR.equalsIgnoreCase("Active")) {
+                    dao.CategoryRecipeDelete(c);
+                    categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
+                    request.setAttribute("categoryList", categoryList);
+                    request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
+                } else {
+                    dao.CategoryIngredientDelete(c);
+                    categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
+                    request.setAttribute("categoryList", categoryList);
+                    request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
+                }
             } else {
-                categoryList = (ArrayList<Category>) dao.getAllCategory();
-                request.setAttribute("categoryList", categoryList);
-                request.getRequestDispatcher("/CategoryList.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/Dashboard");
             }
         } catch (Exception ex) {
             Logger.getLogger(CategoryListController.class.getName()).log(Level.SEVERE, null, ex);

@@ -202,7 +202,7 @@
                             <div class="app-card app-card-orders-table shadow-sm mb-5">
                                 <div class="app-card-body">
                                     <div class="table-responsive">
-                                        <table id="myTable" class="table app-table-hover mb-0 text-left">
+                                        <table id="OrderTable" class="table app-table-hover mb-0 text-left">
                                             <thead>
                                                 <tr>
                                                     <th>Order ID</th>
@@ -224,10 +224,26 @@
                                                     <td class="cell"><%= u.getuAddress()%></td>
                                                     <td class="cell"><%
                                                         String strDate = sm.format(u.getDate());
-                                                        %> <%= strDate %></td>
+                                                        %> <%= strDate%></td>
                                                     <td class="cell"><%= u.getTotal()%></td>
+                                                    <%
+                                                        if (u.isStatus().equalsIgnoreCase("Approved")) {
+                                                    %>
                                                     <td class="cell"><span class="badge bg-success"><%= u.isStatus()%></span></td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary" name="edit" href="${pageContext.request.contextPath}/Dashboard/OrderDetail?id=<%= u.getoID()%>">View</a></td>
+                                                    <%} else if(u.isStatus().equalsIgnoreCase("Pending")){%> 
+                                                    <td class="cell"><span class="badge bg-warning"><%= u.isStatus()%></span></td>
+                                                    <%} else if(u.isStatus().equalsIgnoreCase("Waiting")){%>
+                                                    <td class="cell"><span class="badge bg-info"><%= u.isStatus()%></span></td>
+                                                    <%} else {%>
+                                                    <td class="cell"><span class="badge bg-danger"><%= u.isStatus()%></span></td>
+                                                    <%}%>
+                                                    <td class="cell">
+                                                        <form action="OrderList" method="post">
+                                                            <input type="hidden" name="oID" value="<%=u.getoID()%>">
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Approved">
+                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Denied">
+                                                        </form></td>
                                                 </tr>
                                                 <%}%>
                                             </tbody>

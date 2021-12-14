@@ -71,7 +71,7 @@ public class PostRecipeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FoodWhaleDAO dao = new FoodWhaleDAO();
-        ArrayList<Category> catelist = dao.getAllCategory();
+        ArrayList<Category> catelist = dao.getAllCategoryRecipe();
         request.setAttribute("catelist", catelist);
        Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");

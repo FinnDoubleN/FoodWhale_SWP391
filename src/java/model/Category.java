@@ -13,6 +13,7 @@ public class Category {
     
     int categoryID;
     String cname;
+    String Description;
     String status;
 
     public Category() {
@@ -27,6 +28,21 @@ public class Category {
         this.categoryID = categoryID;
         this.cname = cname;
         this.status = status;
+    }
+
+    public Category(int categoryID, String cname, String Description, String status) {
+        this.categoryID = categoryID;
+        this.cname = cname;
+        this.Description = Description;
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
     
     public int getCategoryID() {

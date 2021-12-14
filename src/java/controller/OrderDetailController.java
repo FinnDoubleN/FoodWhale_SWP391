@@ -25,8 +25,9 @@ import model.Order_Detail;
  */
 public class OrderDetailController extends HttpServlet {
 
+    FoodWhaleDAO dao = new FoodWhaleDAO();
     ArrayList<Order> orderlist = new ArrayList<Order>();
-    ArrayList<Order_Detail> orderdetaillist = new ArrayList<Order_Detail>();
+    ArrayList<Order_Detail> orderlistdetail = new ArrayList<Order_Detail>();
     Order order = new Order();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -40,6 +41,7 @@ public class OrderDetailController extends HttpServlet {
         }
         return null;
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,14 +75,14 @@ public class OrderDetailController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-                response.sendRedirect(request.getContextPath()+"/Homepage");
+                response.sendRedirect(request.getContextPath() + "/Homepage");
             } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 FoodWhaleDAO dao = new FoodWhaleDAO();
                 order = dao.getOrderByID(id);
-//                orderdetaillist = dao.getOrderDetailbyID(id);
+                orderlistdetail = dao.getUserCart(id);
                 request.setAttribute("order", order);
-                request.setAttribute("orderdetaillist", orderdetaillist);
+                request.setAttribute("orderlistdetail", orderlistdetail);
                 request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
             }
         } catch (Exception ex) {
@@ -99,7 +101,27 @@ public class OrderDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            Cookie[] cookies = request.getCookies();
+            String ROLE = getCookieByName(cookies, "ROLE");
+            String submit = request.getParameter("submit");
+            int oID = Integer.parseInt(request.getParameter("id"));
+            String status = "";
+            if (submit.equalsIgnoreCase("Approved")) {
+                status = "Approved";
+            } else {
+                status = "Denied";
+            }
+            Order o = new Order(oID, status);
+            dao.OrderDelete(o);
+            ArrayList<Order_Detail> orderlistdetail = dao.getUserCart(oID);
+            request.setAttribute("orderlistdetail", orderlistdetail);
+            order = dao.getOrderByID(oID);
+            request.setAttribute("order", order);
+            request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(OrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

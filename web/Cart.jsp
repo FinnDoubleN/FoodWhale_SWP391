@@ -219,6 +219,7 @@
                                     <span class="cart-btn-text">
                                         Buy
                                     </span>
+                                    <input type="hidden" id="total" name="total" value="">
                                 </button>
                             </form>
                         </div>

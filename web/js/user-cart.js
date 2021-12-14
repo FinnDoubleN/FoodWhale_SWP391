@@ -20,6 +20,7 @@ function updatePrice() {
         $(this).find('.total').text(sum);
         total += sum;
         $(".cart-buy").find('.seperate-1').text(total);
+        $("#total").attr('value',total);
     });
 }
 
