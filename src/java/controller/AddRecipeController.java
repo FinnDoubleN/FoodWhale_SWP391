@@ -68,7 +68,7 @@ public class AddRecipeController extends HttpServlet {
         String role = getCookieByName(cookies, "ROLE");
         int usercount = dao.countUser();
         request.setAttribute("usercount", usercount);
-        int categorycount = dao.countCategory();
+        int categorycount = dao.countCategoryRecipe();
         request.setAttribute("categorycount", categorycount);
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");

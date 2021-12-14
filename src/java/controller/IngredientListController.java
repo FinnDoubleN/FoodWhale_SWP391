@@ -96,7 +96,7 @@ public class IngredientListController extends HttpServlet {
             String submit = request.getParameter("submit");
             FoodWhaleDAO dao = new FoodWhaleDAO();
             if (submit.equalsIgnoreCase("View")) {
-                int categorycount = dao.countCategory();
+                int categorycount = dao.countCategoryIngredient();
             request.setAttribute("categorycount", categorycount);
                 ingredientlistdetail = dao.getIngredientDetailByID(inID);
                 request.setAttribute("ingredientlistdetail", ingredientlistdetail);

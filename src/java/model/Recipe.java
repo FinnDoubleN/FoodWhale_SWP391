@@ -42,7 +42,7 @@ public class Recipe {
         this.rDescription = rDescription;
         this.guideline = guideline;
     }
-    
+
     public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline, String Status) {
         this.rID = rID;
         this.rName = rName;
@@ -196,8 +196,10 @@ public class Recipe {
         return guideline;
     }
 
-    public void setGuideline(String guideline1) {
+    public void setGuideline(String guideline) {
         this.guideline = guideline;
     }
+
+    
 
 }

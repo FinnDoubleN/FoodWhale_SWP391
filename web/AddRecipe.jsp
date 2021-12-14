@@ -231,24 +231,8 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Guideline1</strong></div>
-                                                <input type="text" class="item-data" name="Guideline1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Guideline2</strong></div>
-                                                <input type="text" class="item-data" name="Guideline2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Guideline3</strong></div>
-                                                <input type="text" class="item-data" name="Guideline3">
+                                                <div class="item-label"><strong>Guideline</strong></div>
+                                                <input type="text" class="item-data" name="Guideline">
                                             </div>
                                         </div>
                                     </div>

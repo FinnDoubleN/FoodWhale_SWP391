@@ -72,7 +72,7 @@ public class RecipeListDetailController extends HttpServlet {
         try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
-            int categorycount = dao.countCategory();
+            int categorycount = dao.countCategoryRecipe();
             request.setAttribute("categorycount", categorycount);
             int usercount = dao.countUser();
             request.setAttribute("usercount", usercount);
@@ -114,7 +114,7 @@ public class RecipeListDetailController extends HttpServlet {
                 int Time = Integer.parseInt(request.getParameter("Time"));
                 int uID = Integer.parseInt(request.getParameter("uID"));
                 String Description = request.getParameter("Description");
-                String Guideline = request.getParameter("Guideline1");
+                String Guideline = request.getParameter("Guideline");
                 String Status = request.getParameter("Status");
                 Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline, Status);
                 dao.updateRecipe(r);
