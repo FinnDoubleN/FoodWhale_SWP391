@@ -124,7 +124,7 @@ $(document).ready(function () {
             })
         }
     });
-    $('#OrderTable').DataTable({
+    $('#OrderDetailTable').DataTable({
         "orderCellsTop": true,
         "ordering": false,
         "lengthChange": false,
@@ -138,31 +138,6 @@ $(document).ready(function () {
                 "targets": 0
             }
         ],
-        "order": [[1, 'asc']],
-        "buttons": [
-            {
-                "text": 'Create',
-                "className": 'btn app-btn-secondary',
-                action: function (e, dt, node, config) {
-                    var link = window.location.href;
-                    var substringURL = link.substring(link.lastIndexOf('/') + 1);
-                    var pathname = link.split('/');
-                    var localhost = pathname[2];
-                    if (substringURL === 'OrderList') {
-                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddOrder");
-                    } else if (substringURL === 'AccountList') {
-                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddAccount");
-                    } else if (substringURL === 'RecipeList') {
-                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddRecipe");
-                    } else if (substringURL === 'IngredientList') {
-                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddIngredient");
-                    } else if (substringURL === 'CategoryList') {
-                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddCategory");
-                    } else {
-                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard");
-                    }
-                }
-            }
-        ]
+        "order": [[1, 'asc']]
     });
 });

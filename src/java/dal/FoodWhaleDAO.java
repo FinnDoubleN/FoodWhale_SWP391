@@ -237,7 +237,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public Order getOrderByID(int oID) throws Exception {
         Order order = new Order();
-        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
+        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
 
         try {
             if (connection != null) {
@@ -250,8 +250,8 @@ public class FoodWhaleDAO extends DBContext {
                     order.setuName(rs.getString(3));
                     order.setuAddress(rs.getString(4));
                     order.setDate(rs.getDate(5));
-                    order.setStatus(rs.getString(6));
-                    System.out.println(order);
+                    order.setTotal(rs.getDouble(6));
+                    order.setStatus(rs.getString(7));
                 }
             }
         } catch (SQLException e) {
