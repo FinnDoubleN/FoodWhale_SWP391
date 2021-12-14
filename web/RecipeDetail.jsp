@@ -272,16 +272,8 @@
                                     <div class="content active">
                                         <ul class="rc-steps-box">
                                             <li>
-                                                <span>Bước 1:</span>
-                                                <div><%= r.getGuideline1()%></div>
-                                            </li>
-                                            <li>
-                                                <span>Bước 2:</span>
-                                                <div><%= r.getGuideline2()%></div>
-                                            </li>
-                                            <li>
-                                                <span>Bước 3:</span>
-                                                <div><%= r.getGuideline3()%></div>
+                                                <span></span>
+                                                <div><%= r.getGuideline()%></div>
                                             </li>
                                         </ul>
                                     </div>

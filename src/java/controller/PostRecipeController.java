@@ -119,13 +119,11 @@ public class PostRecipeController extends HttpServlet {
         String diff = request.getParameter("rdiff");
         int time = Integer.parseInt(request.getParameter("rtime")) ;
         String des = request.getParameter("rdes");
-        String gui1 = request.getParameter("rgui1");
-        String gui2 = request.getParameter("rgui2");
-        String gui3 = request.getParameter("rgui3");
+        String gui = request.getParameter("rgui1");
 //        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
 //        userlist = (ArrayList<User>) dao.getAllAccount();
 //        request.setAttribute("userlist", userlist);
-        Recipe recipe = new Recipe(name,cate,image,diff,time,user,des,gui1,gui2,gui3);
+        Recipe recipe = new Recipe(name,cate,image,diff,time,user,des,gui);
         dao.addRecipe(recipe);
         request.getRequestDispatcher("/Recipe").forward(request, response);
     }

@@ -110,11 +110,9 @@ public class RecipeListDetailController extends HttpServlet {
                 int Time = Integer.parseInt(request.getParameter("Time"));
                 int uID = Integer.parseInt(request.getParameter("uID"));
                 String Description = request.getParameter("Description");
-                String Guideline1 = request.getParameter("Guideline1");
-                String Guideline2 = request.getParameter("Guideline2");
-                String Guideline3 = request.getParameter("Guideline3");
+                String Guideline = request.getParameter("Guideline1");
                 String Status = request.getParameter("Status");
-                Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline1, Guideline2, Guideline3, Status);
+                Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline, Status);
                 dao.updateRecipe(r);
                 recipelistdetail = dao.getRecipeDetailByID(rid);
                 request.setAttribute("recipelistdetail", recipelistdetail);

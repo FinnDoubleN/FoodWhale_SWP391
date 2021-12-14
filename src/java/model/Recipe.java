@@ -19,9 +19,7 @@ public class Recipe {
     int time;
     int uID;
     String rDescription;
-    String guideline1;
-    String guideline2;
-    String guideline3;
+    String guideline;
     String cName;
     String Status;
 
@@ -33,7 +31,7 @@ public class Recipe {
         this.Status = Status;
     }
 
-    public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3) {
+    public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline) {
         this.rID = rID;
         this.rName = rName;
         this.cID = cID;
@@ -42,12 +40,10 @@ public class Recipe {
         this.time = time;
         this.uID = uID;
         this.rDescription = rDescription;
-        this.guideline1 = guideline1;
-        this.guideline2 = guideline2;
-        this.guideline3 = guideline3;
+        this.guideline = guideline;
     }
     
-    public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3, String Status) {
+    public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline, String Status) {
         this.rID = rID;
         this.rName = rName;
         this.cID = cID;
@@ -56,13 +52,11 @@ public class Recipe {
         this.time = time;
         this.uID = uID;
         this.rDescription = rDescription;
-        this.guideline1 = guideline1;
-        this.guideline2 = guideline2;
-        this.guideline3 = guideline3;
+        this.guideline = guideline;
         this.Status = Status;
     }
 
-    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3, String Status) {
+    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline, String Status) {
         this.rID = rID;
         this.rName = rName;
         this.cName = cName;
@@ -71,13 +65,11 @@ public class Recipe {
         this.time = time;
         this.uID = uID;
         this.rDescription = rDescription;
-        this.guideline1 = guideline1;
-        this.guideline2 = guideline2;
-        this.guideline3 = guideline3;
+        this.guideline = guideline;
         this.Status = Status;
     }
     
-    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3) {
+    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline) {
         this.rID = rID;
         this.rName = rName;
         this.cName = cName;
@@ -86,12 +78,10 @@ public class Recipe {
         this.time = time;
         this.uID = uID;
         this.rDescription = rDescription;
-        this.guideline1 = guideline1;
-        this.guideline2 = guideline2;
-        this.guideline3 = guideline3;
+        this.guideline = guideline;
     }
 
-    public Recipe(String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3, String cName) {
+    public Recipe(String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline, String cName) {
         this.rName = rName;
         this.cID = cID;
         this.image = image;
@@ -99,13 +89,11 @@ public class Recipe {
         this.time = time;
         this.uID = uID;
         this.rDescription = rDescription;
-        this.guideline1 = guideline1;
-        this.guideline2 = guideline2;
-        this.guideline3 = guideline3;
+        this.guideline = guideline;
         this.cName = cName;
     }
 
-    public Recipe(String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline1, String guideline2, String guideline3) {
+    public Recipe(String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline) {
         this.rName = rName;
         this.cID = cID;
         this.image = image;
@@ -113,9 +101,7 @@ public class Recipe {
         this.time = time;
         this.uID = uID;
         this.rDescription = rDescription;
-        this.guideline1 = guideline1;
-        this.guideline2 = guideline2;
-        this.guideline3 = guideline3;
+        this.guideline = guideline;
     }
 
     public Recipe(int rID, String image, String rName, String rDescription, int time) {
@@ -206,28 +192,12 @@ public class Recipe {
         this.rDescription = rDescription;
     }
 
-    public String getGuideline1() {
-        return guideline1;
+    public String getGuideline() {
+        return guideline;
     }
 
-    public void setGuideline1(String guideline1) {
-        this.guideline1 = guideline1;
-    }
-
-    public String getGuideline2() {
-        return guideline2;
-    }
-
-    public void setGuideline2(String guideline2) {
-        this.guideline2 = guideline2;
-    }
-
-    public String getGuideline3() {
-        return guideline3;
-    }
-
-    public void setGuideline3(String guideline3) {
-        this.guideline3 = guideline3;
+    public void setGuideline(String guideline1) {
+        this.guideline = guideline;
     }
 
 }
