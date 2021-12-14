@@ -1018,17 +1018,28 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
 
-    public void changePassword(User u) {
-        try {
+    public void changePassword(User u) throws SQLException {
+        
             String sql = "update foodwhale.user set Password=? where uID=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, u.getPassword());
             statement.setInt(2, u.getuID());
             statement.executeUpdate();
-        } catch (SQLException ex) {
-        }
+      
     }
-
+    public void updateProfile(User u) throws SQLException {
+         String sql = "UPDATE `foodwhale`.`user` SET `Email` = ?, `uName` = ?, `Image` = ?, `DoB` = ?, `Gender` = ?, `Address` = ?, `Phone` = ? WHERE (`uID` = ?);";
+         PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, u.getEmail());
+            statement.setString(2, u.getUsername());
+            statement.setString(3, u.getImage());
+            statement.setDate(4, u.getDate());
+            statement.setString(5, u.getGender());
+            statement.setString(6, u.getGender());
+            statement.setString(7, u.getAddress());
+            statement.setString(8, u.getPhone());
+            statement.executeUpdate();
+    }
     public String RanCode() {
         String ALPHA_NUMERIC = "0123456789";
         StringBuilder sb = new StringBuilder();
@@ -1284,4 +1295,44 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
+    public ArrayList<Contact> getAllContact() {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        String sql = "SELECT * FROM contact;";
+        try {
+            ps = connection.prepareCall(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                contacts.add(new Contact(rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("massage")));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return contacts;
+    }
+
+    public void insertContact(Contact contact) {
+        String sql = "INSERT INTO `foodwhale`.`contact`\n"
+                    + "(`name`,\n"
+                    + "`email`,\n"
+                    + "`massage`)\n"
+                    + "VALUES\n"
+                    + "(?,\n"
+                    + "?,\n"
+                    + "?);";
+        try {
+            ps = connection.prepareCall(sql);
+            ps.setString(1, contact.getName());
+            ps.setString(2, contact.getEmail());
+            ps.setString(3, contact.getMassage());
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}
+
 }

@@ -19,13 +19,9 @@
         <%
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -51,12 +47,12 @@
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="img/avatar.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <%
-                                            if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                            if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                         %>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                             <%
-                                                } else if (ROLE.equals("admin")) {
+                                                } else if (ROLE.equalsIgnoreCase("admin")) {
                                                 }
                                             %>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Logout">Log Out</a></li>
@@ -103,29 +99,25 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/AccountList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
                                         <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
                                         </svg>
                                     </span>
+                                    <%
+                                        if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
+                                    %>
+                                    <span class="nav-link-text">Customers</span>
+                                    <%
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {%>
                                     <span class="nav-link-text">Accounts</span>
-                                    <span class="submenu-arrow">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                        </svg>
-                                    </span>
+                                    <%}%>
                                 </a>
-                                <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
-                                    <ul class="submenu-list list-unstyled">
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/AccountList">Account Lists</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/AddAccount">Add Account</a></li>
-                                    </ul>
-                                </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-2" aria-expanded="false" aria-controls="submenu-2">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/RecipeList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
@@ -136,21 +128,10 @@
                                         </svg>
                                     </span>
                                     <span class="nav-link-text">Recipes</span>
-                                    <span class="submenu-arrow">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                        </svg>
-                                    </span>
                                 </a>
-                                <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
-                                    <ul class="submenu-list list-unstyled">
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Recipe Lists</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/AddRecipe">Add Recipe</a></li>
-                                    </ul>
-                                </div>
                             </li>
-                            <li class="nav-item has-submenu">
-                                <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-3" aria-expanded="false" aria-controls="submenu-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/IngredientList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z"/>
@@ -158,24 +139,11 @@
                                         </svg>
                                     </span>
                                     <span class="nav-link-text">Ingredients</span>
-                                    <span class="submenu-arrow">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                        </svg>
-                                    </span>
                                 </a>
-                                <div id="submenu-3" class="collapse submenu submenu-3" data-bs-parent="#menu-accordion">
-                                    <ul class="submenu-list list-unstyled">
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/IngredientList">Ingredient Lists</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/AddIngredient">Add Ingredient</a></li>
-                                    </ul>
-                                </div>
                             </li>
                             <li class="nav-item has-submenu">
-                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-4" aria-expanded="false" aria-controls="submenu-4">
+                                <a class="nav-link submenu-toggle" href="#">
                                     <span class="nav-icon">
-                                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
                                         </svg>
@@ -183,16 +151,24 @@
                                     <span class="nav-link-text">Categories</span>
                                     <span class="submenu-arrow">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
                                         </svg>
                                     </span>
-                                    <!--//submenu-arrow-->
                                 </a>
-                                <!--//nav-link-->
-                                <div id="submenu-4" class="collapse submenu submenu-4" data-bs-parent="#menu-accordion">
+                                <div id="submenu-1" class="submenu submenu-1" data-bs-parent="#menu-arcordion" style>
                                     <ul class="submenu-list list-unstyled">
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/CategoryList">Category Lists</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="${pageContext.request.contextPath}/Dashboard/AddCategory">Add Category</a></li>
+                                        <form id="form1" action="${pageContext.request.contextPath}/Dashboard/CategoryList" method="post">
+                                            <li class="submenu-item">
+                                                <a class="submenu-link" href="javascript:;" onclick="document.getElementById('form1').submit();">Recipe Category</a>
+                                            </li>
+                                            <input type="hidden" name="Recipe">
+                                        </form>
+                                        <form id="form2" action="${pageContext.request.contextPath}/Dashboard/CategoryList" method="post">
+                                            <li class="submenu-item">
+                                                <a class="submenu-link" href="javascript:;" onclick="document.getElementById('form2').submit();">Ingredient Category</a>
+                                            </li>
+                                            <input type="hidden" name="Ingredient">
+                                        </form>
                                     </ul>
                                 </div>
                             </li>

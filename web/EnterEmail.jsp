@@ -104,6 +104,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
+                                </li>
                             </ul>
                             <div class="user_option">
                                 <a class="user_link" href="${pageContext.request.contextPath}/Profile">

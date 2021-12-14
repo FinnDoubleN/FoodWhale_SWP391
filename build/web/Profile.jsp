@@ -4,6 +4,8 @@
     Author     : ADMIN
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Order_Detail"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,23 +19,23 @@
         <meta name="author" content="" />
         <link rel="shortcut icon" href="img/favicon.png" type="">
         <title> Profile </title>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
+        <link href="css/profile.css" rel="stylesheet" type="text/css"/>
         <%
+            ArrayList<Order_Detail> orderdetail = (ArrayList<Order_Detail>) request.getAttribute("orderdetail");
             User u = (User) request.getAttribute("userdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -70,9 +72,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
+                                </li>
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user")) {
-                                    } else if (ROLE.equals("admin") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard">Dashboard</a>
@@ -83,13 +88,13 @@
                             </ul>
                             <div class="user_option">
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="user_link" href="${pageContext.request.contextPath}/Profile">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </a>
                                 <%
-                                    if (!ROLE.equals("staff")) {
+                                    if (!ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -115,22 +120,17 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
                                 <%
-                                    } else if (ROLE.equals("admin")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equals("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                                 <%
@@ -148,27 +148,243 @@
                 </div>
             </header>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col" style="font-size: 30px">User Profile</div>
-                <div class="col"><img src="../static/images/test.jpg" class="img-fluid rounded-circle" alt="NYC" style="width:140px;height:140px;"></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Full name</div>
-                <div class="col size-18 margin-left-74"><%= u.getUsername()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Email</div>
-                <div class="col size-18 margin-left-74"><%= u.getEmail()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Mobile</div>
-                <div class="col size-18 margin-left-74"><%= u.getPhone() == null ? "_" : u.getPhone()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Gender</div>
-                <div class="col size-18 margin-left-74"><%= u.getGender() == null ? "_" : u.getGender()%></div>
-                <div class="w-100 margin-21"></div>
-                <div class="col size-18">Address</div>
-                <div class="col size-18 margin-bottom-40 margin-left-74"><%= u.getAddress() == null ? "_" : u.getAddress()%></div>
+        <section class="food_section layout_padding-bottom" style="padding-top: 90px;">
+            <div class="container">
+                <div class="main-body">
+                    <nav aria-label="breadcrumb" class="main-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">FoodWhale</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                        </ol>
+                    </nav>
+                    <div class="row gutters-sm">
+                        <div class="col-md-2 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User" class="rounded-circle" width="150">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 option">
+                                <div class="user-option user-option--open">
+                                    <div class="profile-header">
+                                        <a class="profile-link">
+                                            <div class="profile-img">
+                                                <img src="https://cf.shopee.vn/file/ba61750a46794d8847c3f463c5e71cc4">
+                                            </div>
+                                            <div class="profile-text">
+                                                <span class="_text">My Account</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="profile-body profile-body--open">
+                                        <div class="profile-body-container">
+                                            <a class="profile select">
+                                                <span class="profile-option">Profile</span>
+                                            </a>
+                                            <a class="profile">
+                                                <span class="profile-option">Change Password</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="user-option">
+                                    <div class="profile-header">
+                                        <a class="profile-link">
+                                            <div class="profile-img">
+                                                <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" >
+                                            </div>
+                                            <div class="profile-text">
+                                                <span class="_text">Order History</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-3">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        Activity <i class="fa fa-dashboard fa-1x"></i>
+                                    </li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+                                    <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="profile-heading">
+                                <h1 class="heading-h1">My Profile</h1>
+                                <div class="heading-div">Profile management information for account security</div>
+                            </div>
+                            <div class="card mb-3 profile-info">
+                                <div class="wrap-profile-info col-md-8">
+                                    <form class="card-body col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Username</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" readonly />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Email</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="email" class="form__field" value="<%=u.getEmail()%>" placeholder="Your E-Mail Address" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Mobile</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form__field" value="<%=u.getPhone()%>" placeholder="Your Phone Number" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Address</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form__field" value="<%=u.getAddress()%>" placeholder="Your Address" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Gender</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <%
+                                                    String gender = u.getGender();
+                                                    if (gender.equalsIgnoreCase("m")) {
+                                                %>
+                                                <input type="checkbox" name="gender" value="m" checked /> Male&emsp;
+                                                <input type="checkbox" name="gender" value="f" /> Female&emsp;
+                                                <input type="checkbox" name="gender" value="g" /> Else
+                                                <%
+                                                } else if (gender.equalsIgnoreCase("f")) {
+                                                %>
+                                                <input type="checkbox" name="gender" value="m" /> Male&emsp;
+                                                <input type="checkbox" name="gender" value="f" checked /> Female&emsp;
+                                                <input type="checkbox" name="gender" value="g" /> Else
+                                                <%
+                                                } else {
+                                                %>
+                                                <input type="checkbox" name="gender" value="m" /> Male&emsp;
+                                                <input type="checkbox" name="gender" value="f" /> Female&emsp;
+                                                <input type="checkbox" name="gender" value="g" checked /> Else
+                                                <%
+                                                    }
+                                                %>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Date of Birth</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="date" class="form__field" value="<%=u.getDate()%>" placeholder="1979-01-01" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <a class="btn btn-success " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Save</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="img-frame">
+                                    <div class="profile-avatar">
+                                        <div class="avatar-frame">
+                                            <div class="avatar-img">
+                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon _17Joz7 icon-headshot">
+                                                <g>
+                                                <circle cx="7.5" cy="4.5" fill="none" r="3.8" stroke-miterlimit="10"></circle>
+                                                <path d="m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke-linecap="round" stroke-miterlimit="10"></path>
+                                                </g>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <input class="file-img" type="file">
+                                        <button type="button" class="btnn btn--light btn--m btn--inline">Upload Image</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-3 change-password hidden">
+                                <form>
+                                    <div class="wrap-change-password">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Current Password</h6>
+                                            </div>
+                                            <div class="col-sm-6 text-secondary">
+                                                <input type="password" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" />
+                                            </div>
+                                            <button class="btn-forgot">Forgot password ?</button>
+                                        </div>
+                                        <div class="col-md-12 flexible hidden">
+                                            <div class="error current-password">
+                                                Password must be at least 6 characters
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">New Password</h6>
+                                            </div>
+                                            <div class="col-sm-6 text-secondary">
+                                                <input type="password" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 flexible hidden">
+                                            <div class="error new-password">
+                                                Passwords must be 8-16 characters long, contain at least one uppercase and one lowercase character, and contain only regular letters, numbers, or punctuation
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Confirm Password</h6>
+                                            </div>
+                                            <div class="col-sm-6 text-secondary">
+                                                <input type="password" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 flexible hidden">
+                                            <div class="error retype-password">
+                                                Passwords must be 8-16 characters long, contain at least one uppercase and one lowercase character, and contain only regular letters, numbers, or punctuation
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-6">
+                                                <button class="btnn btn--heavy btn--m btn--inline">Confirm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card mb-3 history hidden">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
         <footer class="footer_section">
             <div class="container">
                 <div class="row">
@@ -246,5 +462,7 @@
                 </div>
             </div>
         </footer>
+        <script src="js/profile.js"></script>
+        <script src="js/user-cart.js" type="text/javascript"></script>
     </body>
 </html>

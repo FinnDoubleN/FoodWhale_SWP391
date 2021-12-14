@@ -262,7 +262,7 @@ samp {
     font-family: var(--bs-font-monospace);
     font-size: 1em;
     direction: ltr/* rtl:ignore */
-    ;
+        ;
     unicode-bidi: bidi-override
 }
 
@@ -374,7 +374,8 @@ select {
 }
 
 select {
-    word-wrap: normal
+    word-wrap: normal;
+    outline:0px;
 }
 
 select:disabled {
@@ -696,6 +697,11 @@ progress {
     .container {
         max-width: 1320px
     }
+}
+
+.margin-6 {
+    margin-top: 14px !important;
+    margin-bottom: 5px !important;
 }
 
 .row {
@@ -3719,7 +3725,7 @@ fieldset:disabled .btn {
 
 .dropdown-menu-start[data-bs-popper] {
     right: auto/* rtl:ignore */
-    ;
+        ;
     left: 0/* rtl:ignore */
 }
 
@@ -3729,7 +3735,7 @@ fieldset:disabled .btn {
 
 .dropdown-menu-end[data-bs-popper] {
     right: 0/* rtl:ignore */
-    ;
+        ;
     left: auto/* rtl:ignore */
 }
 
@@ -3739,7 +3745,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-sm-start[data-bs-popper] {
         right: auto/* rtl:ignore */
-        ;
+            ;
         left: 0/* rtl:ignore */
     }
     .dropdown-menu-sm-end {
@@ -3747,7 +3753,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-sm-end[data-bs-popper] {
         right: 0/* rtl:ignore */
-        ;
+            ;
         left: auto/* rtl:ignore */
     }
 }
@@ -3758,7 +3764,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-md-start[data-bs-popper] {
         right: auto/* rtl:ignore */
-        ;
+            ;
         left: 0/* rtl:ignore */
     }
     .dropdown-menu-md-end {
@@ -3766,7 +3772,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-md-end[data-bs-popper] {
         right: 0/* rtl:ignore */
-        ;
+            ;
         left: auto/* rtl:ignore */
     }
 }
@@ -3777,7 +3783,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-lg-start[data-bs-popper] {
         right: auto/* rtl:ignore */
-        ;
+            ;
         left: 0/* rtl:ignore */
     }
     .dropdown-menu-lg-end {
@@ -3785,7 +3791,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-lg-end[data-bs-popper] {
         right: 0/* rtl:ignore */
-        ;
+            ;
         left: auto/* rtl:ignore */
     }
 }
@@ -3796,7 +3802,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-xl-start[data-bs-popper] {
         right: auto/* rtl:ignore */
-        ;
+            ;
         left: 0/* rtl:ignore */
     }
     .dropdown-menu-xl-end {
@@ -3804,7 +3810,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-xl-end[data-bs-popper] {
         right: 0/* rtl:ignore */
-        ;
+            ;
         left: auto/* rtl:ignore */
     }
 }
@@ -3815,7 +3821,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-xxl-start[data-bs-popper] {
         right: auto/* rtl:ignore */
-        ;
+            ;
         left: 0/* rtl:ignore */
     }
     .dropdown-menu-xxl-end {
@@ -3823,7 +3829,7 @@ fieldset:disabled .btn {
     }
     .dropdown-menu-xxl-end[data-bs-popper] {
         right: 0/* rtl:ignore */
-        ;
+            ;
         left: auto/* rtl:ignore */
     }
 }
@@ -5085,7 +5091,7 @@ fieldset:disabled .btn {
     font-size: 0.75em;
     font-weight: 700;
     line-height: 1;
-    color: #fff;
+    color: #fff !important;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -6146,7 +6152,7 @@ fieldset:disabled .btn {
     position: absolute;
     top: 0;
     left: 0/* rtl:ignore */
-    ;
+        ;
     z-index: 1070;
     display: block;
     max-width: 276px;
@@ -12099,8 +12105,8 @@ button.close:focus {
 }
 
 .app-card-account .item .profile-image {
-    width: 60px;
-    height: 60px
+    width: 85px;
+    height: 85px
 }
 
 .app-card-account .item .btn-sm,
@@ -12340,4 +12346,29 @@ button.close:focus {
     .app-auth-wrapper .app-auth-body {
         width: 100%
     }
+}
+
+.placecontent-center {
+    place-content: center;
+}
+
+.app-icon-holder {
+    display: inline-block;
+    background: #edfdf6;
+    color: #15a362;
+    width: 50px;
+    height: 50px;
+    padding-top: 10px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.app-icon-holder svg {
+    width: 24px;
+    height: 24px;
+}
+
+.bold {
+    font-weight: bold;
 }

@@ -25,13 +25,9 @@
         <%
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -56,7 +52,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav  mx-auto ">
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
@@ -65,12 +61,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Ingredient">Ingredient</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
+                                </li>
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user")) {
-                                    } else if (ROLE.equals("admin") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard">Dashboard</a>
@@ -81,13 +80,13 @@
                             </ul>
                             <div class="user_option">
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="user_link" href="${pageContext.request.contextPath}/Profile">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </a>
                                 <%
-                                    if (!ROLE.equals("staff")) {
+                                    if (!ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -113,22 +112,17 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
                                 <%
-                                    } else if (ROLE.equals("admin")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equals("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                                 <%
@@ -146,40 +140,36 @@
                 </div>
             </header>
         </div>
-        <section class="food_section layout_padding">
-            <div class="container">
-                <section class="about_section layout_padding">
-                    <div class="container  ">
-                        <div class="row">
-                            <div class="col-md-6 ">
-                                <div class="img-box">
-                                    <img src="img/about-img.png" alt="">
-                                </div>
-                            </div>
-                            <div class="col-md-6 black">
-                                <div class="detail-box">
-                                    <div class="heading_container">
-                                        <h2>
-                                            We Are FoodWhale
-                                        </h2>
-                                    </div>
-                                    <p>
-                                        We are a team from FPT University. We called ourselve FoodWhale
-                                        which mean there are a lot of food recipe and ingredient in this website. It's also the way
-                                        we play the word "well" with "whale".
-                                    </p>
-                                    <p>
-                                        If you like our website, you can contact or feedback us through the email
-                                        or phone.
-                                    </p>
-                                    <p>
-                                        Remember, our knowledge about food is like a fish in a sea.
-                                    </p>
-                                </div>
-                            </div>
+        <section class="about_section layout_padding">
+            <div class="container  ">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="img-box">
+                            <img src="img/about-img.png" alt="">
                         </div>
                     </div>
-                </section>
+                    <div class="col-md-6 black">
+                        <div class="detail-box">
+                            <div class="heading_container">
+                                <h2>
+                                    We Are FoodWhale
+                                </h2>
+                            </div>
+                            <p>
+                                We are a team from FPT University. We called ourselve FoodWhale
+                                which mean there are a lot of food recipe and ingredient in this website. It's also the way
+                                we play the word "well" with "whale".
+                            </p>
+                            <p>
+                                If you like our website, you can contact or feedback us through the email
+                                or phone.
+                            </p>
+                            <p>
+                                Remember, our knowledge about food is like a fish in a sea.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <footer class="footer_section">
