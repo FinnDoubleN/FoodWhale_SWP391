@@ -91,4 +91,78 @@ $(document).ready(function () {
             });
         }
     });
+    $('#OrderTable').DataTable({
+        "orderCellsTop": true,
+        "ordering": false,
+        "lengthChange": false,
+        "info": false,
+        "pageLength": 6,
+        "dom": '<"row margin-6"Bf>rtip',
+        "columnDefs": [
+            {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }
+        ],
+        "order": [[1, 'asc']],
+        initComplete: function () {
+            var api = this.api();
+            $('.filterstatus', api.table().header()).each(function () {
+                var column = api.column(5);
+                var select = $('<select class="cell bold"><option value="">Status</option></select>')
+                        .appendTo($(this).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                    );
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                });
+            })
+        }
+    });
+    $('#OrderTable').DataTable({
+        "orderCellsTop": true,
+        "ordering": false,
+        "lengthChange": false,
+        "info": false,
+        "pageLength": 6,
+        "dom": '<"row margin-6"Bf>rtip',
+        "columnDefs": [
+            {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }
+        ],
+        "order": [[1, 'asc']],
+        "buttons": [
+            {
+                "text": 'Create',
+                "className": 'btn app-btn-secondary',
+                action: function (e, dt, node, config) {
+                    var link = window.location.href;
+                    var substringURL = link.substring(link.lastIndexOf('/') + 1);
+                    var pathname = link.split('/');
+                    var localhost = pathname[2];
+                    if (substringURL === 'OrderList') {
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddOrder");
+                    } else if (substringURL === 'AccountList') {
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddAccount");
+                    } else if (substringURL === 'RecipeList') {
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddRecipe");
+                    } else if (substringURL === 'IngredientList') {
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddIngredient");
+                    } else if (substringURL === 'CategoryList') {
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard/AddCategory");
+                    } else {
+                        window.location.replace("http://" + localhost + "/FoodWhale_SWP391/Dashboard");
+                    }
+                }
+            }
+        ]
+    });
 });

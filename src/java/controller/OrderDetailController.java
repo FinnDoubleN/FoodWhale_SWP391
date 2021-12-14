@@ -26,7 +26,7 @@ import model.Order_Detail;
 public class OrderDetailController extends HttpServlet {
 
     ArrayList<Order> orderlist = new ArrayList<Order>();
-    ArrayList<Order_Detail> orderdetaillist = new ArrayList<Order_Detail>();
+    ArrayList<Order_Detail> orderlistdetail = new ArrayList<Order_Detail>();
     Order order = new Order();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -78,9 +78,9 @@ public class OrderDetailController extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 FoodWhaleDAO dao = new FoodWhaleDAO();
                 order = dao.getOrderByID(id);
-//                orderdetaillist = dao.getOrderDetailbyID(id);
+                orderlistdetail = dao.getUserCart(id);
                 request.setAttribute("order", order);
-                request.setAttribute("orderdetaillist", orderdetaillist);
+                request.setAttribute("orderlistdetail", orderlistdetail);
                 request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
             }
         } catch (Exception ex) {
