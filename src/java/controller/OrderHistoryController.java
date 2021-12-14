@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Order;
+import model.Order_Detail;
 import model.User;
 
 /**
@@ -28,6 +29,8 @@ public class OrderHistoryController extends HttpServlet {
     FoodWhaleDAO DAO = new FoodWhaleDAO();
     ArrayList<Order> orderlist = new ArrayList<Order>();
     User userdetail = new User();
+    
+    Order order = new Order();
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -77,29 +80,13 @@ public class OrderHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            Cookie[] cookies = request.getCookies();
+         Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
-            String username = getCookieByName(cookies, "USERNAME");
-            if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
-                FoodWhaleDAO DAO = new FoodWhaleDAO();
-                try {
-                    userdetail = DAO.getProfileByUsername(username);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OrderHistoryController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-            }
-             else {
-                response.sendRedirect("Login");
-            }
-        
-        
-        
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            orderlist = (ArrayList<Order>) dao.getAllOrder();
+       
+            orderlist = (ArrayList<Order>) DAO.getAllOrder();
             request.setAttribute("orderlist", orderlist);
-            request.getRequestDispatcher("/OrderList.jsp").forward(request, response);
+            request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+                  
         
         
         
@@ -116,7 +103,23 @@ public class OrderHistoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int oID = Integer.parseInt(request.getParameter("oID"));
+            String submit = request.getParameter("submit");
+            Cookie[] cookies = request.getCookies();
+            String username = getCookieByName(cookies, "USERNAME");
+            if (submit.equalsIgnoreCase("View")) {
+                ArrayList<Order_Detail> orderlistdetail = DAO.getUserCart(oID);
+                request.setAttribute("orderlistdetail", orderlistdetail);
+                order = DAO.getOrderByID(oID);
+                userdetail = DAO.getProfileByUsername(username);
+                request.setAttribute("order", order);
+                request.setAttribute("userdetail", userdetail);
+                response.sendRedirect("OrderHistory.jsp");
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

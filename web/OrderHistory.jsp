@@ -30,7 +30,8 @@
         <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
         <link href="css/profile.css" rel="stylesheet" type="text/css"/>
         <%
-            ArrayList<Order> orderdetail = (ArrayList<Order>) request.getAttribute("orderdetail");
+            ArrayList<Order> order = (ArrayList<Order>) request.getAttribute("order");
+            ArrayList<Order_Detail> orderlistdetail = (ArrayList<Order_Detail>) request.getAttribute("orderlistdetail");
             User u = (User) request.getAttribute("userdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
@@ -378,33 +379,38 @@
                                         <thead>
                                             <tr>
                                                 <th>Order ID</th>
-                                                <th>Username</th>
-                                                <th>User Address</th>
+                                                <th>Email</th>
+                                                <th>Address</th>
                                                 <th>Date</th>
                                                 <th>Total</th>
-                                                <th></th>
-
-
+                                                <th>Product</th>
+                                                <th>Image</th>
+                                                    <th>Quantity</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <%for (Order od : orderdetail) {%>
+                                            
                                             <tr>
+                                                <%for (Order od : order) {%>
                                                 <td><%=od.getoID()%></td>
                                                 
-                                                <td><%=od.getuName()%></td>
-                                                <td>$<%=od.getuAddress()%></td>
+                                                <td><%=od.getuEmail()%></td>
+                                                
 
+                                                <td><%=od.getuAddress()%></td>
                                                 <td><%=od.getDate()%></td>
                                                 <td><%=od.getTotal()%></td>
-                                                <td>
-                                                        <form action="OrderHistory" method="post">
-                                                            <input type="hidden" name="oID" value="<%=od.getoID()%>">
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                            
-                                                </form></td>
+                                                <%}%>
+                                                <%for (Order_Detail od : orderlistdetail) {%>
+                                                <td><%=od.getInName()%></td>
+                                                
+                                                <td><%=od.getImage()%></td>
+                                                <td>$<%=od.getQuantity()%></td>
+                                                
+                                                
+                                                <%}%>
                                             </tr>
-                                            <%}%>
+                                            
                                         </tbody>
                                     </table>
                                 </div>

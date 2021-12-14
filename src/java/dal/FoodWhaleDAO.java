@@ -1370,4 +1370,24 @@ public class FoodWhaleDAO extends DBContext {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<Order> getAllOrderbyUser(String username) {
+        ArrayList<Order> list = new ArrayList<>();
+        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where u.uName=" + username + "";
+
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getDouble(5),
+                        rs.getString(6)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
 }

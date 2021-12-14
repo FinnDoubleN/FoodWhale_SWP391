@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order;
 import model.Order_Detail;
 import model.User;
 
@@ -27,7 +28,7 @@ import model.User;
 public class UserProfileController extends HttpServlet {
 
     User userdetail = new User();
-    ArrayList<Order_Detail> orderdetail = new ArrayList<>();
+    ArrayList<Order> orderdetail = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -78,7 +79,8 @@ public class UserProfileController extends HttpServlet {
                 FoodWhaleDAO DAO = new FoodWhaleDAO();
                 int oID = DAO.checkUserOrder(username);
                 userdetail = DAO.getProfileByUsername(username);
-                orderdetail = DAO.getUserCart(oID);
+//                orderdetail = (ArrayList<Order>) DAO.getAllOrder();
+                orderdetail = (ArrayList<Order>) DAO.getAllOrderbyUser(username);
                 request.setAttribute("orderdetail", orderdetail);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);
