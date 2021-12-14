@@ -684,8 +684,8 @@ a:focus {
 }
 
 .about_section {
-    background: #222831;
-    color: #ffffff;
+    background: #ffffff;
+    color: #222831; 
 }
 
 .about_section .row {
@@ -1403,6 +1403,8 @@ a:focus {
 
 .rc-steps-box li div {
     margin-left: 8px;
+    white-space: pre-line;
+    line-height: 1.5rem;
 }
 
 .overview {

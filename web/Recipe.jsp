@@ -114,11 +114,6 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
@@ -192,11 +187,11 @@
                 </div>
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".1">Main</li>
+                    <li data-filter=".1">Pizza</li>
                     <li data-filter=".2">Salad</li>
-                    <li data-filter=".3">Pizza</li>
-                    <li data-filter=".4">Potato</li>
-                    <li data-filter=".5">Hamburger</li>
+                    <li data-filter=".3">Potato</li>
+                    <li data-filter=".4">Hamburger</li>
+                    <li data-filter=".5">Main</li>
                 </ul>
                 <div class="filters-content" style="height: fit-content">
                     <div id="recipe" class="row grid">  
@@ -248,6 +243,7 @@
                                                     </g>
                                                     </svg>
                                                 </a>
+                                                <input type="hidden" name="from" value="detail" />
                                                 <input type="hidden" name="action" value="add"/>
                                                 <input type="hidden" name="recID" value="<%=r.getrID()%>"/>
                                             </form>

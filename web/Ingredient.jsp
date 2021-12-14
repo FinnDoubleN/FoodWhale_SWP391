@@ -114,11 +114,6 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
@@ -192,13 +187,13 @@
                 </div>
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".7">Seasoning</li>
-                    <li data-filter=".8">Vegetable</li>
-                    <li data-filter=".9">Cheese</li>
-                    <li data-filter=".10">Sea Food</li>
-                    <li data-filter=".11">Meat</li>
-                    <li data-filter=".12">Oil</li>
-                    <li data-filter=".13">Dough</li>
+                    <li data-filter=".1">Seasoning</li>
+                    <li data-filter=".2">Vegetable</li>
+                    <li data-filter=".3">Cheese</li>
+                    <li data-filter=".4">Sea Food</li>
+                    <li data-filter=".5">Meat</li>
+                    <li data-filter=".6">Oil</li>
+                    <li data-filter=".7">Dough</li>
                 </ul>
 
                 <div class="filters-content">
@@ -251,7 +246,8 @@
                                                     </g>
                                                     </svg>
                                                 </a>
-                                                <input type="hidden" name="add" value="add"/>
+                                                <input type="hidden" name="from" value="detail" />
+                                                <input type="hidden" name="action" value="add"/>
                                                 <input type="hidden" name="inID" value="<%=in.getInID()%>"/>
                                             </form>
                                         </div>
