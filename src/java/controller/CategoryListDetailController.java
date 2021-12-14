@@ -117,7 +117,7 @@ public class CategoryListDetailController extends HttpServlet {
                     status = "Active";
                 }
                 Category c = new Category(categoryID, status);
-                dao.CategoryDelete(c);
+                //dao.CategoryDelete(c);
                 response.sendRedirect(request.getContextPath() + "/Dashboard/CategoryList");
             }
         } catch (Exception ex) {

@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.Ingredient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Recipe"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,6 +25,8 @@
             Object object2 = request.getAttribute("usercount");
             int usercount = Integer.parseInt(object2.toString());
             Recipe r = (Recipe) request.getAttribute("recipelistdetail");
+            ArrayList<Ingredient> ingredient = (ArrayList<Ingredient>) request.getAttribute("ingredient");
+            ArrayList<Ingredient> ingreByrec = (ArrayList<Ingredient>) request.getAttribute("ingreByrec");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -186,7 +189,7 @@
                                 <div class="row gx-3 placecontent-center ">
                                 </div>
                             </div>
-                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="RecipeListDetail" method="post">
+                            <form class="app-card app-card-account d-flex flex-column" action="RecipeListDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-6">
                                     <input type="hidden" class="item-data" value="<%= r.getrID()%>" name="rID" readonly>
                                     <div class="item border-bottom py-3">
@@ -233,7 +236,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getrDescription()%>" name="Description">
+                                                <input type="textarea" class="item-data" value="<%= r.getrDescription()%>" name="Description">
                                             </div>
                                         </div>
                                     </div>
@@ -274,11 +277,257 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="app-card-footer p-4 mt-auto">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
-                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between">
+                                            <div class="item-label"><strong>Ingredient</strong></div>
+                                            <div class="col-auto" style="display: flex; flex-wrap: wrap;
+                                                 justify-content: space-between;">
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(1)">
+                                                        <select>
+                                                            <option>Select Seasoning</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(2)">
+                                                        <select>
+                                                            <option>Select Vegetable</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(3)">
+                                                        <select>
+                                                            <option>Select Cheese</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(4)">
+                                                        <select>
+                                                            <option>Select Sea Food</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(5)">
+                                                        <select>
+                                                            <option>Select Meat</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(6)">
+                                                        <select>
+                                                            <option>Select Oil</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="multiselect">
+                                                    <div class="selectBox" onclick="showCheckboxes(7)">
+                                                        <select>
+                                                            <option>Select Dough</option>
+                                                        </select>
+                                                        <div class="overSelect"></div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                            <div id="checkbox1">
+                                                <lable for="one">
+                                                    <%
+                                                        int s = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 1) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=s%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            s++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                            <div id="checkbox2">
+                                                <lable for="two">
+                                                    <%
+                                                        int v = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 2) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=v%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            v++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                            <div id="checkbox3">
+                                                <lable for="three">
+                                                    <%
+                                                        int c = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 3) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=c%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            c++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                            <div id="checkbox4">
+                                                <lable for="four">
+                                                    <%
+                                                        int f = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 4) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=f%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            f++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                            <div id="checkbox5">
+                                                <lable for="five">
+                                                    <%
+                                                        int m = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 5) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=m%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            m++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                            <div id="checkbox6">
+                                                <lable for="six">
+                                                    <%
+                                                        int o = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 6) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=o%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            o++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                            <div id="checkbox7">
+                                                <lable for="seven">
+                                                    <%
+                                                        int d = 1;
+                                                        for (Ingredient in : ingredient) {
+                                                            if (in.getCategoryID() == 7) {
+                                                    %>
+                                                    <input type="checkbox" id="<%=d%>" name="inID" value="<%=in.getInID()%>"
+                                                           <%
+                                                               for (Ingredient byRec : ingreByrec) {
+                                                                   if (in.getInID() == byRec.getInID()) {
+                                                           %>
+                                                           checked
+                                                           <%
+                                                                   }
+                                                               }
+                                                           %>
+                                                           /><%=in.getInName()%>
+                                                    <%
+                                                            }
+                                                            d++;
+                                                        }
+                                                    %>
+                                                </lable>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="app-card-footer p-4 mt-auto">
+                                    <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
+                                    <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
+                                    <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
                                 </div>
                             </form>
                         </div>
@@ -295,7 +544,7 @@
         <!-- Javascript -->
         <script src="../plugins/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-
+        <script src="../js/jquery-3.4.1.min.js" type="text/javascript"></script>
         <!-- Charts JS -->
         <script src="../plugins/chart.js/chart.min.js"></script>
         <script src="../js/index-charts.js"></script>

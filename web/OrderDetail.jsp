@@ -18,8 +18,9 @@
         <link rel="shortcut icon" href="favicon.ico">
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
+        <link href="../css/user-cart.css" rel="stylesheet" type="text/css" />
         <%
-            Order_Detail od = (Order_Detail) request.getAttribute("orderdetaillist");
+            ArrayList<Order_Detail> orderlistdetail = (ArrayList<Order_Detail>) request.getAttribute("orderlistdetail");
             Order o = (Order) request.getAttribute("order");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
@@ -87,7 +88,7 @@
                                     <span class="nav-link-text">Dashboard</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item active">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/OrderList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +103,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="${pageContext.request.contextPath}/Dashboard/AccountList">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/AccountList">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
@@ -155,28 +156,21 @@
         <div class="app-wrapper">
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-                    <h1 class="app-page-title">Account Profile</h1>
+                    <h1 class="app-page-title">Order Detail</h1>
                     <div class="row-new gy-4">
                         <div class="col-12 col-lg-12">
                             <div class="app-card-header p-3 border-bottom-0">
                                 <div class="row gx-3 placecontent-center ">
                                 </div>
                             </div>
-                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="OrderDetail" method="post">
-                                <div class="app-card-body px-4 col-12 col-lg-6">
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Order ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= od.getoID()%>" name="id" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <form class="app-card app-card-account shadow-sm d-flex" action="OrderDetail" method="post">
+                                <div class="app-card-body px-4 col-12 col-lg-4">
+                                    <input type="text" class="item-data" value="<%= o.getoID()%>" name="id" hidden>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuEmail()%>" maxlength="24" name="email">
+                                                <input type="text" class="item-data" value="<%= o.getuEmail()%>" maxlength="24" name="email" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +178,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuName()%>" maxlength="24" name="username">
+                                                <input type="text" class="item-data" value="<%= o.getuName()%>" maxlength="24" name="username" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +186,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Address</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuAddress()%>" maxlength="24" name="address">
+                                                <input type="text" class="item-data" value="<%= o.getuAddress()%>" maxlength="24" name="address" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +194,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date" required>
+                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -208,37 +202,63 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Status</strong></div>
-                                                <% if (o.isStatus().equalsIgnoreCase("Pending") && o.isStatus() != null) {%>
-                                                <input type="radio" id="Pending" name="status" value="Pending" checked>
-                                                <label for="Pending">Pending</label>
-                                                <input type="radio" id="Delivered" name="status" value="Delivered">
-                                                <label for="Delivered">Delivered</label>
-                                                <input type="radio" id="Deleted" name="status" value="Deleted">
-                                                <label for="Deleted">Deleted</label>
-                                                <%} else if (o.isStatus().equalsIgnoreCase("Delivered") && o.isStatus() != null) {%>
-                                                <input type="radio" id="Pending" name="status" value="Pending">
-                                                <label for="Pending">Pending</label>
-                                                <input type="radio" id="Delivered" name="status" value="Delivered" checked>
-                                                <label for="Delivered">Delivered</label>
-                                                <input type="radio" id="Deleted" name="status" value="Deleted">
-                                                <label for="Deleted">Deleted</label>
-                                                <%} else {%>
-                                                <input type="radio" id="Pending" name="status" value="Pending">
-                                                <label for="Pending">Pending</label>
-                                                <input type="radio" id="Delivered" name="status" value="Delivered">
-                                                <label for="Delivered">Delivered</label>
-                                                <input type="radio" id="Deleted" name="status" value="Deleted" checked>
-                                                <label for="Deleted">Deleted</label>
-                                                <%}%>
+                                                <%
+                                                    if (o.isStatus().equalsIgnoreCase("Approved")) {
+                                                %>
+                                                <td class="cell"><span class="badge bg-success"><%= o.isStatus()%></span></td>
+                                                    <%} else if (o.isStatus().equalsIgnoreCase("Pending")) {%> 
+                                                <td class="cell"><span class="badge bg-warning"><%= o.isStatus()%></span></td>
+                                                    <%} else if (o.isStatus().equalsIgnoreCase("Waiting")) {%>
+                                                <td class="cell"><span class="badge bg-info"><%= o.isStatus()%></span></td>
+                                                    <%} else {%>
+                                                <td class="cell"><span class="badge bg-danger"><%= o.isStatus()%></span></td>
+                                                    <%}%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <input class="btn app-btn-secondary" name="submit" type="submit" value="Approved">
+                                                <input class="btn app-btn-secondary" name="submit" type="submit" value="Denied">
+                                                <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/OrderList">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
-                                    <div class="app-card-footer p-4 mt-auto">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Cancel">
+                                <div class="tab-content col-lg-8" id="orders-table-tab-content">
+                                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                                            <div class="app-card-body">
+                                                <div class="table-responsive">
+                                                    <table id="OrderDetailTable" class="table app-table-hover mb-0 text-left">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                <th>Type</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                                <th>Sub Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <%
+                                                                for (Order_Detail od : orderlistdetail) {
+                                                            %>
+                                                            <tr>
+                                                                <td class="cell"><%= od.getInName()%></td>
+                                                                <td class="cell"><%= od.getType()%></td>
+                                                                <td class="cell">$<%= od.getPrice()%></td>
+                                                                <td class="cell"><%= od.getQuantity()%></td>
+                                                                <td class="cell">$<span class="total"><%=od.getPrice() * od.getQuantity()%></span></td>
+                                                            </tr>
+                                                            <%}%>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="item-label"><strong>Total: </strong>$<%= o.getTotal()%></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

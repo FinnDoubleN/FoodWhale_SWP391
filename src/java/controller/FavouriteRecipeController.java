@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ import model.User;
  * @author This PC
  */
 public class FavouriteRecipeController extends HttpServlet {
-    ArrayList<Recipe> recipelist = new ArrayList<>();
+    HashSet<Recipe> recipelist = new HashSet<>();
     ArrayList<Recipe_Like> likelist = new ArrayList<>();
     FoodWhaleDAO DAO = new FoodWhaleDAO();
     User userdetail = new User();

@@ -23,6 +23,11 @@ public class Order {
 
     public Order() {
     }
+
+    public Order(int oID, String status) {
+        this.oID = oID;
+        this.status = status;
+    }
     
     public Order(int oID, int uID, String uName, Date date, String status) {
         this.oID = oID;
@@ -47,21 +52,12 @@ public class Order {
         this.status = status;
     }
 
-    public Order(int oID, String uEmail, String uName, String uAddress, Date date, Double total, String status) {
+    public Order(int oID, String uName, String uAddress, Date date, Double total, String status) {
         this.oID = oID;
-        this.uEmail = uEmail;
         this.uName = uName;
         this.uAddress = uAddress;
         this.date = date;
         this.total = total;
-        this.status = status;
-    }
-
-    public Order(int oID, String uName, String uAddress, Date date, String status) {
-        this.oID = oID;
-        this.uName = uName;
-        this.uAddress = uAddress;
-        this.date = date;
         this.status = status;
     }
 

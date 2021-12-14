@@ -8,6 +8,7 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,18 +19,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Order;
 import model.Order_Detail;
+import model.User;
 
 /**
  *
- * @author ADMIN
+ * @author This PC
  */
-public class OrderDetailController extends HttpServlet {
-
-    FoodWhaleDAO dao = new FoodWhaleDAO();
+public class OrderHistoryController extends HttpServlet {
+    FoodWhaleDAO DAO = new FoodWhaleDAO();
     ArrayList<Order> orderlist = new ArrayList<Order>();
-    ArrayList<Order_Detail> orderlistdetail = new ArrayList<Order_Detail>();
+    User userdetail = new User();
+    
     Order order = new Order();
-
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -41,7 +42,6 @@ public class OrderDetailController extends HttpServlet {
         }
         return null;
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,6 +56,15 @@ public class OrderDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet OrderHistoryController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet OrderHistoryController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -71,23 +80,16 @@ public class OrderDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Cookie[] cookies = request.getCookies();
+         Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
-            if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-                response.sendRedirect(request.getContextPath() + "/Homepage");
-            } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                FoodWhaleDAO dao = new FoodWhaleDAO();
-                order = dao.getOrderByID(id);
-                orderlistdetail = dao.getUserCart(id);
-                request.setAttribute("order", order);
-                request.setAttribute("orderlistdetail", orderlistdetail);
-                request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(OrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+            orderlist = (ArrayList<Order>) DAO.getAllOrder();
+            request.setAttribute("orderlist", orderlist);
+            request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+                  
+        
+        
+        
     }
 
     /**
@@ -102,25 +104,21 @@ public class OrderDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Cookie[] cookies = request.getCookies();
-            String ROLE = getCookieByName(cookies, "ROLE");
+            int oID = Integer.parseInt(request.getParameter("oID"));
             String submit = request.getParameter("submit");
-            int oID = Integer.parseInt(request.getParameter("id"));
-            String status = "";
-            if (submit.equalsIgnoreCase("Approved")) {
-                status = "Approved";
-            } else {
-                status = "Denied";
+            Cookie[] cookies = request.getCookies();
+            String username = getCookieByName(cookies, "USERNAME");
+            if (submit.equalsIgnoreCase("View")) {
+                ArrayList<Order_Detail> orderlistdetail = DAO.getUserCart(oID);
+                request.setAttribute("orderlistdetail", orderlistdetail);
+                order = DAO.getOrderByID(oID);
+                userdetail = DAO.getProfileByUsername(username);
+                request.setAttribute("order", order);
+                request.setAttribute("userdetail", userdetail);
+                response.sendRedirect("OrderHistory.jsp");
             }
-            Order o = new Order(oID, status);
-            dao.OrderDelete(o);
-            ArrayList<Order_Detail> orderlistdetail = dao.getUserCart(oID);
-            request.setAttribute("orderlistdetail", orderlistdetail);
-            order = dao.getOrderByID(oID);
-            request.setAttribute("order", order);
-            request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(OrderDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (Exception ex) {
+            Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

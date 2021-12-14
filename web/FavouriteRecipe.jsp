@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@page import="java.util.HashSet"%>
 <%@page import="model.Recipe"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +26,7 @@
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <%
-            ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
+            HashSet<Recipe> recipelist = (HashSet<Recipe>) request.getAttribute("recipelist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";

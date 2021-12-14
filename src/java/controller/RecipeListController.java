@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Ingredient;
 import model.Recipe;
 
 /**
@@ -26,6 +27,8 @@ public class RecipeListController extends HttpServlet {
 
     ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
     Recipe recipelistdetail = new Recipe();
+    ArrayList<Ingredient> ingredient = new ArrayList<>();
+    ArrayList<Ingredient> ingreByrec = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -100,10 +103,13 @@ public class RecipeListController extends HttpServlet {
                 request.setAttribute("categorycount", categorycount);
                 int usercount = dao.countUser();
                 request.setAttribute("usercount", usercount);
+                ingredient = dao.getIngredientList();
                 recipelistdetail = dao.getRecipeDetailByID(id);
+                ingreByrec = dao.getIngredientByRecipeId(id);
+                request.setAttribute("ingreByrec", ingreByrec);
+                request.setAttribute("ingredient", ingredient);
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
-
             } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
                 String status = "";
                 if (submit.equalsIgnoreCase("Delete")) {

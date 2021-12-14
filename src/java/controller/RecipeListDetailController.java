@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Ingredient;
 import model.Recipe;
 
 /**
@@ -27,6 +28,8 @@ public class RecipeListDetailController extends HttpServlet {
 
     FoodWhaleDAO dao = new FoodWhaleDAO();
     Recipe recipelistdetail = new Recipe();
+    ArrayList<Ingredient> ingreByrec = new ArrayList<>();
+    ArrayList<Ingredient> ingredient = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -105,6 +108,7 @@ public class RecipeListDetailController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String ROLE = getCookieByName(cookies, "ROLE");
             String submit = request.getParameter("submit");
+            String inID[] = request.getParameterValues("inID");
             if (submit.equalsIgnoreCase("Update")) {
                 int rid = Integer.parseInt(request.getParameter("rID"));
                 String image = request.getParameter("image");
@@ -118,6 +122,14 @@ public class RecipeListDetailController extends HttpServlet {
                 String Status = request.getParameter("Status");
                 Recipe r = new Recipe(rid, rName, cID, image, Difficulty, Time, uID, Description, Guideline, Status);
                 dao.updateRecipe(r);
+                dao.deleteIngredientRecipe(rid);
+                for (int i = 0; i < inID.length; i++) {
+                    dao.addIngredientRecipe(rid, Integer.parseInt(inID[i]));
+                }
+                ingreByrec = dao.getIngredientByRecipeId(rid);
+                request.setAttribute("ingreByrec", ingreByrec);
+                ingredient = dao.getIngredientList();
+                request.setAttribute("ingredient", ingredient);
                 int categorycount = dao.countCategoryRecipe();
                 request.setAttribute("categorycount", categorycount);
                 int usercount = dao.countUser();
