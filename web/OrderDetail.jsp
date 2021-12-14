@@ -163,21 +163,14 @@
                                 <div class="row gx-3 placecontent-center ">
                                 </div>
                             </div>
-                            <form class="app-card app-card-account shadow-sm d-flex flex-column" action="OrderDetail" method="post">
+                            <form class="app-card app-card-account shadow-sm d-flex" action="OrderDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-4">
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Order ID</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getoID()%>" name="id" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="item-data" value="<%= o.getoID()%>" name="id" hidden>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuEmail()%>" maxlength="24" name="email">
+                                                <input type="text" class="item-data" value="<%= o.getuEmail()%>" maxlength="24" name="email" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +178,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuName()%>" maxlength="24" name="username">
+                                                <input type="text" class="item-data" value="<%= o.getuName()%>" maxlength="24" name="username" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +186,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Address</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuAddress()%>" maxlength="24" name="address">
+                                                <input type="text" class="item-data" value="<%= o.getuAddress()%>" maxlength="24" name="address" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +194,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date" required>
+                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -209,104 +202,65 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Status</strong></div>
-                                                <% if (o.isStatus().equalsIgnoreCase("Approved") && o.isStatus() != null) {%>
-                                                <input type="radio" id="Approved" name="status" value="Approved" checked>
-                                                <label for="Approved">Approved</label>
-                                                <input type="radio" id="Denied" name="status" value="Denied">
-                                                <label for="Denied">Denied</label>
-                                                <%} else if (o.isStatus().equalsIgnoreCase("Denied") && o.isStatus() != null) {%>
-                                                <input type="radio" id="Approved" name="status" value="Approved">
-                                                <label for="Approved">Approved</label>
-                                                <input type="radio" id="Denied" name="status" value="Denied" checked>
-                                                <label for="Denied">Delivered</label>
-                                                <%} else {%>
-                                                <input type="radio" id="Approved" name="status" value="Approved">
-                                                <label for="Approved">Approved</label>
-                                                <input type="radio" id="Denied" name="status" value="Denied">
-                                                <label for="Denied">Denied</label>
-                                                <%}%>
+                                                <%
+                                                    if (o.isStatus().equalsIgnoreCase("Approved")) {
+                                                %>
+                                                <td class="cell"><span class="badge bg-success"><%= o.isStatus()%></span></td>
+                                                    <%} else if (o.isStatus().equalsIgnoreCase("Pending")) {%> 
+                                                <td class="cell"><span class="badge bg-warning"><%= o.isStatus()%></span></td>
+                                                    <%} else if (o.isStatus().equalsIgnoreCase("Waiting")) {%>
+                                                <td class="cell"><span class="badge bg-info"><%= o.isStatus()%></span></td>
+                                                    <%} else {%>
+                                                <td class="cell"><span class="badge bg-danger"><%= o.isStatus()%></span></td>
+                                                    <%}%>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
+                                                <input class="btn app-btn-secondary" name="submit" type="submit" value="Approved">
                                                 <input class="btn app-btn-secondary" name="submit" type="submit" value="Denied">
-                                                <input class="btn app-btn-secondary" name="submit" type="submit" value="Cancel">
+                                                <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/OrderList">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="app-card-body px-4 col-12 col-lg-8 align-self-end position-absolute">
-                                    <div class="container">
-                                        <div class="cart-main">
-                                            <div class="cart-nav">
-                                                <div class="nav-1">Product</div>
-                                                <div class="nav-2">Price</div>
-                                                <div class="nav-3">Quantity</div>
-                                                <div class="nav-4">Sub Total</div>
-                                                <div class="nav-5">Action</div>
-                                            </div>
-                                            <div class="cart-item">
-                                                <div class="item-box">
-                                                    <%
-                                                        for (Order_Detail od : orderlistdetail) {
-                                                    %>
-                                                    <div class="item-box-layout">
-                                                        <div class="item-flex">
-                                                            <div class="flex-1">
-                                                                <div class="flex-item">
-                                                                    <a title="<%= od.getInName()%>" href="#">
-                                                                        <div class="flex-item-img"
-                                                                             style="background-image: url(&quot;<%= od.getImage()%>&quot;);">
-                                                                        </div>
-                                                                    </a>
-                                                                    <div class="flex-item-name">
-                                                                        <a class="flex-item-link" title="<%= od.getInName()%>" href="#">
-                                                                            <%= od.getInName()%> <%= od.getType()%>
-                                                                        </a>
-                                                                        <span></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="flex-2">
-                                                                <div>
-                                                                    $<span class="flex-item-price"><%= od.getPrice()%></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="flex-3">
-                                                                <div class="cart-input-quantity">
-                                                                    <button class="input minus-btn" data-id="1" type="button">
-                                                                        <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
-                                                                        <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
-                                                                        </svg>
-                                                                    </button>
-                                                                    <input class="input input-num" id="<%= od.getInID()%>" type="text" role="spinbutton" aria-valuenow="1" value="<%= od.getQuantity()%>" readonly>
-                                                                    <button class="input plus-btn" data-id="1" type="button">
-                                                                        <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
-                                                                        <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="flex-4">
-                                                                $<span class="total"></span>
-                                                            </div>
-                                                            <div class="flex-5">
-                                                                <button class="btn-delete" id="<%=od.getInID()%>">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <%
-                                                        }
-                                                    %>
+                                <div class="tab-content col-lg-8" id="orders-table-tab-content">
+                                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                                            <div class="app-card-body">
+                                                <div class="table-responsive">
+                                                    <table id="OrderDetailTable" class="table app-table-hover mb-0 text-left">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                <th>Type</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                                <th>Sub Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <%
+                                                                for (Order_Detail od : orderlistdetail) {
+                                                            %>
+                                                            <tr>
+                                                                <td class="cell"><%= od.getInName()%></td>
+                                                                <td class="cell"><%= od.getType()%></td>
+                                                                <td class="cell">$<%= od.getPrice()%></td>
+                                                                <td class="cell"><%= od.getQuantity()%></td>
+                                                                <td class="cell">$<span class="total"><%=od.getPrice() * od.getQuantity()%></span></td>
+                                                            </tr>
+                                                            <%}%>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="item-label"><strong>Total: </strong>$<%= o.getTotal()%></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                     </div>
