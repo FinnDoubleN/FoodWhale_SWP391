@@ -167,7 +167,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getEmail()%>" maxlength="24" name="email">
+                                                <input type="text" class="item-data" value="<%= u.getEmail()%>" maxlength="24" name="email" required>
                                             </div>
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getUsername()%>" maxlength="24" name="username">
+                                                <input type="text" class="item-data" value="<%= u.getUsername()%>" maxlength="24" name="username" required>
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +191,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Phone</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getPhone()%>" maxlength="24" name="phone">
+                                                <input type="text" class="item-data" value="<%= u.getPhone()%>" maxlength="24" name="phone" required>
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Staff name</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getsName()%>" maxlength="24" name="date" required>
+                                                <input type="text" class="item-data" value="<%= u.getsName()%>" maxlength="24" name="sname" required>
                                             </div>
                                         </div>
                                     </div>

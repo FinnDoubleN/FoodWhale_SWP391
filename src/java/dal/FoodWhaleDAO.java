@@ -140,6 +140,42 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
+    
+    public int countCategory() {
+        String xsql = "select MAX(categoryID) as 'cNo' from foodwhale.category";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    int count = rs.getInt(1);
+                    if (count != 0) {
+                        return count;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+    
+    public int countUser() {
+        String xsql = "select MAX(uID) as 'uNo' from foodwhale.user";
+        try {
+            if (connection != null) {
+                ps = connection.prepareStatement(xsql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    int count = rs.getInt(1);
+                    if (count != 0) {
+                        return count;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
 
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
@@ -499,6 +535,23 @@ public class FoodWhaleDAO extends DBContext {
             statement.setInt(6, uID);
             statement.setString(7, Description);
             statement.setString(8, Guideline);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void createIngredient(String inName, String Image, String Type, double Price, int categoryID, String Description, String Guideline) {
+        try {
+            String sql = "Insert into Ingredient(inName, Image, Type, Price, categoryID, Description, Guideline) values(?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, inName);
+            statement.setString(2, Image);
+            statement.setString(3, Type);
+            statement.setDouble(4, Price);
+            statement.setInt(5, categoryID);
+            statement.setString(6, Description);
+            statement.setString(7, Guideline);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,6 +25,7 @@ import model.Recipe;
  */
 public class RecipeListDetailController extends HttpServlet {
 
+    FoodWhaleDAO dao = new FoodWhaleDAO();
     Recipe recipelistdetail = new Recipe();
 
     private String getCookieByName(Cookie[] cookies, String check) {
@@ -71,6 +72,10 @@ public class RecipeListDetailController extends HttpServlet {
         try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
+            int categorycount = dao.countCategory();
+            request.setAttribute("categorycount", categorycount);
+            int usercount = dao.countUser();
+            request.setAttribute("usercount", usercount);
             if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
                 response.sendRedirect(request.getContextPath() + "/Homepage");
             } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
@@ -99,7 +104,6 @@ public class RecipeListDetailController extends HttpServlet {
         try {
             Cookie[] cookies = request.getCookies();
             String ROLE = getCookieByName(cookies, "ROLE");
-            FoodWhaleDAO dao = new FoodWhaleDAO();
             String submit = request.getParameter("submit");
             if (submit.equalsIgnoreCase("Update")) {
                 int rid = Integer.parseInt(request.getParameter("rID"));

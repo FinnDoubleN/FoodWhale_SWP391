@@ -196,10 +196,16 @@
                                                     <td class="cell"><%= r.getrID()%></td>
                                                     <td class="cell"><span class="truncate"><%= r.getrName()%></span></td>
                                                     <td class="cell"><%= r.getcName()%></td>
-                                                    <td class="cell"><span class="badge bg-success"><%= r.getDifficulty()%></span></td>
+                                                    <td class="cell"><%= r.getDifficulty()%></td>
                                                     <td class="cell"><%= r.getTime()%></td>
                                                     <td class="cell"><%= r.getuID()%></td>
-                                                    <td class="cell"><%= r.getStatus()%></td>
+                                                    <%
+                                                        if (r.getStatus().equalsIgnoreCase("Active")) {
+                                                    %>
+                                                    <td class="cell"><span class="badge bg-success"><%= r.getStatus()%></span></td>
+                                                        <%} else {%>
+                                                    <td class="cell"><span class="badge bg-danger"><%= r.getStatus()%></span></td>
+                                                        <%}%>
                                                     <td class="cell">
                                                         <form action="RecipeList" method="post">
                                                             <input type="hidden" name="rID" value="<%=r.getrID()%>">

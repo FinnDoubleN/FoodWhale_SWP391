@@ -208,7 +208,13 @@
                                                     <td class="cell"><%= u.getsName()%></td>
                                                     <td class="cell"><span class="truncate"><%= u.getAddress()%></span></td>
                                                     <td class="cell"><%= u.getRole()%></td>
-                                                    <td class="cell"><%= u.getStatus()%></td>
+                                                    <%
+                                                                if (u.getStatus().equalsIgnoreCase("Active")) {
+                                                            %>
+                                                    <td class="cell"><span class="badge bg-success"><%= u.getStatus()%></span></td>
+                                                    <%} else { %>
+                                                    <td class="cell"><span class="badge bg-danger"><%= u.getStatus()%></span></td>
+                                                    <%}%>
                                                     <td class="cell">
                                                         <form action="AccountList" method="post">
                                                             <input type="hidden" name="uID" value="<%=u.getuID()%>">

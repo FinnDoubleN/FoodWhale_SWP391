@@ -25,17 +25,7 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(int inID, String inName, String type, String image, double money, int categoryID, String description, String guideline, String status) {
-        this.inID = inID;
-        this.inName = inName;
-        this.image = image;
-        this.type = type;
-        this.money = money;
-        this.categoryID = categoryID;
-        this.description = description;
-        this.guideline = guideline;
-        this.status = status;
-    }
+    
 
     public Ingredient(int inID, String status) {
         this.inID = inID;
@@ -79,6 +69,19 @@ public class Ingredient {
         this.cName = cName;
         this.description = description;
         this.guideline = guideline;
+    }
+
+    public Ingredient(int inID, String inName, String Type, String image, double Money, int CategoryID, String Description, String Guideline, String Status) {
+        this.inID = inID;
+        this.inName = inName;
+        this.image = image;
+        this.type = Type;
+        this.image = image;
+        this.money = Money;
+        this.categoryID = CategoryID;
+        this.description = Description;
+        this.guideline = Guideline;
+        this.status = Status;
     }
 
     public String getStatus() {
