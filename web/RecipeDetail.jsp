@@ -226,6 +226,7 @@
                                                         <span class="text display-block">Buy Now</span>
                                                     </span>
                                                 </button>
+                                                <input type="hidden" name="from" value="detail"/>
                                                 <input type="hidden" name="action" value="buy"/>
                                             </form>
                                         </div>
