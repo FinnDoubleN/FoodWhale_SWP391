@@ -1526,3 +1526,12 @@ a:focus {
 .search-box .search-data.active {
     display: none;
 }
+
+.form__field {
+    width: 100%;
+    background: #fff;
+    color: $input-text-color;
+    font: inherit;
+    border: 0;
+    outline: 0;
+}

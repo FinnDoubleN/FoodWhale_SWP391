@@ -86,7 +86,6 @@ public class RegisterController extends HttpServlet {
             User c = dao.CheckExistCustomer(username);
             if (c == null) {
                 User cus = new User(  email, password, username,image, Date.valueOf(dob), gender, address, phonenumber);
-                HttpSession Temp = request.getSession();
                 session.setAttribute("tempCus", cus);
                 String code = dao.RanCode();
                 dao.send(email, dao.RegisterNoti(), code);
