@@ -92,11 +92,18 @@ public class CategoryListController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("categoryID"));
+            String id = request.getParameter("categoryID");
             String submit = request.getParameter("submit");
+            String Recipe = request.getParameter("Recipe");
+            String Ingredient = request.getParameter("Ingredient");
             FoodWhaleDAO dao = new FoodWhaleDAO();
+            if (Recipe != null && Recipe.equalsIgnoreCase("")) {
+                request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
+            } else if (Ingredient != null && Ingredient.equalsIgnoreCase("")) {
+                request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
+            }
             if (submit.equalsIgnoreCase("View")) {
-                categorylistdetail = dao.getCategoryDetailByID(id);
+                categorylistdetail = dao.getCategoryDetailByID(Integer.parseInt(id));
                 request.setAttribute("categorylistdetail", categorylistdetail);
                 request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
             } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
@@ -106,7 +113,7 @@ public class CategoryListController extends HttpServlet {
                 } else {
                     status = "Active";
                 }
-                Category c = new Category(id, status);
+                Category c = new Category(Integer.parseInt(id), status);
                 dao.CategoryDelete(c);
                 categoryList = (ArrayList<Category>) dao.getAllCategory();
                 request.setAttribute("categoryList", categoryList);

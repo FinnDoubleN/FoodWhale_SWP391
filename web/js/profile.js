@@ -9,7 +9,7 @@ $(document).ready(function () {
         $(this).parent('.profile-avatar').find('.file-img').click();
     });
     $('._text').on('click', function () {
-        var index = $('._text').index(this);
+            var index = $('._text').index(this);
         $o = $(this).parent().parent().parent().parent().attr('class');
         if (index === 0) {
             $(this).parent().parent().parent().parent().attr('class', 'user-option user-option--open');
