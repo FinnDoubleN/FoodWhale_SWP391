@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.Category"%>
 <%@page import="model.Ingredient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Recipe"%>
@@ -20,10 +21,8 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
-            Object object = request.getAttribute("categorycount");
-            int categorycount = Integer.parseInt(object.toString());
-            Object object2 = request.getAttribute("usercount");
-            int usercount = Integer.parseInt(object2.toString());
+            ArrayList<Category> ingrecate = (ArrayList<Category>) request.getAttribute("ingrecate");
+            ArrayList<Category> reccate = (ArrayList<Category>) request.getAttribute("reccate");
             Recipe r = (Recipe) request.getAttribute("recipelistdetail");
             ArrayList<Ingredient> ingredient = (ArrayList<Ingredient>) request.getAttribute("ingredient");
             ArrayList<Ingredient> ingreByrec = (ArrayList<Ingredient>) request.getAttribute("ingreByrec");
@@ -203,8 +202,25 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Category ID</strong></div>
-                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" value="<%= r.getcID()%>" maxlength="24" name="cID">
+                                                <div class="item-label mb-2"><strong>Category Name</strong></div>
+                                                <select name="cID"> 
+                                                    <%
+                                                        for (Category cateingre : ingrecate) {
+                                                    %>
+                                                    <option value="<%=cateingre.getCategoryID()%>"><%=cateingre.getCname()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                                <%
+                                                    for (Category cateingre : ingrecate) {
+                                                        if (cateingre.getCategoryID() == r.getcID()) {
+                                                %>
+                                                &emsp;Current: <strong><%=cateingre.getCname()%></strong>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
                                             </div>
                                         </div>
                                     </div>
@@ -227,16 +243,32 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>User ID</strong></div>
-                                                <input type="number" step="1" min="1" max="<%=usercount%>" class="item-data" value="<%= r.getuID()%>" maxlength="24" name="uID" required>
-                                            </div>
+                                                <div class="item-label"><strong>Username</strong></div>
+                                                <select name="uID"> 
+                                                    <%
+                                                        for (Category caterec : reccate) {
+                                                    %>
+                                                    <option value="<%=caterec.getCategoryID()%>"><%=caterec.getCname()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                                <%
+                                                    for (Category caterec : reccate) {
+                                                        if (caterec.getCategoryID() == r.getrID()) {
+                                                %>
+                                                &emsp;Current: <strong><%=caterec.getCname()%></strong>
+                                                <%
+                                                        }
+                                                    }
+                                                %>                                            </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <input type="textarea" class="item-data" value="<%= r.getrDescription()%>" name="Description">
+                                                <textarea class="item-data" name="Description" cols="80"><%= r.getrDescription()%></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -246,8 +278,9 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
-                                                <div class="item-data"><img class="profile-image" src="<%= r.getImage()%>" alt=""></div><br>
-                                                <input type="text" class="item-data" value="<%= r.getImage()%>" name="image">
+                                                <div class="item-data"><img class="profile-image" src="<%= r.getImage()%>" alt="">
+                                                    <textarea class="item-data" name="image" style="width: 300px;"><%= r.getImage()%></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +288,7 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Guideline</strong></div>
-                                                <input type="text" class="item-data" value="<%= r.getGuideline()%>" name="Guideline">
+                                                <textarea class="item-data" name="Guideline" rows="4" cols="80"><%= r.getGuideline()%></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -263,12 +296,14 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Status</strong></div>
-                                                <% if (r.getStatus().equalsIgnoreCase("Active")) {%>
+                                                <% if (r.getStatus()
+                                                            .equalsIgnoreCase("Active")) {%>
                                                 <input type="radio" id="Active" name="Status" value="Active" checked>
                                                 <label for="Active">Active</label>
                                                 <input type="radio" id="Delete" name="Status" value="Delete">
                                                 <label for="Delete">Delete</label>
-                                                <%} else if (r.getStatus().equalsIgnoreCase("Delete")) {%>
+                                                <%} else if (r.getStatus()
+                                                        .equalsIgnoreCase("Delete")) {%>
                                                 <input type="radio" id="Active" name="Status" value="Active" >
                                                 <label for="Active">Active</label>
                                                 <input type="radio" id="Delete" name="Status" value="Delete" checked>

@@ -25,6 +25,7 @@
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
             ArrayList<Category> categoryList = (ArrayList<Category>) request.getAttribute("categoryList");
+            session.setAttribute("From", "Recipe");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -189,7 +190,7 @@
                 <div class="container-xl">
                     <div class="row g-3 mb-4 align-items-center justify-content-between">
                         <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Categories</h1>
+                            <h1 class="app-page-title mb-0">Categories Recipe</h1>
                         </div>
                     </div>
                     <div class="tab-content" id="orders-table-tab-content">
