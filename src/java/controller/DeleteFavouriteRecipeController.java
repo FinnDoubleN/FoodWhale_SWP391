@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Recipe;
 import model.Recipe_Like;
 import model.User;
 
@@ -26,7 +24,7 @@ import model.User;
  *
  * @author This PC
  */
-public class FavouriteRecipeController extends HttpServlet {
+public class DeleteFavouriteRecipeController extends HttpServlet {
     ArrayList<Recipe_Like> likelist = new ArrayList<>();
     FoodWhaleDAO DAO = new FoodWhaleDAO();
     User userdetail = new User();
@@ -58,10 +56,10 @@ public class FavouriteRecipeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FavouriteRecipeController</title>");            
+            out.println("<title>Servlet DeleteFavouriteRecipeController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FavouriteRecipeController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteFavouriteRecipeController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,33 +77,7 @@ public class FavouriteRecipeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-       try {
-            Cookie[] cookies = request.getCookies();
-            String role = getCookieByName(cookies, "ROLE");
-            String username = getCookieByName(cookies, "USERNAME");
-            if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
-                FoodWhaleDAO DAO = new FoodWhaleDAO();
-                userdetail = DAO.getProfileByUsername(username);
-                
-                
-            } else {
-                response.sendRedirect("Login");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        likelist = DAO.getAllFavouriteRecipe(userdetail.uID);
-        HashSet<Recipe> recipelist = new HashSet<>();
-        for (Recipe_Like recipe_Like : likelist) {
-            int i= recipe_Like.getrID();
-            Recipe r = DAO.getRecipebyID(i);
-            
-            recipelist.add(r);  
-           
-        }
-        request.setAttribute("recipelist", recipelist);
-        request.getRequestDispatcher("FavouriteRecipe.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -119,22 +91,20 @@ public class FavouriteRecipeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String rID= request.getParameter("rID");
-        
+         Cookie[] cookies = request.getCookies();
+        String rID= request.getParameter("recID");        
         String username = getCookieByName(cookies, "USERNAME");
         try {
             userdetail = DAO.getProfileByUsername(username);
         } catch (SQLException ex) {
             Logger.getLogger(FavouriteRecipeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        likelist = DAO.getAllFavouriteRecipe(userdetail.uID);
-        if(!DAO.checkExistRecipe(Integer.parseInt(rID),userdetail.uID)){
-            DAO.insertFavRecipe(Integer.parseInt(rID), userdetail.uID);
+        }                  
+            DAO.deleteFavRecipe(Integer.parseInt(rID), userdetail.uID);
             
-        }
+        
         response.sendRedirect(request.getContextPath() + "/FavouriteRecipe");
-    }
+        }
+    
 
     /**
      * Returns a short description of the servlet.

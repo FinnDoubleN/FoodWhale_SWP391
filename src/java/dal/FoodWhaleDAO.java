@@ -1390,4 +1390,41 @@ public class FoodWhaleDAO extends DBContext {
         }
         return list;
     }
+        public void deleteFavRecipe(int rID, int uID) {
+        try {
+            String query = "delete from foodwhale.recipe_like where rID = " + rID + " and uID = " + uID + "";
+
+            PreparedStatement st = connection.prepareStatement(query);           
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        public void insertFavRecipe(int recID, int uID) {
+        try{
+        String sql = "Insert into Recipe_like (rID,uID) values (" + recID + ", " + uID + ")";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean checkExistRecipe(int rID, int uID) {
+        try {
+            String sql = "select count(*) 'count' from foodwhale.recipe_like where rID = " + rID + " and uID = " + uID + "";
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int count = rs.getInt(1);
+                if (count != 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

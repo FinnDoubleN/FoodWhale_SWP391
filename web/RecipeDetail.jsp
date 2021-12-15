@@ -206,12 +206,16 @@
                                     </div>
                                     <div class="extra-info-box">
                                         <div class="display-flex btn-cart-box">
-                                            <button class="add-item-wrapper n-btn btn-add-to-cart btn-add-collection">
+                                            <form action="${pageContext.request.contextPath}/FavouriteRecipe" method="post">
+                                                <button type="submit" class="add-item-wrapper n-btn btn-add-to-cart btn-add-collection" name="rID" value="<%=r.getrID()%>">
                                                 <span class="row-1">
                                                     <img class="icon" src="../img/rating.png" />
                                                     <span class="text display-block"></span>                                                   
                                                 </span>
                                             </button>
+                                                <input type="hidden" name="from1" value="add"/>
+                                                <input type="hidden" name="action1" value="add"/>
+                                                </form>
                                             <button class="btn-add-to-cart n-btn btn-rec-cart" id="<%=r.getrID()%>"
                                                     title="Add to Cart" style="background: none !important;">
                                                 <span class="row-1">
