@@ -286,7 +286,17 @@
                                     </div>
                                     <div class="app-card-footer p-4 mt-auto">
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
+                                        <%
+                                            if (in.getStatus() != null && in.getStatus().equalsIgnoreCase("Active")) {
+                                        %>
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Delete">
+                                        <%
+                                        } else if (in.getStatus() != null && in.getStatus().equalsIgnoreCase("Delete")) {
+                                        %>
+                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Active">
+                                        <%
+                                            }
+                                        %>
                                         <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/IngredientList">Cancel</a>
                                     </div>
                                 </div>

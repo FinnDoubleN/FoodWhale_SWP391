@@ -222,7 +222,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <input type="text" class="item-data" name="Description" required>
+                                                <textarea class="item-data" name="Description" cols="80"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@
                                             <div class="col-auto">
                                                 <div class="col-auto">
                                                     <div class="item-label"><strong>Guideline</strong></div>
-                                                    <input type="text" class="item-data" name="Guideline" required>
+                                                    <textarea class="item-data" name="Guideline" cols="80"></textarea>
                                                 </div>
                                             </div>
                                         </div>

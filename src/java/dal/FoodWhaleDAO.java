@@ -583,27 +583,6 @@ public class FoodWhaleDAO extends DBContext {
         return category;
     }
 
-
-    public Category getCategoryDetailByID(int categoryID) throws Exception {
-        Category category = new Category();
-        String xsql = "select * from foodwhale.category where categoryID= ?";
-
-        try {
-            if (connection != null) {
-                ps = connection.prepareStatement(xsql);
-                ps.setInt(1, categoryID);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    category.setCategoryID(rs.getInt(1));
-                    category.setCname(rs.getString(2));
-                    category.setStatus(rs.getString(3));
-                }
-            }
-        } catch (SQLException e) {
-        }
-        return category;
-    }
-
     public Recipe getRecipeDetailByID(int rID) throws Exception {
         Recipe recipe = new Recipe();
         String xsql = "select * from foodwhale.recipe where rID= ?";

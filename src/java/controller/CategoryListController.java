@@ -135,11 +135,11 @@ public class CategoryListController extends HttpServlet {
                     request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
                 }
             } else {
-                if (submitR != null) {
+                if (submitR != null && submitR.equalsIgnoreCase("Delete")) {
                     categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
                     request.setAttribute("categoryList", categoryList);
                     request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
-                } else if (submitI != null) {
+                } else if (submitI != null && submitI.equalsIgnoreCase("Delete")) {
                     categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
                     request.setAttribute("categoryList", categoryList);
                     request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
@@ -160,11 +160,11 @@ public class CategoryListController extends HttpServlet {
                     request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
                 }
             } else {
-                if (submitR != null) {
+                if (submitR != null && submitR.equalsIgnoreCase("Active")) {
                     categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
                     request.setAttribute("categoryList", categoryList);
                     request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
-                } else if (submitI != null) {
+                } else if (submitI != null && submitI.equalsIgnoreCase("Active")) {
                     categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
                     request.setAttribute("categoryList", categoryList);
                     request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);

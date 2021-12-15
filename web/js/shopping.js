@@ -15,11 +15,11 @@ $(document).ready(function () {
         alert("Added successful.");
     });
     $('.btn-in-cart').on('click', function () {
-        var recID = $(this).attr('id');
+        var inID = $(this).attr('id');
         $.ajax({
             url: '/FoodWhale_SWP391/Ingredient/Detail',
             type: 'POST',
-            data: {recID: recID, action: "add"}
+            data: {inID: inID, action: "add"}
         });
         alert("Added successful.");
     });

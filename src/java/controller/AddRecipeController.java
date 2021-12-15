@@ -9,11 +9,13 @@ import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Ingredient;
 
 /**
  *
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AddRecipeController extends HttpServlet {
 
     FoodWhaleDAO dao = new FoodWhaleDAO();
+    ArrayList<Ingredient> ingredient = new ArrayList<>();
+    ArrayList<Ingredient> ingreByrec = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -73,6 +77,8 @@ public class AddRecipeController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            ingredient = dao.getIngredientList();
+            request.setAttribute("ingredient", ingredient);
             request.getRequestDispatcher("/AddRecipe.jsp").forward(request, response);
         }
     }
