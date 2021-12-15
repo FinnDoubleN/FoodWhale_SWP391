@@ -257,22 +257,11 @@
                         %>
                     </div>
                 </div>
-                    <div class="row">
-                    <div class="col-md-6">
                 <div class="btn-box">
                     <a href="#" id="view-more">
                         View More
                     </a>
                 </div>
-                    </div>
-                    <div class="col-md-6">
-                <div class="btn-box">
-                    <a href="FavouriteRecipe" >
-                        To Favourite List
-                    </a>
-                </div>
-                    </div>
-                    </div>
             </div>
         </section>
         <footer class="footer_section">

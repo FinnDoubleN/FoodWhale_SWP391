@@ -22,6 +22,30 @@ public class Recipe {
     String guideline;
     String cName;
     String Status;
+    String uName;
+
+    //getRecipeDetailByID
+    public Recipe(int rID, String rName, int cID, String image, String difficulty, int time, int uID, String rDescription, String guideline, String cName, String Status) {
+        this.rID = rID;
+        this.rName = rName;
+        this.cID = cID;
+        this.image = image;
+        this.difficulty = difficulty;
+        this.time = time;
+        this.uID = uID;
+        this.rDescription = rDescription;
+        this.guideline = guideline;
+        this.cName = cName;
+        this.Status = Status;
+    }
+    
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
 
     public Recipe() {
     }
@@ -56,7 +80,7 @@ public class Recipe {
         this.Status = Status;
     }
 
-    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String rDescription, String guideline, String Status) {
+    public Recipe(int rID, String rName, String cName, String image, String difficulty, int time, int uID, String uName, String rDescription, String guideline, String Status) {
         this.rID = rID;
         this.rName = rName;
         this.cName = cName;
@@ -64,6 +88,7 @@ public class Recipe {
         this.difficulty = difficulty;
         this.time = time;
         this.uID = uID;
+        this.uName = uName;
         this.rDescription = rDescription;
         this.guideline = guideline;
         this.Status = Status;

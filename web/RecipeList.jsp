@@ -219,7 +219,7 @@
                                                     <td class="cell"><%= r.getcName()%></td>
                                                     <td class="cell"><%= r.getDifficulty()%></td>
                                                     <td class="cell"><%= r.getTime()%></td>
-                                                    <td class="cell"><%= r.getuID()%></td>
+                                                    <td class="cell"><%= r.getuName()%></td>
                                                     <%
                                                         if (r.getStatus().equalsIgnoreCase("Active")) {
                                                     %>
