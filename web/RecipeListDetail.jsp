@@ -202,7 +202,7 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Category Name</strong></div>
+                                                <div class="item-label mb-2"><strong>Ingredient Category</strong></div>
                                                 <select name="cID"> 
                                                     <%
                                                         for (Category cateingre : ingrecate) {
@@ -243,7 +243,7 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Username</strong></div>
+                                                <div class="item-label"><strong>Recipe Category</strong></div>
                                                 <select name="uID"> 
                                                     <%
                                                         for (Category caterec : reccate) {

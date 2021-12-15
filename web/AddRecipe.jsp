@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@page import="model.Category"%>
 <%@page import="model.Ingredient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,11 +19,9 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
-            Object object = request.getAttribute("categorycount");
-            int categorycount = Integer.parseInt(object.toString());
-            Object object2 = request.getAttribute("usercount");
-            int usercount = Integer.parseInt(object2.toString());
             ArrayList<Ingredient> ingredient = (ArrayList<Ingredient>) request.getAttribute("ingredient");
+            ArrayList<Category> ingrecate = (ArrayList<Category>) request.getAttribute("ingrecate");
+            ArrayList<Category> reccate = (ArrayList<Category>) request.getAttribute("reccate");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -201,9 +200,16 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Category ID</strong></div>
-                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" name="cID">
-                                            </div>
+                                                <div class="item-label mb-2"><strong>Ingredient Category</strong></div>
+                                                <select name="cID"> 
+                                                    <%
+                                                        for (Category cateingre : ingrecate) {
+                                                    %>
+                                                    <option value="<%=cateingre.getCategoryID()%>"><%=cateingre.getCname()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>                                            </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
@@ -225,9 +231,16 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>User ID</strong></div>
-                                                <input type="number" step="1" min="1" max="<%=usercount%>" class="item-data" name="uID" required>
-                                            </div>
+                                                <div class="item-label"><strong>Recipe Category</strong></div>
+                                                <select name="uID"> 
+                                                    <%
+                                                        for (Category caterec : reccate) {
+                                                    %>
+                                                    <option value="<%=caterec.getCategoryID()%>"><%=caterec.getCname()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>                                            </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">

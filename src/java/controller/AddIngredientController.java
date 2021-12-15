@@ -8,18 +8,23 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
 
 /**
  *
  * @author Asus
  */
 public class AddIngredientController extends HttpServlet {
+
     FoodWhaleDAO dao = new FoodWhaleDAO();
+    ArrayList<Category> ingrecate = new ArrayList<>();
+
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -68,6 +73,8 @@ public class AddIngredientController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            ingrecate = dao.getAllCategoryIngredient();
+            request.setAttribute("ingrecate", ingrecate);
             request.getRequestDispatcher("/AddIngredient.jsp").forward(request, response);
         }
     }
@@ -85,7 +92,7 @@ public class AddIngredientController extends HttpServlet {
             throws ServletException, IOException {
         String image = request.getParameter("image");
         String inName = request.getParameter("inName");
-        int cID = Integer.parseInt(request.getParameter("CategoryID"));
+        int cID = Integer.parseInt(request.getParameter("cID"));
         String Type = request.getParameter("Type");
         double Price = Double.parseDouble(request.getParameter("Money"));
         String Description = request.getParameter("Description");
