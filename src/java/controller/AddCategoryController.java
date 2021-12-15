@@ -5,19 +5,25 @@
  */
 package controller;
 
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Category;
 
 /**
  *
  * @author Asus
  */
 public class AddCategoryController extends HttpServlet {
+
+    ArrayList<Category> categoryList = new ArrayList<Category>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -63,8 +69,11 @@ public class AddCategoryController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            HttpSession session = request.getSession();
+            String from = (String) session.getAttribute("From");
+            request.setAttribute("From", from);
             request.getRequestDispatcher("/AddCategory.jsp").forward(request, response);
         }
     }
@@ -80,7 +89,37 @@ public class AddCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String from = (String) session.getAttribute("From");
+        String cName = request.getParameter("cName");
+        String Description = request.getParameter("Description");
+        String submit = request.getParameter("submit");
+        FoodWhaleDAO dao = new FoodWhaleDAO();
+        if (submit != null && submit.equalsIgnoreCase("Create")) {
+            if (from != null && from.equalsIgnoreCase("Recipe")) {
+                dao.createCategoryRecipe(cName, Description);
+                categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
+                request.setAttribute("categoryList", categoryList);
+                request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
+            }
+            if (from != null && from.equalsIgnoreCase("Ingredient")) {
+                dao.createCategoryIngredient(cName, Description);
+                categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
+                request.setAttribute("categoryList", categoryList);
+                request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
+            }
+        } else if (submit != null && submit.equalsIgnoreCase("Cancel")) {
+            if (from != null && from.equalsIgnoreCase("Recipe")) {
+                categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
+                request.setAttribute("categoryList", categoryList);
+                request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
+            }
+            if (from != null && from.equalsIgnoreCase("Ingredient")) {
+                categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
+                request.setAttribute("categoryList", categoryList);
+                request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
+            }
+        }
     }
 
     /**
