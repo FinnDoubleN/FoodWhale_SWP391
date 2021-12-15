@@ -319,7 +319,7 @@
                                                  justify-content: space-between;">
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(1)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Seasoning</option>
                                                         </select>
                                                         <div class="overSelect"></div>
@@ -328,7 +328,7 @@
                                                 <hr>
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(2)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Vegetable</option>
                                                         </select>
                                                         <div class="overSelect"></div>
@@ -337,7 +337,7 @@
                                                 <hr>
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(3)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Cheese</option>
                                                         </select>
                                                         <div class="overSelect"></div>
@@ -346,7 +346,7 @@
                                                 <hr>
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(4)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Sea Food</option>
                                                         </select>
                                                         <div class="overSelect"></div>
@@ -355,7 +355,7 @@
                                                 <hr>
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(5)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Meat</option>
                                                         </select>
                                                         <div class="overSelect"></div>
@@ -364,7 +364,7 @@
                                                 <hr>
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(6)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Oil</option>
                                                         </select>
                                                         <div class="overSelect"></div>
@@ -373,7 +373,7 @@
                                                 <hr>
                                                 <div class="multiselect">
                                                     <div class="selectBox" onclick="showCheckboxes(7)">
-                                                        <select>
+                                                        <select required>
                                                             <option>Select Dough</option>
                                                         </select>
                                                         <div class="overSelect"></div>
