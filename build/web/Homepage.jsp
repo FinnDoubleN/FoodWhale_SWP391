@@ -4,6 +4,9 @@
     Author     : Asus
 --%>
 
+<%@page import="model.Recipe"%>
+<%@page import="model.Ingredient"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,22 +19,21 @@
         <meta name="author" content="" />
         <link rel="shortcut icon" href="img/favicon.png" type="">
         <title> FoodWhale </title>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="css/style-new.css" rel="stylesheet" type="text/css" />
-        <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous"/>
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style-new.css" rel="stylesheet" type="text/css"/>
+        <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
         <%
+            ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
+            ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
-            String USERNAME = "";
             String ROLE = "";
+            int counter = 0;
             for (int i = 0; i < cookies.length; i++) {
                 cookie = cookies[i];
-                if (cookie.getName().equalsIgnoreCase("USERNAME")) {
-                    USERNAME = cookie.getName().toString();
-                }
                 if (cookie.getName().equalsIgnoreCase("ROLE")) {
                     ROLE = cookie.getValue().toString();
                 }
@@ -69,8 +71,8 @@
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user")) {
-                                    } else if (ROLE.equals("admin") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard">Dashboard</a>
@@ -81,13 +83,13 @@
                             </ul>
                             <div class="user_option">
                                 <%
-                                    if (ROLE.equals("") || ROLE.equals("user") || ROLE.equals("staff")) {
+                                    if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user") || ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="user_link" href="${pageContext.request.contextPath}/Profile">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </a>
                                 <%
-                                    if (!ROLE.equals("staff")) {
+                                    if (!ROLE.equalsIgnoreCase("staff")) {
                                 %>
                                 <a class="cart_link" href="${pageContext.request.contextPath}/Cart">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -113,22 +115,17 @@
                                     </g>
                                     </svg>
                                 </a>
-                                <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form>
                                 <%
                                     }
                                 %>
                                 <%
-                                    } else if (ROLE.equals("admin")) {
+                                    } else if (ROLE.equalsIgnoreCase("admin")) {
                                     }
                                 %>
                                 <%
-                                    if (USERNAME == null || USERNAME.equals("")) {
+                                    if (ROLE == null || ROLE.equalsIgnoreCase("")) {
                                 %>
-                                <a href="login" class="order_online">
+                                <a href="${pageContext.request.contextPath}/Login" class="order_online">
                                     Login
                                 </a>
                                 <%
@@ -228,438 +225,163 @@
             <div class="container">
                 <div class="heading_container heading_center">
                     <h2>
-                        Our Menu
+                        Recipes
                     </h2>
                 </div>
-
-                <ul class="filters_menu">
-                    <li class="active" data-filter="*">All</li>
-                    <li data-filter=".burger">Burger</li>
-                    <li data-filter=".pizza">Pizza</li>
-                    <li data-filter=".pasta">Pasta</li>
-                    <li data-filter=".fries">Fries</li>
-                </ul>
-
-                <div class="filters-content">
-                    <div class="row grid">
-                        <div class="col-sm-6 col-lg-4 all pizza">
+                <div class="filters-content" style="height: fit-content">
+                    <div id="recipe" class="row grid">  
+                        <%
+                            for (Recipe r : recipelist) {
+                        %>
+                        <div class="col-sm-6 col-lg-4 all <%= r.getcID()%>">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img src="img/f1.png" alt="">
+                                        <img src="<%= r.getImage()%>" alt="">
                                     </div>
                                     <div class="detail-box">
-                                        <h5>
-                                            Delicious Pizza
-                                        </h5>
+                                        <form action="${pageContext.request.contextPath}/Recipe/Detail" method="post">
+                                            <button type="submit" class="recipe-link recipe" name="recID" value="<%=r.getrID()%>">
+                                                <%= r.getrName()%>
+                                            </button>
+                                        </form>
+                                        <br>
                                         <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                                            <%= r.getrDescription()%>
                                         </p>
                                         <div class="options">
                                             <h6>
-                                                $20
+                                                <%= r.getTime()%> min
                                             </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
+                                            <form id="formDetail<%=r.getrID()%>" action="${pageContext.request.contextPath}/Recipe/Detail" method="post">
+                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=r.getrID()%>').submit(); alert('Added successful.')">
+                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                                    <g>
+                                                    <g>
+                                                    <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                                                          c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                                    </g>
+                                                    </g>
+                                                    <g>
+                                                    <g>
+                                                    <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                                                          C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                                                          c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                                                          C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                                    </g>
+                                                    </g>
+                                                    <g>
+                                                    <g>
+                                                    <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                                                          c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                                    </g>
+                                                    </g>
+                                                    </svg>
+                                                </a>
+                                                <input type="hidden" name="from" value="home" />
+                                                <input type="hidden" name="action" value="add"/>
+                                                <input type="hidden" name="recID" value="<%=r.getrID()%>"/>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 all burger">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f2.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Delicious Burger
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $15
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all pizza">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f3.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Delicious Pizza
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $17
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all pasta">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f4.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Delicious Pasta
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $18
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all fries">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f5.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            French Fries
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $10
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all pizza">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f6.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Delicious Pizza
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $15
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all burger">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f7.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Tasty Burger
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $12
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all burger">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f8.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Tasty Burger
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $14
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 all pasta">
-                            <div class="box">
-                                <div>
-                                    <div class="img-box">
-                                        <img src="img/f9.png" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h5>
-                                            Delicious Pasta
-                                        </h5>
-                                        <p>
-                                            Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                                        </p>
-                                        <div class="options">
-                                            <h6>
-                                                $10
-                                            </h6>
-                                            <a href="">
-                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                                                <g>
-                                                <g>
-                                                <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                                                      c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                                                      C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                                                      c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                                                      C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                                                </g>
-                                                </g>
-                                                <g>
-                                                <g>
-                                                <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                                                      c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                                                </g>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <%
+                                counter++;
+                                if (counter == 6) {
+                                    counter = 0;
+                                    break;
+                                }
+                            }
+                        %>
                     </div>
                 </div>
                 <div class="btn-box">
-                    <a href="">
+                    <a href="${pageContext.request.contextPath}/Recipe">
+                        View More
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="food_section layout_padding-bottom" style="padding-top: 90px;">
+            <div class="container">
+                <div class="heading_container heading_center">
+                    <h2>
+                        Ingredients
+                    </h2>
+                </div>
+                <div class="filters-content">
+                    <div class="row grid">
+                        <%
+                            for (Ingredient in : ingredientlist) {
+                        %>
+                        <div class="col-sm-6 col-lg-4 all <%= in.getCategoryID()%>">
+                            <div class="box">
+                                <div>
+                                    <div class="img-box">
+                                        <img src="<%= in.getImage()%>" alt="">
+                                    </div>
+                                    <div class="detail-box">
+                                        <form action="${pageContext.request.contextPath}/Ingredient/Detail" method="post">
+                                            <button type="submit" class="ingredient-link" name="inID" value="<%=in.getInID()%>">
+                                                <%= in.getInName()%>
+                                            </button>
+                                        </form>
+                                        <br>
+                                        <p>
+                                            <%= in.getDescription()%>
+                                        </p>
+                                        <div class="options">
+                                            <h6>
+                                                $<%= in.getMoney()%>
+                                            </h6>
+                                            <form id="formDetail<%=in.getInID()%>" action="${pageContext.request.contextPath}/Ingredient/Detail" method="post">
+                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=in.getInID()%>').submit(); alert('Added successful.')">
+                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                                    <g>
+                                                    <g>
+                                                    <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                                                          c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                                    </g>
+                                                    </g>
+                                                    <g>
+                                                    <g>
+                                                    <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                                                          C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                                                          c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                                                          C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                                    </g>
+                                                    </g>
+                                                    <g>
+                                                    <g>
+                                                    <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                                                          c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                                    </g>
+                                                    </g>
+                                                    </svg>
+                                                </a>
+                                                <input type="hidden" name="from" value="home" />
+                                                <input type="hidden" name="action" value="add"/>
+                                                <input type="hidden" name="inID" value="<%=in.getInID()%>"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%
+                                counter++;
+                                if (counter == 6) {
+                                    counter = 0;
+                                    break;
+                                }
+                            }
+                        %>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <a href="${pageContext.request.contextPath}/Ingredient">
                         View More
                     </a>
                 </div>
@@ -770,6 +492,7 @@
             </div>
         </footer>
         <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/ajax.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
         </script>
         <script src="js/bootstrap.js"></script>
@@ -777,7 +500,7 @@
         </script>
         <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-        <script src="js/custom.js" async></script>
+        <script src="js/custom.js"></script>
     </body>
 
 </html>
