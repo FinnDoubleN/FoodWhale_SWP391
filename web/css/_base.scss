@@ -1,0 +1,210 @@
+//dropdown
+@mixin BackgroundAll {
+  background: -webkit-linear-gradient(left, #39b49a 0%, #1d86df 100%);
+    background: linear-gradient(to right, #39b49a 0%, #1d86df 100%);
+  
+}
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .dropdown {
+    --primary: #333;
+    --secondary: #c74237;
+    width: 100%;
+    position: relative;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  .dropdown__select {
+    border-radius: inherit;
+    background: -webkit-linear-gradient(left, #39b49a 0%, #1d86df 100%);
+    background: linear-gradient(to right, #39b49a 0%, #1d86df 100%);
+  }
+  .dropdown__list {
+    margin-top: 2.5rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 10;
+  }
+  .dropdown__list:before {
+    content: "";
+    height: 2.5rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    transform: translateY(-100%);
+  }
+  .dropdown:hover .dropdown__list {
+    display: block;
+    @include BackgroundAll();
+  }
+  .dropdown__select,
+  .dropdown__item {
+    width: 100%;
+    padding: 2rem;
+    background-color : var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .dropdown__item {
+    transition: background-color 0.2s linear;
+  }
+  .dropdown__item:first-child {
+    border-radius: 4px 4px 0 0;
+    position: relative;
+  }
+  .dropdown__item:first-child:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--primary);
+    transform: translateY(-100%);
+    transition: border-color 0.2s linear;
+  }
+  .dropdown__item:first-child:hover:before {
+    border-bottom-color : var(--secondary);
+  }
+  .dropdown__item:last-child {
+    border-radius: 0 0 4px 4px;
+  }
+  .dropdown__item:hover {
+    background-color : var(--secondar)
+  }
+  //Search button
+  * {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .search1 {
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    margin-bottom: 75px;
+    margin-top: 40px;
+    
+  }
+  .search1 button {
+    padding: 10px 20px;
+    color: white;
+    flex-shrink: 0;
+    border-radius: 4px;
+   @include BackgroundAll();
+    border: 0;
+    outline: none;
+    cursor: pointer;
+  }
+  .search1 input {
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    -webkit-appearance: none;
+    font-size: 14px;
+    font-weight: 500;
+    border: 0;
+    outline: none;
+    line-height: normal;
+  }
+.link {
+  display: inline-block;
+  @include BackgroundAll();
+  padding:15px;
+  width:100%;
+  text-align: center;
+  color:#fff;
+  opacity:0.8;
+}
+.link:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  
+}
+.slide a {
+  opacity: 0.7;
+}
+.slide a:hover {
+  color:#fff !important;
+}
+.service-price:hover {
+transform:scale(1.1);
+transition: all 0.5s ease;
+}
+.img-service:hover {
+  transform:scale(1.1);
+transition: all 0.5s ease;
+}
+.name_service {
+  opacity: 0.8 !important;
+  font-size:2.2rem !important;
+}
+.name_service:hover {
+  color:#fff !important;
+  opacity: 1;
+}
+.service-price1 {
+  background-color:#c74237;
+  padding:0.5rem 2rem;
+  border-radius : 10px
+
+}
+.service-quantity {
+  background-color:#c74237;
+
+  padding:0.5rem 2rem;
+  border-radius : 10px
+
+}
+.btn-add {
+  margin:auto 0;
+  display :flex;
+  align-items:center;
+  @include BackgroundAll();
+  max-width: 35%;
+  transition:all 0.5s linear;
+
+}
+.btn-add1 {
+  margin:auto 0;
+  display :flex;
+  align-items:center;
+  @include BackgroundAll();
+  max-width: 15%;
+  transition:all 0.5s linear;
+
+}
+.btn-add2 {
+  margin:auto 0;
+  display :flex;
+  align-items:center;
+  @include BackgroundAll();
+  max-width: 15%;
+  transition:all 0.5s linear;
+
+}
+.hoverbtn :hover {
+  color:#fff !important;
+}
+.btn-add :hover {
+  color:#fff !important;
+ 
+}
+
