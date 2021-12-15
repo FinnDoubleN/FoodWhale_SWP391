@@ -17,7 +17,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
 import model.Ingredient;
 import model.Recipe;
 
@@ -31,8 +30,6 @@ public class RecipeListDetailController extends HttpServlet {
     Recipe recipelistdetail = new Recipe();
     ArrayList<Ingredient> ingreByrec = new ArrayList<>();
     ArrayList<Ingredient> ingredient = new ArrayList<>();
-    ArrayList<Category> ingrecate = new ArrayList<>();
-    ArrayList<Category> reccate = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -129,15 +126,15 @@ public class RecipeListDetailController extends HttpServlet {
                 for (int i = 0; i < inID.length; i++) {
                     dao.addIngredientRecipe(rid, Integer.parseInt(inID[i]));
                 }
-                ingrecate = dao.getAllCategoryIngredient();
-                reccate = dao.getAllCategoryRecipe();
-                ingredient = dao.getIngredientList();
-                recipelistdetail = dao.getRecipeDetailByID(rid);
                 ingreByrec = dao.getIngredientByRecipeId(rid);
-                request.setAttribute("ingrecate", ingrecate);
-                request.setAttribute("reccate", reccate);
                 request.setAttribute("ingreByrec", ingreByrec);
+                ingredient = dao.getIngredientList();
                 request.setAttribute("ingredient", ingredient);
+                int categorycount = dao.countCategoryRecipe();
+                request.setAttribute("categorycount", categorycount);
+                int usercount = dao.countUser();
+                request.setAttribute("usercount", usercount);
+                recipelistdetail = dao.getRecipeDetailByID(rid);
                 request.setAttribute("recipelistdetail", recipelistdetail);
                 request.getRequestDispatcher("/RecipeListDetail.jsp").forward(request, response);
             } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {

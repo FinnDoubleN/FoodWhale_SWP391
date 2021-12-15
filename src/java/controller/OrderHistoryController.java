@@ -80,12 +80,7 @@ public class OrderHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         Cookie[] cookies = request.getCookies();
-            String role = getCookieByName(cookies, "ROLE");
-       
-            orderlist = (ArrayList<Order>) DAO.getAllOrder();
-            request.setAttribute("orderlist", orderlist);
-            request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+         
                   
         
         
@@ -103,23 +98,21 @@ public class OrderHistoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int oID = Integer.parseInt(request.getParameter("oID"));
-            String submit = request.getParameter("submit");
-            Cookie[] cookies = request.getCookies();
-            String username = getCookieByName(cookies, "USERNAME");
-            if (submit.equalsIgnoreCase("View")) {
-                ArrayList<Order_Detail> orderlistdetail = DAO.getUserCart(oID);
-                request.setAttribute("orderlistdetail", orderlistdetail);
-                order = DAO.getOrderByID(oID);
-                userdetail = DAO.getProfileByUsername(username);
-                request.setAttribute("order", order);
-                request.setAttribute("userdetail", userdetail);
-                response.sendRedirect("OrderHistory.jsp");
-            }
-        }catch (Exception ex) {
-            Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                       try {
+            
+            
+           Cookie[] cookies = request.getCookies();
+          String username = getCookieByName(cookies, "USERNAME");
+          int oID = Integer.parseInt(request.getParameter("oID"));
+              ArrayList<Order_Detail> orderlistdetail = DAO.getUserCart(oID);
+              request.setAttribute("orderlistdetail", orderlistdetail);                            
+               userdetail = DAO.getProfileByUsername(username);               
+              request.setAttribute("userdetail", userdetail);
+              request.getRequestDispatcher("OrderHistory.jsp").forward(request, response);
+          
+      }catch (Exception ex) {
+          Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
 
     /**

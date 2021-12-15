@@ -25,7 +25,6 @@
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
             ArrayList<Category> categoryList = (ArrayList<Category>) request.getAttribute("categoryList");
-            session.setAttribute("From", "Ingredient");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -190,7 +189,7 @@
                 <div class="container-xl">
                     <div class="row g-3 mb-4 align-items-center justify-content-between">
                         <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Categories Ingredient</h1>
+                            <h1 class="app-page-title mb-0">Categories</h1>
                         </div>
                     </div>
                     <div class="tab-content" id="orders-table-tab-content">
@@ -214,15 +213,15 @@
                                                 %>
                                                 <tr>
                                                     <td class="cell"><%= c.getCategoryID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= c.getCname()%></span></td>
+                                                    <td class="cell"><span class="truncate"><%= c.getCname() %></span></td>
                                                     <td class="cell"><span class="truncate"><%= c.getDescription()%></span></td>
-                                                        <%
-                                                            if (c.getStatus().equalsIgnoreCase("Active")) {
-                                                        %>
+                                                    <%
+                                                        if (c.getStatus().equalsIgnoreCase("Active")) {
+                                                    %>
                                                     <td class="cell"><span class="badge bg-success"><%= c.getStatus()%></span></td>
-                                                        <%} else {%>
+                                                     <%} else {%>
                                                     <td class="cell"><span class="badge bg-danger"><%= c.getStatus()%></span></td>
-                                                        <%}%>
+                                                    <%}%>
                                                     <td class="cell">
                                                         <form action="CategoryList" method="post">
                                                             <input type="hidden" name="categoryID" value="<%=c.getCategoryID()%>">

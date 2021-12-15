@@ -151,6 +151,10 @@
         <servlet-name>OrderHistoryController</servlet-name>
         <servlet-class>controller.OrderHistoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteFavouriteRecipeController</servlet-name>
+        <servlet-class>controller.DeleteFavouriteRecipeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/Dashboard</url-pattern>
@@ -290,6 +294,10 @@
     <servlet-mapping>
         <servlet-name>OrderHistoryController</servlet-name>
         <url-pattern>/OrderHistory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFavouriteRecipeController</servlet-name>
+        <url-pattern>/RemoveFavouriteRecipe</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

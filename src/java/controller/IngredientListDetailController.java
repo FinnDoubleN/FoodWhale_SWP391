@@ -16,7 +16,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
 import model.Ingredient;
 
 /**
@@ -27,7 +26,6 @@ public class IngredientListDetailController extends HttpServlet {
 
     Ingredient ingredientlistdetail = new Ingredient();
     FoodWhaleDAO dao = new FoodWhaleDAO();
-    ArrayList<Category> ingrecate = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -109,15 +107,13 @@ public class IngredientListDetailController extends HttpServlet {
                 String inName = request.getParameter("inName");
                 String Type = request.getParameter("Type");
                 double Money = Double.parseDouble(request.getParameter("Money"));
-                int CategoryID = Integer.parseInt(request.getParameter("cID"));
+                int CategoryID = Integer.parseInt(request.getParameter("CategoryID"));
                 String Description = request.getParameter("Description");
                 String image = request.getParameter("image");
                 String Guideline = request.getParameter("Guideline");
                 String Status = request.getParameter("status");
                 Ingredient in = new Ingredient(inID, inName, Type, image, Money, CategoryID, Description, Guideline, Status);
                 dao.updateIngredient(in);
-                ingrecate = dao.getAllCategoryIngredient();
-                request.setAttribute("ingrecate", ingrecate);
                 int categorycount = dao.countCategoryIngredient();
                 request.setAttribute("categorycount", categorycount);
                 ingredientlistdetail = dao.getIngredientDetailByID(inID);

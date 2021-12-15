@@ -374,6 +374,10 @@
                             </div>
                             <div class="card mb-3 history hidden">
                                 <div class="wrap-profile-info col-md-8">
+                                    <%if (orderdetail.size()==0){%>
+                                    <h3> You have't bought any thing yet</h3>
+                                    <%}%>
+                                    <%if(orderdetail.size()>0){%>                                    
                                     <table class="table " border="1">
                                         <thead>
                                             <tr>
@@ -401,12 +405,12 @@
                                                         <form action="OrderHistory" method="post">
                                                             <input type="hidden" name="oID" value="<%=od.getoID()%>">
                                                             <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                            
-                                                </form></td>
+                                                        </form></td>
                                             </tr>
                                             <%}%>
                                         </tbody>
-                                    </table>
+                                    </table>                                        
+                                        <%}%>
                                 </div>
                             </div>
                         </div>

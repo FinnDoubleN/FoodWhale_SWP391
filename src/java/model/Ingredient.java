@@ -19,17 +19,19 @@ public class Ingredient {
     int categoryID;
     String description;
     String guideline;
-    String status;
     String cName;
-    
+    String status;
+
     public Ingredient() {
     }
+
     
+
     public Ingredient(int inID, String status) {
         this.inID = inID;
         this.status = status;
     }
-
+    
     public Ingredient(int inID, String inName, String type, double money, String cName, String status) {
         this.inID = inID;
         this.inName = inName;

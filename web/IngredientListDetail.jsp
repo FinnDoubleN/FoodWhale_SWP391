@@ -4,7 +4,6 @@
     Author     : ADMIN
 --%>
 
-<%@page import="model.Category"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Ingredient"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,7 +20,8 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
             Ingredient in = (Ingredient) request.getAttribute("ingredientlistdetail");
-            ArrayList<Category> ingrecate = (ArrayList<Category>) request.getAttribute("ingrecate");
+            Object object = request.getAttribute("categorycount");
+            int categorycount = Integer.parseInt(object.toString());
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -214,25 +214,8 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Category Name</strong></div>
-                                                <select name="cID">
-                                                    <%
-                                                        for (Category cate : ingrecate) {
-                                                    %>
-                                                    <option value="<%=cate.getCategoryID()%>"><%=cate.getCname()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                                <%
-                                                    for (Category cate : ingrecate) {
-                                                        if (cate.getCategoryID() == in.getCategoryID()) {
-                                                %>
-                                                &emsp;Current: <strong><%= cate.getCname()%></strong>
-                                                <%
-                                                        }
-                                                    }
-                                                %>
+                                                <div class="item-label"><strong>Category ID</strong></div>
+                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" value="<%= in.getCategoryID()%>" name="CategoryID">
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +223,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <textarea class="item-data" name="Description" cols="80"><%= in.getDescription()%></textarea>
+                                                <input type="text" class="item-data" value="<%= in.getDescription()%>" name="Description">
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +234,7 @@
                                             <div class="col-auto">
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
                                                 <div class="item-data"><img class="profile-image" src="<%= in.getImage()%>" alt=""></div><br>
-                                                <input type="text" class="item-data" value="<%= in.getImage()%>" name="image" style="width: 400px;">
+                                                <input type="text" class="item-data" value="<%= in.getImage()%>" name="image">
                                             </div>
                                         </div>
                                     </div>
@@ -260,7 +243,7 @@
                                             <div class="col-auto">
                                                 <div class="col-auto">
                                                     <div class="item-label"><strong>Guideline</strong></div>
-                                                    <textarea class="item-data" name="Guideline" cols="80"><%= in.getGuideline()%></textarea>
+                                                    <input type="text" class="item-data" value="<%= in.getGuideline()%>" name="Guideline">
                                                 </div>
                                             </div>
                                         </div>

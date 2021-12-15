@@ -16,7 +16,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
 import model.Ingredient;
 
 /**
@@ -27,7 +26,6 @@ public class IngredientListController extends HttpServlet {
 
     ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
     Ingredient ingredientlistdetail = new Ingredient();
-    ArrayList<Category> ingrecate = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -98,8 +96,8 @@ public class IngredientListController extends HttpServlet {
             String submit = request.getParameter("submit");
             FoodWhaleDAO dao = new FoodWhaleDAO();
             if (submit.equalsIgnoreCase("View")) {
-                ingrecate = dao.getAllCategoryIngredient();
-                request.setAttribute("ingrecate", ingrecate);
+                int categorycount = dao.countCategoryIngredient();
+            request.setAttribute("categorycount", categorycount);
                 ingredientlistdetail = dao.getIngredientDetailByID(inID);
                 request.setAttribute("ingredientlistdetail", ingredientlistdetail);
                 request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);
@@ -114,7 +112,7 @@ public class IngredientListController extends HttpServlet {
                 dao.IngredientDelete(in);
                 response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
             } else {
-                response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
+               response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
             }
         } catch (Exception ex) {
             Logger.getLogger(IngredientListController.class.getName()).log(Level.SEVERE, null, ex);

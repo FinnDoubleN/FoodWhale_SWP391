@@ -107,68 +107,35 @@ public class CategoryListController extends HttpServlet {
                 request.setAttribute("categoryList", categoryList);
                 request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
             }
-            if (submitR != null && submitR.equalsIgnoreCase("View") || submitI != null && submitI.equalsIgnoreCase("View")) {
-                if (submitR != null) {
-                    categorylistdetail = dao.getCategoryRecipeByID(Integer.parseInt(id));
-                    request.setAttribute("From", "Recipe");
-                    request.setAttribute("categorylistdetail", categorylistdetail);
-                    request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
-                } else if (submitI != null) {
-                    categorylistdetail = dao.getCategoryIngredientByID(Integer.parseInt(id));
-                    request.setAttribute("From", "Ingredient");
-                    request.setAttribute("categorylistdetail", categorylistdetail);
-                    request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
+            if (submitR.equalsIgnoreCase("View") && submitI == null) {
+                categorylistdetail = dao.getCategoryDetailByID(Integer.parseInt(id));
+                request.setAttribute("categorylistdetail", categorylistdetail);
+                request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
+            } else if (submitR == null && submitI.equalsIgnoreCase("View")) {
+                categorylistdetail = dao.getCategoryDetailByID(Integer.parseInt(id));
+                request.setAttribute("categorylistdetail", categorylistdetail);
+                request.getRequestDispatcher("/CategoryListDetail.jsp").forward(request, response);
+            } else if (submitR.equalsIgnoreCase("Delete") || submitR.equalsIgnoreCase("Active") || submitI.equalsIgnoreCase("Delete") || submitI.equalsIgnoreCase("Active")) {
+                String status = "";
+                if (submitR.equalsIgnoreCase("Delete") || submitI.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
                 }
-            }
-            if (submitR != null && submitR.equalsIgnoreCase("Delete") || submitI != null && submitI.equalsIgnoreCase("Delete")) {
-                String status = "Delete";
                 Category c = new Category(Integer.parseInt(id), status);
-                if (submitR != null) {
+                if (submitR.equalsIgnoreCase("Delete") || submitR.equalsIgnoreCase("Active")) {
                     dao.CategoryRecipeDelete(c);
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
+                    categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
                     request.setAttribute("categoryList", categoryList);
                     request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
-                } else if (submitI != null) {
+                } else {
                     dao.CategoryIngredientDelete(c);
                     categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
                     request.setAttribute("categoryList", categoryList);
                     request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
                 }
             } else {
-                if (submitR != null) {
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
-                    request.setAttribute("categoryList", categoryList);
-                    request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
-                } else if (submitI != null) {
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
-                    request.setAttribute("categoryList", categoryList);
-                    request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
-                }
-            }
-            if (submitR != null && submitR.equalsIgnoreCase("Active") || submitI != null && submitI.equalsIgnoreCase("Active")) {
-                String status = "Active";
-                Category c = new Category(Integer.parseInt(id), status);
-                if (submitR != null) {
-                    dao.CategoryRecipeDelete(c);
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
-                    request.setAttribute("categoryList", categoryList);
-                    request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
-                } else if (submitI != null) {
-                    dao.CategoryIngredientDelete(c);
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
-                    request.setAttribute("categoryList", categoryList);
-                    request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
-                }
-            } else {
-                if (submitR != null) {
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryRecipe();
-                    request.setAttribute("categoryList", categoryList);
-                    request.getRequestDispatcher("/CategoryRecipe.jsp").forward(request, response);
-                } else if (submitI != null) {
-                    categoryList = (ArrayList<Category>) dao.getAllCategoryIngredient();
-                    request.setAttribute("categoryList", categoryList);
-                    request.getRequestDispatcher("/CategoryIngredient.jsp").forward(request, response);
-                }
+                response.sendRedirect(request.getContextPath() + "/Dashboard");
             }
         } catch (Exception ex) {
             Logger.getLogger(CategoryListController.class.getName()).log(Level.SEVERE, null, ex);

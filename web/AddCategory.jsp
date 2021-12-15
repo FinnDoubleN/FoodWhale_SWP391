@@ -17,8 +17,6 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
-            String From = (String) session.getAttribute("From");
-            session.setAttribute("From", From);
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -189,24 +187,16 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Category Name</strong></div>
-                                                <input type="text" class="item-data" name="cName">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Description</strong></div>
-                                                <input type="text" class="item-data" name="Description">
+                                                <input type="text" class="item-data"name="cName">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
+                                    
                                     <div class="app-card-footer p-4 mt-auto">
-                                        <input type="hidden" name="From" value="${From}" />
                                         <input class="btn app-btn-secondary" name="submit" type="submit" value="Create">
-                                        <input class="btn app-btn-secondary" name="submit" type="submit" value="Cancel">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/CategoryList">Cancel</a>
                                     </div>
                                 </div>
                             </form>

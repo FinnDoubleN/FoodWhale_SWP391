@@ -71,7 +71,7 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+                try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             String username = getCookieByName(cookies, "USERNAME");
@@ -79,8 +79,8 @@ public class UserProfileController extends HttpServlet {
                 FoodWhaleDAO DAO = new FoodWhaleDAO();
                 int oID = DAO.checkUserOrder(username);
                 userdetail = DAO.getProfileByUsername(username);
-//                orderdetail = (ArrayList<Order>) DAO.getAllOrder();
-                orderdetail = (ArrayList<Order>) DAO.getAllOrderbyUser(username);
+//                orderdetail = (ArrayList<Order>) DAO.getAllOrderbyUser(username);
+                orderdetail = (ArrayList<Order>) DAO.getAllOrder();
                 request.setAttribute("orderdetail", orderdetail);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);

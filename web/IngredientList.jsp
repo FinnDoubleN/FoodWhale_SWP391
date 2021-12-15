@@ -218,7 +218,7 @@
                                                     <td class="cell"><span class="truncate"><%= i.getInName() %></span></td>
                                                     <td class="cell"><%= i.getType()%></td>
                                                     <td class="cell"><span class="truncate">$ <%= i.getMoney() %></span></td>
-                                                    <td class="cell"><%= i.getcName()%></td>
+                                                    <td class="cell"><%= i.getcName() %></td>
                                                     <%
                                                         if (i.getStatus().equalsIgnoreCase("Active")) {
                                                     %>

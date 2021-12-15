@@ -76,7 +76,7 @@ $(document).ready(function () {
                 });
             });
             $('.filtercate', api.table().header()).each(function () {
-                var column = api.column(4);
+                var column = api.column(2);
                 var select = $('<select class="cell bold"><option value="">Category</option></select>')
                         .appendTo($(this).empty())
                         .on('change', function () {

@@ -16,7 +16,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
 import model.Ingredient;
 import model.Recipe;
 
@@ -30,8 +29,6 @@ public class RecipeListController extends HttpServlet {
     Recipe recipelistdetail = new Recipe();
     ArrayList<Ingredient> ingredient = new ArrayList<>();
     ArrayList<Ingredient> ingreByrec = new ArrayList<>();
-    ArrayList<Category> ingrecate = new ArrayList<>();
-    ArrayList<Category> reccate = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -102,13 +99,13 @@ public class RecipeListController extends HttpServlet {
             String submit = request.getParameter("submit");
             FoodWhaleDAO dao = new FoodWhaleDAO();
             if (submit.equalsIgnoreCase("View")) {
-                ingrecate = dao.getAllCategoryIngredient();
-                reccate = dao.getAllCategoryRecipe();
+                int categorycount = dao.countCategoryRecipe();
+                request.setAttribute("categorycount", categorycount);
+                int usercount = dao.countUser();
+                request.setAttribute("usercount", usercount);
                 ingredient = dao.getIngredientList();
                 recipelistdetail = dao.getRecipeDetailByID(id);
                 ingreByrec = dao.getIngredientByRecipeId(id);
-                request.setAttribute("ingrecate", ingrecate);
-                request.setAttribute("reccate", reccate);
                 request.setAttribute("ingreByrec", ingreByrec);
                 request.setAttribute("ingredient", ingredient);
                 request.setAttribute("recipelistdetail", recipelistdetail);
