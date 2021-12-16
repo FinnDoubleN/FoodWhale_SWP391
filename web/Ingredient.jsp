@@ -24,6 +24,7 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <%
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             String searchData = request.getParameter("searchData");
@@ -222,8 +223,16 @@
                                                 $<%= in.getMoney()%>
                                             </h6>
                                             <form id="formDetail<%=in.getInID()%>" action="${pageContext.request.contextPath}/Ingredient/Detail" method="post">
-                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=in.getInID()%>').submit(); alert('Added successful.')">
-                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                                <a href="javascript:;" onclick="Swal.fire(
+                                                                'Successful!',
+                                                                'Ingredient Added',
+                                                                'success'
+                                                                ).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                document.getElementById('formDetail<%=in.getInID()%>').submit();
+                                                            }
+                                                        });
+                                                   ">                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                     <g>
                                                     <g>
                                                     <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248

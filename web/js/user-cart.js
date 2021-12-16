@@ -20,7 +20,7 @@ function updatePrice() {
         $(this).find('.total').text(sum);
         total += sum;
         $(".cart-buy").find('.seperate-1').text(total);
-        $("#total").attr('value',total);
+        $("#total").attr('value', total);
     });
 }
 
@@ -66,8 +66,25 @@ var deleteBtn = deleteBtn.click(function () {
     $.ajax({
         url: '/FoodWhale_SWP391/Cart',
         type: 'POST',
-        data: {action: 'delete',inID: inID}
+        data: {action: 'delete', inID: inID}
     });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                    'Deleted!',
+                    'Your ingredient has been removed.',
+                    'success'
+                    )
+        }
+    })
     $(this).parent('.flex-5').parent('.item-flex').parent('.item-box-layout').remove();
     updatePrice();
 });

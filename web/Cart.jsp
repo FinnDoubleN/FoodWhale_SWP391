@@ -4,6 +4,7 @@
     Author     : Asus
 --%>
 
+<%@page import="model.User"%>
 <%@page import="model.Order_Detail"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,8 +26,10 @@
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <%
             ArrayList<Order_Detail> orderdetail = (ArrayList<Order_Detail>) request.getAttribute("orderdetail");
+            User profile = (User) request.getAttribute("profile");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -143,6 +146,30 @@
         </div>
         <section class="food_section layout_padding">
             <div class="container">
+                <div class="cart-address">
+                    <div class="ship-border"></div>
+                    <div class="address">
+                        <div class="address-head">
+                            <div class="address-head-info">
+                                <div class="address-head-logo">
+                                    <svg height="16" viewBox="0 0 12 16" width="12" class="icon-location-marker">
+                                    <path d="M6 3.2c1.506 0 2.727 1.195 2.727 2.667 0 1.473-1.22 2.666-2.727 2.666S3.273 7.34 3.273 5.867C3.273 4.395 4.493 3.2 6 3.2zM0 6c0-3.315 2.686-6 6-6s6 2.685 6 6c0 2.498-1.964 5.742-6 9.933C1.613 11.743 0 8.498 0 6z" fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>Shipping Address</div>  
+                            </div>
+                        </div>
+                        <div class="address-body">
+                            <div class="body-first">
+                                <input type="fullname" class="form__field" value="<%=profile.getFullname()%>" placeholder="Your Name" />
+                                <input type="phone" class="form__field" value="<%=profile.getPhone()%>" placeholder="Your Phone Number" />
+                            </div>
+                            <div class="body-second">
+                                <input type="address" class="form__field" value="<%=profile.getAddress()%>" placeholder="Your Address" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="cart-main">
                     <div class="cart-nav">
                         <div class="nav-1">Product</div>

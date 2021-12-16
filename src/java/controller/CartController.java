@@ -81,13 +81,16 @@ public class CartController extends HttpServlet {
             FoodWhaleDAO dao = new FoodWhaleDAO();
             if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
                 int oID = dao.checkUserOrder(username);
+                User profile = dao.getProfileByUsername(username);
                 ArrayList<Order_Detail> orderdetail = dao.getUserCart(oID);
+                request.setAttribute("profile", profile);
                 request.setAttribute("orderdetail", orderdetail);
                 request.getRequestDispatcher("Cart.jsp").forward(request, response);
             } else {
                 response.sendRedirect("Login");
             }
-        } catch (IOException | ServletException ex) {
+        } catch (SQLException ex) {
+            Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -126,7 +129,7 @@ public class CartController extends HttpServlet {
                         try (PrintWriter out = response.getWriter()) {
                             out.println("<script type=\"text/javascript\">");
                             out.println("alert('There is nothing to buy :(');");
-                            out.println("location='"+request.getContextPath() +"/Cart';");
+                            out.println("location='" + request.getContextPath() + "/Cart';");
                             out.println("</script>");
                         }
                     } else {
