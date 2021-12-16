@@ -73,6 +73,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
+                                </li>
                                 <%
                                     if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
                                     } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
@@ -194,7 +197,7 @@
                                                 <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" >
                                             </div>
                                             <div class="profile-text">
-                                                <span class="_text" >Order History</span>
+                                                <span class="_text">Order History</span>
                                             </div>
                                         </a>
                                     </div>
@@ -224,6 +227,15 @@
                                             </div>
                                             <div class="col-sm-9 text-secondary">
                                                 <input id="uName" type="text" class="form__field" name="username" value="<%=u.getUsername()%>" placeholder="Your Username" readonly />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Image</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form__field" value="<%=u.getImage()%>" name ="image"placeholder="Your Image" />
                                             </div>
                                         </div>
                                         <hr>
@@ -353,7 +365,6 @@
                                                 Password must be at least 6 characters
                                             </div>
                                         </div>
-                                        <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">New Password</h6>
@@ -418,17 +429,16 @@
                                             <%for (Order od : orderdetail) {%>
                                             <tr>
                                                 <td><%=od.getoID()%></td>
-
                                                 <td><%=od.getuName()%></td>
                                                 <td>$<%=od.getuAddress()%></td>
-
                                                 <td><%=od.getDate()%></td>
                                                 <td><%=od.getTotal()%></td>
                                                 <td>
                                                     <form action="OrderHistory" method="post">
                                                         <input type="hidden" name="oID" value="<%=od.getoID()%>">
                                                         <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                    </form></td>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             <%}%>
                                         </tbody>
