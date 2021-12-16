@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -71,16 +72,14 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                try {
+        try {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             String username = getCookieByName(cookies, "USERNAME");
             if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
                 FoodWhaleDAO DAO = new FoodWhaleDAO();
-                int oID = DAO.checkUserOrder(username);
                 userdetail = DAO.getProfileByUsername(username);
                 orderdetail = (ArrayList<Order>) DAO.getAllOrderbyUser(userdetail.uID);
-//                orderdetail = (ArrayList<Order>) DAO.getAllOrder();
                 request.setAttribute("orderdetail", orderdetail);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);
@@ -103,7 +102,55 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            String action = request.getParameter("Action");
+            String username = request.getParameter("username");
+            if (action != null && action.equalsIgnoreCase("Update")) {
+                int id = Integer.parseInt(request.getParameter("uID"));
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+                String fullname = request.getParameter("fullname");
+                String address = request.getParameter("address");
+                String gender = request.getParameter("gender");
+                String date = request.getParameter("date");
+                Date startDate = Date.valueOf(date);
+                User u = new User(id, email, username, fullname, startDate, gender, address, phone);
+                dao.updateUserProfile(u);
+                userdetail = dao.getProfileByUsername(username);
+                orderdetail = (ArrayList<Order>) dao.getAllOrderbyUser(userdetail.uID);
+                request.setAttribute("orderdetail", orderdetail);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            }
+            if (action != null && action.equalsIgnoreCase("ChangePW")) {
+                String newPass = request.getParameter("newPass");
+                String confirmPass = request.getParameter("confirmPass");
+                if (newPass != null && confirmPass != null) {
+                    if (newPass.equals(confirmPass)) {
+                        dao.updatePassword(newPass, username);
+                    }
+                }
+                userdetail = dao.getProfileByUsername(username);
+                orderdetail = (ArrayList<Order>) dao.getAllOrderbyUser(userdetail.uID);
+                request.setAttribute("orderdetail", orderdetail);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            }
+            if (action != null && action.equalsIgnoreCase("checkPW")) {
+                String password = request.getParameter("curr");
+                User u = dao.getProfileByUsername(username);
+                if (password.equals(u.getPassword())) {
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.getWriter().write("Success");
+                } else {
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.getWriter().write("Error");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

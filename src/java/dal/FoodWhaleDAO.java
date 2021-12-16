@@ -364,6 +364,36 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
 
+    public void updateUserProfile(User u) {
+        try {
+            String sql = "update foodwhale.user set uName=?, Email=?, Phone=?, fullname=?, Address=?, Gender=?, DoB=? where uID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, u.getUsername());
+            statement.setString(2, u.getEmail());
+            statement.setString(3, u.getPhone());
+            statement.setString(4, u.getFullname());
+            statement.setString(5, u.getAddress());
+            statement.setString(6, u.getGender());
+            statement.setDate(7, u.getDate());
+            statement.setInt(8, u.getuID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updatePassword(String newPass, String username) {
+        try {
+            String sql = "update foodwhale.user set Password=? where uName=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, newPass);
+            statement.setString(2, username);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void updateRecipe(Recipe r) {
         try {
             String sql = "update foodwhale.recipe set rName=?, cID=?,Image=?,Difficulty=?, Time=?, uID=?, rDescription=?, Guideline=?, Status = ? where rID=?";
@@ -1498,7 +1528,6 @@ public class FoodWhaleDAO extends DBContext {
     public ArrayList<Order> getAllOrderbyUser(int uID) {
         ArrayList<Order> list = new ArrayList<>();
         String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where o.uID=" + uID + "";
-
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();

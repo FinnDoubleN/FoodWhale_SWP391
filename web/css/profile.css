@@ -224,6 +224,12 @@
     display: inline-flex;
 }
 
+.btn--disabled {
+    background: #28a745!important;
+    cursor: not-allowed!important;
+    box-shadow: none;
+}
+
 .wrap-change-password {
     padding: 0px 1.875rem 0.625rem;
 }
@@ -260,5 +266,16 @@
     padding-right: 1.25rem;
     overflow: hidden;
     font-size: .875rem;
+}
+
+.image-type {
+    margin-top: 0.75rem;
+    display: block;
+}
+
+.image-restriction {
+    color: #999;
+    font-size: .875rem;
+    line-height: 1.25rem;
 }
 

@@ -35,6 +35,18 @@ public class User {
         this.status = status;
     }
 
+    //Update User Profile
+    public User(int uID, String email, String username, String fullname, Date date, String gender, String address, String phone) {
+        this.uID = uID;
+        this.email = email;
+        this.username = username;
+        this.fullname = fullname;
+        this.date = date;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public User(int uID, String email, String password, String username, String fullname, String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
         this.uID = uID;
         this.email = email;
