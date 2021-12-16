@@ -98,6 +98,7 @@ $(document).ready(function () {
         var newpass = $(this).val();
         var retypepass = $('.retypepass').val();
         if (newpass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,16}$/)) {
+            $(this).parent().parent().parent().find('.flexible').eq(2).attr('class', 'col-md-12 flexible hidden');
         } else {
             $(this).parent().parent().parent().find('.flexible').eq(2).attr('class', 'col-md-12 flexible');
         }

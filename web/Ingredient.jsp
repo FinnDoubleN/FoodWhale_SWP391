@@ -70,6 +70,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
+                                </li>
                                 <%
                                     if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
                                     } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {

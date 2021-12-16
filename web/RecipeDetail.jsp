@@ -73,6 +73,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
+                                </li>
                                 <%
                                     if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
                                     } else if (ROLE.equalsIgnoreCase("admin") || ROLE.equalsIgnoreCase("staff")) {
@@ -206,16 +209,16 @@
                                     </div>
                                     <div class="extra-info-box">
                                         <div class="display-flex btn-cart-box">
-                                             <form action="${pageContext.request.contextPath}/FavouriteRecipe" method="post">
+                                            <form action="${pageContext.request.contextPath}/FavouriteRecipe" method="post">
                                                 <button type="submit" class="add-item-wrapper n-btn btn-add-to-cart btn-add-collection" name="rID" value="<%=r.getrID()%>">
-                                                <span class="row-1">
-                                                    <img class="icon" src="../img/rating.png" />
-                                                    <span class="text display-block"></span>                                                   
-                                                </span>
-                                            </button>
+                                                    <span class="row-1">
+                                                        <img class="icon" src="../img/rating.png" />
+                                                        <span class="text display-block"></span>                                                   
+                                                    </span>
+                                                </button>
                                                 <input type="hidden" name="from1" value="add"/>
                                                 <input type="hidden" name="action1" value="add"/>
-                                                </form>
+                                            </form>
                                             <button class="btn-add-to-cart n-btn btn-rec-cart" id="<%=r.getrID()%>"
                                                     title="Add to Cart" style="background: none !important;">
                                                 <span class="row-1">
