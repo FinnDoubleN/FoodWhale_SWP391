@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.Date;
@@ -61,6 +56,11 @@ public class User {
         this.role = role;
         this.sName = sName;
         this.status = status;
+    }
+
+    public User(String password, int uid) {
+      this.password = password;
+        this.uID = uid;
     }
 
     public String getsName() {
@@ -126,6 +126,17 @@ public class User {
         this.email = email;
         this.username = username;
         this.image = image;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+    }
+    
+    public User(int id, String email, String username, String image, Date date, String gender, String address, String phone) {
+        this.uID = id;
+        this.email = email;
+        this.username = username;
+        this.image = image;
+        this.date = date;
         this.gender = gender;
         this.address = address;
         this.phone = phone;

@@ -9,6 +9,8 @@ import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,9 +25,10 @@ import model.User;
  * @author ADMIN
  */
 public class EditProfileController extends HttpServlet {
-User userdetail = new User();
 
- private String getCookieByName(Cookie[] cookies, String check) {
+    User userdetail = new User();
+
+    private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
@@ -36,6 +39,7 @@ User userdetail = new User();
         }
         return null;
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,8 +53,8 @@ User userdetail = new User();
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-       
+            /* TODO output your page here. You may use following sample code. */
+
         }
     }
 
@@ -66,8 +70,8 @@ User userdetail = new User();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-             Cookie[] cookies = request.getCookies();
+        try {
+            Cookie[] cookies = request.getCookies();
             if (cookies != null) {
                 String role = getCookieByName(cookies, "ROLE");
                 String username = getCookieByName(cookies, "USERNAME");
@@ -75,7 +79,7 @@ User userdetail = new User();
                     FoodWhaleDAO DAO = new FoodWhaleDAO();
                     userdetail = DAO.getProfileByUsername(username);
                     request.setAttribute("userdetail", userdetail);
-                    request.getRequestDispatcher("EditProfile.jsp").forward(request, response);
+                    request.getRequestDispatcher("Profile.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("login").forward(request, response);
                 }
@@ -83,8 +87,8 @@ User userdetail = new User();
                 request.getRequestDispatcher("login").forward(request, response);
             }
         } catch (SQLException ex) {
-        Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
-    }
+            Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -97,24 +101,28 @@ User userdetail = new User();
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {     
+            throws ServletException, IOException {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat sd = new SimpleDateFormat(pattern);
         try {
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            String submit = request.getParameter("submit");
-            if (submit.equalsIgnoreCase("Update")) {
-                int id = Integer.parseInt(request.getParameter("uid"));
-                String image = request.getParameter("image");
-                String email = request.getParameter("email");
-                String username = request.getParameter("username");
-                String gender = request.getParameter("gender");
-                String address = request.getParameter("address");
-                String phone = request.getParameter("phone");
-                User u = new User(id, email, username, image, gender, address, phone);
-                dao.EditUser(u);
-                userdetail = dao.getUserByID(id);
-                request.setAttribute("userdetail", userdetail);
-                request.getRequestDispatcher("Profile.jsp").forward(request, response);
-            }
+            int id = Integer.parseInt(request.getParameter("uid"));
+            String image = request.getParameter("image");
+            String email = request.getParameter("email");
+
+            String dateUser = request.getParameter("date");
+            Date date = sd.parse(dateUser);
+            String username = request.getParameter("username");
+            String gender = request.getParameter("gender");
+            String address = request.getParameter("address");
+            String phone = request.getParameter("phone");
+            User u = new User(id, email, username, image, java.sql.Date.valueOf(dateUser), gender, address, phone);
+            dao.EditUser(u);
+            userdetail = dao.getUserByID(id);
+            request.setAttribute("userdetail", userdetail);
+            request.getRequestDispatcher("/Profile.jsp").forward(request, response);
+//            request.getRequestDispatcher("Profile").forward(request, response);
+
         } catch (Exception ex) {
             Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
