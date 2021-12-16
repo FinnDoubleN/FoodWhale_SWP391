@@ -230,10 +230,8 @@
                                                         if (u.isStatus().equalsIgnoreCase("Approved")) {
                                                     %>
                                                     <td class="cell"><span class="badge bg-success"><%= u.isStatus()%></span></td>
-                                                    <%} else if(u.isStatus().equalsIgnoreCase("Pending")){%> 
-                                                    <td class="cell"><span class="badge bg-warning"><%= u.isStatus()%></span></td>
                                                     <%} else if(u.isStatus().equalsIgnoreCase("Waiting")){%>
-                                                    <td class="cell"><span class="badge bg-info"><%= u.isStatus()%></span></td>
+                                                    <td class="cell"><span class="badge bg-warning"><%= u.isStatus()%></span></td>
                                                     <%} else {%>
                                                     <td class="cell"><span class="badge bg-danger"><%= u.isStatus()%></span></td>
                                                     <%}%>

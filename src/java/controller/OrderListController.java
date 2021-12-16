@@ -75,7 +75,7 @@ public class OrderListController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            orderlist = (ArrayList<Order>) dao.getAllOrder();
+            orderlist = (ArrayList<Order>) dao.getAllOrderWithoutPending();
             request.setAttribute("orderlist", orderlist);
             request.getRequestDispatcher("/OrderList.jsp").forward(request, response);
         }

@@ -17,6 +17,7 @@ public class User {
     public String email;
     public String password;
     public String username;
+    public String fullname;
     public String image;
     public Date date;
     public String gender;
@@ -129,6 +130,14 @@ public class User {
         this.gender = gender;
         this.address = address;
         this.phone = phone;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getStatus() {

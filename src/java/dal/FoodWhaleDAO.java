@@ -215,6 +215,26 @@ public class FoodWhaleDAO extends DBContext {
         return 0;
     }
 
+    public ArrayList<Order> getAllOrderWithoutPending() {
+        ArrayList<Order> list = new ArrayList<>();
+        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where o.Status <> 'Pending'";
+
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getDouble(5),
+                        rs.getString(6)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> list = new ArrayList<>();
         String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";

@@ -17,8 +17,12 @@ public class Order {
     String uEmail;
     String uName;
     String uAddress;
+    String Recipientname;
+    String Address;
+    String Phone;
     Date date;
     Double total;
+    String Note;
     String status;
 
     public Order() {
@@ -117,6 +121,38 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRecipientname() {
+        return Recipientname;
+    }
+
+    public void setRecipientname(String Recipientname) {
+        this.Recipientname = Recipientname;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
+    }
+
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String Note) {
+        this.Note = Note;
     }
     
 }
