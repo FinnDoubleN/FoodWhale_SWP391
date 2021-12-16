@@ -1010,22 +1010,6 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
 
-    public void EditUser(User u) {
-        try {
-            String sql = "update foodwhale.user set Email=? ,uName=?,Image=?,Gender=?,Address=?,Phone=? where uID=?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, u.getEmail());
-            statement.setString(2, u.getUsername());
-            statement.setString(3, u.getImage());
-            statement.setString(4, u.getGender());
-            statement.setString(5, u.getAddress());
-            statement.setString(6, u.getPhone());
-            statement.setInt(7, u.getuID());
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-        }
-    }
-
     public User getUserByEmail(String email) throws Exception {
         User user = new User();
         String xsql = "select * from foodwhale.user where Email='?' ";

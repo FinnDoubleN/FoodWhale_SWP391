@@ -60,7 +60,7 @@ public class User {
 
     public User(String password, int uid) {
       this.password = password;
-        this.uID = uID;
+        this.uID = uid;
     }
 
     public String getsName() {

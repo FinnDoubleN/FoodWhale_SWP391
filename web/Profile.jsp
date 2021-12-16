@@ -227,7 +227,7 @@
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">uID</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-9 text-secondary hidden">
                                                 <input type="text" class="form__field" value="<%=u.getuID()%>" name ="uid" placeholder="uid" />
                                             </div>
                                         </div>
@@ -285,21 +285,21 @@
                                                     String gender = u.getGender();
                                                     if (gender.equalsIgnoreCase("m")) {
                                                 %>
-                                                <input type="checkbox" name="gender" value="m" checked /> Male&emsp;
-                                                <input type="checkbox" name="gender" value="f" /> Female&emsp;
-                                                <input type="checkbox" name="gender" value="g" /> Else
+                                                <input type="radio" name="gender" value="m" checked /> Male&emsp;
+                                                <input type="radio" name="gender" value="f" /> Female&emsp;
+                                                <input type="radio" name="gender" value="g" /> Else
                                                 <%
                                                 } else if (gender.equalsIgnoreCase("f")) {
                                                 %>
-                                                <input type="checkbox" name="gender" value="m" /> Male&emsp;
-                                                <input type="checkbox" name="gender" value="f" checked /> Female&emsp;
-                                                <input type="checkbox" name="gender" value="g" /> Else
+                                                <input type="radio" name="gender" value="m" /> Male&emsp;
+                                                <input type="radio" name="gender" value="f" checked /> Female&emsp;
+                                                <input type="radio" name="gender" value="g" /> Else
                                                 <%
                                                 } else {
                                                 %>
-                                                <input type="checkbox" name="gender" value="m" /> Male&emsp;
-                                                <input type="checkbox" name="gender" value="f" /> Female&emsp;
-                                                <input type="checkbox" name="gender" value="g" checked /> Else
+                                                <input type="radio" name="gender" value="m" /> Male&emsp;
+                                                <input type="radio" name="gender" value="f" /> Female&emsp;
+                                                <input type="radio" name="gender" value="g" checked /> Else
                                                 <%
                                                     }
                                                 %>
@@ -327,7 +327,7 @@
                                 <form action="ChangePassword" method="post">
                                     <div class="wrap-change-password">
                                         <div class="row">
-                                            <div class="col-md-12 flexible ">
+                                            <div class="col-md-12 flexible hidden">
                                                 <div class="col-sm-6 text-secondary">
                                                     <input type="text" class="form__field" value="<%=u.getuID()%>" name="id"/>
                                                 </div>
