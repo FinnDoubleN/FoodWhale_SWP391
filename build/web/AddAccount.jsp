@@ -274,11 +274,11 @@
                                                 <%
                                                     if (ROLE.equalsIgnoreCase("admin")) {
                                                 %>
-                                                <input type="radio" id="Admin" name="role" value="admin">
+                                                <input type="radio" id="Admin" name="role" value="admin" required>
                                                 <label for="admin">Admin</label>
-                                                <input type="radio" id="Staff" name="role" value="staff">
+                                                <input type="radio" id="Staff" name="role" value="staff" required>
                                                 <label for="staff">Staff</label>
-                                                <input type="radio" id="User" name="role" value="user" checked>
+                                                <input type="radio" id="User" name="role" value="user" required>
                                                 <label for="user">User</label>
                                                 <%
                                                 } else if (ROLE.equalsIgnoreCase("staff")) {
