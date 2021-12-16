@@ -25,6 +25,7 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/style-new.css" rel="stylesheet" type="text/css"/>
         <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <%
             ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
@@ -254,7 +255,12 @@
                                                 <%= r.getTime()%> min
                                             </h6>
                                             <form id="formDetail<%=r.getrID()%>" action="${pageContext.request.contextPath}/Recipe/Detail" method="post">
-                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=r.getrID()%>').submit(); alert('Added successful.')">
+                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=r.getrID()%>').submit();
+                                                        Swal.fire(
+                                                                'Successful!',
+                                                                'Recipe Added',
+                                                                'success'
+                                                                )">
                                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                     <g>
                                                     <g>
@@ -337,7 +343,12 @@
                                                 $<%= in.getMoney()%>
                                             </h6>
                                             <form id="formDetail<%=in.getInID()%>" action="${pageContext.request.contextPath}/Ingredient/Detail" method="post">
-                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=in.getInID()%>').submit(); alert('Added successful.')">
+                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=in.getInID()%>').submit();
+                                                        Swal.fire(
+                                                                'Successful!',
+                                                                'Ingredient Added',
+                                                                'success'
+                                                                )">
                                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                     <g>
                                                     <g>

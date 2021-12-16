@@ -106,45 +106,49 @@ public class RecipeDetailController extends HttpServlet {
             }
         } else {
             try {
-                int oID = DAO.checkUserOrder(uName);
-                ArrayList<Ingredient> ingredient = DAO.getIngredientByRecipeId(Integer.parseInt(recID));
-                if (oID == 0) {
-                    User profile = DAO.getProfileByUsername(uName);
-                    int uID = profile.getuID();
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate localDate = LocalDate.now();
-                    String date = dtf.format(localDate);
-                    DAO.createOrder(uID, date);
-                    oID++;
-                    for (Ingredient in : ingredient) {
-                        DAO.addToCart(oID, in.getInID());
-                    }
-                    if (from.equalsIgnoreCase("detail")) {
-                        if (action.equalsIgnoreCase("add")) {
-                            response.sendRedirect(request.getContextPath() + "/Recipe");
-                        } else {
-                            response.sendRedirect(request.getContextPath() + "/Cart");
-                        }
-                    } else {
-                        response.sendRedirect(request.getContextPath());
-                    }
-                } else {
-                    for (Ingredient in : ingredient) {
-                        if (DAO.checkDuplicateIngredient(oID, in.getInID())) {
-                            DAO.addQuantity(oID, in.getInID());
-                        } else {
+                if (uName != null) {
+                    int oID = DAO.checkUserOrder(uName);
+                    ArrayList<Ingredient> ingredient = DAO.getIngredientByRecipeId(Integer.parseInt(recID));
+                    if (oID == 0) {
+                        User profile = DAO.getProfileByUsername(uName);
+                        int uID = profile.getuID();
+                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate localDate = LocalDate.now();
+                        String date = dtf.format(localDate);
+                        DAO.createOrder(uID, profile.getFullname(), profile.getAddress(), profile.getPhone(), date);
+                        oID++;
+                        for (Ingredient in : ingredient) {
                             DAO.addToCart(oID, in.getInID());
                         }
-                    }
-                    if (from.equalsIgnoreCase("detail")) {
-                        if (action.equalsIgnoreCase("add")) {
-                            response.sendRedirect(request.getContextPath() + "/Recipe");
+                        if (from.equalsIgnoreCase("detail")) {
+                            if (action.equalsIgnoreCase("add")) {
+                                response.sendRedirect(request.getContextPath() + "/Recipe");
+                            } else {
+                                response.sendRedirect(request.getContextPath() + "/Cart");
+                            }
                         } else {
-                            response.sendRedirect(request.getContextPath() + "/Cart");
+                            response.sendRedirect(request.getContextPath());
                         }
                     } else {
-                        response.sendRedirect(request.getContextPath());
+                        for (Ingredient in : ingredient) {
+                            if (DAO.checkDuplicateIngredient(oID, in.getInID())) {
+                                DAO.addQuantity(oID, in.getInID());
+                            } else {
+                                DAO.addToCart(oID, in.getInID());
+                            }
+                        }
+                        if (from.equalsIgnoreCase("detail")) {
+                            if (action.equalsIgnoreCase("add")) {
+                                response.sendRedirect(request.getContextPath() + "/Recipe");
+                            } else {
+                                response.sendRedirect(request.getContextPath() + "/Cart");
+                            }
+                        } else {
+                            response.sendRedirect(request.getContextPath());
+                        }
                     }
+                } else {
+                    response.sendRedirect(request.getContextPath());
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(RecipeDetailController.class.getName()).log(Level.SEVERE, null, ex);
