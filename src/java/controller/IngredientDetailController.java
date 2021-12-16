@@ -110,7 +110,7 @@ public class IngredientDetailController extends HttpServlet {
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate localDate = LocalDate.now();
                     String date = dtf.format(localDate);
-                    DAO.createOrder(uID, date);
+                    DAO.createOrder(uID, profile.getFullname(), profile.getAddress(), profile.getPhone(), date);
                     oID++;
                     DAO.addToCart(oID, Integer.parseInt(inID));
                     if (from.equalsIgnoreCase("detail")) {

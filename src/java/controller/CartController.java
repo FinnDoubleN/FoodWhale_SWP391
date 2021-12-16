@@ -134,7 +134,7 @@ public class CartController extends HttpServlet {
                         LocalDate localDate = LocalDate.now();
                         String date = dtf.format(localDate);
                         dao.updateOrderStatus(oID);
-                        dao.createOrder(user.getuID(), date);
+                        dao.createOrder(user.getuID(), user.getFullname(), user.getAddress(), user.getPhone(), date);
                         response.sendRedirect(request.getContextPath() + "/Cart");
                     }
                 }

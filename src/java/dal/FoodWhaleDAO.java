@@ -657,7 +657,7 @@ public class FoodWhaleDAO extends DBContext {
         return ingredient;
     }
 
-    public void createUser(String email, String password, String username,String fullname, String image, Date date, String gender, String address, String phone, String role, String sName) {
+    public void createUser(String email, String password, String username, String fullname, String image, Date date, String gender, String address, String phone, String role, String sName) {
         try {
             String sql = "Insert into `User`(Email, Password, uName, fullname, Image, DoB, Gender, Address, Phone, Role, sName) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -1272,12 +1272,15 @@ public class FoodWhaleDAO extends DBContext {
         return 0;
     }
 
-    public void createOrder(int uID, String date) {
+    public void createOrder(int uID, String fullname, String address, String phone, String date) {
         try {
-            String sql = "insert into foodwhale.order(uID, Date, Total) values (?, ?, 0)";
+            String sql = "insert into foodwhale.order(uID, Recipientname, Address, Phone, Date, Total) values (?, ?, ?, ?, ?, 0)";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, uID);
-            ps.setString(2, date);
+            ps.setString(2, fullname);
+            ps.setString(3, address);
+            ps.setString(4, phone);
+            ps.setString(5, date);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
