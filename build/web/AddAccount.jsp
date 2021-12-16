@@ -208,6 +208,14 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Fullname</strong></div>
+                                                <input type="text" class="item-data" name="fullname">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
                                                 <div class="item-label"><strong>Address</strong></div>
                                                 <input type="text" class="item-data" name="address">
                                             </div>
@@ -266,11 +274,11 @@
                                                 <%
                                                     if (ROLE.equalsIgnoreCase("admin")) {
                                                 %>
-                                                <input type="radio" id="Admin" name="role" value="admin">
+                                                <input type="radio" id="Admin" name="role" value="admin" required>
                                                 <label for="admin">Admin</label>
-                                                <input type="radio" id="Staff" name="role" value="staff">
+                                                <input type="radio" id="Staff" name="role" value="staff" required>
                                                 <label for="staff">Staff</label>
-                                                <input type="radio" id="User" name="role" value="user" checked>
+                                                <input type="radio" id="User" name="role" value="user" required>
                                                 <label for="user">User</label>
                                                 <%
                                                 } else if (ROLE.equalsIgnoreCase("staff")) {
