@@ -1466,9 +1466,9 @@ public class FoodWhaleDAO extends DBContext {
         }
     }
     
-    public ArrayList<Order> getAllOrderbyUser(String username) {
+    public ArrayList<Order> getAllOrderbyUser(int uID) {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where u.uName=" + username + "";
+        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where o.uID=" + uID + "";
 
         try {
             ps = connection.prepareStatement(query);
