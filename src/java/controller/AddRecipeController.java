@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Category;
 import model.Ingredient;
+import model.Recipe;
 
 /**
  *
@@ -112,6 +113,15 @@ public class AddRecipeController extends HttpServlet {
             image = "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
         }
         dao.createRecipe(image, rName, cID, Difficulty, Time, uID, Description, Guideline);
+        String inID[] = request.getParameterValues("inID");
+        ArrayList<Recipe> recipe = dao.getAllRecipe();
+        for (Recipe rec : recipe) {
+            if (rec.getrName().equalsIgnoreCase(rName)) {
+                for (int i = 0; i < inID.length; i++) {
+                    dao.addIngredientRecipe(rec.getrID(), Integer.parseInt(inID[i]));
+                }
+            }
+        }
         response.sendRedirect(request.getContextPath() + "/Dashboard/RecipeList");
     }
 
