@@ -140,4 +140,20 @@ $(document).ready(function () {
         ],
         "order": [[1, 'asc']]
     });
+    $('#tableCart').DataTable({
+        "orderCellsTop": true,
+        "ordering": false,
+        "lengthChange": false,
+        "info": false,
+        "pageLength": 10,
+        "dom": '<"row margin-6"Bf>rtip',
+        "columnDefs": [
+            {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }
+        ],
+        "order": [[1, 'asc']]
+    });
 });

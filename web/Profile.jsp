@@ -21,7 +21,11 @@
         <link rel="shortcut icon" href="img/favicon.png" type="">
         <title> Profile </title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.css" />
+        <script type="text/javascript" src="DataTables/datatables.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -29,6 +33,7 @@
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
         <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
         <link href="css/profile.css" rel="stylesheet" type="text/css"/>
+        <script src="DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
             ArrayList<Order> orderdetail = (ArrayList<Order>) request.getAttribute("orderdetail");
             User u = (User) request.getAttribute("userdetail");
@@ -42,6 +47,11 @@
                 }
             }
         %>
+        <style>
+            hr {
+                color: #fff;
+            }
+        </style>
     </head>
     <body class="sub_page">
         <div class="hero_area">
@@ -353,7 +363,7 @@
                                             <div class="col-sm-6 text-secondary">
                                                 <input type="password" class="form__field currentpass" value="" />
                                             </div>
-                                            <button class="btn-forgot">Forgot password ?</button>
+                                            <button class="col-sm-3 btn-forgot">Forgot password ?</button>
                                         </div>
                                         <div class="col-md-12 flexible hidden">
                                             <div class="error current-password">
@@ -365,6 +375,7 @@
                                                 Password must be at least 6 characters
                                             </div>
                                         </div>
+                                        <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">New Password</h6>
@@ -409,12 +420,12 @@
                                 </form>
                             </div>
                             <div class="card mb-3 history hidden">
-                                <div class="wrap-profile-info col-md-8">
+                                <div class="wrap-profile-info col-md-12">
                                     <%if (orderdetail.size() == 0) {%>
                                     <h3> You have't bought any thing yet</h3>
                                     <%}%>
                                     <%if (orderdetail.size() > 0) {%>                                    
-                                    <table class="table " border="1">
+                                    <table id="tableCart" class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
                                                 <th>Order ID</th>
@@ -528,6 +539,7 @@
                 </div>
             </div>
         </footer>
+        <script src="js/table.js" type="text/javascript"></script>
         <script src="js/profile.js"></script>
         <script src="js/user-cart.js" type="text/javascript"></script>
     </body>
