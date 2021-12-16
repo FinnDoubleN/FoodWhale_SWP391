@@ -4,7 +4,6 @@
     Author     : ADMIN
 --%>
 
-<%@page import="model.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Order_Detail"%>
 <%@page import="model.User"%>
@@ -30,7 +29,7 @@
         <link href="css/user-cart.css" rel="stylesheet" type="text/css" />
         <link href="css/profile.css" rel="stylesheet" type="text/css"/>
         <%
-            ArrayList<Order> orderdetail = (ArrayList<Order>) request.getAttribute("orderdetail");
+            ArrayList<Order_Detail> orderdetail = (ArrayList<Order_Detail>) request.getAttribute("orderdetail");
             User u = (User) request.getAttribute("userdetail");
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
@@ -72,6 +71,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
                                 </li>
                                 <%
                                     if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
@@ -160,7 +162,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex flex-column align-items-center text-center">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User" class="rounded-circle" width="150">
+                                        <img src="<%=u.getImage()%>" alt="User" class="rounded-circle" width="150">
 
                                     </div>
                                 </div>
@@ -195,7 +197,7 @@
                                                 <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" >
                                             </div>
                                             <div class="profile-text">
-                                                <span class="_text" >Order History</span>
+                                                <span class="_text">Order History</span>
                                             </div>
                                         </a>
                                     </div>
@@ -214,16 +216,36 @@
                             </div>
                         </div>
                         <div class="col-md-10">
-
+                            <div class="profile-heading">
+                                <h1 class="heading-h1">My Profile</h1>
+                                <div class="heading-div">Profile management information for account security</div>
+                            </div>
                             <div class="card mb-3 profile-info">
                                 <div class="wrap-profile-info col-md-8">
-                                    <form class="card-body col-md-12">
+                                    <form action="EditProfileController" method="post">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">uID</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form__field" value="<%=u.getuID()%>" name ="uid" placeholder="uid" />
+                                            </div>
+                                        </div>
+                                        <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">Username</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" readonly />
+                                                <input type="text" class="form__field" value="<%=u.getUsername()%>" name ="username" placeholder="Your Username" readonly />
+                                            </div>
+                                        </div>
+                                        <hr><div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Image</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form__field" value="<%=u.getImage()%>" name ="image"placeholder="Your Image" />
                                             </div>
                                         </div>
                                         <hr>
@@ -232,7 +254,7 @@
                                                 <h6 class="mb-0">Email</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="email" class="form__field" value="<%=u.getEmail()%>" placeholder="Your E-Mail Address" />
+                                                <input type="email" class="form__field" value="<%=u.getEmail()%>" name ="email"placeholder="Your E-Mail Address" />
                                             </div>
                                         </div>
                                         <hr>
@@ -241,7 +263,7 @@
                                                 <h6 class="mb-0">Mobile</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" class="form__field" value="<%=u.getPhone()%>" placeholder="Your Phone Number" />
+                                                <input type="text" class="form__field" value="<%=u.getPhone()%>" name ="phone" placeholder="Your Phone Number" />
                                             </div>
                                         </div>
                                         <hr>
@@ -250,7 +272,7 @@
                                                 <h6 class="mb-0">Address</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" class="form__field" value="<%=u.getAddress()%>" placeholder="Your Address" />
+                                                <input type="text" class="form__field" value="<%=u.getAddress()%>" name ="address" placeholder="Your Address" />
                                             </div>
                                         </div>
                                         <hr>
@@ -289,58 +311,34 @@
                                                 <h6 class="mb-0">Date of Birth</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="date" class="form__field" value="<%=u.getDate()%>" placeholder="1979-01-01" />
+                                                <input type="date" class="form__field" value="<%=u.getDate()%>" name="date" placeholder="1979-01-01" />
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn btn-success " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Save</a>
+                                                <button class="btnn btn--heavy btn--m btn--inline" type="submit" name="Save">Save</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="img-frame">
-                                    <div class="profile-avatar">
-                                        <div class="avatar-frame">
-                                            <div class="avatar-img">
-                                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon _17Joz7 icon-headshot">
-                                                <g>
-                                                <circle cx="7.5" cy="4.5" fill="none" r="3.8" stroke-miterlimit="10"></circle>
-                                                <path d="m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke-linecap="round" stroke-miterlimit="10"></path>
-                                                </g>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <input class="file-img" type="file">
-                                        <button type="button" class="btnn btn--light btn--m btn--inline">Upload Image</button>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card mb-3 change-password hidden">
-                                <form>
+                                <form action="ChangePassword" method="post">
                                     <div class="wrap-change-password">
                                         <div class="row">
-                                            <div class="col-sm-3">
-                                                <h6 class="mb-0">Current Password</h6>
-                                            </div>
-                                            <div class="col-sm-6 text-secondary">
-                                                <input type="password" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" />
-                                            </div>
-                                            <button class="btn-forgot">Forgot password ?</button>
-                                        </div>
-                                        <div class="col-md-12 flexible hidden">
-                                            <div class="error current-password">
-                                                Password must be at least 6 characters
+                                            <div class="col-md-12 flexible ">
+                                                <div class="col-sm-6 text-secondary">
+                                                    <input type="text" class="form__field" value="<%=u.getuID()%>" name="id"/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">New Password</h6>
                                             </div>
                                             <div class="col-sm-6 text-secondary">
-                                                <input type="password" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" />
+                                                <input type="password" class="form__field" value="<%=u.getPassword()%>" name="Password"/>
                                             </div>
                                         </div>
                                         <div class="col-md-12 flexible hidden">
@@ -350,64 +348,16 @@
                                         </div>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-sm-3">
-                                                <h6 class="mb-0">Confirm Password</h6>
-                                            </div>
-                                            <div class="col-sm-6 text-secondary">
-                                                <input type="password" class="form__field" value="<%=u.getUsername()%>" placeholder="Your Username" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 flexible hidden">
-                                            <div class="error retype-password">
-                                                Passwords must be 8-16 characters long, contain at least one uppercase and one lowercase character, and contain only regular letters, numbers, or punctuation
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-6">
-                                                <button class="btnn btn--heavy btn--m btn--inline">Confirm</button>
+                                                <button class="btnn btn--heavy btn--m btn--inline" type="submit">Confirm</button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="card mb-3 history hidden">
-                                <div class="wrap-profile-info col-md-8">
-                                    <table class="table " border="1">
-                                        <thead>
-                                            <tr>
-                                                <th>Order ID</th>
-                                                <th>Username</th>
-                                                <th>User Address</th>
-                                                <th>Date</th>
-                                                <th>Total</th>
-                                                <th></th>
 
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%for (Order od : orderdetail) {%>
-                                            <tr>
-                                                <td><%=od.getoID()%></td>
-                                                
-                                                <td><%=od.getuName()%></td>
-                                                <td>$<%=od.getuAddress()%></td>
-
-                                                <td><%=od.getDate()%></td>
-                                                <td><%=od.getTotal()%></td>
-                                                <td>
-                                                        <form action="OrderHistory" method="post">
-                                                            <input type="hidden" name="oID" value="<%=od.getoID()%>">
-                                                            <input class="btn-sm app-btn-secondary" name="submit" type="submit" value="View">
-                                                            
-                                                </form></td>
-                                            </tr>
-                                            <%}%>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>

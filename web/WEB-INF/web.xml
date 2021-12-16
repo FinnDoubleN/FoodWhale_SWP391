@@ -148,8 +148,12 @@
         <servlet-class>controller.AddOrderController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OrderHistoryController</servlet-name>
-        <servlet-class>controller.OrderHistoryController</servlet-class>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>controller.ChangePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProfileController</servlet-name>
+        <servlet-class>controller.EditProfileController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
@@ -288,8 +292,12 @@
         <url-pattern>/Dashboard/AddOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OrderHistoryController</servlet-name>
-        <url-pattern>/OrderHistory</url-pattern>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>EditProfileController</servlet-name>
+        <url-pattern>/EditProfileController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

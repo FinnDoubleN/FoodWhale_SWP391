@@ -76,7 +76,7 @@ public class ChangePassword extends HttpServlet {
                     FoodWhaleDAO DAO = new FoodWhaleDAO();
                     userdetail = DAO.getProfileByUsername(username);
                     request.setAttribute("userdetail", userdetail);
-                    request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                    request.getRequestDispatcher("Profile").forward(request, response);
                 } else {
                     request.getRequestDispatcher("login").forward(request, response);
                 }
@@ -102,16 +102,11 @@ public class ChangePassword extends HttpServlet {
         try {
             /* TODO output your page here. You may use following sample code. */
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            String submit = request.getParameter("submit");
-            if (submit.equalsIgnoreCase("Submit")) {
-                int id = Integer.parseInt(request.getParameter("uid"));
-                String password = request.getParameter("Password");
-                User u = new User(id, password);
-                dao.changePassword(u);
-                userdetail = dao.getUserByID(id);
-                request.setAttribute("userdetail", userdetail);
-                request.getRequestDispatcher("Profile.jsp").forward(request, response);
-            }
+            int uid = Integer.parseInt(request.getParameter("id"));
+            String password = request.getParameter("Password");
+            User u = new User(password, uid);
+            dao.changePassword(u);
+            response.sendRedirect("Homepage");
         } catch (Exception ex) {
             Logger.getLogger(EditProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
