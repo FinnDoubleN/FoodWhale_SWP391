@@ -35,11 +35,12 @@ public class User {
         this.status = status;
     }
 
-    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
+    public User(int uID, String email, String password, String username, String fullname, String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
         this.uID = uID;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.fullname = fullname;
         this.image = image;
         this.date = date;
         this.gender = gender;
@@ -50,10 +51,11 @@ public class User {
         this.status = status;
     }
 
-    public User(int uID, String email, String username, String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
+    public User(int uID, String email, String username, String fullname,String image, Date date, String gender, String address, String phone, String role, String sName, String status) {
         this.uID = uID;
         this.email = email;
         this.username = username;
+        this.fullname = fullname;
         this.image = image;
         this.date = date;
         this.gender = gender;
@@ -86,11 +88,12 @@ public class User {
         this.status = status;
     }
 
-    public User(int uID, String email, String password, String username, String image, Date date, String gender, String address, String phone, String role) {
+    public User(int uID, String email, String password, String username, String fullname, String image, Date date, String gender, String address, String phone, String role) {
         this.uID = uID;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.fullname = fullname;
         this.image = image;
         this.date = date;
         this.gender = gender;

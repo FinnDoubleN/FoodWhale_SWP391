@@ -106,6 +106,7 @@ public class AccountDetailController extends HttpServlet {
                 String image = request.getParameter("image");
                 String email = request.getParameter("email");
                 String username = request.getParameter("username");
+                String fullname = request.getParameter("fullname");
                 String gender = request.getParameter("gender");
                 String date = request.getParameter("date");
                 Date startDate = Date.valueOf(date);
@@ -114,7 +115,7 @@ public class AccountDetailController extends HttpServlet {
                 String role = request.getParameter("role");
                 String sName = request.getParameter("sname");
                 String status = request.getParameter("status");
-                User u = new User(id, email, username, image, startDate, gender, address, phone, role, sName, status);
+                User u = new User(id, email, username, fullname, image, startDate, gender, address, phone, role, sName, status);
                 dao.updateUser(u);
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);

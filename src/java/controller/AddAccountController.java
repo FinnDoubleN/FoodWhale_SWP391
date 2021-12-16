@@ -91,6 +91,7 @@ public class AddAccountController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String username = request.getParameter("username");
+        String fullname = request.getParameter("fullname");
         String gender = request.getParameter("gender");
         String date = request.getParameter("date");
         Date startDate = Date.valueOf(date);
@@ -107,7 +108,7 @@ public class AddAccountController extends HttpServlet {
         if (sname == null || sname.equalsIgnoreCase("")) {
             sname = "";
         }
-        dao.createUser(email, password, username, image, startDate, gender, address, phone, role, sname);
+        dao.createUser(email, password, username, fullname, image, startDate, gender, address, phone, role, sname);
         response.sendRedirect(request.getContextPath() + "/Dashboard/AccountList");
     }
 

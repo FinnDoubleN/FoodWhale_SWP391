@@ -208,6 +208,14 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Fullname</strong></div>
+                                                <input type="text" class="item-data" name="fullname">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
                                                 <div class="item-label"><strong>Address</strong></div>
                                                 <input type="text" class="item-data" name="address">
                                             </div>

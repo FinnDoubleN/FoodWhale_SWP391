@@ -203,7 +203,15 @@ Ca<%--
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Address</strong></div>
+                                                <div class="item-label mb-2"><strong>Fullname</strong></div>
+                                                <input type="text" class="item-data" value="<%= u.getFullname()%>" maxlength="24" name="fullname">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Address</strong></div>
                                                 <input type="text" class="item-data" value="<%= u.getAddress()%>" maxlength="24" name="address">
                                             </div>
                                         </div>
@@ -228,7 +236,7 @@ Ca<%--
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Staff name</strong></div>
-                                                <input type="text" class="item-data" value="<%= u.getsName()%>" maxlength="24" name="sname" required>
+                                                <input type="text" class="item-data" value="<%= u.getsName()%>" maxlength="24" name="sname">
                                             </div>
                                         </div>
                                     </div>
