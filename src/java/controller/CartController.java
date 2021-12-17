@@ -124,7 +124,10 @@ public class CartController extends HttpServlet {
                 } else if (action.equalsIgnoreCase("delete")) {
                     dao.deleteIngredient(oID, Integer.parseInt(inID));
                 } else if (action.equalsIgnoreCase("buy")) {
-                    dao.updateTotal(oID, Integer.parseInt(total));
+                    if (total == null || total.equalsIgnoreCase("")) {
+                        total = "0";
+                        dao.updateTotal(oID, Integer.parseInt(total));
+                    }
                     if (dao.checkOrderEmpty(oID)) {
                         try (PrintWriter out = response.getWriter()) {
                             out.println("<script type=\"text/javascript\">");

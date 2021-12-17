@@ -36,6 +36,10 @@
         <servlet-class>controller.IngredientListController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EditProfileController</servlet-name>
+        <servlet-class>controller.EditProfileController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddIngredientController</servlet-name>
         <servlet-class>controller.AddIngredientController</servlet-class>
     </servlet>
@@ -154,6 +158,10 @@
     <servlet>
         <servlet-name>DeleteFavouriteRecipeController</servlet-name>
         <servlet-class>controller.DeleteFavouriteRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>controller.ChangePassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
@@ -298,6 +306,14 @@
     <servlet-mapping>
         <servlet-name>DeleteFavouriteRecipeController</servlet-name>
         <url-pattern>/RemoveFavouriteRecipe</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>EditProfileController</servlet-name>
+        <url-pattern>/EditProfileController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

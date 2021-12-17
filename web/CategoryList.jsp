@@ -190,14 +190,14 @@
                                                 %>
                                                 <tr>
                                                     <td class="cell"><%= c.getCategoryID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= c.getCname() %></span></td>
-                                                    <%
-                                                        if (c.getStatus().equalsIgnoreCase("Active")) {
-                                                    %>
+                                                    <td class="cell"><span class="truncate"><%= c.getCname()%></span></td>
+                                                        <%
+                                                            if (c.getStatus().equalsIgnoreCase("Active")) {
+                                                        %>
                                                     <td class="cell"><span class="badge bg-success"><%= c.getStatus()%></span></td>
-                                                     <%} else {%>
+                                                        <%} else {%>
                                                     <td class="cell"><span class="badge bg-danger"><%= c.getStatus()%></span></td>
-                                                    <%}%>
+                                                        <%}%>
                                                     <td class="cell">
                                                         <form action="CategoryList" method="post">
                                                             <input type="hidden" name="categoryID" value="<%=c.getCategoryID()%>">
