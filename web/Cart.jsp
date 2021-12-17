@@ -161,11 +161,11 @@
                         </div>
                         <div class="address-body">
                             <div class="body-first">
-                                <input type="fullname" class="form__field" value="<%=profile.getFullname()%>" placeholder="Your Name" />
-                                <input type="phone" class="form__field" value="<%=profile.getPhone()%>" placeholder="Your Phone Number" />
+                                <input type="fullname" class="form__field" value="<%=profile.getFullname()%>" placeholder="Your Name" required/>
+                                <input type="phone" class="form__field" value="<%=profile.getPhone()%>" placeholder="Your Phone Number" required/>
                             </div>
                             <div class="body-second">
-                                <input type="address" class="form__field" value="<%=profile.getAddress()%>" placeholder="Your Address" />
+                                <input type="address" class="form__field" value="<%=profile.getAddress()%>" placeholder="Your Address" required/>
                             </div>
                         </div>
                     </div>

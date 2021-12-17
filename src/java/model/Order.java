@@ -56,12 +56,14 @@ public class Order {
         this.status = status;
     }
 
-    public Order(int oID, String uName, String uAddress, Date date, Double total, String status) {
+    public Order(int oID, String Recipientname, String Address, String Phone, Date date, Double total, String note, String status) {
         this.oID = oID;
-        this.uName = uName;
-        this.uAddress = uAddress;
+        this.Recipientname = Recipientname;
+        this.Address = Address;
+        this.Phone = Phone;
         this.date = date;
         this.total = total;
+        this.Note = note;
         this.status = status;
     }
 

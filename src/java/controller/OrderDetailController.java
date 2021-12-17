@@ -8,6 +8,7 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,15 +106,30 @@ public class OrderDetailController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String ROLE = getCookieByName(cookies, "ROLE");
             String submit = request.getParameter("submit");
-            int oID = Integer.parseInt(request.getParameter("id"));
-            String status = "";
+            int oID = Integer.parseInt(request.getParameter("oid"));
+            int inID = Integer.parseInt(request.getParameter("inID"));
+            String fullname = request.getParameter("fullname");
+            String date = request.getParameter("date");
+            Date startDate = Date.valueOf(date);
+            String phone = request.getParameter("phone");
+            String address = request.getParameter("address");
+            String note = request.getParameter("note");
+            double total = Double.parseDouble(request.getParameter("total"));
+            String status = request.getParameter("status");
             if (submit.equalsIgnoreCase("Approved")) {
                 status = "Approved";
-            } else {
+                Order o = new Order(oID, status);
+                dao.OrderDelete(o);
+            } else if (submit.equalsIgnoreCase("Denied")) {
                 status = "Denied";
+                Order o = new Order(oID, status);
+                dao.OrderDelete(o);
+            } else if (submit.equalsIgnoreCase("Delete")){
+                dao.deleteIngredient(oID, oID);
+            } else if (submit.equalsIgnoreCase("Update")){
+                Order o = new Order(oID, fullname, address, phone,startDate, total, note, status);
+                dao.updateOrder(o);
             }
-            Order o = new Order(oID, status);
-            dao.OrderDelete(o);
             ArrayList<Order_Detail> orderlistdetail = dao.getUserCart(oID);
             request.setAttribute("orderlistdetail", orderlistdetail);
             order = dao.getOrderByID(oID);

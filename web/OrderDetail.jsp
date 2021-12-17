@@ -138,15 +138,36 @@
                                     <span class="nav-link-text">Ingredients</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/Dashboard/CategoryList">
+                            <li class="nav-item has-submenu">
+                                <a class="nav-link submenu-toggle" href="#">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
                                         </svg>
                                     </span>
                                     <span class="nav-link-text">Categories</span>
+                                    <span class="submenu-arrow">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+                                        </svg>
+                                    </span>
                                 </a>
+                                <div id="submenu-1" class="submenu submenu-1" data-bs-parent="#menu-arcordion" style>
+                                    <ul class="submenu-list list-unstyled">
+                                        <form id="form1" action="${pageContext.request.contextPath}/Dashboard/CategoryList" method="post">
+                                            <li class="submenu-item">
+                                                <a class="submenu-link" href="javascript:;" onclick="document.getElementById('form1').submit();">Recipe Category</a>
+                                            </li>
+                                            <input type="hidden" name="Recipe">
+                                        </form>
+                                        <form id="form2" action="${pageContext.request.contextPath}/Dashboard/CategoryList" method="post">
+                                            <li class="submenu-item">
+                                                <a class="submenu-link" href="javascript:;" onclick="document.getElementById('form2').submit();">Ingredient Category</a>
+                                            </li>
+                                            <input type="hidden" name="Ingredient">
+                                        </form>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </nav>
@@ -165,28 +186,12 @@
                             </div>
                             <form class="app-card app-card-account shadow-sm d-flex" action="OrderDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-4">
-                                    <input type="text" class="item-data" value="<%= o.getoID()%>" name="id" hidden>
+                                    <input type="text" class="item-data" value="<%= o.getoID()%>" name="oid" hidden>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Email</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuEmail()%>" maxlength="24" name="email" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Username</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuName()%>" maxlength="24" name="username" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Address</strong></div>
-                                                <input type="text" class="item-data" value="<%= o.getuAddress()%>" maxlength="24" name="address" readonly>
+                                                <input type="text" class="item-data" value="<%= o.getRecipientname()%>" maxlength="24" name="fullname">
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +199,31 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Date</strong></div>
-                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date" readonly>
+                                                <input type="date" class="item-data" value="<%= o.getDate()%>" maxlength="24" name="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label mb-2"><strong>Phone</strong></div>
+                                                <input type="text" class="item-data" value="<%= o.getPhone()%>" maxlength="24" name="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Address</strong></div>
+                                                <input type="text" class="item-data" value="<%= o.getAddress()%>" maxlength="24" name="address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Note</strong></div>
+                                                <input type="text" class="item-data" value="<%= o.getNote()%>" maxlength="24" name="note">
                                             </div>
                                         </div>
                                     </div>
@@ -206,19 +235,19 @@
                                                     if (o.isStatus().equalsIgnoreCase("Approved")) {
                                                 %>
                                                 <td class="cell"><span class="badge bg-success"><%= o.isStatus()%></span></td>
-                                                    <%} else if (o.isStatus().equalsIgnoreCase("Pending")) {%> 
-                                                <td class="cell"><span class="badge bg-warning"><%= o.isStatus()%></span></td>
                                                     <%} else if (o.isStatus().equalsIgnoreCase("Waiting")) {%>
-                                                <td class="cell"><span class="badge bg-info"><%= o.isStatus()%></span></td>
+                                                <td class="cell"><span class="badge bg-warning"><%= o.isStatus()%></span></td>
                                                     <%} else {%>
                                                 <td class="cell"><span class="badge bg-danger"><%= o.isStatus()%></span></td>
                                                     <%}%>
+                                                <input type="text" class="item-data" value="<%= o.isStatus()%>" name="status" hidden>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
+                                                <input class="btn app-btn-secondary" name="submit" type="submit" value="Update">
                                                 <input class="btn app-btn-secondary" name="submit" type="submit" value="Approved">
                                                 <input class="btn app-btn-secondary" name="submit" type="submit" value="Denied">
                                                 <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/OrderList">Cancel</a>
@@ -251,11 +280,16 @@
                                                                 <td class="cell">$<%= od.getPrice()%></td>
                                                                 <td class="cell"><%= od.getQuantity()%></td>
                                                                 <td class="cell">$<span class="total"><%=od.getPrice() * od.getQuantity()%></span></td>
+                                                                <td class="cell">
+                                                                    <input type="hidden" name="inID" value="<%=od.getInID()%>">
+                                                                    <!--<input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">-->
+                                                                </td>
                                                             </tr>
                                                             <%}%>
                                                         </tbody>
                                                     </table>
                                                     <div class="item-label"><strong>Total: </strong>$<%= o.getTotal()%></div>
+                                                    <input type="text" class="item-data" value="<%= o.getTotal()%>" name="total" hidden>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,6 +308,7 @@
 
         </div>
         <!-- Javascript -->
+        <script language="JavaScript" type="text/javascript" src= src="/js/order-detail.js"></script>
         <script src="../plugins/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 

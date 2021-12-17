@@ -219,8 +219,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Order> getAllOrderWithoutPending() {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where o.Status <> 'Pending'";
-
+        String query = "select oID , Recipientname, Address, Phone, Date, Total, Note, Status from foodwhale.order where Status <> 'Pending'";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -228,29 +227,11 @@ public class FoodWhaleDAO extends DBContext {
                 list.add(new Order(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDate(4),
-                        rs.getDouble(5),
-                        rs.getString(6)));
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
-    public ArrayList<Order> getAllOrder() {
-        ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID";
-
-        try {
-            ps = connection.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Order(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getDate(4),
-                        rs.getDouble(5),
-                        rs.getString(6)));
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getDouble(6),
+                        rs.getString(7),
+                        rs.getString(8)));
             }
         } catch (SQLException e) {
         }
@@ -259,7 +240,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public Order getOrderByID(int oID) throws Exception {
         Order order = new Order();
-        String xsql = "select o.oID , u.Email, u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where oID=?";
+        String xsql = "select oID , Recipientname, Address, Phone, Date, Total, Note, Status from foodwhale.order where oID=?";
 
         try {
             if (connection != null) {
@@ -268,12 +249,13 @@ public class FoodWhaleDAO extends DBContext {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     order.setoID(rs.getInt(1));
-                    order.setuEmail(rs.getString(2));
-                    order.setuName(rs.getString(3));
-                    order.setuAddress(rs.getString(4));
+                    order.setRecipientname(rs.getString(2));
+                    order.setAddress(rs.getString(3));
+                    order.setPhone(rs.getString(4));
                     order.setDate(rs.getDate(5));
                     order.setTotal(rs.getDouble(6));
-                    order.setStatus(rs.getString(7));
+                    order.setNote(rs.getString(7));
+                    order.setStatus(rs.getString(8));
                 }
             }
         } catch (SQLException e) {
@@ -438,6 +420,24 @@ public class FoodWhaleDAO extends DBContext {
             statement.setString(2, c.getDescription());
             statement.setString(3, c.getStatus());
             statement.setInt(4, c.getCategoryID());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateOrder(Order o) {
+        try {
+            String sql = "update foodwhale.order set Recipientname=?, Address=?,Phone=?,Date=?, Total=?, Note=?, Status = ? where oID=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, o.getRecipientname());
+            statement.setString(2, o.getAddress());
+            statement.setString(3, o.getPhone());
+            statement.setDate(4, o.getDate());
+            statement.setDouble(5, o.getTotal());
+            statement.setString(6, o.getNote());
+            statement.setString(7, o.isStatus());
+            statement.setInt(8, o.getoID());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(FoodWhaleDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -1497,8 +1497,7 @@ public class FoodWhaleDAO extends DBContext {
 
     public ArrayList<Order> getAllOrderbyUser(int uID) {
         ArrayList<Order> list = new ArrayList<>();
-        String query = "select o.oID , u.uName, u.Address, o.Date, o.Total, o.Status from foodwhale.order o inner join foodwhale.user u on o.uID = u.uID where o.uID=" + uID + "";
-
+        String query = "select oID , Recipientname, Address, Phone, Date, Total, Note, Status from foodwhale.order where uID=" + uID + "";
         try {
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
@@ -1506,9 +1505,11 @@ public class FoodWhaleDAO extends DBContext {
                 list.add(new Order(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDate(4),
-                        rs.getDouble(5),
-                        rs.getString(6)));
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getDouble(6),
+                        rs.getString(7),
+                        rs.getString(8)));
             }
         } catch (SQLException e) {
         }

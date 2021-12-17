@@ -27,7 +27,7 @@
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <script src="../DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
-            SimpleDateFormat sm = new SimpleDateFormat("dd-mm-yyyy");
+            SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
             ArrayList<Order> orderlist = (ArrayList<Order>) request.getAttribute("orderlist");
             ArrayList<Order_Detail> orderdetaillist = (ArrayList<Order_Detail>) request.getAttribute("orderdetaillist");
             Cookie cookie = null;
@@ -206,8 +206,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Order ID</th>
-                                                    <th>Username</th>
-                                                    <th>User Address</th>
+                                                    <th>Fullname</th>
+                                                    <th>Address</th>
+                                                    <th>Phone</th>
                                                     <th>Date</th>
                                                     <th>Total</th>
                                                     <th>Status</th>
@@ -220,9 +221,11 @@
                                                 %>
                                                 <tr>
                                                     <td class="cell"><%= u.getoID()%></td>
-                                                    <td class="cell"><span class="truncate"><%= u.getuName()%></span></td>
-                                                    <td class="cell"><%= u.getuAddress()%></td>
-                                                    <td class="cell"><%
+                                                    <td class="cell"><span class="truncate"><%= u.getRecipientname()%></span></td>
+                                                    <td class="cell"><%= u.getAddress()%></td>
+                                                    <td class="cell"><%= u.getPhone()%></td>
+                                                    <td class="cell">
+                                                        <%
                                                         String strDate = sm.format(u.getDate());
                                                         %> <%= strDate%></td>
                                                     <td class="cell"><%= u.getTotal()%></td>
