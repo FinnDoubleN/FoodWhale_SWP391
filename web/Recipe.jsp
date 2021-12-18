@@ -154,6 +154,15 @@
                     </h2>
                 </div>
                 <div class="heading_container heading_center">
+                    <div class ="row">
+                        <div class="col-md-4">
+                            <div class="btn-box" >
+                            <a href="PostRecipeController" >
+                                Create your own recipe
+                            </a>
+                        </div>
+                            </div>
+                        <div class="col-md-8" style="padding-top: 56px">
                     <form action="${pageContext.request.contextPath}/Recipe" method="post" class="search-box active">
                         <select name="option" class="search-option">
                             <%
@@ -188,6 +197,8 @@
                             <i class="fa fa-times active"></i>
                         </div>
                     </form>
+                        </div>
+                        </div>
                 </div>
                 <ul class="filters_menu">
                     <li class="active" data-filter="*">All</li>
