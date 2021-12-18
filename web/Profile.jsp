@@ -214,6 +214,18 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="user-option">
+                                    <div class="profile-header">
+                                        <a class="profile-link" href="PostedRecipe">
+                                            <div class="profile-img">
+                                                <img src="https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078" >
+                                            </div>
+                                            <div class="profile-text">
+                                                <span class="_text">Posted Recipe</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card mt-3">
                                 <ul class="list-group list-group-flush">

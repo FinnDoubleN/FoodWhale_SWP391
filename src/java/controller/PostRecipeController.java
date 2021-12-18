@@ -119,7 +119,7 @@ public class PostRecipeController extends HttpServlet {
         String diff = request.getParameter("rdiff");
         int time = Integer.parseInt(request.getParameter("rtime")) ;
         String des = request.getParameter("rdes");
-        String gui = request.getParameter("rgui1");
+        String gui = request.getParameter("rgui");
 //        dao.createUser(email, password, username, image, startDate, gender, address, phone, role);
 //        userlist = (ArrayList<User>) dao.getAllAccount();
 //        request.setAttribute("userlist", userlist);

@@ -163,7 +163,7 @@
             <div class="container">
                 <div class="heading_container heading_center">
                     <h2>
-                        Favourite Recipes
+                        Posted Recipes
                     </h2>
                 </div>
                 <ul class="filters_menu">
@@ -175,6 +175,10 @@
                     <li data-filter=".5">Hamburger</li>
                 </ul>
                 <div class="filters-content" style="height: fit-content">
+                     <%if (recipelist.size() == 0) {%>
+                                    <h1> You haven't posted any recipe yet</h1>
+                                    <%}%>
+                    
                     <div id="recipe" class="row grid">  
                         <%
                             for (Recipe r : recipelist) {

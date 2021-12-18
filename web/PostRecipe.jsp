@@ -161,7 +161,7 @@
                 </div>
                 <form action="PostRecipeController" method="POST">
                     <table class="table-condensed table-striped table">
-                        <caption><h1>Post Recipe</h1></caption>
+                        
                         <tbody>
                             <tr>
                                 <td>Recipe Name</td>
@@ -194,17 +194,11 @@
                                 <td><input type="text" name="rdes" value="" required/></td>
                             </tr>
                             <tr>
-                                <td>Guideline1</td>
-                                <td><input type="text" name="rgui1" value="" required/></td>
+                                <td>Guideline</td>
+                                
+                                 <td><textarea class="item-data" name="rgui" rows="4" cols="80"></textarea></td>
                             </tr>
-                            <tr>
-                                <td>Guideline2</td>
-                                <td><input type="text" name="rgui2" value="" required/></td>
-                            </tr>
-                            <tr>
-                                <td>Guideline3</td>
-                                <td><input type="text" name="rgui3" value="" required/></td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                     
