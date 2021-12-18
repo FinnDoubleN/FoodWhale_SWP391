@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Order_Detail"%>
@@ -35,6 +36,7 @@
         <link href="css/profile.css" rel="stylesheet" type="text/css"/>
         <script src="DataTables/DataTables-1.11.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <%
+            SimpleDateFormat sm = new SimpleDateFormat("dd-MM-yyyy");
             ArrayList<Order> orderdetail = (ArrayList<Order>) request.getAttribute("orderdetail");
             User u = (User) request.getAttribute("userdetail");
             Cookie cookie = null;
@@ -422,16 +424,18 @@
                             <div class="card mb-3 history hidden">
                                 <div class="wrap-profile-info col-md-12">
                                     <%if (orderdetail.size() == 0) {%>
-                                    <h3> You have't bought any thing yet</h3>
+                                    <h3> You haven't bought any thing yet</h3>
                                     <%}%>
                                     <%if (orderdetail.size() > 0) {%>                                    
                                     <table id="tableCart" class="table app-table-hover mb-0 text-left">
-                                        <thead>
+                                        <thead class="thead-dark">
                                             <tr>
                                                 <th>Order ID</th>
-                                                <th>Username</th>
-                                                <th>User Address</th>
+                                                
+                                                <th>Receiver</th>
+                                                <th>Received Address</th>
                                                 <th>Date</th>
+                                                <th>Status</th>
                                                 <th>Total</th>
                                                 <th></th>
                                             </tr>
@@ -439,11 +443,15 @@
                                         <tbody>
                                             <%for (Order od : orderdetail) {%>
                                             <tr>
-                                                <td><%=od.getoID()%></td>
-                                                <td><%=od.getuName()%></td>
-                                                <td>$<%=od.getuAddress()%></td>
-                                                <td><%=od.getDate()%></td>
-                                                <td><%=od.getTotal()%></td>
+                                                <td><%=od.getoID()%></td>                                                
+                                                <td><%=od.getRecipientname()%></td>
+                                                <td><%=od.getAddress()%></td>
+                                                <td >
+                                                        <%
+                                                        String strDate = sm.format(od.getDate());
+                                                        %> <%= strDate%></td>
+                                                <td><%=od.isStatus()%></td>
+                                                <td>$<%=od.getTotal()%></td>
                                                 <td>
                                                     <form action="OrderHistory" method="post">
                                                         <input type="hidden" name="oID" value="<%=od.getoID()%>">

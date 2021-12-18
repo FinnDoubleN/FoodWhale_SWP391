@@ -24,6 +24,7 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <%
             ArrayList<Recipe> recipelist = (ArrayList<Recipe>) request.getAttribute("recipelist");
             String searchData = (String) request.getAttribute("searchData");
@@ -68,6 +69,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/About">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/Contact">Contact</a>
                                 </li>
                                 <%
                                     if (ROLE.equalsIgnoreCase("") || ROLE.equalsIgnoreCase("user")) {
@@ -219,8 +223,16 @@
                                                 <%= r.getTime()%> min
                                             </h6>
                                             <form id="formDetail<%=r.getrID()%>" action="${pageContext.request.contextPath}/Recipe/Detail" method="post">
-                                                <a href="javascript:;" onclick="document.getElementById('formDetail<%=r.getrID()%>').submit(); alert('Added successful.')">
-                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                                <a href="javascript:;" onclick="Swal.fire(
+                                                                'Successful!',
+                                                                'Recipe Added',
+                                                                'success'
+                                                                ).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                document.getElementById('formDetail<%=r.getrID()%>').submit();
+                                                            }
+                                                        });
+                                                   ">                                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                     <g>
                                                     <g>
                                                     <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
@@ -257,22 +269,22 @@
                         %>
                     </div>
                 </div>
-                    <div class="row">
+                <div class="row">
                     <div class="col-md-6">
-                <div class="btn-box">
-                    <a href="#" id="view-more">
-                        View More
-                    </a>
-                </div>
+                        <div class="btn-box">
+                            <a href="#" id="view-more">
+                                View More
+                            </a>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                <div class="btn-box">
-                    <a href="FavouriteRecipe" >
-                        To Favourite List
-                    </a>
+                        <div class="btn-box">
+                            <a href="FavouriteRecipe" >
+                                To Favourite List
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                    </div>
-                    </div>
             </div>
         </section>
         <footer class="footer_section">
