@@ -198,15 +198,14 @@
                             
                             
                                 <div class="wrap-profile-info col-md-8">
-                                    <table class="table table-striped" border="1">
-                                        <thead class="thead-dark">
+                                    <table class="table " border="1">
+                                        <thead>
                                             <tr>
                                                 <th>Ingredient Name</th>
                                                 <th>Image</th>
                                                 <th>Quantity</th>
                                                 <th>Type</th>
-                                                <th>Price</th> 
-                                                <th>Total</th>
+                                                <th>Price</th>                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -216,10 +215,10 @@
                                                 <%for (Order_Detail od : orderlistdetail) {%>
                                                 <td><%=od.getInName()%></td>                                                
                                                 <td><img src="<%=od.getImage()%>" width="40" height="40"/></td>
-                                                <td><%=od.getQuantity()%></td>                                              
-                                                <td><%=od.getType()%></td>
+                                                <td>$<%=od.getQuantity()%></td>                                              
+                                                <td>$<%=od.getType()%></td>
                                                 <td>$<%=od.getPrice()%></td>
-                                                <td>$<%=(od.getPrice())*(od.getQuantity())%></td>
+                                                
                                             </tr>
                                             <%}%>
                                         </tbody>

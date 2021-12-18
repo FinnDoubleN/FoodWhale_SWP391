@@ -8,8 +8,6 @@ package controller;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,6 @@ import javax.servlet.http.HttpSession;
  * @author This PC
  */
 public class PreResetPasswordController extends HttpServlet {
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,7 +73,7 @@ public class PreResetPasswordController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             String email = dao.getEmailByUser(user);
-            dao.send(email, "WE SEND YOU RESET PASSWORD LINK FOR USER:"+user, "LINK:localhost:" + request.getServerPort() + "/FoodWhale391_SWP391/ResetPassword");
+            dao.send(email, "WE SEND YOU RESET PASSWORD LINK FOR USER:"+user, "LINK:localhost:" + request.getServerPort() + "/SWP391/ResetPassword");
             response.sendRedirect("Annouce.jsp");
         }else{
             request.setAttribute("mess", "Wrong username");

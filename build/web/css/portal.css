@@ -12487,11 +12487,3 @@ button.close:focus {
 #checkbox7 label:hover {
     background-color: #1e90ff;
 }
-
-.item-data {
-    resize: none;
-}
-
-.item-data:focus {
-    outline: none;
-}

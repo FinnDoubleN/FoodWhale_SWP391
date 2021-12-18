@@ -3,37 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/OrderDetail.jsp</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/PreResetPasswordController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/FavouriteRecipeController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/RecipeListController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/RecipeListDetailController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/Annouce.jsp</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/RecipeController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/CategoryListDetailController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/model/Order.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/dal/FoodWhaleDAO.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/LoginController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/Profile.jsp</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/IngredientDetailController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/ResetPasswordController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/OrderHistory.jsp</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/UserProfileController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/model/Order_Detail.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/model/Ingredient.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/OrderListController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/PostRecipeController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/RegisterController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/ResetPassword.jsp</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/RecipeDetailController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/Cart.jsp</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/LogoutController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/SendEmailController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/model/User.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/OrderDetailController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/src/java/controller/IngredientListController.java</file>
-            <file>file:/C:/Users/This%20PC/Downloads/FoodWhale_SWP391/web/enterCode.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/FavouriteRecipe.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/OrderHistory.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/RecipeDetailController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/RecipeDetail.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/IngredientDetailController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/FavouriteRecipeController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/Recipe.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/Ingredient.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/OrderListController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/OrderHistoryController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/dal/FoodWhaleDAO.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/OrderDetailController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/DeleteFavouriteRecipeController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/AddOrder.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/web/Profile.jsp</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/UserProfileController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/LogoutController.java</file>
+            <file>file:/C:/Users/This%20PC/Downloads/SWP391/src/java/controller/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

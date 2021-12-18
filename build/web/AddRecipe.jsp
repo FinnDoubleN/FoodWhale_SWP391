@@ -4,9 +4,6 @@
     Author     : Asus
 --%>
 
-<%@page import="model.Category"%>
-<%@page import="model.Ingredient"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +16,10 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <%
-            ArrayList<Ingredient> ingredient = (ArrayList<Ingredient>) request.getAttribute("ingredient");
-            ArrayList<Category> ingrecate = (ArrayList<Category>) request.getAttribute("ingrecate");
-            ArrayList<Category> reccate = (ArrayList<Category>) request.getAttribute("reccate");
+            Object object = request.getAttribute("categorycount");
+            int categorycount = Integer.parseInt(object.toString());
+            Object object2 = request.getAttribute("usercount");
+            int usercount = Integer.parseInt(object2.toString());
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
             String ROLE = "";
@@ -200,16 +198,9 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label mb-2"><strong>Ingredient Category</strong></div>
-                                                <select name="cID"> 
-                                                    <%
-                                                        for (Category cateingre : ingrecate) {
-                                                    %>
-                                                    <option value="<%=cateingre.getCategoryID()%>"><%=cateingre.getCname()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>                                            </div>
+                                                <div class="item-label mb-2"><strong>Category ID</strong></div>
+                                                <input type="number" step="1" min="1" max="<%=categorycount%>" class="item-data" name="cID">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
@@ -231,29 +222,18 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Recipe Category</strong></div>
-                                                <select name="uID"> 
-                                                    <%
-                                                        for (Category caterec : reccate) {
-                                                    %>
-                                                    <option value="<%=caterec.getCategoryID()%>"><%=caterec.getCname()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>                                            </div>
+                                                <div class="item-label"><strong>User ID</strong></div>
+                                                <input type="number" step="1" min="1" max="<%=usercount%>" class="item-data" name="uID" required>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                <textarea class="item-data" name="Description" cols="80"></textarea>
+                                                <input type="text" class="item-data" name="Description">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="app-card-footer p-4 mt-auto">
-                                        <input class="btn app-btn-secondary" type="submit" value="Create">
-                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
                                     </div>
                                 </div>
                                 <div class="app-card-body px-4 col-12 col-lg-6 align-self-end position-absolute">
@@ -263,8 +243,9 @@
                                                 <div class="item-label mb-2"><strong>Image</strong></div>
                                                 <div class="item-data">
                                                     <img class="profile-image" src="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=" alt="">
-                                                    <textarea class="item-data" name="image" style="width: 300px;"></textarea>
                                                 </div>
+                                                <br>
+                                                <input type="text" class="item-data" name="image">
                                             </div>
                                         </div>
                                     </div>
@@ -272,185 +253,13 @@
                                         <div class="row justify-content-between">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Guideline</strong></div>
-                                                <textarea class="item-data" name="Guideline" rows="4" cols="80"></textarea>
+                                                <input type="text" class="item-data" name="Guideline">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between">
-                                            <div class="item-label"><strong>Ingredient</strong></div>
-                                            <div class="col-auto" style="display: flex; flex-wrap: wrap;
-                                                 justify-content: space-between;">
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(1)">
-                                                        <select>
-                                                            <option>Select Seasoning</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(2)">
-                                                        <select>
-                                                            <option>Select Vegetable</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(3)">
-                                                        <select>
-                                                            <option>Select Cheese</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(4)">
-                                                        <select>
-                                                            <option>Select Sea Food</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(5)">
-                                                        <select>
-                                                            <option>Select Meat</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(6)">
-                                                        <select>
-                                                            <option>Select Oil</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="multiselect">
-                                                    <div class="selectBox" onclick="showCheckboxes(7)">
-                                                        <select>
-                                                            <option>Select Dough</option>
-                                                        </select>
-                                                        <div class="overSelect"></div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                            </div>
-                                            <div id="checkbox1">
-                                                <lable for="one">
-                                                    <%
-                                                        int s = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 1) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=s%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            s++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                            <div id="checkbox2">
-                                                <lable for="two">
-                                                    <%
-                                                        int v = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 2) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=v%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            v++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                            <div id="checkbox3">
-                                                <lable for="three">
-                                                    <%
-                                                        int c = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 3) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=c%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            c++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                            <div id="checkbox4">
-                                                <lable for="four">
-                                                    <%
-                                                        int f = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 4) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=f%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            f++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                            <div id="checkbox5">
-                                                <lable for="five">
-                                                    <%
-                                                        int m = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 5) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=m%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            m++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                            <div id="checkbox6">
-                                                <lable for="six">
-                                                    <%
-                                                        int o = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 6) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=o%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            o++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                            <div id="checkbox7">
-                                                <lable for="seven">
-                                                    <%
-                                                        int d = 1;
-                                                        for (Ingredient in : ingredient) {
-                                                            if (in.getCategoryID() == 7) {
-                                                    %>
-                                                    <input type="checkbox" id="<%=d%>" name="inID" value="<%=in.getInID()%>"/><%=in.getInName()%>
-                                                    <%
-                                                            }
-                                                            d++;
-                                                        }
-                                                    %>
-                                                </lable>
-                                            </div>
-                                        </div>
+                                    <div class="app-card-footer p-4 mt-auto">
+                                        <input class="btn app-btn-secondary" type="submit" value="Create">
+                                        <a class="btn app-btn-secondary" href="${pageContext.request.contextPath}/Dashboard/RecipeList">Cancel</a>
                                     </div>
                                 </div>
                             </form>
