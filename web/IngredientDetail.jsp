@@ -24,6 +24,7 @@
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="../css/style-new.css" rel="stylesheet" type="text/css" />
         <link href="../css/responsive.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <%
             ArrayList<Ingredient> ingredientlist = (ArrayList<Ingredient>) request.getAttribute("ingredientlist");
             Cookie cookie = null;
