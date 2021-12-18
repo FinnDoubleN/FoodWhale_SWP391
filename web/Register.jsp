@@ -180,8 +180,8 @@
                                     <img onclick="myFunction2()" src="img/eye2.jpg" width="30" height="30">
                                     <div class="enter">
                                         Gender :
-                                        &emsp;<input type="radio" name="gender" value="1">Male
-                                        &emsp;<input type="radio" name="gender" value="0">Female
+                                        &emsp;<input type="radio" name="gender" value="m">Male
+                                        &emsp;<input type="radio" name="gender" value="f">Female
                                     </div>
                                     <input class="text " type="email" name="email" placeholder="Email" required="">
                                     <input class="text" type="text" name="phonenumber" placeholder="Phone Number" required="">
