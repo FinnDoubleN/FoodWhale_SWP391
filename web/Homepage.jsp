@@ -155,14 +155,17 @@
                                     <div class="col-md-7 col-lg-6 ">
                                         <div class="detail-box">
                                             <h1>
-                                                Fast Food Restaurant
+                                                Whale Recipe
                                             </h1>
                                             <p>
-                                                Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                                Have a lot of well recipe.
+                                            </p>
+                                            <p>
+                                                Place for you to find your inner Master Chef.
                                             </p>
                                             <div class="btn-box">
-                                                <a href="" class="btn1">
-                                                    Order Now
+                                                <a class="btn1" href="${pageContext.request.contextPath}/Recipe">
+                                                    Recipe
                                                 </a>
                                             </div>
                                         </div>
@@ -176,13 +179,16 @@
                                     <div class="col-md-7 col-lg-6 ">
                                         <div class="detail-box">
                                             <h1>
-                                                Fast Food Restaurant
+                                                Whale Ingredient
                                             </h1>
                                             <p>
-                                                Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                                Have a lot of well ingredient.
+                                            </p>
+                                            <p>
+                                                Can't find the right ingredient ?
                                             </p>
                                             <div class="btn-box">
-                                                <a href="" class="btn1">
+                                                <a href="${pageContext.request.contextPath}/Ingredient" class="btn1">
                                                     Order Now
                                                 </a>
                                             </div>
@@ -197,13 +203,16 @@
                                     <div class="col-md-7 col-lg-6 ">
                                         <div class="detail-box">
                                             <h1>
-                                                Fast Food Restaurant
+                                                Whale About
                                             </h1>
                                             <p>
-                                                Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                                Want to know more about us ?
+                                            </p>
+                                            <p>
+                                                Want to know more post your own recipe and ingredient ?
                                             </p>
                                             <div class="btn-box">
-                                                <a href="" class="btn1">
+                                                <a href="${pageContext.request.contextPath}/About" class="btn1">
                                                     Order Now
                                                 </a>
                                             </div>
@@ -421,14 +430,22 @@
                         <div class="detail-box">
                             <div class="heading_container">
                                 <h2>
-                                    We Are Feane
+                                    We Are FoodWhale
                                 </h2>
                             </div>
                             <p>
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,
-                                you need to be sure there isn't anything embarrassing hidden in the middle of text. All
+                                We are a team from FPT University. We called ourselve FoodWhale
+                                which mean there are a lot of food recipe and ingredient in this website. It's also the way
+                                we play the word "well" with "whale".
                             </p>
-                            <a href="">
+                            <p>
+                                If you like our website, you can contact or feedback us through the email
+                                or phone.
+                            </p>
+                            <p>
+                                Remember, our knowledge about food is like a fish in a sea.
+                            </p>
+                            <a href="${pageContext.request.contextPath}/About">
                                 Read More
                             </a>
                         </div>
@@ -445,22 +462,22 @@
                                 Contact Us
                             </h4>
                             <div class="contact_link_box">
-                                <a href="">
+                                <a href="${pageContext.request.contextPath}/Contact">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     <span>
-                                        Location
+                                        VietNam
                                     </span>
                                 </a>
                                 <a href="">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span>
-                                        Call +01 1234567890
+                                        Call 0982765291
                                     </span>
                                 </a>
                                 <a href="">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                     <span>
-                                        demo@gmail.com
+                                        FoodWhale@gmail.com
                                     </span>
                                 </a>
                             </div>
@@ -469,10 +486,10 @@
                     <div class="col-md-4 footer-col">
                         <div class="footer_detail">
                             <a href="" class="footer-logo">
-                                Feane
+                                FoodWhale
                             </a>
                             <p>
-                                Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                                We are a team from SE1508 in FPT University
                             </p>
                             <div class="footer_social">
                                 <a href="">
@@ -495,20 +512,19 @@
                     </div>
                     <div class="col-md-4 footer-col">
                         <h4>
-                            Opening Hours
+                            We welcome you
                         </h4>
                         <p>
-                            Everyday
+                            Any day
                         </p>
                         <p>
-                            10.00 Am -10.00 Pm
+                            Any time
                         </p>
                     </div>
                 </div>
                 <div class="footer-info">
                     <p>
-                        &copy; <span id="displayYear"></span> All Rights Reserved By
-                        <a href="https://html.design/">Free Html Templates</a>
+                        &copy; <span id="displayYear"></span> FoodWhale
                     </p>
                 </div>
             </div>

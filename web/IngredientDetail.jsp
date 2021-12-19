@@ -251,22 +251,22 @@
                                 Contact Us
                             </h4>
                             <div class="contact_link_box">
-                                <a href="">
+                                <a href="${pageContext.request.contextPath}/Contact">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     <span>
-                                        Location
+                                        VietNam
                                     </span>
                                 </a>
                                 <a href="">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span>
-                                        Call +01 1234567890
+                                        Call 0982765291
                                     </span>
                                 </a>
                                 <a href="">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                     <span>
-                                        demo@gmail.com
+                                        FoodWhale@gmail.com
                                     </span>
                                 </a>
                             </div>
@@ -275,10 +275,10 @@
                     <div class="col-md-4 footer-col">
                         <div class="footer_detail">
                             <a href="" class="footer-logo">
-                                Feane
+                                FoodWhale
                             </a>
                             <p>
-                                Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                                We are a team from SE1508 in FPT University
                             </p>
                             <div class="footer_social">
                                 <a href="">
@@ -301,20 +301,19 @@
                     </div>
                     <div class="col-md-4 footer-col">
                         <h4>
-                            Opening Hours
+                            We welcome you
                         </h4>
                         <p>
-                            Everyday
+                            Any day
                         </p>
                         <p>
-                            10.00 Am -10.00 Pm
+                            Any time
                         </p>
                     </div>
                 </div>
                 <div class="footer-info">
                     <p>
-                        &copy; <span id="displayYear"></span> All Rights Reserved By
-                        <a href="https://html.design/">Free Html Templates</a>
+                        &copy; <span id="displayYear"></span> FoodWhale
                     </p>
                 </div>
             </div>
