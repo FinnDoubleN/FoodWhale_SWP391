@@ -187,7 +187,10 @@
                                     <input class="text" type="text" name="phonenumber" placeholder="Phone Number" required="">
                                     <a style="color: white">Date of birth :</a>
                                     <input class="text" type="date" name="age" placeholder="Date of birth" required="">
-                                    <input class="text" type="text" name="image" placeholder="Image" required="">
+                                    <div class="enter">
+                                        Image
+                                        </div>
+                                    <input class="text" type="file" name="image" placeholder="Image" required="">
                                     <input class="text" type="text" name="address" placeholder="Address" required="">
                                     <div class="wthree-text">
                                         <label class="enter">

@@ -176,6 +176,10 @@
                     <li data-filter=".5">Hamburger</li>
                 </ul>
                 <div class="filters-content" style="height: fit-content">
+                    <%if (recipelist.size() == 0) {%>
+                                    <h1> You haven't added any recipe to favourite list yet</h1>
+                                    
+                                    <%}%>
                     <div id="recipe" class="row grid">  
                         <%
                             for (Recipe r : recipelist) {

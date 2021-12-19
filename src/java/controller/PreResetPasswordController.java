@@ -76,6 +76,8 @@ public class PreResetPasswordController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             String email = dao.getEmailByUser(user);
+            
+           
             dao.send(email, "WE SEND YOU RESET PASSWORD LINK FOR USER:"+user, "LINK:localhost:" + request.getServerPort() + "/FoodWhale391_SWP391/ResetPassword");
             response.sendRedirect("Annouce.jsp");
         }else{
