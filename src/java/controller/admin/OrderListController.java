@@ -1,30 +1,40 @@
+package controller.admin;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
-
+import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Order;
+import model.Order_Detail;
 
 /**
  *
  * @author Asus
  */
-public class AddOrderController extends HttpServlet {
+public class OrderListController extends HttpServlet {
 
-    private String getCookieByName(Cookie[] cookies, String name) {
+    FoodWhaleDAO dao = new FoodWhaleDAO();
+    ArrayList<Order> orderlist = new ArrayList<Order>();
+    Order order = new Order();
+
+    private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(name)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -65,7 +75,9 @@ public class AddOrderController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/AddOrder.jsp").forward(request, response);
+            orderlist = (ArrayList<Order>) dao.getAllOrderWithoutPending();
+            request.setAttribute("orderlist", orderlist);
+            request.getRequestDispatcher("/OrderList.jsp").forward(request, response);
         }
     }
 
@@ -80,7 +92,31 @@ public class AddOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int oID = Integer.parseInt(request.getParameter("oID"));
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("View")) {
+                ArrayList<Order_Detail> orderlistdetail = dao.getUserCart(oID);
+                request.setAttribute("orderlistdetail", orderlistdetail);
+                order = dao.getOrderByID(oID);
+                request.setAttribute("order", order);
+                request.getRequestDispatcher("/OrderDetail.jsp").forward(request, response);
+            } else if (submit.equalsIgnoreCase("Denied") || submit.equalsIgnoreCase("Approved")) {
+                String status = "";
+                if (submit.equalsIgnoreCase("Denied")) {
+                    status = "Denied";
+                } else {
+                    status = "Approved";
+                }
+                Order o = new Order(oID, status);
+                dao.OrderDelete(o);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/OrderList");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/Dashboard/OrderList");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -3,34 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
+import model.Category;
+import model.Ingredient;
 
 /**
  *
  * @author Asus
  */
-public class AddAccountController extends HttpServlet {
+public class IngredientListController extends HttpServlet {
 
-    ArrayList<User> userlist = new ArrayList<User>();
+    ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
+    Ingredient ingredientlistdetail = new Ingredient();
+    ArrayList<Category> ingrecate = new ArrayList<>();
 
-    private String getCookieByName(Cookie[] cookies, String name) {
+    private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(name)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -71,7 +75,10 @@ public class AddAccountController extends HttpServlet {
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            ingredientList = (ArrayList<Ingredient>) dao.getIngredientWithCategory();
+            request.setAttribute("ingredientList", ingredientList);
+            request.getRequestDispatcher("/IngredientList.jsp").forward(request, response);
         }
     }
 
@@ -86,30 +93,32 @@ public class AddAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FoodWhaleDAO dao = new FoodWhaleDAO();
-        String image = request.getParameter("image");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String username = request.getParameter("username");
-        String fullname = request.getParameter("fullname");
-        String gender = request.getParameter("gender");
-        String date = request.getParameter("date");
-        Date startDate = Date.valueOf(date);
-        String address = request.getParameter("address");
-        String phone = request.getParameter("phone");
-        String role = request.getParameter("role");
-        String sname = request.getParameter("sname");
-        if (gender == null || gender.equalsIgnoreCase("")) {
-            gender = "";
+        try {
+            int inID = Integer.parseInt(request.getParameter("inID"));
+            String submit = request.getParameter("submit");
+            FoodWhaleDAO dao = new FoodWhaleDAO();
+            if (submit.equalsIgnoreCase("View")) {
+                ingrecate = dao.getAllCategoryIngredient();
+                request.setAttribute("ingrecate", ingrecate);
+                ingredientlistdetail = dao.getIngredientDetailByID(inID);
+                request.setAttribute("ingredientlistdetail", ingredientlistdetail);
+                request.getRequestDispatcher("/IngredientListDetail.jsp").forward(request, response);
+            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
+                String status = "";
+                if (submit.equalsIgnoreCase("Delete")) {
+                    status = "Delete";
+                } else {
+                    status = "Active";
+                }
+                Ingredient in = new Ingredient(inID, status);
+                dao.IngredientDelete(in);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(IngredientListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(image == null || image.equalsIgnoreCase("")){
-            image="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
-        }
-        if (sname == null || sname.equalsIgnoreCase("")) {
-            sname = "";
-        }
-        dao.createUser(email, password, username, fullname, image, startDate, gender, address, phone, role, sname);
-        response.sendRedirect(request.getContextPath() + "/Dashboard/AccountList");
     }
 
     /**

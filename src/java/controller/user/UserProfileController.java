@@ -3,35 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.user;
 
+import javax.servlet.http.Cookie;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Ingredient;
+import model.Order;
 import model.Order_Detail;
-import model.Recipe;
 import model.User;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class CartController extends HttpServlet {
+public class UserProfileController extends HttpServlet {
 
-    ArrayList<Recipe> recipe = new ArrayList<>();
-    ArrayList<Ingredient> ingredient = new ArrayList<>();
+    User userdetail = new User();
+    ArrayList<Order> orderdetail = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -53,12 +51,12 @@ public class CartController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
         }
     }
 
@@ -78,19 +76,18 @@ public class CartController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             String role = getCookieByName(cookies, "ROLE");
             String username = getCookieByName(cookies, "USERNAME");
-            FoodWhaleDAO dao = new FoodWhaleDAO();
             if (role != null && !role.equalsIgnoreCase("") || username != null && !username.equalsIgnoreCase("")) {
-                int oID = dao.checkUserOrder(username);
-                User profile = dao.getProfileByUsername(username);
-                ArrayList<Order_Detail> orderdetail = dao.getUserCart(oID);
-                request.setAttribute("profile", profile);
+                FoodWhaleDAO DAO = new FoodWhaleDAO();
+                userdetail = DAO.getProfileByUsername(username);
+                orderdetail = (ArrayList<Order>) DAO.getAllOrderbyUser(userdetail.uID);
                 request.setAttribute("orderdetail", orderdetail);
-                request.getRequestDispatcher("Cart.jsp").forward(request, response);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
             } else {
                 response.sendRedirect("Login");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,49 +104,52 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         try {
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            Cookie[] cookies = request.getCookies();
-            String username = getCookieByName(cookies, "USERNAME");
-            String action = request.getParameter("action");
-            String total = request.getParameter("total");
-            int oID = dao.checkUserOrder(username);
-            String inID = request.getParameter("inID");
-            User user = dao.getProfileByUsername(username);
-            if (action != null) {
-                if (action.equalsIgnoreCase("up")) {
-                    dao.addQuantity(oID, Integer.parseInt(inID));
-                    dao.updateTotal(oID, Integer.parseInt(total));
-                } else if (action.equalsIgnoreCase("down")) {
-                    dao.minusQuantity(oID, Integer.parseInt(inID));
-                    dao.updateTotal(oID, Integer.parseInt(total));
-                } else if (action.equalsIgnoreCase("delete")) {
-                    dao.deleteIngredient(oID, Integer.parseInt(inID));
-                } else if (action.equalsIgnoreCase("buy")) {
-                    if (total == null || total.equalsIgnoreCase("")) {
-                        total = "0";
-                        dao.updateTotal(oID, Integer.parseInt(total));
-                    }
-                    if (dao.checkOrderEmpty(oID)) {
-                        try (PrintWriter out = response.getWriter()) {
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('There is nothing to buy :(');");
-                            out.println("location='" + request.getContextPath() + "/Cart';");
-                            out.println("</script>");
-                        }
-                    } else {
-                        dao.updateTotal(oID, Integer.parseInt(total));
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        LocalDate localDate = LocalDate.now();
-                        String date = dtf.format(localDate);
-                        dao.updateOrderStatus(oID);
-                        dao.createOrder(user.getuID(), user.getFullname(), user.getAddress(), user.getPhone(), date);
-                        response.sendRedirect(request.getContextPath() + "/Cart");
+            String action = request.getParameter("Action");
+            String username = request.getParameter("username");
+            if (action != null && action.equalsIgnoreCase("Update")) {
+                int id = Integer.parseInt(request.getParameter("uID"));
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+                String fullname = request.getParameter("fullname");
+                String address = request.getParameter("address");
+                String gender = request.getParameter("gender");
+                String date = request.getParameter("date");
+                Date startDate = Date.valueOf(date);
+                User u = new User(id, email, username, fullname, startDate, gender, address, phone);
+                dao.updateUserProfile(u);
+                userdetail = dao.getProfileByUsername(username);
+                orderdetail = (ArrayList<Order>) dao.getAllOrderbyUser(userdetail.uID);
+                request.setAttribute("orderdetail", orderdetail);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            }
+            if (action != null && action.equalsIgnoreCase("ChangePW")) {
+                String newPass = request.getParameter("newPass");
+                String confirmPass = request.getParameter("confirmPass");
+                if (newPass != null && confirmPass != null) {
+                    if (newPass.equals(confirmPass)) {
+                        dao.updatePassword(newPass, username);
                     }
                 }
-            } else {
-                response.sendRedirect(request.getContextPath() + "/Cart");
+                userdetail = dao.getProfileByUsername(username);
+                orderdetail = (ArrayList<Order>) dao.getAllOrderbyUser(userdetail.uID);
+                request.setAttribute("orderdetail", orderdetail);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            }
+            if (action != null && action.equalsIgnoreCase("checkPW")) {
+                String password = request.getParameter("curr");
+                User u = dao.getProfileByUsername(username);
+                if (password.equals(u.getPassword())) {
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.getWriter().write("Success");
+                } else {
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.getWriter().write("Error");
+                }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

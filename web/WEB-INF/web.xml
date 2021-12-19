@@ -13,47 +13,47 @@
     </filter-mapping>
     <servlet>
         <servlet-name>AdminDashboardController</servlet-name>
-        <servlet-class>controller.AdminDashboardController</servlet-class>
+        <servlet-class>controller.admin.AdminDashboardController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccountListController</servlet-name>
-        <servlet-class>controller.AccountListController</servlet-class>
+        <servlet-class>controller.admin.AccountListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddAccountController</servlet-name>
-        <servlet-class>controller.AddAccountController</servlet-class>
+        <servlet-class>controller.admin.AddAccountController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RecipeListController</servlet-name>
-        <servlet-class>controller.RecipeListController</servlet-class>
+        <servlet-class>controller.admin.RecipeListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddRecipeController</servlet-name>
-        <servlet-class>controller.AddRecipeController</servlet-class>
+        <servlet-class>controller.admin.AddRecipeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>IngredientListController</servlet-name>
-        <servlet-class>controller.IngredientListController</servlet-class>
+        <servlet-class>controller.admin.IngredientListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditProfileController</servlet-name>
-        <servlet-class>controller.EditProfileController</servlet-class>
+        <servlet-class>controller.user.EditProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddIngredientController</servlet-name>
-        <servlet-class>controller.AddIngredientController</servlet-class>
+        <servlet-class>controller.admin.AddIngredientController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CategoryListController</servlet-name>
-        <servlet-class>controller.CategoryListController</servlet-class>
+        <servlet-class>controller.admin.CategoryListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddCategoryController</servlet-name>
-        <servlet-class>controller.AddCategoryController</servlet-class>
+        <servlet-class>controller.admin.AddCategoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OrderListController</servlet-name>
-        <servlet-class>controller.OrderListController</servlet-class>
+        <servlet-class>controller.admin.OrderListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomepageController</servlet-name>
@@ -77,11 +77,11 @@
     </servlet>
     <servlet>
         <servlet-name>AccountDetailController</servlet-name>
-        <servlet-class>controller.AccountDetailController</servlet-class>
+        <servlet-class>controller.admin.AccountDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserProfileController</servlet-name>
-        <servlet-class>controller.UserProfileController</servlet-class>
+        <servlet-class>controller.user.UserProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
@@ -101,7 +101,7 @@
     </servlet>
     <servlet>
         <servlet-name>CartController</servlet-name>
-        <servlet-class>controller.CartController</servlet-class>
+        <servlet-class>controller.user.CartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PreResetPasswordController</servlet-name>
@@ -113,7 +113,7 @@
     </servlet>
     <servlet>
         <servlet-name>OrderDetailController</servlet-name>
-        <servlet-class>controller.OrderDetailController</servlet-class>
+        <servlet-class>controller.admin.OrderDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RecipeDetailController</servlet-name>
@@ -125,43 +125,43 @@
     </servlet>
     <servlet>
         <servlet-name>RecipeListDetailController</servlet-name>
-        <servlet-class>controller.RecipeListDetailController</servlet-class>
+        <servlet-class>controller.admin.RecipeListDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>IngredientListDetailController</servlet-name>
-        <servlet-class>controller.IngredientListDetailController</servlet-class>
+        <servlet-class>controller.admin.IngredientListDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostRecipeController</servlet-name>
-        <servlet-class>controller.PostRecipeController</servlet-class>
+        <servlet-class>controller.user.PostRecipeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FavouriteRecipeController</servlet-name>
-        <servlet-class>controller.FavouriteRecipeController</servlet-class>
+        <servlet-class>controller.user.FavouriteRecipeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostedRecipeController</servlet-name>
-        <servlet-class>controller.PostedRecipeController</servlet-class>
+        <servlet-class>controller.user.PostedRecipeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CategoryListDetailController</servlet-name>
-        <servlet-class>controller.CategoryListDetailController</servlet-class>
+        <servlet-class>controller.admin.CategoryListDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddOrderController</servlet-name>
-        <servlet-class>controller.AddOrderController</servlet-class>
+        <servlet-class>controller.admin.AddOrderController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OrderHistoryController</servlet-name>
-        <servlet-class>controller.OrderHistoryController</servlet-class>
+        <servlet-class>controller.user.OrderHistoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteFavouriteRecipeController</servlet-name>
-        <servlet-class>controller.DeleteFavouriteRecipeController</servlet-class>
+        <servlet-class>controller.user.DeleteFavouriteRecipeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
-        <servlet-class>controller.ChangePassword</servlet-class>
+        <servlet-class>controller.user.ChangePassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
@@ -311,7 +311,7 @@
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>EditProfileController</servlet-name>
         <url-pattern>/EditProfileController</url-pattern>
     </servlet-mapping>

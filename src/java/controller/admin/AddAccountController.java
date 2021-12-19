@@ -3,45 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Order;
-import model.Order_Detail;
 import model.User;
 
 /**
  *
- * @author This PC
+ * @author Asus
  */
-public class OrderHistoryController extends HttpServlet {
-    FoodWhaleDAO DAO = new FoodWhaleDAO();
-    ArrayList<Order> orderlist = new ArrayList<Order>();
-    User userdetail = new User();
-    
-    Order order = new Order();
-    private String getCookieByName(Cookie[] cookies, String check) {
+public class AddAccountController extends HttpServlet {
+
+    ArrayList<User> userlist = new ArrayList<User>();
+
+    private String getCookieByName(Cookie[] cookies, String name) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
+            if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getValue();
             }
         }
         return null;
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,15 +51,6 @@ public class OrderHistoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet OrderHistoryController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet OrderHistoryController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -80,11 +66,13 @@ public class OrderHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         
-                  
-        
-        
-        
+        Cookie[] cookies = request.getCookies();
+        String role = getCookieByName(cookies, "ROLE");
+        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+            response.sendRedirect(request.getContextPath() + "/Homepage");
+        } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+            request.getRequestDispatcher("/AddAccount.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -98,21 +86,30 @@ public class OrderHistoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                       try {
-            
-            
-           Cookie[] cookies = request.getCookies();
-          String username = getCookieByName(cookies, "USERNAME");
-          int oID = Integer.parseInt(request.getParameter("oID"));
-              ArrayList<Order_Detail> orderlistdetail = DAO.getUserCart(oID);
-              request.setAttribute("orderlistdetail", orderlistdetail);                            
-               userdetail = DAO.getProfileByUsername(username);               
-              request.setAttribute("userdetail", userdetail);
-              request.getRequestDispatcher("OrderHistory.jsp").forward(request, response);
-          
-      }catch (Exception ex) {
-          Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
-     }
+        FoodWhaleDAO dao = new FoodWhaleDAO();
+        String image = request.getParameter("image");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String username = request.getParameter("username");
+        String fullname = request.getParameter("fullname");
+        String gender = request.getParameter("gender");
+        String date = request.getParameter("date");
+        Date startDate = Date.valueOf(date);
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String role = request.getParameter("role");
+        String sname = request.getParameter("sname");
+        if (gender == null || gender.equalsIgnoreCase("")) {
+            gender = "";
+        }
+        if(image == null || image.equalsIgnoreCase("")){
+            image="https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
+        }
+        if (sname == null || sname.equalsIgnoreCase("")) {
+            sname = "";
+        }
+        dao.createUser(email, password, username, fullname, image, startDate, gender, address, phone, role, sname);
+        response.sendRedirect(request.getContextPath() + "/Dashboard/AccountList");
     }
 
     /**

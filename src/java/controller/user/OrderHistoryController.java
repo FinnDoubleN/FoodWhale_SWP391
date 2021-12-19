@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.user;
 
+import controller.admin.OrderListController;
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,17 +18,20 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Recipe_Like;
+import model.Order;
+import model.Order_Detail;
 import model.User;
 
 /**
  *
  * @author This PC
  */
-public class DeleteFavouriteRecipeController extends HttpServlet {
-    ArrayList<Recipe_Like> likelist = new ArrayList<>();
+public class OrderHistoryController extends HttpServlet {
     FoodWhaleDAO DAO = new FoodWhaleDAO();
+    ArrayList<Order> orderlist = new ArrayList<Order>();
     User userdetail = new User();
+    
+    Order order = new Order();
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
@@ -56,10 +60,10 @@ public class DeleteFavouriteRecipeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteFavouriteRecipeController</title>");            
+            out.println("<title>Servlet OrderHistoryController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteFavouriteRecipeController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet OrderHistoryController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,7 +81,11 @@ public class DeleteFavouriteRecipeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         
+                  
+        
+        
+        
     }
 
     /**
@@ -91,20 +99,22 @@ public class DeleteFavouriteRecipeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         Cookie[] cookies = request.getCookies();
-        String rID= request.getParameter("recID");        
-        String username = getCookieByName(cookies, "USERNAME");
-        try {
-            userdetail = DAO.getProfileByUsername(username);
-        } catch (SQLException ex) {
-            Logger.getLogger(FavouriteRecipeController.class.getName()).log(Level.SEVERE, null, ex);
-        }                  
-            DAO.deleteFavRecipe(Integer.parseInt(rID), userdetail.uID);
+                       try {
             
-        
-        response.sendRedirect(request.getContextPath() + "/FavouriteRecipe");
-        }
-    
+            
+           Cookie[] cookies = request.getCookies();
+          String username = getCookieByName(cookies, "USERNAME");
+          int oID = Integer.parseInt(request.getParameter("oID"));
+              ArrayList<Order_Detail> orderlistdetail = DAO.getUserCart(oID);
+              request.setAttribute("orderlistdetail", orderlistdetail);                            
+               userdetail = DAO.getProfileByUsername(username);               
+              request.setAttribute("userdetail", userdetail);
+              request.getRequestDispatcher("OrderHistory.jsp").forward(request, response);
+          
+      }catch (Exception ex) {
+          Logger.getLogger(OrderListController.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }
 
     /**
      * Returns a short description of the servlet.

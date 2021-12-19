@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -16,19 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Category;
-import model.Ingredient;
-import model.Recipe;
 
 /**
  *
  * @author Asus
  */
-public class AddRecipeController extends HttpServlet {
+public class AddIngredientController extends HttpServlet {
 
     FoodWhaleDAO dao = new FoodWhaleDAO();
-    ArrayList<Ingredient> ingredient = new ArrayList<>();
     ArrayList<Category> ingrecate = new ArrayList<>();
-    ArrayList<Category> reccate = new ArrayList<>();
 
     private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
@@ -73,20 +68,14 @@ public class AddRecipeController extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
-        int usercount = dao.countUser();
-        request.setAttribute("usercount", usercount);
-        int categorycount = dao.countCategoryRecipe();
+        int categorycount = dao.countCategoryIngredient();
         request.setAttribute("categorycount", categorycount);
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
             response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
             ingrecate = dao.getAllCategoryIngredient();
-            reccate = dao.getAllCategoryRecipe();
-            ingredient = dao.getIngredientList();
             request.setAttribute("ingrecate", ingrecate);
-            request.setAttribute("reccate", reccate);
-            request.setAttribute("ingredient", ingredient);
-            request.getRequestDispatcher("/AddRecipe.jsp").forward(request, response);
+            request.getRequestDispatcher("/AddIngredient.jsp").forward(request, response);
         }
     }
 
@@ -102,27 +91,17 @@ public class AddRecipeController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String image = request.getParameter("image");
-        String rName = request.getParameter("rName");
+        String inName = request.getParameter("inName");
         int cID = Integer.parseInt(request.getParameter("cID"));
-        String Difficulty = request.getParameter("Difficulty");
-        int Time = Integer.parseInt(request.getParameter("Time"));
-        int uID = Integer.parseInt(request.getParameter("uID"));
+        String Type = request.getParameter("Type");
+        double Price = Double.parseDouble(request.getParameter("Money"));
         String Description = request.getParameter("Description");
         String Guideline = request.getParameter("Guideline");
         if (image == null || image.equalsIgnoreCase("")) {
             image = "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744004?b=1&k=20&m=1016744004&s=612x612&w=0&h=lsnLrde_RztsCmr0SyYMOxj8JqzF8qvDmPDWWILR1ys=";
         }
-        dao.createRecipe(image, rName, cID, Difficulty, Time, uID, Description, Guideline);
-        String inID[] = request.getParameterValues("inID");
-        ArrayList<Recipe> recipe = dao.getAllRecipe();
-        for (Recipe rec : recipe) {
-            if (rec.getrName().equalsIgnoreCase(rName)) {
-                for (int i = 0; i < inID.length; i++) {
-                    dao.addIngredientRecipe(rec.getrID(), Integer.parseInt(inID[i]));
-                }
-            }
-        }
-        response.sendRedirect(request.getContextPath() + "/Dashboard/RecipeList");
+        dao.createIngredient(inName, image, Type, Price, cID, Description, Guideline);
+        response.sendRedirect(request.getContextPath() + "/Dashboard/IngredientList");
     }
 
     /**

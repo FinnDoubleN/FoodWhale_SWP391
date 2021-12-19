@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Asus
  */
-public class AdminDashboardController extends HttpServlet {
+public class AddOrderController extends HttpServlet {
 
-    private String getCookieByName(Cookie[] cookies, String check) {
+    private String getCookieByName(Cookie[] cookies, String name) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(check)) {
+            if (cookie.getName().equalsIgnoreCase(name)) {
                 return cookie.getValue();
             }
         }
@@ -63,9 +63,9 @@ public class AdminDashboardController extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String role = getCookieByName(cookies, "ROLE");
         if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath()+"/Homepage");
+            response.sendRedirect(request.getContextPath() + "/Homepage");
         } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
-            request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/AddOrder.jsp").forward(request, response);
         }
     }
 
@@ -80,11 +80,7 @@ public class AdminDashboardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null) {
-            response.sendRedirect("Homepage");
-        }
+        processRequest(request, response);
     }
 
     /**

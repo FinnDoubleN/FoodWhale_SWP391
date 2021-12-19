@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.admin;
 
 import dal.FoodWhaleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,19 +21,18 @@ import model.User;
 
 /**
  *
- * @author Asus
+ * @author ADMIN
  */
-public class AccountListController extends HttpServlet {
+public class AccountDetailController extends HttpServlet {
 
-    ArrayList<User> userlist = new ArrayList<User>();
     User userdetail = new User();
 
-    private String getCookieByName(Cookie[] cookies, String name) {
+    private String getCookieByName(Cookie[] cookies, String check) {
         if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equalsIgnoreCase(name)) {
+            if (cookie.getName().equalsIgnoreCase(check)) {
                 return cookie.getValue();
             }
         }
@@ -49,7 +49,7 @@ public class AccountListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -68,20 +68,20 @@ public class AccountListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String role = getCookieByName(cookies, "ROLE");
-        if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
-            response.sendRedirect(request.getContextPath() + "/Homepage");
-        } else if (role.equalsIgnoreCase("staff")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            userlist = (ArrayList<User>) dao.getAllCustomer();
-            request.setAttribute("userlist", userlist);
-            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
-        } else if (role.equalsIgnoreCase("admin")) {
-            FoodWhaleDAO dao = new FoodWhaleDAO();
-            userlist = (ArrayList<User>) dao.getAllAccount();
-            request.setAttribute("userlist", userlist);
-            request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+        try {
+            Cookie[] cookies = request.getCookies();
+            String role = getCookieByName(cookies, "ROLE");
+            if (role == null || role.equalsIgnoreCase("user") || role.equalsIgnoreCase("")) {
+                response.sendRedirect(request.getContextPath() + "/Homepage");
+            } else if (role.equalsIgnoreCase("staff") || role.equalsIgnoreCase("admin")) {
+                int id = Integer.parseInt(request.getParameter("uID"));
+                FoodWhaleDAO dao = new FoodWhaleDAO();
+                userdetail = dao.getUserByID(id);
+                request.setAttribute("userdetail", userdetail);
+                request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,29 +97,35 @@ public class AccountListController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("uID"));
-            String submit = request.getParameter("submit");
+            Cookie[] cookies = request.getCookies();
+            String ROLE = getCookieByName(cookies, "ROLE");
             FoodWhaleDAO dao = new FoodWhaleDAO();
-            if (submit.equalsIgnoreCase("View")) {
+            String submit = request.getParameter("submit");
+            if (submit.equalsIgnoreCase("Update")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String image = request.getParameter("image");
+                String email = request.getParameter("email");
+                String username = request.getParameter("username");
+                String fullname = request.getParameter("fullname");
+                String gender = request.getParameter("gender");
+                String date = request.getParameter("date");
+                Date startDate = Date.valueOf(date);
+                String address = request.getParameter("address");
+                String phone = request.getParameter("phone");
+                String role = request.getParameter("role");
+                String sName = request.getParameter("sname");
+                String status = request.getParameter("status");
+                User u = new User(id, email, username, fullname, image, startDate, gender, address, phone, role, sName, status);
+                dao.updateUser(u);
                 userdetail = dao.getUserByID(id);
                 request.setAttribute("userdetail", userdetail);
                 request.getRequestDispatcher("/AccountDetail.jsp").forward(request, response);
-            } else if (submit.equalsIgnoreCase("Delete") || submit.equalsIgnoreCase("Active")) {
-                String status = "";
-                if (submit.equalsIgnoreCase("Delete")) {
-                    status = "Delete";
-                } else {
-                    status = "Active";
-                }
+            } else if (submit.equalsIgnoreCase("Delete")) {
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String status = "Delete";
                 User u = new User(id, status);
                 dao.AccountDelete(u);
-                userlist = (ArrayList<User>) dao.getAllAccount();
-                request.setAttribute("userlist", userlist);
-                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
-            } else {
-                userlist = (ArrayList<User>) dao.getAllAccount();
-                request.setAttribute("userlist", userlist);
-                request.getRequestDispatcher("/AccountList.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/Dashboard/AccountList");
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDetailController.class.getName()).log(Level.SEVERE, null, ex);
