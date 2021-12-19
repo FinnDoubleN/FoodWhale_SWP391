@@ -19,6 +19,7 @@
         <script defer src="../plugins/fontawesome/js/all.min.js"></script>
         <link id="theme-style" rel="stylesheet" href="../css/portal.css">
         <link href="../css/user-cart.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <%
             ArrayList<Order_Detail> orderlistdetail = (ArrayList<Order_Detail>) request.getAttribute("orderlistdetail");
             Order o = (Order) request.getAttribute("order");
@@ -184,9 +185,9 @@
                                 <div class="row gx-3 placecontent-center ">
                                 </div>
                             </div>
-                            <form class="app-card app-card-account shadow-sm d-flex" action="OrderDetail" method="post">
+                            <form id="orderdetail" class="app-card app-card-account shadow-sm d-flex" action="OrderDetail" method="post">
                                 <div class="app-card-body px-4 col-12 col-lg-4">
-                                    <input type="text" class="item-data" value="<%= o.getoID()%>" name="oid" hidden>
+                                    <input id="oid" type="text" class="item-data" value="<%= o.getoID()%>" name="oid" hidden>
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
@@ -234,11 +235,11 @@
                                                 <%
                                                     if (o.isStatus().equalsIgnoreCase("Approved")) {
                                                 %>
-                                                <td class="cell"><span class="badge bg-success"><%= o.isStatus()%></span></td>
+                                                <td><span class="badge bg-success"><%= o.isStatus()%></span></td>
                                                     <%} else if (o.isStatus().equalsIgnoreCase("Waiting")) {%>
-                                                <td class="cell"><span class="badge bg-warning"><%= o.isStatus()%></span></td>
+                                                <td><span class="badge bg-warning"><%= o.isStatus()%></span></td>
                                                     <%} else {%>
-                                                <td class="cell"><span class="badge bg-danger"><%= o.isStatus()%></span></td>
+                                                <td><span class="badge bg-danger"><%= o.isStatus()%></span></td>
                                                     <%}%>
                                                 <input type="text" class="item-data" value="<%= o.isStatus()%>" name="status" hidden>
                                             </div>
@@ -260,7 +261,7 @@
                                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                                             <div class="app-card-body">
                                                 <div class="table-responsive">
-                                                    <table id="OrderDetailTable" class="table app-table-hover mb-0 text-left">
+                                                    <table id="OrderDetailTable" class="table app-table-hover mb-0 text-left table-order">
                                                         <thead>
                                                             <tr>
                                                                 <th>Product</th>
@@ -274,22 +275,33 @@
                                                             <%
                                                                 for (Order_Detail od : orderlistdetail) {
                                                             %>
-                                                            <tr>
+                                                            <tr class="order-cart-layout">
                                                                 <td class="cell"><%= od.getInName()%></td>
                                                                 <td class="cell"><%= od.getType()%></td>
-                                                                <td class="cell">$<%= od.getPrice()%></td>
-                                                                <td class="cell"><%= od.getQuantity()%></td>
-                                                                <td class="cell">$<span class="total"><%=od.getPrice() * od.getQuantity()%></span></td>
+                                                                <td class="cell">$<span class="price"><%= od.getPrice()%></span></td>
                                                                 <td class="cell">
-                                                                    <input type="hidden" name="inID" value="<%=od.getInID()%>">
-                                                                    <!--<input class="btn-sm app-btn-secondary" name="submit" type="submit" value="Delete">-->
+                                                                    <div class="cart-input-quantity">
+                                                                        <button class="input minus-btn" data-id="1" type="button">
+                                                                            <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                                            <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon>
+                                                                            </svg>
+                                                                        </button>
+                                                                        <input class="input input-num" name="quantity" type="text" role="spinbutton" aria-valuenow="1" value="<%= od.getQuantity()%>" readonly>
+                                                                        <button class="input plus-btn" data-id="1" type="button">
+                                                                            <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                                                            <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon>
+                                                                            </svg>
+                                                                        </button>
+                                                                        <input type="hidden" name="inID" value="<%=od.getInID()%>" />
+                                                                    </div>
                                                                 </td>
+                                                                <td class="cell">$<span class="subtotal"><%=od.getPrice() * od.getQuantity()%></span></td>
                                                             </tr>
                                                             <%}%>
                                                         </tbody>
                                                     </table>
-                                                    <div class="item-label"><strong>Total: </strong>$<%= o.getTotal()%></div>
-                                                    <input type="text" class="item-data" value="<%= o.getTotal()%>" name="total" hidden>
+                                                    <div class="item-label"><strong>Total: </strong><span class="total"></span></div>
+                                                    <input id="total" type="text" class="item-data" value="" name="total" hidden>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +320,8 @@
 
         </div>
         <!-- Javascript -->
-        <script language="JavaScript" type="text/javascript" src= src="/js/order-detail.js"></script>
+        <script src="../js/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="../js/order-detail.js"></script>
         <script src="../plugins/popper.min.js"></script>
         <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 

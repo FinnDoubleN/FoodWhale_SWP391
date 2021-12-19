@@ -5,16 +5,60 @@
  */
 
 $(document).ready(function () {
-    $('.app-btn-secondary').on('click', function () {
-        alert("Added successful.");
+    updatePrice();
+});
+
+function updatePrice() {
+    var total = 0;
+    $('.order-cart-layout').each(function () {
+        var qty = $(this).find('.input-num').val();
+        var price = $(this).find('.price').text();
+        var sum = (qty * price);
+        $(this).find('.subtotal').text(sum);
+        total += sum;
+        $('.table-responsive').find('.total').text('$' + total);
+        $("#total").attr('value', total);
     });
-    $('.btn-in-cart').on('click', function () {
-        var inID = $(this).attr('id');
-        $.ajax({
-            url: '/FoodWhale_SWP391/Ingredient/Detail',
-            type: 'POST',
-            data: {inID: inID, action: "add"}
-        });
-        alert("Added successful.");
+}
+
+var plusBtn = $('.plus-btn');
+var minusBtn = $('.minus-btn');
+var deleteBtn = $('.delete-order');
+
+var increQty = plusBtn.click(function () {
+    var $n = $(this).parent('.cart-input-quantity').find('.input-num');
+    $n.val(Number($n.val()) + 1);
+    updatePrice();
+});
+
+var decreQty = minusBtn.click(function () {
+    var $n = $(this).parent('.cart-input-quantity').find('.input-num');
+    var qtyVal = Number($n.val());
+    if (qtyVal > 0) {
+        $n.val(qtyVal - 1);
+    }
+    updatePrice();
+});
+
+var deleteBtn = deleteBtn.click(function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                    'Deleted!',
+                    'An ingredient has been removed.',
+                    'success'
+                    );
+        }
+        ;
     });
+    $(this).parent().parent('.order-cart-layout').remove();
+    updatePrice();
 });

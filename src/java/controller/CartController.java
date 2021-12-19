@@ -136,6 +136,7 @@ public class CartController extends HttpServlet {
                             out.println("</script>");
                         }
                     } else {
+                        dao.updateTotal(oID, Integer.parseInt(total));
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         LocalDate localDate = LocalDate.now();
                         String date = dtf.format(localDate);

@@ -224,7 +224,7 @@
                                         $<span class="total"></span>
                                     </div>
                                     <div class="flex-5">
-                                        <button class="btn-delete" id="<%=od.getInID()%>">Xóa</button>
+                                        <button class="btn-delete" id="<%=od.getInID()%>">Delete</button>
                                     </div>
                                 </div>
                             </div>

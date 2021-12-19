@@ -103,34 +103,43 @@ public class OrderDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Cookie[] cookies = request.getCookies();
-            String ROLE = getCookieByName(cookies, "ROLE");
             String submit = request.getParameter("submit");
             int oID = Integer.parseInt(request.getParameter("oid"));
-            int inID = Integer.parseInt(request.getParameter("inID"));
+            String quantity[] = request.getParameterValues("quantity");
+            String inID[] = request.getParameterValues("inID");
             String fullname = request.getParameter("fullname");
             String date = request.getParameter("date");
             Date startDate = Date.valueOf(date);
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
             String note = request.getParameter("note");
+            if (note == null || note.equalsIgnoreCase("null")) {
+                note = "";
+            }
             double total = Double.parseDouble(request.getParameter("total"));
             String status = request.getParameter("status");
-            if (submit.equalsIgnoreCase("Approved")) {
+            if (submit != null && submit.equalsIgnoreCase("Approved")) {
                 status = "Approved";
                 Order o = new Order(oID, status);
                 dao.OrderDelete(o);
-            } else if (submit.equalsIgnoreCase("Denied")) {
+            }
+            if (submit != null && submit.equalsIgnoreCase("Denied")) {
                 status = "Denied";
                 Order o = new Order(oID, status);
                 dao.OrderDelete(o);
-            } else if (submit.equalsIgnoreCase("Delete")){
-                dao.deleteIngredient(oID, oID);
-            } else if (submit.equalsIgnoreCase("Update")){
+            }
+            if (submit != null && submit.equalsIgnoreCase("Update")){
+                for (int i = 0; i < quantity.length; i++) {
+                    if (Integer.parseInt(quantity[i]) == 0) {
+                        dao.deleteIngredient(oID, Integer.parseInt(inID[i]));
+                    } else {
+                        dao.updateQuantity(oID, Integer.parseInt(inID[i]), Integer.parseInt(quantity[i]));
+                    }
+                }
                 Order o = new Order(oID, fullname, address, phone,startDate, total, note, status);
                 dao.updateOrder(o);
             }
-            ArrayList<Order_Detail> orderlistdetail = dao.getUserCart(oID);
+            orderlistdetail = dao.getUserCart(oID);
             request.setAttribute("orderlistdetail", orderlistdetail);
             order = dao.getOrderByID(oID);
             request.setAttribute("order", order);

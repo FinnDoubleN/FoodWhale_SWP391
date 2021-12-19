@@ -82,11 +82,12 @@ var deleteBtn = deleteBtn.click(function () {
                     'Deleted!',
                     'Your ingredient has been removed.',
                     'success'
-                    )
+                    );
+            $(this).parent('.flex-5').parent('.item-flex').parent('.item-box-layout').remove();
+            updatePrice();
         }
-    })
-    $(this).parent('.flex-5').parent('.item-flex').parent('.item-box-layout').remove();
-    updatePrice();
+        ;
+    });
 });
 
 //var inputNum = inputNum.change(function () {
